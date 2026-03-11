@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI Document Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"]{--bg:#050507;--surface:#0E0E12;--panel:#141418;--card:#1C1C22;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:rgba(255,255,255,0.85);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--topbar:rgba(5,5,7,0.96)}
+:root[data-theme="light"]{--bg:#F2EFE9;--surface:#FFFFFF;--panel:#F8F5F0;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1A1A1A;--text2:#5A5A5A;--text3:#AAAAAA;--topbar:rgba(255,255,255,0.96)}
+:root{--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bronze)}
+
+/* LAYOUT */
+.shell{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:260px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;padding-top:60px}
+.main{flex:1;overflow-y:auto;padding-top:60px}
+
+/* TOPBAR */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 20px;gap:16px}
+.tb-logo{font-family:var(--display);font-size:18px;letter-spacing:3px;color:var(--fire);flex-shrink:0}
+.tb-logo span{color:var(--bronze)}
+.tb-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);flex:1}
+.tb-controls{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.tb-badge{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--bronze);border:1px solid rgba(196,154,108,0.25);padding:3px 8px;border-radius:2px}
+.theme-toggle{width:36px;height:20px;border-radius:10px;border:1px solid var(--border2);background:var(--panel);cursor:pointer;position:relative;flex-shrink:0}
+.theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--bronze);transition:transform 0.3s}
+[data-theme="light"] .theme-toggle::after{transform:translateX(16px)}
+
+/* SIDEBAR */
+.sb-section{padding:20px 16px 8px}
+.sb-sect-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding:0 4px}
+.sb-entity{margin-bottom:4px}
+.sb-entity-head{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:6px;cursor:pointer;transition:background 0.15s}
+.sb-entity-head:hover{background:rgba(196,154,108,0.06)}
+.sb-entity-head.active{background:rgba(196,154,108,0.08);border:1px solid rgba(196,154,108,0.12)}
+.sb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.sb-name{font-size:12px;font-weight:600;color:var(--text);flex:1}
+.sb-count{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.sb-children{margin-left:26px;border-left:1px solid var(--border);padding-left:10px;margin-bottom:4px}
+.sb-child{font-size:11px;color:var(--text2);padding:5px 8px;border-radius:4px;cursor:pointer;transition:all 0.15s}
+.sb-child:hover{color:var(--bronze);background:rgba(196,154,108,0.04)}
+.sb-child.active{color:var(--bronze)}
+
+.sb-footer{padding:16px;border-top:1px solid var(--border);margin-top:auto}
+.sb-add-btn{width:100%;background:rgba(255,107,43,0.1);border:1px solid rgba(255,107,43,0.2);color:var(--fire);padding:8px;border-radius:6px;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;text-align:center;transition:all 0.2s}
+.sb-add-btn:hover{background:rgba(255,107,43,0.18)}
+
+/* MAIN CONTENT */
+.content-area{padding:32px}
+
+/* HEADER STRIP */
+.doc-header{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-bottom:24px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.dh-left{}
+.dh-entity-chip{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;padding:3px 10px;border-radius:3px;margin-bottom:10px;display:inline-block}
+.dh-title{font-family:var(--display);font-size:32px;letter-spacing:3px;line-height:1;margin-bottom:6px}
+.dh-sub{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--text2);margin-bottom:12px}
+.dh-meta{display:flex;gap:16px;flex-wrap:wrap}
+.dh-meta-item{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px}
+.dh-meta-item strong{color:var(--text2)}
+.dh-actions{display:flex;gap:8px;flex-shrink:0}
+.action-btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;border-radius:4px;cursor:pointer;border:1px solid;transition:all 0.2s;white-space:nowrap}
+.btn-approve{background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.25);color:var(--green)}
+.btn-approve:hover{background:rgba(34,197,94,0.18)}
+.btn-edit{background:rgba(196,154,108,0.1);border-color:rgba(196,154,108,0.25);color:var(--bronze)}
+.btn-edit:hover{background:rgba(196,154,108,0.18)}
+.btn-archive{background:rgba(255,255,255,0.03);border-color:var(--border2);color:var(--text3)}
+.btn-archive:hover{border-color:var(--border2);color:var(--text2)}
+
+/* DOC GRID */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-bottom:28px}
+.doc-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.doc-card:hover{border-color:rgba(196,154,108,0.25);transform:translateY(-2px)}
+.dc-type{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.dc-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.3}
+.dc-desc{font-size:11px;color:var(--text2);line-height:1.6;margin-bottom:12px}
+.dc-footer{display:flex;justify-content:space-between;align-items:center;padding-top:10px;border-top:1px solid var(--border)}
+.dc-meta{font-family:var(--mono);font-size:8px;color:var(--text3)}
+.dc-ver{font-family:var(--mono);font-size:8px;color:var(--bronze)}
+.dc-status-bar{position:absolute;top:0;left:0;right:0;height:3px}
+
+.chip{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;border:1px solid;display:inline-block}
+.chip-live{color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.07)}
+.chip-review{color:var(--gold);border-color:rgba(255,184,48,0.3);background:rgba(255,184,48,0.07)}
+.chip-draft{color:var(--text3);border-color:var(--border2);background:transparent}
+.chip-approved{color:var(--sapphire);border-color:rgba(70,171,215,0.3);background:rgba(70,171,215,0.07)}
+.chip-confidential{color:var(--red);border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.07)}
+
+/* VERSION TABLE */
+.section-title{font-family:var(--display);font-size:18px;letter-spacing:2px;color:var(--text);margin-bottom:14px}
+.ver-table{width:100%;border-collapse:collapse;margin-bottom:24px}
+.ver-table th{background:var(--panel);border:1px solid var(--border);padding:9px 14px;text-align:left;font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)}
+.ver-table td{border:1px solid var(--border);padding:9px 14px;font-size:12px;color:var(--text2);vertical-align:top}
+.ver-table tr:hover td{background:rgba(196,154,108,0.02)}
+.ver-table td:first-child{font-family:var(--mono);font-size:10px;color:var(--bronze)}
+.ver-current{background:rgba(34,197,94,0.03)}
+
+/* VALIDATION PANEL */
+.validation-panel{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:20px}
+.vp-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:14px}
+.vp-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.vp-row:last-child{border-bottom:none}
+.vp-icon{font-size:16px;flex-shrink:0}
+.vp-info{flex:1}
+.vp-name{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.vp-role{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.vp-status{font-family:var(--mono);font-size:8px;letter-spacing:2px}
+
+/* AUTOMATION LOG */
+.auto-log{background:rgba(13,148,136,0.04);border:1px solid rgba(13,148,136,0.15);border-radius:8px;padding:20px;margin-bottom:20px}
+.al-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.al-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid rgba(13,148,136,0.1);font-size:12px;color:var(--text2)}
+.al-item:last-child{border-bottom:none}
+.al-icon{color:var(--green);flex-shrink:0}
+.al-content{flex:1}
+.al-title-text{font-weight:600;color:var(--text);margin-bottom:2px}
+.al-why{font-size:11px;color:var(--text3);line-height:1.6}
+.al-date{font-family:var(--mono);font-size:9px;color:var(--text3);white-space:nowrap}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center}
+.kpi-val{font-family:var(--display);font-size:32px;color:var(--text);line-height:1;margin-bottom:4px}
+.kpi-val .unit{font-size:18px;color:var(--fire)}
+.kpi-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.kpi-trend{font-size:11px;color:var(--green)}
+
+/* ADD ENTITY MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:28px;width:90%;max-width:500px}
+.modal-title{font-family:var(--display);font-size:24px;letter-spacing:2px;margin-bottom:6px}
+.modal-sub{font-size:12px;color:var(--text2);margin-bottom:20px}
+.form-group{margin-bottom:14px}
+.form-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--bronze);margin-bottom:6px;display:block}
+.form-input{width:100%;background:var(--panel);border:1px solid var(--border2);border-radius:4px;padding:9px 12px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:var(--bronze)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.modal-actions{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+.modal-btn{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;border-radius:4px;cursor:pointer;border:1px solid;transition:all 0.2s}
+.modal-confirm{background:var(--fire);border-color:var(--fire);color:#fff}
+.modal-cancel{background:transparent;border-color:var(--border2);color:var(--text2)}
+
+/* MOBILE */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:var(--topbar);backdrop-filter:blur(20px);border-top:1px solid var(--border2);height:58px;align-items:center;justify-content:space-around;padding:0 8px}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:6px 12px;flex:1;font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);transition:color 0.2s}
+.bn-item.active{color:var(--bronze)}
+.bn-icon{font-size:18px;line-height:1}
+
+@media(max-width:800px){
+  .sidebar{display:none}
+  .main{padding-top:60px;padding-bottom:70px}
+  .content-area{padding:16px}
+  .doc-header{flex-direction:column}.dh-actions{width:100%;flex-wrap:wrap}
+  .doc-grid{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .bottom-nav{display:flex}
+  .form-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-logo">Phoennix<span>AI</span></div>
+  <div class="tb-title">Document Management System, Single Source of Truth</div>
+  <div class="tb-controls">
+    <span class="tb-badge">v1.0, Mar 2026</span>
+    <span id="theme-icon" style="font-size:14px">🌙</span>
+    <div class="theme-toggle" onclick="toggleTheme()"></div>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sb-section">
+      <div class="sb-sect-label">Entities</div>
+
+      <div class="sb-entity">
+        <div class="sb-entity-head active" onclick="showSection('phoennixai')">
+          <div class="sb-dot" style="background:var(--fire)"></div>
+          <span class="sb-name">PhoennixAI Agency</span>
+          <span class="sb-count">12</span>
+        </div>
+        <div class="sb-children">
+          <div class="sb-child active" onclick="showSection('phoennixai')">All Documents</div>
+          <div class="sb-child" onclick="showSection('strategy')">Strategy</div>
+          <div class="sb-child" onclick="showSection('products')">Products and PRDs</div>
+          <div class="sb-child" onclick="showSection('agents')">Agent Documentation</div>
+          <div class="sb-child" onclick="showSection('hr')">HR and People</div>
+          <div class="sb-child" onclick="showSection('legal')">Legal and Compliance</div>
+        </div>
+      </div>
+
+      <div class="sb-entity">
+        <div class="sb-entity-head" onclick="showSection('wilcox')">
+          <div class="sb-dot" style="background:var(--bronze)"></div>
+          <span class="sb-name">WilcoxDesigns</span>
+          <span class="sb-count">6</span>
+        </div>
+        <div class="sb-children" style="display:none">
+          <div class="sb-child" onclick="showSection('wd-brand')">Brand Guidelines</div>
+          <div class="sb-child" onclick="showSection('wd-clients')">Client Documents</div>
+          <div class="sb-child" onclick="showSection('wd-creative')">Creative Lab</div>
+        </div>
+      </div>
+
+      <div class="sb-entity">
+        <div class="sb-entity-head" onclick="showSection('academy')">
+          <div class="sb-dot" style="background:var(--teal)"></div>
+          <span class="sb-name">PhoennixAI Academy</span>
+          <span class="sb-count">4</span>
+        </div>
+      </div>
+
+      <div class="sb-entity">
+        <div class="sb-entity-head" onclick="showSection('phantom')">
+          <div class="sb-dot" style="background:var(--violet)"></div>
+          <span class="sb-name">Phantom Studio</span>
+          <span class="sb-count">3</span>
+        </div>
+      </div>
+
+      <div class="sb-entity">
+        <div class="sb-entity-head" onclick="showSection('community')">
+          <div class="sb-dot" style="background:var(--sapphire)"></div>
+          <span class="sb-name">Community Impact</span>
+          <span class="sb-count">2</span>
+        </div>
+      </div>
+
+      <div class="sb-entity">
+        <div class="sb-entity-head" onclick="showSection('founder')">
+          <div class="sb-dot" style="background:var(--gold)"></div>
+          <span class="sb-name">Founder, Confidential</span>
+          <span class="sb-count">🔒</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sb-section">
+      <div class="sb-sect-label">Views</div>
+      <div class="sb-child" onclick="showSection('automation')">Automation Log</div>
+      <div class="sb-child" onclick="showSection('kpi')">KPI Dashboard</div>
+      <div class="sb-child" onclick="showSection('versions')">Version History</div>
+      <div class="sb-child" onclick="showSection('pending')">Pending Review</div>
+    </div>
+
+    <div class="sb-footer">
+      <div class="sb-add-btn" onclick="openModal()">+ Add New Entity</div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="content-area">
+
+      <!-- PHOENNIXAI SECTION (default) -->
+      <div id="sec-phoennixai">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-entity-chip chip chip-live" style="margin-bottom:10px">PhoennixAI Agency, Active</div>
+            <div class="dh-title">PHOENNIXAI AGENCY</div>
+            <div class="dh-sub">All operational, strategic, and product documents for the agency</div>
+            <div class="dh-meta">
+              <div class="dh-meta-item"><strong>Last reviewed:</strong> 11 Mar 2026</div>
+              <div class="dh-meta-item"><strong>Owner:</strong> Valerie Wilcox</div>
+              <div class="dh-meta-item"><strong>Documents:</strong> 12 live</div>
+              <div class="dh-meta-item"><strong>Next review:</strong> Q2 2026</div>
+            </div>
+          </div>
+          <div class="dh-actions">
+            <div class="action-btn btn-approve" onclick="alert('Review approved and logged.')">Approve Review</div>
+            <div class="action-btn btn-edit">Request Update</div>
+            <div class="action-btn btn-archive">Archive</div>
+          </div>
+        </div>
+
+        <div class="section-title">Core Documents</div>
+        <div class="doc-grid">
+          <div class="doc-card" onclick="alert('Opens full document view')">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
+            <div class="dc-type">Strategy, Ecosystem</div>
+            <div class="dc-title">Wilcox Complete Ecosystem 2026</div>
+            <div class="dc-desc">Full ecosystem architecture, honest analysis, priority matrix, brand guidelines. Single source of truth for the entire organisation.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.2, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--fire)"></div>
+            <div class="dc-type">Operations, App</div>
+            <div class="dc-title">Mission Control App v2</div>
+            <div class="dc-desc">Full operational hub. Task management, org chart, agent directory, calendar, notes, backlog. Live on GitHub Pages.</div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--gold)"></div>
+            <div class="dc-type">Product, PRD</div>
+            <div class="dc-title">Product Requirements Document Suite</div>
+            <div class="dc-desc">PRD, Tech Spec, Market Analysis, and Values and Benefits for all 7 PhoennixAI products.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--bronze)"></div>
+            <div class="dc-type">Brand, Identity</div>
+            <div class="dc-title">PhoennixAI Content Bible</div>
+            <div class="dc-desc">7 Laws of Copy, Features vs Benefits Decoder, social posts, email sequences, landing page copy. Agency brand voice.</div>
+            <div class="dc-footer"><span class="chip chip-review">Needs Expansion</span><span class="dc-ver">v1.0, Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--violet)"></div>
+            <div class="dc-type">AI, Agents</div>
+            <div class="dc-title">Agent Masterlist, 13 Agents</div>
+            <div class="dc-desc">Full directory of all 13 agents. Role, codename, value delivered, category, build priority, and monetisation model.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--sapphire)"></div>
+            <div class="dc-type">HR, AI Staff</div>
+            <div class="dc-title">Claude, CV and Job Description</div>
+            <div class="dc-desc">Strategic AI Partner. CV with proficiency levels, domains, and working principles. JD with responsibilities, KPIs, and e-signature panel.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Signed</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Brand, Identity</div>
+            <div class="dc-title">Brand Guidelines One-Pager</div>
+            <div class="dc-desc">Unified brand handout for all entities. Colour systems, typography, voice, taglines. For new staff and contractors.</div>
+            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Tomorrow</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">HR, Org</div>
+            <div class="dc-title">Master HR Vault</div>
+            <div class="dc-desc">All agent and human staff CVs, job descriptions, and contracts in one document. Auto-updated when new hires join.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Planned</span><span class="dc-ver">Next Session</span></div>
+          </div>
+        </div>
+
+        <!-- VERSION LOG -->
+        <div class="section-title">Version History, This Entity</div>
+        <table class="ver-table">
+          <thead><tr><th>Version</th><th>Date</th><th>Changed By</th><th>What Changed</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr class="ver-current"><td>v1.2</td><td>11 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Full session: Mission Control v2, PRD suite, GitHub Pages deployment. 6 new documents added. Em dashes removed across all files. Phantom Studio date corrected to Q4 2024.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr><td>v1.1</td><td>10 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Initial ecosystem document, logo concepts, Claude CV and JD created. Content Bible v1 built.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr><td>v1.0</td><td>10 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Brand architecture and colour system established. Initial session.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+          </tbody>
+        </table>
+
+        <!-- VALIDATION -->
+        <div class="validation-panel">
+          <div class="vp-title">Approval and Validation Status</div>
+          <div class="vp-row">
+            <div class="vp-icon">👑</div>
+            <div class="vp-info"><div class="vp-name">Valerie Wilcox</div><div class="vp-role">Founder, Final Approver</div></div>
+            <div class="vp-status" style="color:var(--green)">Approved, 11 Mar 2026</div>
+          </div>
+          <div class="vp-row">
+            <div class="vp-icon">🤖</div>
+            <div class="vp-info"><div class="vp-name">Claude</div><div class="vp-role">AI Strategic Partner, Document Author</div></div>
+            <div class="vp-status" style="color:var(--green)">Authored and Verified</div>
+          </div>
+          <div class="vp-row">
+            <div class="vp-icon">👤</div>
+            <div class="vp-info"><div class="vp-name">Company Director</div><div class="vp-role">To be appointed</div></div>
+            <div class="vp-status" style="color:var(--amber)">Pending Appointment</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AUTOMATION LOG SECTION -->
+      <div id="sec-automation" style="display:none">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-title">AUTOMATION LOG</div>
+            <div class="dh-sub">Every automated process, what was automated, and why. Living record.</div>
+          </div>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-val">6<span class="unit"></span></div><div class="kpi-label">Processes Automated</div><div class="kpi-trend">Session 1</div></div>
+          <div class="kpi-card"><div class="kpi-val">~40<span class="unit">hr</span></div><div class="kpi-label">Est. Time Saved per Month</div><div class="kpi-trend">Growing</div></div>
+          <div class="kpi-card"><div class="kpi-val">£0<span class="unit"></span></div><div class="kpi-label">Tool Cost So Far</div><div class="kpi-trend">GitHub Pages Free</div></div>
+          <div class="kpi-card"><div class="kpi-val">13<span class="unit"></span></div><div class="kpi-label">Agents in Pipeline</div><div class="kpi-trend">When Built</div></div>
+        </div>
+
+        <div class="auto-log">
+          <div class="al-title">
+            <span>Successfully Automated Processes</span>
+            <span class="chip chip-live">6 Active</span>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Document Storage and Backup via GitHub Pages</div>
+              <div class="al-why">Why: All strategic documents previously existed only in chat sessions and were at risk of being lost. Now permanently hosted, version-controlled, and accessible on any device via a permanent URL.</div>
+            </div>
+            <div class="al-date">11 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Mission Control Operational Hub, Daily Operational View</div>
+              <div class="al-why">Why: Replaces daily manual planning. Tasks are pre-loaded by priority and category. Estimated 30 to 60 minutes of planning overhead eliminated per day. Available on phone home screen.</div>
+            </div>
+            <div class="al-date">11 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Org Chart, Electronically Updated on Notification</div>
+              <div class="al-why">Why: Manually maintained org charts are always out of date. This one is updated by Claude each session when Valerie informs of new hires. Always current.</div>
+            </div>
+            <div class="al-date">11 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Backlog Management, Electronically Logged</div>
+              <div class="al-why">Why: Ideas and future features previously had no structured home and were at risk of being forgotten. Now logged with category and priority, reviewable each upgrade cycle.</div>
+            </div>
+            <div class="al-date">11 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">PRD and Technical Specification, Structured and Living</div>
+              <div class="al-why">Why: Without structured product documentation, investor conversations, partnerships, and developer handoffs all start from zero. Now ready for any opportunity.</div>
+            </div>
+            <div class="al-date">11 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Version Control System, All Documents</div>
+              <div class="al-why">Why: Without version control there is no audit trail, no rollback capability, and no way to prove what changed and when. Now every update is logged with date, author, and description.</div>
+            </div>
+            <div class="al-date">11 Mar 2026</div>
+          </div>
+          <div class="al-item" style="opacity:0.5">
+            <div class="al-icon">⏳</div>
+            <div class="al-content">
+              <div class="al-title-text">Daily 6am Mission Control Refresh</div>
+              <div class="al-why">Status: Planned. Requires a backend with a scheduled job (cron job). Claude to architect in Phase 2. Tasks completed will auto-archive. Discarded after 48 hours if not retrieved.</div>
+            </div>
+            <div class="al-date">Planned, Phase 2</div>
+          </div>
+          <div class="al-item" style="opacity:0.5">
+            <div class="al-icon">⏳</div>
+            <div class="al-content">
+              <div class="al-title-text">PULSE, Social Media Automation Agent</div>
+              <div class="al-why">Status: Planned. Will automate the full social media content lifecycle. Replaces a full-time social media manager saving £25,000 to £35,000 per year.</div>
+            </div>
+            <div class="al-date">Planned, Q2 2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI SECTION -->
+      <div id="sec-kpi" style="display:none">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-title">KPI DASHBOARD</div>
+            <div class="dh-sub">Key performance indicators across the full Wilcox Ecosystem</div>
+            <div class="dh-meta"><div class="dh-meta-item"><strong>Note:</strong> Live data integration requires backend connection (BL-004, BL-005). Current data is manually updated.</div></div>
+          </div>
+          <div class="dh-actions"><div class="action-btn btn-edit">Update Data</div></div>
+        </div>
+
+        <div class="section-title">Organisation Health</div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-val">5<span class="unit"></span></div><div class="kpi-label">Active Business Entities</div><div class="kpi-trend">Stable</div></div>
+          <div class="kpi-card"><div class="kpi-val">7<span class="unit"></span></div><div class="kpi-label">Products in Portfolio</div><div class="kpi-trend">Phase 0 to 4</div></div>
+          <div class="kpi-card"><div class="kpi-val">13<span class="unit"></span></div><div class="kpi-label">Agents Planned</div><div class="kpi-trend">3 Priority Critical</div></div>
+          <div class="kpi-card"><div class="kpi-val">8<span class="unit"></span></div><div class="kpi-label">Phantom Studio Students</div><div class="kpi-trend">Live since Q4 2024</div></div>
+          <div class="kpi-card"><div class="kpi-val">3<span class="unit"></span></div><div class="kpi-label">Work Experience Arrivals</div><div class="kpi-trend">Early April 2026</div></div>
+          <div class="kpi-card"><div class="kpi-val">0<span class="unit"></span></div><div class="kpi-label">Documents Lost</div><div class="kpi-trend">GitHub Backup Active</div></div>
+        </div>
+
+        <div class="section-title">Document Intelligence</div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-val">12<span class="unit"></span></div><div class="kpi-label">Documents Created</div><div class="kpi-trend">Session 1</div></div>
+          <div class="kpi-card"><div class="kpi-val">4<span class="unit"></span></div><div class="kpi-label">Live on GitHub</div><div class="kpi-trend">Backed Up</div></div>
+          <div class="kpi-card"><div class="kpi-val">100<span class="unit">%</span></div><div class="kpi-label">Version Controlled</div><div class="kpi-trend">All Documents</div></div>
+          <div class="kpi-card"><div class="kpi-val">0<span class="unit"></span></div><div class="kpi-label">Em Dashes Remaining</div><div class="kpi-trend">All Removed</div></div>
+        </div>
+
+        <div style="background:rgba(70,171,215,0.04);border:1px solid rgba(70,171,215,0.12);border-radius:8px;padding:20px;margin-top:8px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--sapphire);margin-bottom:10px">Tomorrow's KPI Task</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.8">Define the full KPI framework for each entity and product. Connect to live data sources (Google Analytics, Meta Business Suite, Stripe, Supabase) in Phase 2. For now, manual quarterly updates. Dashboard to be reviewed every month minimum.</div>
+        </div>
+      </div>
+
+      <!-- FOUNDER CONFIDENTIAL -->
+      <div id="sec-founder" style="display:none">
+        <div class="doc-header" style="border-color:rgba(239,68,68,0.2);background:rgba(239,68,68,0.03)">
+          <div class="dh-left">
+            <div class="dh-entity-chip chip chip-confidential">Founder Eyes Only</div>
+            <div class="dh-title" style="color:var(--text)">FOUNDER VAULT</div>
+            <div class="dh-sub">Confidential documents. Revenue, cashflow, personal strategy, company secrets. Accessible only by Valerie Wilcox and authorised individuals.</div>
+          </div>
+        </div>
+        <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:24px;text-align:center">
+          <div style="font-size:32px;margin-bottom:12px">🔒</div>
+          <div style="font-family:var(--display);font-size:22px;letter-spacing:2px;margin-bottom:8px">ACCESS RESTRICTED</div>
+          <div style="font-size:13px;color:var(--text2);max-width:500px;margin:0 auto;line-height:1.8">This section contains revenue figures, cashflow projections, personal strategy documents, and company secrets. In the current version this is a placeholder. In Phase 2, this section will require authenticated login and will be accessible only to individuals Valerie has explicitly authorised.</div>
+          <div style="margin-top:16px"><span class="chip chip-confidential">Authentication Required in v2</span></div>
+        </div>
+      </div>
+
+      <!-- PENDING REVIEW -->
+      <div id="sec-pending" style="display:none">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-title">PENDING REVIEW</div>
+            <div class="dh-sub">Documents requiring approval or update before next version release</div>
+          </div>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--gold)"></div>
+            <div class="dc-type">Brand, All Entities</div>
+            <div class="dc-title">Brand Guidelines One-Pager</div>
+            <div class="dc-desc">Currently in build. Must be completed and approved before being shared with new staff, contractors, or partners.</div>
+            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Due Tomorrow</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--sapphire)"></div>
+            <div class="dc-type">HR, All AI Agents</div>
+            <div class="dc-title">Master HR Vault, All Staff and Agents</div>
+            <div class="dc-desc">Unified HR document for all 13 agents and human staff. Claude CVs, JDs, contracts in one place.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Planned</span><span class="dc-ver">Next Session</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--bronze)"></div>
+            <div class="dc-type">Strategy, Annual</div>
+            <div class="dc-title">Ecosystem 2026, Annual Review</div>
+            <div class="dc-desc">Full ecosystem document to be reviewed and updated. Next review due Q1 2027. Version control to be applied at each review.</div>
+            <div class="dc-footer"><span class="chip chip-review">Annual Review</span><span class="dc-ver">Q1 2027</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--teal)"></div>
+            <div class="dc-type">Education, Academy</div>
+            <div class="dc-title">St Paul's Work Experience Pack</div>
+            <div class="dc-desc">Onboarding brief, schedule, and project assignments for 3 students arriving early April. Date TBC.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Date TBC</span><span class="dc-ver">Early April 2026</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WILCOX SECTION -->
+      <div id="sec-wilcox" style="display:none">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-entity-chip chip chip-bronze" style="color:var(--bronze);border-color:rgba(196,154,108,0.3);background:rgba(196,154,108,0.07)">WilcoxDesigns, Active</div>
+            <div class="dh-title">WILCOXDESIGNS</div>
+            <div class="dh-sub">Brand identity, creative studio documentation, Creative Lab specifications</div>
+            <div class="dh-meta">
+              <div class="dh-meta-item"><strong>Tagline:</strong> Where precision meets artistry</div>
+              <div class="dh-meta-item"><strong>Subtitle:</strong> Creative Studio</div>
+              <div class="dh-meta-item"><strong>Mantra:</strong> Created to Create</div>
+            </div>
+          </div>
+          <div class="dh-actions"><div class="action-btn btn-edit">Request Update</div></div>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+            <div class="dc-type">Brand, Identity</div>
+            <div class="dc-title">WilcoxDesigns Brand Guidelines</div>
+            <div class="dc-desc">Colour: Charcoal, Warm Taupe, Cream, Linen, Mocha. Typography, logo, voice, and Digital Atelier positioning.</div>
+            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Brand Guidelines Session</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+            <div class="dc-type">Product, PRD</div>
+            <div class="dc-title">Creative Lab Tool Specification</div>
+            <div class="dc-desc">The Digital Atelier. 24/7 client workspace, Readymag-level freedom, custom code layer. PRD and build specification.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Planned</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OTHER SECTIONS PLACEHOLDER -->
+      <div id="sec-strategy" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">STRATEGY DOCUMENTS</div><div class="dh-sub">All strategic planning, ecosystem architecture, and priority documents</div></div></div><div style="color:var(--text2);font-size:13px">Strategy documents are filed under the main PhoennixAI Agency section. Navigate back to view the Wilcox Complete Ecosystem 2026 and all related documents.</div></div>
+      <div id="sec-products" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PRODUCTS AND PRDs</div><div class="dh-sub">Product Requirements Documents for all 7 products in the portfolio</div></div></div><div style="color:var(--text2);font-size:13px">The full PRD suite is available in PhoennixAI_ProductDocumentation.html on GitHub. Navigate to the main PhoennixAI section to access it.</div></div>
+      <div id="sec-agents" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">AGENT DOCUMENTATION</div><div class="dh-sub">CVs, job descriptions, manuals for all 13 agents</div></div></div><div style="color:var(--text2);font-size:13px">Agent documentation is built as each agent is created. Master HR Vault will house all 13 agent kits when complete. Claude CV and JD are live on GitHub now.</div></div>
+      <div id="sec-hr" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">HR AND PEOPLE</div><div class="dh-sub">All staff documents, contracts, onboarding packs</div></div></div><div style="color:var(--text2);font-size:13px">Claude CV and JD are the first entries. Master HR Vault to be built in next session covering all human and AI staff.</div></div>
+      <div id="sec-academy" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PHOENNIXAI ACADEMY</div><div class="dh-sub">Education programmes, curriculum, student journey documentation</div></div></div><div style="color:var(--text2);font-size:13px">Academy documentation to be built when EduTech Platform PRD session takes place. Phantom Studio is a sub-arm of the Academy.</div></div>
+      <div id="sec-phantom" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PHANTOM STUDIO</div><div class="dh-sub">Gaming design education, live since Q4 2024, 8 active students</div></div></div><div style="color:var(--text2);font-size:13px">Phantom Studio is a sub-arm of the Academy. Not a current priority. Documentation to be built when Gaming Platform (PRJ-007) session takes place.</div></div>
+      <div id="sec-community" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">COMMUNITY IMPACT</div><div class="dh-sub">Girls in tech, prison reformation, children in crisis</div></div></div><div style="color:var(--text2);font-size:13px">Prison reformation programme: investigating. Application form received, not yet started. Girls in tech: St Paul's work experience April 2026. Documentation to be built per programme.</div></div>
+      <div id="sec-legal" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">LEGAL AND COMPLIANCE</div><div class="dh-sub">Contracts, terms, compliance documentation</div></div></div><div style="color:var(--text2);font-size:13px">Legal documents require qualified legal counsel before being filed here. Placeholder section ready for when legal documents are produced.</div></div>
+      <div id="sec-versions" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">FULL VERSION HISTORY</div><div class="dh-sub">All changes across all documents, all entities</div></div></div>
+        <table class="ver-table"><thead><tr><th>Version</th><th>Date</th><th>Entity</th><th>Changed By</th><th>Summary</th></tr></thead><tbody>
+          <tr class="ver-current"><td>v1.2</td><td>11 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Mission Control v2 with org chart and bottom nav. PRD suite. Document Management System. GitHub Pages live. Em dashes removed.</td></tr>
+          <tr><td>v1.1</td><td>10 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Claude CV, JD with e-signature. Mission Control v1. Content Bible. Logo concepts.</td></tr>
+          <tr><td>v1.0</td><td>10 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Brand architecture established. Colour systems confirmed. First session.</td></tr>
+        </tbody></table>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ADD ENTITY MODAL -->
+<div class="modal-overlay" id="add-modal">
+  <div class="modal">
+    <div class="modal-title">ADD NEW ENTITY</div>
+    <div class="modal-sub">Add a new business arm, subsidiary, or partner organisation to the Document Management System.</div>
+    <div class="form-group"><label class="form-label">Entity Name</label><input class="form-input" id="new-entity-name" placeholder="e.g. PhoennixAI Finance Division"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Entity Type</label>
+        <select class="form-input" id="new-entity-type"><option>Agency</option><option>Education</option><option>Creative Studio</option><option>Community</option><option>Investment</option><option>Other</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Status</label>
+        <select class="form-input" id="new-entity-status"><option>Active</option><option>In Development</option><option>Planned</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Owner</label><input class="form-input" placeholder="e.g. Valerie Wilcox" value="Valerie Wilcox"></div>
+    <div class="modal-actions">
+      <div class="modal-btn modal-cancel" onclick="closeModal()">Cancel</div>
+      <div class="modal-btn modal-confirm" onclick="addEntity()">Add Entity</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav">
+  <div class="bn-item active" onclick="showSection('phoennixai');setMobileActive(this)"><span class="bn-icon">🔥</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">Agency</span></div>
+  <div class="bn-item" onclick="showSection('wilcox');setMobileActive(this)"><span class="bn-icon">✒️</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">WilcoxD</span></div>
+  <div class="bn-item" onclick="showSection('automation');setMobileActive(this)"><span class="bn-icon">⚙️</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">Automate</span></div>
+  <div class="bn-item" onclick="showSection('kpi');setMobileActive(this)"><span class="bn-icon">📊</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">KPIs</span></div>
+  <div class="bn-item" onclick="showSection('pending');setMobileActive(this)"><span class="bn-icon">📋</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">Review</span></div>
+  <div class="bn-item" onclick="showSection('founder');setMobileActive(this)"><span class="bn-icon">🔒</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">Founder</span></div>
+</nav>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('theme-icon').textContent=d?'☀️':'🌙'}
+
+const allSections=['phoennixai','wilcox','automation','kpi','versions','pending','founder','strategy','products','agents','hr','legal','academy','phantom','community'];
+
+function showSection(id){
+  allSections.forEach(s=>{const el=document.getElementById('sec-'+s);if(el)el.style.display='none'});
+  const target=document.getElementById('sec-'+id);
+  if(target)target.style.display='block';
+  document.querySelectorAll('.sb-entity-head,.sb-child').forEach(e=>e.classList.remove('active'));
+  const sb=document.querySelector('[onclick*="showSection(\''+id+'\'"]');
+  if(sb)sb.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function setMobileActive(el){document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+
+function openModal(){document.getElementById('add-modal').classList.add('open')}
+function closeModal(){document.getElementById('add-modal').classList.remove('open')}
+function addEntity(){
+  const name=document.getElementById('new-entity-name').value.trim();
+  if(!name){alert('Please enter an entity name.');return}
+  alert(name+' has been logged. Claude will add this entity to the full Document Management System in the next session when informed by Valerie.');
+  closeModal();
+}
+</script>
+</body>
+</html>

@@ -270,10 +270,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .intel-body{font-size:13px;color:var(--text2);line-height:1.8}
 
 /* ══ RESPONSIVE ══ */
+/* ══ BOTTOM NAV (mobile) ══ */
+.bottom-nav{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:300;
+  background:var(--topbar);backdrop-filter:blur(20px);
+  border-top:1px solid var(--border2);
+  padding:0 4px;padding-bottom:env(safe-area-inset-bottom,8px);
+  height:60px;
+  display:none;
+  align-items:center;justify-content:space-around;
+}
+.bn-item{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  cursor:pointer;padding:6px 10px;border-radius:8px;
+  flex:1;transition:all 0.2s;
+  font-family:var(--mono);font-size:7px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--text3);
+}
+.bn-item.active{color:var(--bronze)}
+.bn-item.active .bn-icon{transform:translateY(-2px)}
+.bn-icon{font-size:18px;line-height:1;transition:transform 0.2s}
+.bn-label{line-height:1}
+
 @media(max-width:860px){
-  .topbar{padding:0 12px}.tb-date,.tb-controls .live-dot{display:none}
-  .tb-tabs{overflow-x:auto;flex:1;margin:0 10px}
-  .wrap{padding:20px 14px}
+  .topbar{padding:0 12px}
+  .tb-date,.tb-controls .live-dot{display:none}
+  .tb-tabs{display:none}
+  .bottom-nav{display:flex}
+  .page{padding-bottom:72px}
+  .wrap{padding:16px 14px}
   .today-layout,.cal-layout,.notes-grid{grid-template-columns:1fr}
   .proj-grid,.agents-grid{grid-template-columns:1fr}
   .asf-grid{grid-template-columns:1fr 1fr}
@@ -286,13 +312,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 <div class="topbar">
   <div class="tb-logo">Phoennix<span>AI</span></div>
   <div class="tb-tabs">
-    <div class="tb-tab active" onclick="showPage('today',this)">Today</div>
-    <div class="tb-tab" onclick="showPage('projects',this)">Projects</div>
-    <div class="tb-tab" onclick="showPage('agents',this)">Agents</div>
-    <div class="tb-tab" onclick="showPage('orgchart',this)">Org Chart</div>
-    <div class="tb-tab" onclick="showPage('calendar',this)">Calendar</div>
-    <div class="tb-tab" onclick="showPage('notes',this)">Notes</div>
-    <div class="tb-tab" onclick="showPage('backlog',this)">Backlog</div>
+    <div class="tb-tab active" data-page="today" onclick="showPage('today',this)">Today</div>
+    <div class="tb-tab" data-page="projects" onclick="showPage('projects',this)">Projects</div>
+    <div class="tb-tab" data-page="agents" onclick="showPage('agents',this)">Agents</div>
+    <div class="tb-tab" data-page="orgchart" onclick="showPage('orgchart',this)">Org Chart</div>
+    <div class="tb-tab" data-page="calendar" onclick="showPage('calendar',this)">Calendar</div>
+    <div class="tb-tab" data-page="notes" onclick="showPage('notes',this)">Notes</div>
+    <div class="tb-tab" data-page="backlog" onclick="showPage('backlog',this)">Backlog</div>
   </div>
   <div class="tb-controls">
     <div class="live-dot"></div>
@@ -916,6 +942,31 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 </div>
 </div>
 
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottom-nav" id="bottom-nav">
+  <div class="bn-item active" onclick="showPageMobile('today',this)" data-page="today">
+    <span class="bn-icon">⚡</span><span class="bn-label">Today</span>
+  </div>
+  <div class="bn-item" onclick="showPageMobile('projects',this)" data-page="projects">
+    <span class="bn-icon">📁</span><span class="bn-label">Projects</span>
+  </div>
+  <div class="bn-item" onclick="showPageMobile('agents',this)" data-page="agents">
+    <span class="bn-icon">🤖</span><span class="bn-label">Agents</span>
+  </div>
+  <div class="bn-item" onclick="showPageMobile('orgchart',this)" data-page="orgchart">
+    <span class="bn-icon">🏢</span><span class="bn-label">Org</span>
+  </div>
+  <div class="bn-item" onclick="showPageMobile('calendar',this)" data-page="calendar">
+    <span class="bn-icon">📅</span><span class="bn-label">Calendar</span>
+  </div>
+  <div class="bn-item" onclick="showPageMobile('notes',this)" data-page="notes">
+    <span class="bn-icon">📌</span><span class="bn-label">Notes</span>
+  </div>
+  <div class="bn-item" onclick="showPageMobile('backlog',this)" data-page="backlog">
+    <span class="bn-icon">📋</span><span class="bn-label">Backlog</span>
+  </div>
+</nav>
+
 <script>
 // ══ THEME ══
 function toggleTheme() {
@@ -929,7 +980,20 @@ function toggleTheme() {
 function showPage(id, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tb-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.bn-item').forEach(t => t.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  window.scrollTo(0,0);
+  // sync bottom nav
+  const bn = document.querySelector('.bn-item[data-page="' + id + '"]');
+  if (bn) bn.classList.add('active');
+  // sync top nav
+  const tn = document.querySelector('.tb-tab[data-page="' + id + '"]');
+  if (tn) tn.classList.add('active');
+}
+function showPageMobile(id, el) {
+  showPage(id, null);
+  document.querySelectorAll('.bn-item').forEach(t => t.classList.remove('active'));
   if (el) el.classList.add('active');
 }
 
