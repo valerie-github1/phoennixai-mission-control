@@ -9,6 +9,9 @@
 :root[data-theme="dark"]{--bg:#050507;--surface:#0E0E12;--panel:#141418;--card:#1C1C22;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:rgba(255,255,255,0.85);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--topbar:rgba(5,5,7,0.96)}
 :root[data-theme="light"]{--bg:#F2EFE9;--surface:#FFFFFF;--panel:#F8F5F0;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1A1A1A;--text2:#5A5A5A;--text3:#AAAAAA;--topbar:rgba(255,255,255,0.96)}
 :root{--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
+.pin-btn{width:56px;height:56px;border-radius:8px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-family:var(--mono);font-size:18px;cursor:pointer;transition:all 0.15s}
+.pin-btn:hover{border-color:rgba(255,107,43,0.4);background:rgba(255,107,43,0.06);color:var(--fire)}
+.pin-btn:active{transform:scale(0.94)}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7;overflow-x:hidden}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bronze)}
@@ -193,6 +196,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="sb-child" onclick="showSection('products')">Products and PRDs</div>
           <div class="sb-child" onclick="showSection('agents')">Agent Documentation</div>
           <div class="sb-child" onclick="showSection('hr')">HR and People</div>
+          <div class="sb-child" onclick="showSection('brand-pai')">Brand System</div>
+          <div class="sb-child" onclick="showSection('finance')">Finance and Revenue</div>
           <div class="sb-child" onclick="showSection('legal')">Legal and Compliance</div>
         </div>
       </div>
@@ -295,7 +300,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-type">Operations, App</div>
             <div class="dc-title">Mission Control App v2</div>
             <div class="dc-desc">Full operational hub. Task management, org chart, agent directory, calendar, notes, backlog. Live on GitHub Pages.</div>
-            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 11 Mar 2026</span></div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 12 Mar 2026</span></div>
           </div>
           <div class="doc-card">
             <div class="dc-status-bar" style="background:var(--gold)"></div>
@@ -304,12 +309,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-desc">PRD, Tech Spec, Market Analysis, and Values and Benefits for all 7 PhoennixAI products.</div>
             <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
+          <!-- PHOENNIXAI BRAND SYSTEM -->
+          <div class="doc-card" onclick="showSection('brand-pai')">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#FF6B2B,#FFB830,#00E5FF)"></div>
+            <div class="dc-type">Brand, Identity, Tier 3</div>
+            <div class="dc-title">PhoennixAI Brand System</div>
+            <div class="dc-desc" style="line-height:1.9">
+              <strong style="color:var(--text)">Colour Palette (Tier 3):</strong> Midnight #060A18, Phoenix Fire #FF6B2B, Ember Gold #FFB830, Sapphire Wing #46ABD7, Electric Tip #00E5FF, Deep Royal #215CAE.<br>
+              <strong style="color:var(--text)">Concept:</strong> Fire and Ice. Orange/gold at the core, electric blue at the wingtips.<br>
+              <strong style="color:var(--text)">Typography:</strong> Bebas Neue (display), DM Sans (body), DM Mono (code).<br>
+              <strong style="color:var(--text)">Tagline:</strong> Rise. Automate. Dominate.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
           <div class="doc-card">
             <div class="dc-status-bar" style="background:var(--bronze)"></div>
             <div class="dc-type">Brand, Identity</div>
             <div class="dc-title">PhoennixAI Content Bible</div>
             <div class="dc-desc">7 Laws of Copy, Features vs Benefits Decoder, social posts, email sequences, landing page copy. Agency brand voice.</div>
             <div class="dc-footer"><span class="chip chip-review">Needs Expansion</span><span class="dc-ver">v1.0, Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--sapphire))"></div>
+            <div class="dc-type">Social Media, Marketing</div>
+            <div class="dc-title">Social Posts Week 1, 10 Posts</div>
+            <div class="dc-desc">10 posts for Instagram, X, and LinkedIn. Copy, Midjourney prompts, hashtags. Posts 1 and 2 scheduled today. Full social media marketing centre to be built and housed here.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);text-decoration:none">Open Document</a>
+              <span style="font-family:var(--mono);font-size:7px;letter-spacing:1px;color:#f59e0b">Needs GitHub upload first</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
           <div class="doc-card">
             <div class="dc-status-bar" style="background:var(--violet)"></div>
@@ -322,20 +351,43 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-status-bar" style="background:var(--sapphire)"></div>
             <div class="dc-type">HR, AI Staff</div>
             <div class="dc-title">Claude, CV and Job Description</div>
-            <div class="dc-desc">Strategic AI Partner. CV with proficiency levels, domains, and working principles. JD with responsibilities, KPIs, and e-signature panel.</div>
+            <div class="dc-desc">Strategic AI Partner. CV with proficiency levels, domains, and working principles. JD with responsibilities, KPIs, and e-signature panel. PAI-JD-001, PAI-CV-001.</div>
+            <div style="display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap;align-items:center">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);text-decoration:none">Open JD</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">JD live on GitHub</span>
+            </div>
+            <div style="display:flex;gap:6px;margin:4px 0 4px;flex-wrap:wrap;align-items:center">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);text-decoration:none">Open CV</a>
+              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">CV needs GitHub upload</span>
+            </div>
             <div class="dc-footer"><span class="chip chip-approved">Signed</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#00E5FF"></div>
+            <div class="dc-type" style="color:#00E5FF">HR, AI Staff, Agent 000</div>
+            <div class="dc-title">ARIA, CV and Job Description</div>
+            <div class="dc-desc">Workspace Intelligence Agent. Second brain, real-time briefing, calendar monitoring, notes intelligence, task tracking. PAI-JD-002, PAI-CV-002.</div>
+            <div style="display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap;align-items:center">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open JD</a>
+              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">Needs GitHub upload</span>
+            </div>
+            <div style="display:flex;gap:6px;margin:4px 0 4px;flex-wrap:wrap;align-items:center">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open CV</a>
+              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">Needs GitHub upload</span>
+            </div>
+            <div class="dc-footer"><span class="chip" style="color:#f59e0b;border:1px solid rgba(245,158,11,0.3);background:rgba(245,158,11,0.06)">Awaiting Signature</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
           <div class="doc-card" style="border-style:dashed;opacity:0.5">
             <div class="dc-type">Brand, Identity</div>
             <div class="dc-title">Brand Guidelines One-Pager</div>
             <div class="dc-desc">Unified brand handout for all entities. Colour systems, typography, voice, taglines. For new staff and contractors.</div>
-            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Tomorrow</span></div>
+            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Brand Session</span></div>
           </div>
           <div class="doc-card" style="border-style:dashed;opacity:0.5">
-            <div class="dc-type">HR, Org</div>
-            <div class="dc-title">Master HR Vault</div>
-            <div class="dc-desc">All agent and human staff CVs, job descriptions, and contracts in one document. Auto-updated when new hires join.</div>
-            <div class="dc-footer"><span class="chip chip-draft">Planned</span><span class="dc-ver">Next Session</span></div>
+            <div class="dc-type">Finance, Revenue</div>
+            <div class="dc-title">Finance and Revenue Section</div>
+            <div class="dc-desc">Scope to be defined by Valerie. Finance intelligence, cashflow, revenue targets. Build session scheduled Friday 13 March 2026.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Friday 13 Mar</span></div>
           </div>
         </div>
 
@@ -344,7 +396,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <table class="ver-table">
           <thead><tr><th>Version</th><th>Date</th><th>Changed By</th><th>What Changed</th><th>Status</th></tr></thead>
           <tbody>
-            <tr class="ver-current"><td>v1.2</td><td>11 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Full session: Mission Control v2, PRD suite, GitHub Pages deployment. 6 new documents added. Em dashes removed across all files. Phantom Studio date corrected to Q4 2024.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr class="ver-current"><td>v1.3</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>ARIA Agent 000 deployed. ARIA JD (PAI-JD-002) and CV (PAI-CV-002) created. Agent Documentation section updated with full listings and direct links. Backlog BL-005 cross-device sync documented. Workspace v2 built with ARIA briefing, calendar done feature, real-time auto-refresh.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr><td>v1.2</td><td>11 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Full session: Mission Control v2, PRD suite, GitHub Pages deployment. 6 new documents added. Em dashes removed across all files. Phantom Studio date corrected to Q4 2024.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.1</td><td>10 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Initial ecosystem document, logo concepts, Claude CV and JD created. Content Bible v1 built.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.0</td><td>10 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Brand architecture and colour system established. Initial session.</td><td><span class="chip chip-approved">Archived</span></td></tr>
           </tbody>
@@ -503,11 +556,73 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dh-sub">Confidential documents. Revenue, cashflow, personal strategy, company secrets. Accessible only by Valerie Wilcox and authorised individuals.</div>
           </div>
         </div>
-        <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:24px;text-align:center">
-          <div style="font-size:32px;margin-bottom:12px">🔒</div>
-          <div style="font-family:var(--display);font-size:22px;letter-spacing:2px;margin-bottom:8px">ACCESS RESTRICTED</div>
-          <div style="font-size:13px;color:var(--text2);max-width:500px;margin:0 auto;line-height:1.8">This section contains revenue figures, cashflow projections, personal strategy documents, and company secrets. In the current version this is a placeholder. In Phase 2, this section will require authenticated login and will be accessible only to individuals Valerie has explicitly authorised.</div>
-          <div style="margin-top:16px"><span class="chip chip-confidential">Authentication Required in v2</span></div>
+
+        <!-- PIN LOCK -->
+        <div id="vault-locked" style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:10px;padding:36px;text-align:center">
+          <div style="font-size:36px;margin-bottom:14px">🔒</div>
+          <div style="font-family:var(--display);font-size:28px;letter-spacing:3px;margin-bottom:6px">VAULT LOCKED</div>
+          <div style="font-size:13px;color:var(--text2);margin-bottom:22px">Enter your 4-digit PIN to access Founder Vault</div>
+          <div style="display:flex;gap:10px;justify-content:center;margin-bottom:18px" id="pin-dots">
+            <div id="pd0" style="width:14px;height:14px;border-radius:50%;background:var(--border2);transition:all 0.2s"></div>
+            <div id="pd1" style="width:14px;height:14px;border-radius:50%;background:var(--border2);transition:all 0.2s"></div>
+            <div id="pd2" style="width:14px;height:14px;border-radius:50%;background:var(--border2);transition:all 0.2s"></div>
+            <div id="pd3" style="width:14px;height:14px;border-radius:50%;background:var(--border2);transition:all 0.2s"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,56px);gap:8px;justify-content:center;margin-bottom:14px">
+            <button class="pin-btn" onclick="pinKey('1')">1</button>
+            <button class="pin-btn" onclick="pinKey('2')">2</button>
+            <button class="pin-btn" onclick="pinKey('3')">3</button>
+            <button class="pin-btn" onclick="pinKey('4')">4</button>
+            <button class="pin-btn" onclick="pinKey('5')">5</button>
+            <button class="pin-btn" onclick="pinKey('6')">6</button>
+            <button class="pin-btn" onclick="pinKey('7')">7</button>
+            <button class="pin-btn" onclick="pinKey('8')">8</button>
+            <button class="pin-btn" onclick="pinKey('9')">9</button>
+            <button class="pin-btn" style="background:transparent;border-color:transparent" onclick=""></button>
+            <button class="pin-btn" onclick="pinKey('0')">0</button>
+            <button class="pin-btn" style="color:var(--red)" onclick="pinClear()">&#9003;</button>
+          </div>
+          <div id="pin-error" style="font-family:var(--mono);font-size:9px;color:var(--red);letter-spacing:2px;height:16px;margin-bottom:6px"></div>
+          <div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Default PIN: 0000. Change in vault settings once unlocked.</div>
+        </div>
+
+        <!-- VAULT CONTENT (hidden until PIN correct) -->
+        <div id="vault-open" style="display:none">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+            <div style="display:flex;align-items:center;gap:8px"><span style="font-size:16px">🔓</span><span style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--green)">VAULT UNLOCKED</span></div>
+            <button onclick="lockVault()" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:1px solid rgba(239,68,68,0.3);color:var(--red);background:rgba(239,68,68,0.05);cursor:pointer">Lock Vault</button>
+          </div>
+          <div class="doc-grid">
+            <div class="doc-card" style="border-color:rgba(239,68,68,0.15);border-style:dashed;opacity:0.6">
+              <div class="dc-status-bar" style="background:var(--red)"></div>
+              <div class="dc-type" style="color:var(--red)">Finance, Confidential</div>
+              <div class="dc-title">Revenue and Cashflow Model</div>
+              <div class="dc-desc">Monthly revenue targets, actuals, cashflow projections, and runway. Updated monthly by Valerie.</div>
+              <div class="dc-footer"><span class="chip" style="color:var(--red);border:1px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.05)">Phase 2 Upload</span><span class="dc-ver">When ready</span></div>
+            </div>
+            <div class="doc-card" style="border-color:rgba(239,68,68,0.15);border-style:dashed;opacity:0.6">
+              <div class="dc-status-bar" style="background:var(--red)"></div>
+              <div class="dc-type" style="color:var(--red)">Strategy, Confidential</div>
+              <div class="dc-title">Founder Personal Strategy</div>
+              <div class="dc-desc">Long-term personal vision, exit strategy, legacy goals, and private strategic priorities.</div>
+              <div class="dc-footer"><span class="chip" style="color:var(--red);border:1px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.05)">Phase 2 Upload</span></div>
+            </div>
+            <div class="doc-card" style="border-color:rgba(196,154,108,0.2)">
+              <div class="dc-status-bar" style="background:var(--bronze)"></div>
+              <div class="dc-type" style="color:var(--bronze)">AI, Vault Agent</div>
+              <div class="dc-title">GUARDIAN, Vault Agent, Concept</div>
+              <div class="dc-desc">Planned agent responsible for Founder Vault: access logs, PIN rotation reminders, document expiry alerts, and Phase 2 authentication management. Same competency tier as ARIA and Claude.</div>
+              <div class="dc-footer"><span class="chip chip-draft">Planned, Phase 2</span><span class="dc-ver">Agent 014</span></div>
+            </div>
+          </div>
+          <div style="margin-top:14px;background:rgba(196,154,108,0.05);border:1px solid rgba(196,154,108,0.15);border-radius:8px;padding:14px">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:6px">PIN Settings</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+              <input id="new-pin-input" type="password" maxlength="4" placeholder="New 4-digit PIN" style="background:var(--panel);border:1px solid var(--border2);border-radius:4px;padding:7px 11px;color:var(--text);font-family:var(--mono);font-size:13px;outline:none;width:140px">
+              <button onclick="changePin()" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:7px 14px;border-radius:4px;border:1px solid rgba(196,154,108,0.3);color:var(--bronze);background:rgba(196,154,108,0.06);cursor:pointer">Change PIN</button>
+            </div>
+            <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:6px">Phase 2 will replace this with biometric or authenticated login. Current PIN stored in browser only.</div>
+          </div>
         </div>
       </div>
 
@@ -567,13 +682,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="dh-actions"><div class="action-btn btn-edit">Request Update</div></div>
         </div>
         <div class="doc-grid">
-          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#2A2725,#C8C0B4)"></div>
+            <div class="dc-type">Brand, Identity, Locked</div>
+            <div class="dc-title">WilcoxDesigns Brand System</div>
+            <div class="dc-desc" style="line-height:1.9">
+              <strong style="color:var(--text)">Colour Palette (Tier 2):</strong> Charcoal #2A2725, Warm Taupe #C8C0B4, Cream #EDE8E0, Linen #F7F4F0, Mocha #8B7355.<br>
+              <strong style="color:var(--text)">Typography:</strong> Display: Bebas Neue. Body: DM Sans (300, 400, 500, 600). Accent: Playfair Display (italic). Code: DM Mono.<br>
+              <strong style="color:var(--text)">Logo Direction:</strong> Digital Atelier positioning. Minimal, browser-as-canvas, design-first.<br>
+              <strong style="color:var(--text)">Voice:</strong> Refined. Quiet confidence. Precision over performance.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.65">
             <div class="dc-type">Brand, Identity</div>
-            <div class="dc-title">WilcoxDesigns Brand Guidelines</div>
-            <div class="dc-desc">Colour: Charcoal, Warm Taupe, Cream, Linen, Mocha. Typography, logo, voice, and Digital Atelier positioning.</div>
+            <div class="dc-title">WilcoxDesigns Brand Guidelines One-Pager</div>
+            <div class="dc-desc">Full brand handout: colour swatches, type specimen, logo usage rules, voice and tone. For contractors and collaborators.</div>
             <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Brand Guidelines Session</span></div>
           </div>
-          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+          <div class="doc-card" style="border-style:dashed;opacity:0.65">
             <div class="dc-type">Product, PRD</div>
             <div class="dc-title">Creative Lab Tool Specification</div>
             <div class="dc-desc">The Digital Atelier. 24/7 client workspace, Readymag-level freedom, custom code layer. PRD and build specification.</div>
@@ -582,11 +709,174 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         </div>
       </div>
 
+      <!-- PHOENNIXAI BRAND SYSTEM -->
+      <div id="sec-brand-pai" style="display:none">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-entity-chip chip" style="color:var(--fire);border-color:rgba(255,107,43,0.3);background:rgba(255,107,43,0.07)">PhoennixAI Agency, Brand System</div>
+            <div class="dh-title">PHOENNIXAI BRAND SYSTEM</div>
+            <div class="dh-sub">Colour architecture, typography, taglines, voice, and logo direction. Tier 3 of the Wilcox Colour System.</div>
+          </div>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#FF6B2B,#FFB830,#00E5FF)"></div>
+            <div class="dc-type">Brand, Colour System, Tier 3</div>
+            <div class="dc-title">PhoennixAI Colour Palette</div>
+            <div class="dc-desc" style="line-height:2">
+              <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
+                <span style="background:#060A18;border:1px solid rgba(255,255,255,0.15);padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Midnight #060A18</span>
+                <span style="background:#FF6B2B;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Fire #FF6B2B</span>
+                <span style="background:#FFB830;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#000">Gold #FFB830</span>
+                <span style="background:#46ABD7;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Sapphire #46ABD7</span>
+                <span style="background:#00E5FF;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#000">Electric #00E5FF</span>
+                <span style="background:#215CAE;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Royal #215CAE</span>
+              </div>
+              <strong style="color:var(--text)">Concept:</strong> Fire and Ice. Orange and gold radiate from the core (the phoenix), transitioning to electric blue and sapphire at the wingtips. Energy, transformation, and intelligence in one visual system.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
+            <div class="dc-type">Brand, Typography</div>
+            <div class="dc-title">Typography System</div>
+            <div class="dc-desc" style="line-height:2">
+              <strong style="color:var(--text)">Display:</strong> Bebas Neue. Headlines, hero titles, agent names.<br>
+              <strong style="color:var(--text)">Body:</strong> DM Sans, weights 300, 400, 500, 600. All body copy and UI.<br>
+              <strong style="color:var(--text)">Accent:</strong> Playfair Display, italic. Taglines and quotes only.<br>
+              <strong style="color:var(--text)">Code/Labels:</strong> DM Mono. All monospaced UI elements, badges, timestamps.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--sapphire))"></div>
+            <div class="dc-type">Brand, Taglines and Voice</div>
+            <div class="dc-title">Taglines and Brand Voice</div>
+            <div class="dc-desc" style="line-height:2">
+              <strong style="color:var(--text)">Primary:</strong> Rise. Automate. Dominate.<br>
+              <strong style="color:var(--text)">Campaign:</strong> Your business should work for you. Not the other way around.<br>
+              <strong style="color:var(--text)">Academy:</strong> We don't raise followers. We raise leaders and builders.<br>
+              <strong style="color:var(--text)">Unified:</strong> Beautiful by design. Intelligent by nature.<br>
+              <strong style="color:var(--text)">Voice:</strong> Direct. Authoritative. No fluff. Speaks to founders who are serious about growth.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-color:rgba(255,107,43,0.2)">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
+            <div class="dc-type">Brand, Logo</div>
+            <div class="dc-title">Logo Direction, Fire and Ice</div>
+            <div class="dc-desc">Direction confirmed. Final logo design to be completed and approved by Friday 13 March 2026. Currently: 6 concepts explored, Fire and Ice selected. Orange/gold core transitions to electric blue wingtips. Bebas Neue wordmark lockup. Logo discussion and final approval is a priority task for today.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/phoennixai_logo_concepts.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">View Concepts</a>
+              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">Needs GitHub upload first</span>
+            </div>
+            <div class="dc-footer"><span class="chip" style="color:#f59e0b;border:1px solid rgba(245,158,11,0.3);background:rgba(245,158,11,0.06)">Approval by Friday 13 Mar</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FINANCE AND REVENUE -->
+      <div id="sec-finance" style="display:none">
+        <div class="doc-header" style="border-color:rgba(34,197,94,0.15);background:rgba(34,197,94,0.02)">
+          <div class="dh-left">
+            <div class="dh-entity-chip chip" style="color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">PhoennixAI Agency, Finance</div>
+            <div class="dh-title">FINANCE AND REVENUE</div>
+            <div class="dh-sub">Revenue targets, cashflow model, financial intelligence. Scope to be defined by Valerie, Friday 13 March 2026.</div>
+          </div>
+        </div>
+        <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:24px;text-align:center">
+          <div style="font-size:28px;margin-bottom:12px">📊</div>
+          <div style="font-family:var(--display);font-size:22px;letter-spacing:2px;margin-bottom:8px;color:var(--text)">SECTION IN DESIGN</div>
+          <div style="font-size:13px;color:var(--text2);max-width:540px;margin:0 auto;line-height:1.85">This section is reserved for Finance and Revenue management. Valerie will define the scope and requirements on Friday 13 March 2026. Build session to follow. Possible contents: monthly revenue targets and actuals, cashflow projections, agency pricing model, SaaS revenue forecast, and financial KPI dashboard. LEDGER agent (Agent 006) will integrate with this section in Phase 2 for advisory-only financial intelligence (human sign-off mandatory on all outputs).</div>
+          <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+            <span class="chip" style="color:var(--green);border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">Build Session: Friday 13 Mar</span>
+            <span class="chip chip-draft">Scope TBC by Valerie</span>
+          </div>
+        </div>
+      </div>
+
       <!-- OTHER SECTIONS PLACEHOLDER -->
       <div id="sec-strategy" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">STRATEGY DOCUMENTS</div><div class="dh-sub">All strategic planning, ecosystem architecture, and priority documents</div></div></div><div style="color:var(--text2);font-size:13px">Strategy documents are filed under the main PhoennixAI Agency section. Navigate back to view the Wilcox Complete Ecosystem 2026 and all related documents.</div></div>
       <div id="sec-products" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PRODUCTS AND PRDs</div><div class="dh-sub">Product Requirements Documents for all 7 products in the portfolio</div></div></div><div style="color:var(--text2);font-size:13px">The full PRD suite is available in PhoennixAI_ProductDocumentation.html on GitHub. Navigate to the main PhoennixAI section to access it.</div></div>
-      <div id="sec-agents" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">AGENT DOCUMENTATION</div><div class="dh-sub">CVs, job descriptions, manuals for all 13 agents</div></div></div><div style="color:var(--text2);font-size:13px">Agent documentation is built as each agent is created. Master HR Vault will house all 13 agent kits when complete. Claude CV and JD are live on GitHub now.</div></div>
-      <div id="sec-hr" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">HR AND PEOPLE</div><div class="dh-sub">All staff documents, contracts, onboarding packs</div></div></div><div style="color:var(--text2);font-size:13px">Claude CV and JD are the first entries. Master HR Vault to be built in next session covering all human and AI staff.</div></div>
+      <div id="sec-agents" style="display:none">
+        <div class="doc-header"><div class="dh-left"><div class="dh-title">AGENT DOCUMENTATION</div><div class="dh-sub">CVs, job descriptions, manuals for all 15 agents including Claude and ARIA</div></div></div>
+        <div style="background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.1);border-radius:8px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--text2);line-height:1.8">Every agent ships with a full hire kit. Documents live here, not in separate files. One-click signing below. Once signed, the action is logged automatically in Version History.</div>
+
+        <!-- CLAUDE -->
+        <div style="background:var(--card);border:1px solid rgba(255,107,43,0.2);border-radius:10px;padding:18px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+            <span style="font-size:20px">🤖</span>
+            <div style="flex:1">
+              <div style="font-family:var(--display);font-size:20px;letter-spacing:2px;color:var(--fire)">CLAUDE</div>
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3)">PAI-JD-001, PAI-CV-001, Strategic AI Partner</div>
+            </div>
+            <span id="sig-status-claude-jd" style="font-family:var(--mono);font-size:8px;color:#f59e0b">JD awaiting signature</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open JD <span style="color:var(--green);margin-left:4px">Live</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open CV <span style="color:#f59e0b;margin-left:4px">Upload first</span></a>
+            <button id="sign-btn-claude-jd" onclick="signDoc('claude','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);color:#f59e0b;background:rgba(245,158,11,0.06);cursor:pointer;transition:all 0.2s">Sign JD</button>
+            <button onclick="resetSig('claude','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);color:var(--text3);background:transparent;cursor:pointer;transition:all 0.2s" title="Reset accidental signature">Reset Sig</button>
+          </div>
+        </div>
+
+        <!-- ARIA -->
+        <div style="background:var(--card);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:18px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+            <span style="font-size:20px">🧠</span>
+            <div style="flex:1">
+              <div style="font-family:var(--display);font-size:20px;letter-spacing:2px;color:#00E5FF">ARIA</div>
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3)">PAI-JD-002, PAI-CV-002, Workspace Agent 000</div>
+            </div>
+            <span id="sig-status-aria-jd" style="font-family:var(--mono);font-size:8px;color:#f59e0b">JD awaiting signature</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open JD <span style="color:#f59e0b;margin-left:4px">Upload first</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open CV <span style="color:#f59e0b;margin-left:4px">Upload first</span></a>
+            <button id="sign-btn-aria-jd" onclick="signDoc('aria','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);color:#f59e0b;background:rgba(245,158,11,0.06);cursor:pointer;transition:all 0.2s">Sign JD</button>
+          </div>
+        </div>
+
+        <!-- AGENTS 001-013 -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;opacity:0.5;margin-bottom:16px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Agents 001 to 013, In Queue</div>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:8px">PA, SCOUT, PULSE, ATLAS, RELAY, LEDGER, ECHO, ENROL, GRID, SIGNAL, GRANT, FORGE, BRIDGE. CVs and JDs built during agent walkthrough sessions. Each will appear here with the same Sign and Approve buttons when ready.</div>
+        </div>
+
+        <!-- AUTO VERSION LOG -->
+        <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:10px">Document Actions Log, Auto-Updated</div>
+        <table style="width:100%;border-collapse:collapse;margin-bottom:8px">
+          <thead><tr>
+            <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">Timestamp</th>
+            <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">Document</th>
+            <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">Action</th>
+            <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">By</th>
+          </tr></thead>
+          <tbody id="auto-version-log"></tbody>
+        </table>
+      </div>
+      <div id="sec-hr" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">HR AND PEOPLE</div><div class="dh-sub">All staff documents, contracts, onboarding packs</div></div></div>
+      <div style="color:var(--text2);font-size:13px;margin-bottom:16px;line-height:1.8">All AI agent CVs and JDs are housed in the Agent Documentation section. Human staff contracts, onboarding packs, and employment records will be filed here as the team grows. Master HR Vault (human and AI combined) is planned for the next build session.</div>
+      <div style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--sapphire);border-radius:0 8px 8px 0;padding:14px 16px;margin-bottom:9px">
+        <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px">Agent CVs and JDs</div>
+        <div style="font-size:12px;color:var(--text2);margin-bottom:7px">Navigate to Agent Documentation in the left sidebar to access all agent hire kits. Currently live: Claude (PAI-JD-001, PAI-CV-001) and ARIA (PAI-JD-002, PAI-CV-002).</div>
+        <button onclick="showSection('agents')" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border-radius:4px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);cursor:pointer">Go to Agent Documentation</button>
+      </div>
+      <div class="doc-grid">
+        <div class="doc-card" style="border-style:dashed;opacity:0.5">
+          <div class="dc-type">HR, Human Staff</div>
+          <div class="dc-title">Master HR Vault, All Staff</div>
+          <div class="dc-desc">Unified HR record for all human staff. Employment contracts, start dates, roles, and onboarding documentation.</div>
+          <div class="dc-footer"><span class="chip chip-draft">Planned</span></div>
+        </div>
+        <div class="doc-card" style="border-style:dashed;opacity:0.5">
+          <div class="dc-type">Education, Work Experience</div>
+          <div class="dc-title">St Paul's Work Experience Pack</div>
+          <div class="dc-desc">Onboarding brief, schedule, and project for 3 students. Early April 2026, date TBC. Needs creating before their arrival.</div>
+          <div class="dc-footer"><span class="chip chip-draft">Date TBC, April 2026</span></div>
+        </div>
+      </div>
+      </div>
       <div id="sec-academy" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PHOENNIXAI ACADEMY</div><div class="dh-sub">Education programmes, curriculum, student journey documentation</div></div></div><div style="color:var(--text2);font-size:13px">Academy documentation to be built when EduTech Platform PRD session takes place. Phantom Studio is a sub-arm of the Academy.</div></div>
       <div id="sec-phantom" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PHANTOM STUDIO</div><div class="dh-sub">Gaming design education, live since Q4 2024, 8 active students</div></div></div><div style="color:var(--text2);font-size:13px">Phantom Studio is a sub-arm of the Academy. Not a current priority. Documentation to be built when Gaming Platform (PRJ-007) session takes place.</div></div>
       <div id="sec-community" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">COMMUNITY IMPACT</div><div class="dh-sub">Girls in tech, prison reformation, children in crisis</div></div></div><div style="color:var(--text2);font-size:13px">Prison reformation programme: investigating. Application form received, not yet started. Girls in tech: St Paul's work experience April 2026. Documentation to be built per programme.</div></div>
@@ -636,10 +926,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 </nav>
 
 <script>
+// ═══ THEME ═══
 function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('theme-icon').textContent=d?'☀️':'🌙'}
 
-const allSections=['phoennixai','wilcox','automation','kpi','versions','pending','founder','strategy','products','agents','hr','legal','academy','phantom','community'];
-
+// ═══ SECTIONS ═══
+const allSections=['phoennixai','wilcox','automation','kpi','versions','pending','founder','strategy','products','agents','hr','legal','academy','phantom','community','wd-brand','wd-creative','brand-pai','finance'];
 function showSection(id){
   allSections.forEach(s=>{const el=document.getElementById('sec-'+s);if(el)el.style.display='none'});
   const target=document.getElementById('sec-'+id);
@@ -649,17 +940,169 @@ function showSection(id){
   if(sb)sb.classList.add('active');
   window.scrollTo(0,0);
 }
-
 function setMobileActive(el){document.querySelectorAll('.bn-item').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
 
+// ═══ MODALS ═══
 function openModal(){document.getElementById('add-modal').classList.add('open')}
 function closeModal(){document.getElementById('add-modal').classList.remove('open')}
 function addEntity(){
   const name=document.getElementById('new-entity-name').value.trim();
-  if(!name){alert('Please enter an entity name.');return}
-  alert(name+' has been logged. Claude will add this entity to the full Document Management System in the next session when informed by Valerie.');
+  if(!name){alert('Please enter a name.');return}
+  alert(name+' logged. Claude will add this entity to the Document Hub in the next session.');
   closeModal();
 }
+
+// ═══ VERSION HISTORY AUTO-LOG ═══
+const VK='pai_version_log';
+function loadVLog(){try{return JSON.parse(localStorage.getItem(VK))||[]}catch{return[]}}
+function saveVLog(v){try{localStorage.setItem(VK,JSON.stringify(v))}catch(e){}}
+function logVersion(doc,desc,author){
+  const log=loadVLog();
+  log.unshift({doc,desc,author:author||'System',date:new Date().toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}),id:Date.now().toString()});
+  if(log.length>50)log.splice(50);
+  saveVLog(log);
+  renderVersionLog();
+}
+function renderVersionLog(){
+  const el=document.getElementById('auto-version-log');
+  if(!el)return;
+  const log=loadVLog();
+  el.innerHTML=log.length?log.map(v=>'<tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">'+v.date+'</td><td style="font-size:12px;font-weight:600;color:var(--text)">'+v.doc+'</td><td style="font-size:12px;color:var(--text2)">'+v.desc+'</td><td style="font-size:11px;color:var(--text3)">'+v.author+'</td></tr>').join(''):'<tr><td colspan="4" style="color:var(--text3);font-size:12px;padding:14px">No version events yet. Actions like signing, approving, and updating documents will appear here automatically.</td></tr>';
+}
+
+// ═══ PENDING REVIEW, push to Workspace ═══
+const PR_KEY='pai_pending_review';
+function pushPendingToWorkspace(items){
+  try{
+    const existing=JSON.parse(localStorage.getItem(PR_KEY)||'[]');
+    items.forEach(item=>{if(!existing.find(e=>e.id===item.id))existing.push({...item,date:new Date().toISOString()})});
+    localStorage.setItem(PR_KEY,JSON.stringify(existing));
+  }catch(e){}
+}
+function initPendingReview(){
+  const defaults=[
+    {id:'pr-001',title:'Sign ARIA JD (PAI-JD-002)',body:'ARIA Job Description requires your signature. Open Document Hub, Agent Documentation.',priority:'fire'},
+    {id:'pr-002',title:'Sign Claude JD (PAI-JD-001)',body:'Claude Job Description still pending your signature. Live on GitHub.',priority:'fire'},
+    {id:'pr-003',title:'Brand Guidelines One-Pager',body:'WilcoxDesigns brand guidelines are in build. Session needs scheduling.',priority:'bronze'},
+    {id:'pr-004',title:'St Pauls Work Experience Pack',body:'3 students arriving early April 2026. Pack needs creating before their arrival.',priority:'amber'}
+  ];
+  pushPendingToWorkspace(defaults);
+}
+
+// ═══ SIGN DOCUMENT (one-click) ═══
+function signDoc(agentId, docType){
+  const now=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  const key='pai_sig_'+agentId+'_'+docType;
+  try{localStorage.setItem(key,now)}catch(e){}
+  const btn=document.getElementById('sign-btn-'+agentId+'-'+docType);
+  if(btn){btn.textContent='Signed, '+now;btn.style.color='var(--green)';btn.style.borderColor='rgba(34,197,94,0.3)';btn.style.background='rgba(34,197,94,0.06)';btn.disabled=true;}
+  const statusEl=document.getElementById('sig-status-'+agentId+'-'+docType);
+  if(statusEl){statusEl.textContent='Signed '+now;statusEl.style.color='var(--green)';}
+  logVersion(docType==='jd'?'JD':'CV'+' ('+agentId.toUpperCase()+')','Signed by Valerie Wilcox on '+now,'Valerie Wilcox');
+  showToastDH('Document signed and version logged.');
+  // Remove from pending review
+  try{
+    const pr=JSON.parse(localStorage.getItem(PR_KEY)||'[]');
+    const filtered=pr.filter(p=>!p.id.includes(agentId.replace('-','').toLowerCase()));
+    localStorage.setItem(PR_KEY,JSON.stringify(filtered));
+  }catch(e){}
+}
+function approveDoc(docId, docName){
+  const now=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  logVersion(docName,'Approved by Valerie Wilcox on '+now,'Valerie Wilcox');
+  showToastDH(docName+' approved and logged.');
+  const btn=event.target;if(btn){btn.textContent='Approved';btn.style.color='var(--green)';btn.disabled=true;}
+}
+function resetSig(agentId,docType){
+  if(!confirm('Reset signature for '+agentId.toUpperCase()+'? (Accidentally clicked). You can re-sign at any time.'))return;
+  try{localStorage.removeItem('pai_sig_'+agentId+'_'+docType)}catch(e){}
+  const btn=document.getElementById('sign-btn-'+agentId+'-'+docType);
+  if(btn){btn.textContent='Sign JD';btn.style.color='#f59e0b';btn.style.borderColor='rgba(245,158,11,0.3)';btn.style.background='rgba(245,158,11,0.06)';btn.disabled=false;}
+  const st=document.getElementById('sig-status-'+agentId+'-'+docType);
+  if(st){st.textContent='JD awaiting signature';st.style.color='#f59e0b';}
+  logVersion('JD ('+agentId.toUpperCase()+')','Signature reset by Valerie Wilcox','Valerie Wilcox');
+  showToastDH('Signature reset. Sign again when ready.');
+}
+function injectARIANotes(){
+  try{
+    const notes=JSON.parse(localStorage.getItem('pai_notes')||'[]');
+    const reminders=[
+      {id:'aria-logo',title:'REMINDER: Logo discussion today',text:'Logo direction (Fire and Ice) confirmed but needs final design and approval by Friday 13 March. Discuss with Claude today.',pinned:true,date:'12 Mar, ARIA'},
+      {id:'aria-finance',title:'REMINDER: Finance section, Friday 13 Mar',text:'Finance and Revenue section build session Friday 13 March. Valerie to define scope first.',pinned:true,date:'12 Mar, ARIA'},
+      {id:'aria-github',title:'REMINDER: 11 files need GitHub upload',text:'11 files total pending upload. 9 new plus 2 updated. Upload all before end of session.',pinned:false,date:'12 Mar, ARIA'}
+    ];
+    reminders.forEach(r=>{if(!notes.find(n=>n.id===r.id))notes.push({...r,date:new Date().toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})});});
+    localStorage.setItem('pai_notes',JSON.stringify(notes));
+  }catch(e){}
+}
+function loadSigStates(){
+  const agents=['claude','aria'];const types=['jd','cv'];
+  agents.forEach(a=>types.forEach(t=>{
+    const key='pai_sig_'+a+'_'+t;
+    const val=localStorage.getItem(key);
+    if(val){
+      const btn=document.getElementById('sign-btn-'+a+'-'+t);
+      if(btn){btn.textContent='Signed, '+val;btn.style.color='var(--green)';btn.style.borderColor='rgba(34,197,94,0.3)';btn.style.background='rgba(34,197,94,0.06)';btn.disabled=true;}
+      const st=document.getElementById('sig-status-'+a+'-'+t);
+      if(st){st.textContent='Signed '+val;st.style.color='var(--green)';}
+    }
+  }));
+}
+
+// ═══ 4-DIGIT PIN ═══
+let pinBuffer='';
+const PIN_KEY='pai_vault_pin';
+function getPin(){return localStorage.getItem(PIN_KEY)||'0000'}
+function pinKey(d){
+  if(pinBuffer.length>=4)return;
+  pinBuffer+=d;
+  updatePinDots();
+  if(pinBuffer.length===4){
+    setTimeout(()=>{
+      if(pinBuffer===getPin()){
+        document.getElementById('vault-locked').style.display='none';
+        document.getElementById('vault-open').style.display='block';
+        logVersion('Founder Vault','Vault accessed by authorised user','Valerie Wilcox');
+      }else{
+        document.getElementById('pin-error').textContent='Incorrect PIN. Try again.';
+        setTimeout(()=>{document.getElementById('pin-error').textContent='';pinBuffer='';updatePinDots();},1200);
+        pinBuffer='';updatePinDots();
+      }
+    },200);
+  }
+}
+function pinClear(){if(pinBuffer.length>0){pinBuffer=pinBuffer.slice(0,-1);updatePinDots();document.getElementById('pin-error').textContent=''}}
+function updatePinDots(){
+  for(let i=0;i<4;i++){const d=document.getElementById('pd'+i);if(d)d.style.background=i<pinBuffer.length?'var(--fire)':'var(--border2)';}
+}
+function lockVault(){
+  document.getElementById('vault-locked').style.display='block';
+  document.getElementById('vault-open').style.display='none';
+  pinBuffer='';updatePinDots();
+}
+function changePin(){
+  const np=document.getElementById('new-pin-input').value.trim();
+  if(np.length!==4||!/^\d{4}$/.test(np)){showToastDH('PIN must be exactly 4 digits.');return}
+  localStorage.setItem(PIN_KEY,np);
+  document.getElementById('new-pin-input').value='';
+  showToastDH('PIN updated successfully.');
+  logVersion('Founder Vault','PIN changed by Valerie Wilcox','Valerie Wilcox');
+}
+
+// ═══ TOAST ═══
+function showToastDH(msg){
+  let t=document.getElementById('dh-toast');
+  if(!t){t=document.createElement('div');t.id='dh-toast';t.style.cssText='position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:10px 20px;border-radius:6px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity='0',2500);
+}
+
+// ═══ INIT ═══
+document.addEventListener('DOMContentLoaded',()=>{
+  renderVersionLog();
+  loadSigStates();
+  initPendingReview();
+  injectARIANotes();
+});
 </script>
 </body>
 </html>

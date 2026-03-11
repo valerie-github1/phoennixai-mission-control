@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI — Logo Enhancement Concepts</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;700;900&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --original-blue: #46ABD7;
+    --deep-navy: #090B16;
+    --royal-blue: #215CAE;
+    --sapphire: #2E5E99;
+    --fire-orange: #FF6B2B;
+    --fire-gold: #FFB830;
+    --electric-teal: #00E5FF;
+    --plasma-white: #F0F8FF;
+    --neon-cyan: #00FFFF;
+    --phoenix-ember: #FF4500;
+  }
+
+  body {
+    background: #050810;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 56px);
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #46ABD7, #00E5FF, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .page-header p {
+    color: rgba(255,255,255,0.5);
+    font-size: 14px;
+    margin-top: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 2px;
+    padding: 2px;
+  }
+
+  .concept-card {
+    background: #0a0d1a;
+    padding: 48px 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    min-height: 420px;
+  }
+
+  .concept-card:hover { transform: scale(1.01); }
+
+  .concept-label {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    font-weight: 600;
+  }
+
+  .label-original { background: rgba(70,171,215,0.15); color: #46ABD7; border: 1px solid rgba(70,171,215,0.3); }
+  .label-enhanced { background: rgba(255,107,43,0.15); color: #FF6B2B; border: 1px solid rgba(255,107,43,0.3); }
+  .label-bold { background: rgba(0,229,255,0.15); color: #00E5FF; border: 1px solid rgba(0,229,255,0.3); }
+  .label-premium { background: rgba(255,184,48,0.15); color: #FFB830; border: 1px solid rgba(255,184,48,0.3); }
+  .label-dark { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15); }
+
+  .concept-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.9);
+    text-align: center;
+  }
+
+  .concept-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    text-align: center;
+    line-height: 1.7;
+    max-width: 260px;
+  }
+
+  /* ── LOGO SVG CONTAINERS ── */
+  .logo-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  /* ═══════════════════════════════════
+     CONCEPT 1: ORIGINAL (reference)
+  ═══════════════════════════════════ */
+  .c1-bg {
+    width: 220px; height: 220px;
+    border-radius: 20px;
+    background: #000;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+
+  /* ═══════════════════════════════════
+     CONCEPT 2: FIRE & ICE FUSION
+     Blue phoenix with ember core
+  ═══════════════════════════════════ */
+  .c2-glow {
+    filter: drop-shadow(0 0 20px #FF6B2B) drop-shadow(0 0 40px rgba(255,107,43,0.4));
+    animation: pulse-ember 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse-ember {
+    0%, 100% { filter: drop-shadow(0 0 20px #FF6B2B) drop-shadow(0 0 40px rgba(255,107,43,0.4)); }
+    50% { filter: drop-shadow(0 0 35px #FF9500) drop-shadow(0 0 70px rgba(255,149,0,0.5)); }
+  }
+
+  /* ═══════════════════════════════════
+     CONCEPT 3: ELECTRIC NEON
+  ═══════════════════════════════════ */
+  .c3-glow {
+    filter: drop-shadow(0 0 12px #00E5FF) drop-shadow(0 0 30px rgba(0,229,255,0.6)) drop-shadow(0 0 60px rgba(0,229,255,0.3));
+    animation: electric-pulse 2.5s ease-in-out infinite;
+  }
+
+  @keyframes electric-pulse {
+    0%, 100% { filter: drop-shadow(0 0 12px #00E5FF) drop-shadow(0 0 30px rgba(0,229,255,0.6)); opacity: 1; }
+    40% { filter: drop-shadow(0 0 20px #00E5FF) drop-shadow(0 0 50px rgba(0,255,255,0.8)); opacity: 0.95; }
+    42% { opacity: 0.7; }
+    44% { opacity: 1; }
+  }
+
+  /* ═══════════════════════════════════
+     CONCEPT 4: GOLD PRESTIGE
+  ═══════════════════════════════════ */
+  .c4-glow {
+    filter: drop-shadow(0 0 15px rgba(255,184,48,0.8)) drop-shadow(0 0 40px rgba(255,184,48,0.4));
+    animation: gold-breathe 4s ease-in-out infinite;
+  }
+
+  @keyframes gold-breathe {
+    0%, 100% { filter: drop-shadow(0 0 15px rgba(255,184,48,0.8)) drop-shadow(0 0 40px rgba(255,184,48,0.3)); }
+    50% { filter: drop-shadow(0 0 25px rgba(255,220,100,0.9)) drop-shadow(0 0 60px rgba(255,184,48,0.5)); }
+  }
+
+  /* ═══════════════════════════════════
+     CONCEPT 5: PURE WHITE POWER
+  ═══════════════════════════════════ */
+  .c5-glow {
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.9)) drop-shadow(0 0 50px rgba(200,230,255,0.5));
+    animation: white-power 3.5s ease-in-out infinite;
+  }
+
+  @keyframes white-power {
+    0%, 100% { filter: drop-shadow(0 0 20px rgba(255,255,255,0.9)) drop-shadow(0 0 50px rgba(200,230,255,0.5)); }
+    50% { filter: drop-shadow(0 0 35px rgba(255,255,255,1)) drop-shadow(0 0 80px rgba(150,200,255,0.6)); }
+  }
+
+  /* ═══════════════════════════════════
+     CONCEPT 6: ANIMATED RISING LOGO
+  ═══════════════════════════════════ */
+  .rising-container {
+    position: relative;
+    width: 220px;
+    height: 220px;
+  }
+
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* ── WORDMARK SECTION ── */
+  .wordmark-section {
+    background: #070a14;
+    padding: 60px 20px;
+    text-align: center;
+    border-top: 2px solid rgba(255,255,255,0.05);
+  }
+
+  .wordmark-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 48px;
+    text-transform: uppercase;
+  }
+
+  .wordmarks-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .wordmark-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .wordmark-label-sm {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+
+  /* ── TYPOGRAPHY VARIANTS ── */
+  .wm-v1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, #46ABD7 0%, #00E5FF 50%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(70,171,215,0.5));
+  }
+
+  .wm-v2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    letter-spacing: 6px;
+    background: linear-gradient(135deg, #FF6B2B 0%, #FFB830 60%, #FFDD00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(255,107,43,0.6));
+  }
+
+  .wm-v3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 0 30px rgba(0,229,255,0.8), 0 0 60px rgba(0,229,255,0.4);
+  }
+
+  .wm-v3 span { color: #00E5FF; }
+
+  .wm-v4 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    letter-spacing: 10px;
+    color: #fff;
+    background: linear-gradient(to bottom, #fff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 40px rgba(255,255,255,0.6));
+  }
+
+  .wm-sub {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-top: -8px;
+  }
+
+  /* ── STRATEGY SECTION ── */
+  .strategy-section {
+    padding: 80px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .strategy-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 5px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 8px;
+  }
+
+  .strategy-section .intro {
+    color: rgba(255,255,255,0.45);
+    font-size: 14px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  .rec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+
+  .rec-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 28px 24px;
+    transition: border-color 0.3s ease;
+  }
+
+  .rec-card:hover { border-color: rgba(70,171,215,0.4); }
+
+  .rec-card .rec-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .rec-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .rec-card p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.8;
+  }
+
+  .rec-card .verdict {
+    margin-top: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .verdict-keep { background: rgba(0,229,255,0.1); color: #00E5FF; }
+  .verdict-evolve { background: rgba(255,184,48,0.1); color: #FFB830; }
+  .verdict-change { background: rgba(255,107,43,0.1); color: #FF6B2B; }
+
+  /* Separator */
+  .sep { height: 1px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent); margin: 0; }
+
+  /* Recommended banner */
+  .recommended-banner {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: linear-gradient(135deg, #FF6B2B, #FFB830);
+    color: #000;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 3px;
+  }
+
+  canvas { display: block; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>PHOENNIXAI — LOGO ENHANCEMENT CONCEPTS</h1>
+  <p>6 Visual Directions · Brand Identity Analysis · Strategic Recommendations</p>
+</div>
+
+<!-- LOGO CONCEPTS GRID -->
+<div class="concepts-grid">
+
+  <!-- CONCEPT 1: ORIGINAL REFERENCE -->
+  <div class="concept-card" style="background:#000;">
+    <span class="concept-label label-original">Current Logo</span>
+    <div class="logo-wrap">
+      <div class="c1-bg">
+        <svg width="160" height="160" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="orig" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#46ABD7"/>
+              <stop offset="100%" stop-color="#215CAE"/>
+            </linearGradient>
+          </defs>
+          <!-- Phoenix body simplified -->
+          <path d="M100 170 C100 170 60 155 40 130 C20 105 25 80 40 65 C55 50 70 55 80 60 C70 45 75 25 100 20 C125 25 130 45 120 60 C130 55 145 50 160 65 C175 80 180 105 160 130 C140 155 100 170 100 170Z" fill="url(#orig)" opacity="0.9"/>
+          <!-- Wings -->
+          <path d="M100 80 C85 60 55 50 30 60 C15 67 10 85 20 95 C35 80 60 75 80 85Z" fill="url(#orig)" opacity="0.8"/>
+          <path d="M100 80 C115 60 145 50 170 60 C185 67 190 85 180 95 C165 80 140 75 120 85Z" fill="url(#orig)" opacity="0.8"/>
+          <!-- Head -->
+          <ellipse cx="100" cy="52" rx="14" ry="12" fill="url(#orig)"/>
+          <!-- Eye -->
+          <circle cx="100" cy="50" r="3" fill="#000"/>
+          <circle cx="100" cy="50" r="1.5" fill="#46ABD7"/>
+          <!-- Tail feathers -->
+          <path d="M85 155 C75 170 65 180 60 190" stroke="#46ABD7" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M100 165 C100 178 98 188 96 195" stroke="#215CAE" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M115 155 C125 170 135 180 140 190" stroke="#46ABD7" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="concept-title">CURRENT DIRECTION</div>
+    <div class="concept-desc">Blue on black. Clean. Professional. But shares visual language with 200+ AI companies. Does not yet signal the scale or uniqueness of PhoennixAI's full mission.</div>
+  </div>
+
+  <!-- CONCEPT 2: FIRE & ICE — RECOMMENDED -->
+  <div class="concept-card" style="background: radial-gradient(ellipse at center, #120a00 0%, #050810 70%);">
+    <span class="concept-label label-enhanced">🔥 Recommended</span>
+    <div class="recommended-banner">TOP PICK</div>
+    <div class="logo-wrap">
+      <div class="c2-glow">
+        <svg width="175" height="175" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="fire-ice" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FF6B2B"/>
+              <stop offset="40%" stop-color="#FFB830"/>
+              <stop offset="70%" stop-color="#46ABD7"/>
+              <stop offset="100%" stop-color="#00E5FF"/>
+            </linearGradient>
+            <linearGradient id="wing-l" x1="0%" y1="50%" x2="100%" y2="50%">
+              <stop offset="0%" stop-color="#FF4500"/>
+              <stop offset="100%" stop-color="#46ABD7"/>
+            </linearGradient>
+            <linearGradient id="wing-r" x1="100%" y1="50%" x2="0%" y2="50%">
+              <stop offset="0%" stop-color="#FF4500"/>
+              <stop offset="100%" stop-color="#00E5FF"/>
+            </linearGradient>
+            <filter id="glow-f">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Wing left -->
+          <path d="M100 85 C85 62 55 50 28 62 C12 70 8 88 18 100 C35 84 62 78 82 88Z" fill="url(#wing-l)" filter="url(#glow-f)"/>
+          <!-- Wing right -->
+          <path d="M100 85 C115 62 145 50 172 62 C188 70 192 88 182 100 C165 84 138 78 118 88Z" fill="url(#wing-r)" filter="url(#glow-f)"/>
+          <!-- Body -->
+          <path d="M100 168 C100 168 62 154 42 128 C22 102 28 76 44 62 C60 48 76 54 86 60 C76 44 80 24 100 18 C120 24 124 44 114 60 C124 54 140 48 156 62 C172 76 178 102 158 128 C138 154 100 168 100 168Z" fill="url(#fire-ice)" filter="url(#glow-f)"/>
+          <!-- Head -->
+          <ellipse cx="100" cy="48" rx="13" ry="11" fill="url(#fire-ice)" filter="url(#glow-f)"/>
+          <!-- Beak -->
+          <path d="M100 55 L96 61 L100 59 L104 61 Z" fill="#FFB830"/>
+          <!-- Eye -->
+          <circle cx="100" cy="46" r="3" fill="#000"/>
+          <circle cx="100" cy="46" r="1.5" fill="#FF6B2B"/>
+          <!-- Tail feathers -->
+          <path d="M84 153 C73 170 62 182 56 193" stroke="#FF6B2B" stroke-width="3" stroke-linecap="round"/>
+          <path d="M91 160 C86 175 83 187 81 195" stroke="#FFB830" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M100 164 C100 179 99 190 98 197" stroke="#46ABD7" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M109 160 C114 175 117 187 119 195" stroke="#FFB830" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M116 153 C127 170 138 182 144 193" stroke="#00E5FF" stroke-width="3" stroke-linecap="round"/>
+          <!-- Ember particles -->
+          <circle cx="55" cy="90" r="2" fill="#FF6B2B" opacity="0.8"><animate attributeName="cy" values="90;70;90" dur="2.5s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0;0.8" dur="2.5s" repeatCount="indefinite"/></circle>
+          <circle cx="145" cy="85" r="1.5" fill="#FFB830" opacity="0.6"><animate attributeName="cy" values="85;65;85" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0;0.6" dur="3s" repeatCount="indefinite"/></circle>
+          <circle cx="100" cy="165" r="2" fill="#FF4500" opacity="0.7"><animate attributeName="cy" values="165;148;165" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.7;0;0.7" dur="2s" repeatCount="indefinite"/></circle>
+        </svg>
+      </div>
+    </div>
+    <div class="concept-title">FIRE & ICE FUSION</div>
+    <div class="concept-desc">Hot orange/gold at the core fading to electric blue at the wingtips. Tells the brand story visually: fire of transformation, coolness of intelligence. Unique. Unmistakable.</div>
+  </div>
+
+  <!-- CONCEPT 3: ELECTRIC NEON -->
+  <div class="concept-card" style="background: radial-gradient(ellipse at 50% 60%, #001a1a 0%, #050810 70%);">
+    <span class="concept-label label-bold">Electric</span>
+    <div class="logo-wrap">
+      <div class="c3-glow">
+        <svg width="170" height="170" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="elec" x1="50%" y1="0%" x2="50%" y2="100%">
+              <stop offset="0%" stop-color="#ffffff"/>
+              <stop offset="50%" stop-color="#00E5FF"/>
+              <stop offset="100%" stop-color="#0066AA"/>
+            </linearGradient>
+          </defs>
+          <path d="M100 85 C85 62 55 50 28 62 C12 70 8 88 18 100 C35 84 62 78 82 88Z" fill="url(#elec)"/>
+          <path d="M100 85 C115 62 145 50 172 62 C188 70 192 88 182 100 C165 84 138 78 118 88Z" fill="url(#elec)"/>
+          <path d="M100 168 C100 168 62 154 42 128 C22 102 28 76 44 62 C60 48 76 54 86 60 C76 44 80 24 100 18 C120 24 124 44 114 60 C124 54 140 48 156 62 C172 76 178 102 158 128 C138 154 100 168 100 168Z" fill="url(#elec)"/>
+          <ellipse cx="100" cy="48" rx="13" ry="11" fill="url(#elec)"/>
+          <circle cx="100" cy="46" r="3" fill="#000"/>
+          <circle cx="100" cy="46" r="1.5" fill="#00E5FF"/>
+          <path d="M84 153 C73 170 62 182 56 193" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M100 164 C100 179 99 190 98 197" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M116 153 C127 170 138 182 144 193" stroke="#00E5FF" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Circuit lines -->
+          <line x1="20" y1="105" x2="5" y2="105" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
+          <line x1="5" y1="105" x2="5" y2="120" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
+          <line x1="180" y1="105" x2="195" y2="105" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
+          <line x1="195" y1="105" x2="195" y2="120" stroke="#00E5FF" stroke-width="1" opacity="0.5"/>
+          <circle cx="5" cy="120" r="2" fill="#00E5FF" opacity="0.6"/>
+          <circle cx="195" cy="120" r="2" fill="#00E5FF" opacity="0.6"/>
+        </svg>
+      </div>
+    </div>
+    <div class="concept-title">ELECTRIC INTELLIGENCE</div>
+    <div class="concept-desc">Pure cyan-white. Maximum tech authority. Signals cutting-edge AI. Strong on dark backgrounds across all platforms. The circuit line detail adds depth without noise.</div>
+  </div>
+
+  <!-- CONCEPT 4: GOLD PRESTIGE -->
+  <div class="concept-card" style="background: radial-gradient(ellipse at 50% 40%, #130d00 0%, #050810 70%);">
+    <span class="concept-label label-premium">Premium</span>
+    <div class="logo-wrap">
+      <div class="c4-glow">
+        <svg width="170" height="170" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFE566"/>
+              <stop offset="50%" stop-color="#FFB830"/>
+              <stop offset="100%" stop-color="#CC7700"/>
+            </linearGradient>
+          </defs>
+          <path d="M100 85 C85 62 55 50 28 62 C12 70 8 88 18 100 C35 84 62 78 82 88Z" fill="url(#gold)"/>
+          <path d="M100 85 C115 62 145 50 172 62 C188 70 192 88 182 100 C165 84 138 78 118 88Z" fill="url(#gold)"/>
+          <path d="M100 168 C100 168 62 154 42 128 C22 102 28 76 44 62 C60 48 76 54 86 60 C76 44 80 24 100 18 C120 24 124 44 114 60 C124 54 140 48 156 62 C172 76 178 102 158 128 C138 154 100 168 100 168Z" fill="url(#gold)"/>
+          <ellipse cx="100" cy="48" rx="13" ry="11" fill="url(#gold)"/>
+          <circle cx="100" cy="46" r="3" fill="#000"/>
+          <circle cx="100" cy="46" r="2" fill="#FFB830"/>
+          <path d="M84 153 C73 170 62 182 56 193" stroke="#FFB830" stroke-width="3" stroke-linecap="round"/>
+          <path d="M91 160 C86 175 83 187 81 195" stroke="#FFE566" stroke-width="2" stroke-linecap="round"/>
+          <path d="M100 164 C100 179 99 190 98 197" stroke="#FFB830" stroke-width="3" stroke-linecap="round"/>
+          <path d="M109 160 C114 175 117 187 119 195" stroke="#FFE566" stroke-width="2" stroke-linecap="round"/>
+          <path d="M116 153 C127 170 138 182 144 193" stroke="#FFB830" stroke-width="3" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="concept-title">GOLD PRESTIGE</div>
+    <div class="concept-desc">Pure gold communicates premium, luxury, and authority. Signals billion-dollar ambition. Stands alone in the AI/tech space where everyone else is blue. Timeless.</div>
+  </div>
+
+  <!-- CONCEPT 5: WHITE ON BLACK -->
+  <div class="concept-card" style="background:#000;">
+    <span class="concept-label label-dark">Minimalist</span>
+    <div class="logo-wrap">
+      <div class="c5-glow">
+        <svg width="165" height="165" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 85 C85 62 55 50 28 62 C12 70 8 88 18 100 C35 84 62 78 82 88Z" fill="white"/>
+          <path d="M100 85 C115 62 145 50 172 62 C188 70 192 88 182 100 C165 84 138 78 118 88Z" fill="white"/>
+          <path d="M100 168 C100 168 62 154 42 128 C22 102 28 76 44 62 C60 48 76 54 86 60 C76 44 80 24 100 18 C120 24 124 44 114 60 C124 54 140 48 156 62 C172 76 178 102 158 128 C138 154 100 168 100 168Z" fill="white"/>
+          <ellipse cx="100" cy="48" rx="13" ry="11" fill="white"/>
+          <circle cx="100" cy="46" r="3" fill="#000"/>
+          <path d="M84 153 C73 170 62 182 56 193" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M100 164 C100 179 99 190 98 197" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M116 153 C127 170 138 182 144 193" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+    <div class="concept-title">PURE WHITE POWER</div>
+    <div class="concept-desc">Maximum contrast. Luxury minimalism. Works everywhere — white on black, black on white. Apple-level restraint. The glow effect on dark backgrounds is striking without trying too hard.</div>
+  </div>
+
+  <!-- CONCEPT 6: ANIMATED RISING PHOENIX (canvas) -->
+  <div class="concept-card" style="background: radial-gradient(ellipse at 50% 80%, #0a0015 0%, #050810 70%);">
+    <span class="concept-label label-enhanced">Animated</span>
+    <div class="logo-wrap">
+      <canvas id="risingCanvas" width="200" height="200"></canvas>
+    </div>
+    <div class="concept-title">RISING PHOENIX — ANIMATED</div>
+    <div class="concept-desc">For digital-first use: website hero, app splash, email header. The phoenix rises from embers on loop. Motion = life = the brand story told visually, constantly.</div>
+  </div>
+
+</div>
+
+<!-- DIVIDER -->
+<div class="sep"></div>
+
+<!-- WORDMARK SECTION -->
+<div class="wordmark-section">
+  <h2>Wordmark Typography Options</h2>
+  <div class="wordmarks-grid">
+
+    <div class="wordmark-item">
+      <div class="wm-v1">PHOENNIXAI</div>
+      <div class="wm-sub">Sapphire — Current Direction</div>
+    </div>
+
+    <div class="wordmark-item">
+      <div class="wm-v2">PHOENNIXAI</div>
+      <div class="wm-sub">Fire — Bold & Disruptive</div>
+    </div>
+
+    <div class="wordmark-item">
+      <div class="wm-v3">PHOENN<span>IX</span>AI</div>
+      <div class="wm-sub">Electric — Tech Authority</div>
+    </div>
+
+    <div class="wordmark-item">
+      <div class="wm-v4">PHOENNIXAI</div>
+      <div class="wm-sub">Platinum — Premium Restraint</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="sep"></div>
+
+<!-- STRATEGIC RECOMMENDATIONS -->
+<div class="strategy-section">
+  <h2>BRAND STRATEGY RECOMMENDATIONS</h2>
+  <p class="intro">Based on analysis of the full PhoennixAI brand ecosystem — Agency, Academy, Community, and international ambitions — here is my honest professional assessment of each direction and why it matters for billion-scale growth.</p>
+
+  <div class="rec-grid">
+
+    <div class="rec-card">
+      <div class="rec-num" style="color:#46ABD7">01</div>
+      <h3>Current Blue Direction</h3>
+      <p>Professional and clean. But in 2026, blue is the colour of every AI company on earth — OpenAI, Microsoft, IBM, Salesforce, Meta, LinkedIn. You will be invisible in a blue sea. The logo needs differentiation.</p>
+      <span class="verdict verdict-evolve">Evolve It</span>
+    </div>
+
+    <div class="rec-card" style="border-color:rgba(255,107,43,0.3);">
+      <div class="rec-num" style="color:#FF6B2B">02</div>
+      <h3 style="color:#FF6B2B">Fire & Ice Fusion ← TOP PICK</h3>
+      <p>This is the only logo that TELLS the brand story visually. Fire at the core (transformation, human energy, faith) fading to ice blue at the tips (intelligence, technology, precision). No one else has this. Globally distinctive. Works for Agency, Academy, and Community arms simultaneously.</p>
+      <span class="verdict verdict-keep">Use This</span>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num" style="color:#00E5FF">03</div>
+      <h3>Electric / Cyan</h3>
+      <p>Strong for the Agency arm. But too tech-focused to represent the full scope of PhoennixAI including the Academy's faith mission and community impact. Better as a sub-brand colour for the agency vertical only.</p>
+      <span class="verdict verdict-evolve">Sub-Brand Use</span>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num" style="color:#FFB830">04</div>
+      <h3>Gold Prestige</h3>
+      <p>Signals the billion-dollar ambition you described. Gold is rare in tech. Apple uses white. Google uses colour. Everyone else uses blue. Nobody owns gold. This could be a signature colour for PhoennixAI's premium tier and investor/enterprise communications.</p>
+      <span class="verdict verdict-keep">Accent Colour</span>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num" style="color:rgba(255,255,255,0.8)">05</div>
+      <h3>White Minimalism</h3>
+      <p>Excellent for print, merchandise, and high-contrast applications. Use as the monochrome version of the logo — every brand needs a one-colour version that works on any background. This is that version.</p>
+      <span class="verdict verdict-keep">Mono Version</span>
+    </div>
+
+    <div class="rec-card">
+      <div class="rec-num" style="color:#8B5CF6">06</div>
+      <h3>Brand Architecture Note</h3>
+      <p>PhoennixAI is an ecosystem, not a single product. The recommendation is a parent brand (Fire & Ice phoenix) with sub-brand colour systems: Cyan for Agency, Gold for Academy, White for Community. One logo, three expressions. This is how global companies scale their identity.</p>
+      <span class="verdict verdict-keep">Strategic Play</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- CANVAS ANIMATION SCRIPT -->
+<script>
+const canvas = document.getElementById('risingCanvas');
+const ctx = canvas.getContext('2d');
+
+const particles = [];
+let frame = 0;
+let phoenixY = 240;
+let phoenixAlpha = 0;
+
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = 80 + Math.random() * 40;
+    this.y = 185;
+    this.vx = (Math.random() - 0.5) * 1.5;
+    this.vy = -(Math.random() * 2 + 1);
+    this.life = 1;
+    this.decay = 0.015 + Math.random() * 0.02;
+    this.size = Math.random() * 4 + 2;
+    this.hue = Math.random() > 0.5 ? '#FF6B2B' : '#FFB830';
+  }
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= this.decay;
+    if (this.life <= 0) this.reset();
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.life * 0.8;
+    ctx.fillStyle = this.hue;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = this.hue;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size * this.life, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+}
+
+for (let i = 0; i < 30; i++) particles.push(new Particle());
+
+function drawPhoenix(x, y, alpha, scale) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y);
+  ctx.scale(scale, scale);
+
+  const grad = ctx.createLinearGradient(-40, -60, 40, 40);
+  grad.addColorStop(0, '#00E5FF');
+  grad.addColorStop(0.4, '#46ABD7');
+  grad.addColorStop(0.7, '#FFB830');
+  grad.addColorStop(1, '#FF6B2B');
+
+  ctx.shadowBlur = 20;
+  ctx.shadowColor = '#FF6B2B';
+  ctx.fillStyle = grad;
+  ctx.strokeStyle = 'rgba(0,229,255,0.6)';
+  ctx.lineWidth = 1;
+
+  // Left wing
+  ctx.beginPath();
+  ctx.moveTo(0, -15);
+  ctx.bezierCurveTo(-15, -38, -45, -50, -72, -38);
+  ctx.bezierCurveTo(-88, -30, -92, -12, -82, 0);
+  ctx.bezierCurveTo(-65, -16, -38, -22, -18, -12);
+  ctx.closePath();
+  ctx.fill();
+
+  // Right wing
+  ctx.beginPath();
+  ctx.moveTo(0, -15);
+  ctx.bezierCurveTo(15, -38, 45, -50, 72, -38);
+  ctx.bezierCurveTo(88, -30, 92, -12, 82, 0);
+  ctx.bezierCurveTo(65, -16, 38, -22, 18, -12);
+  ctx.closePath();
+  ctx.fill();
+
+  // Body
+  ctx.beginPath();
+  ctx.moveTo(0, 68);
+  ctx.bezierCurveTo(-38, 54, -58, 28, -56, 2);
+  ctx.bezierCurveTo(-44, -12, -24, -6, -14, 0);
+  ctx.bezierCurveTo(-24, -16, -20, -46, 0, -52);
+  ctx.bezierCurveTo(20, -46, 24, -16, 14, 0);
+  ctx.bezierCurveTo(24, -6, 44, -12, 56, 2);
+  ctx.bezierCurveTo(58, 28, 38, 54, 0, 68);
+  ctx.closePath();
+  ctx.fill();
+
+  // Head
+  ctx.beginPath();
+  ctx.ellipse(0, -62, 12, 10, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Tail
+  ctx.strokeStyle = '#FF6B2B';
+  ctx.lineWidth = 2.5;
+  [-16, -8, 0, 8, 16].forEach((ox, i) => {
+    ctx.beginPath();
+    ctx.moveTo(ox, 68);
+    ctx.quadraticCurveTo(ox - 4 + i*2, 88, ox - 8 + i*3, 100);
+    ctx.stroke();
+  });
+
+  ctx.restore();
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Background
+  const bgGrad = ctx.createRadialGradient(100, 160, 0, 100, 160, 120);
+  bgGrad.addColorStop(0, 'rgba(30,5,0,0.4)');
+  bgGrad.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = bgGrad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Particles (embers)
+  particles.forEach(p => { p.update(); p.draw(); });
+
+  // Ground glow
+  const glowGrad = ctx.createRadialGradient(100, 188, 0, 100, 188, 30);
+  glowGrad.addColorStop(0, 'rgba(255,107,43,0.5)');
+  glowGrad.addColorStop(1, 'rgba(255,107,43,0)');
+  ctx.fillStyle = glowGrad;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Phoenix rise logic
+  if (frame < 180) {
+    phoenixY = 200 - (frame / 180) * 100;
+    phoenixAlpha = Math.min(1, frame / 60);
+  } else if (frame < 280) {
+    // Hold
+    phoenixAlpha = 1;
+  } else if (frame < 360) {
+    phoenixAlpha = 1 - (frame - 280) / 80;
+    if (frame > 340) { frame = 0; phoenixY = 200; phoenixAlpha = 0; }
+  }
+
+  drawPhoenix(100, phoenixY, phoenixAlpha, 0.52);
+
+  frame++;
+}
+
+animate();
+</script>
+</body>
+</html>

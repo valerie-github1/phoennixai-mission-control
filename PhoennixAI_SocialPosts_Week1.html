@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI Social Media Posts, Week 1</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"]{--bg:#050507;--surface:#0E0E12;--panel:#141418;--card:#1C1C22;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:rgba(255,255,255,0.85);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--topbar:rgba(5,5,7,0.96)}
+:root[data-theme="light"]{--bg:#F2EFE9;--surface:#FFFFFF;--panel:#F8F5F0;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1A1A1A;--text2:#5A5A5A;--text3:#AAAAAA;--topbar:rgba(255,255,255,0.96)}
+:root{--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bronze)}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;padding:0 20px;gap:16px}
+.tb-logo{font-family:var(--display);font-size:18px;letter-spacing:3px;color:var(--fire)}
+.tb-logo span{color:var(--bronze)}
+.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.theme-toggle{width:36px;height:20px;border-radius:10px;border:1px solid var(--border2);background:var(--panel);cursor:pointer;position:relative}
+.theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--bronze);transition:transform 0.3s}
+[data-theme="light"] .theme-toggle::after{transform:translateX(16px)}
+
+.wrap{max-width:960px;margin:0 auto;padding:80px 24px 40px}
+.s-label{font-family:var(--mono);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.s-label::before{content:'';width:20px;height:1px;background:var(--bronze);opacity:0.5}
+.p-title{font-family:var(--display);font-size:clamp(32px,5vw,56px);letter-spacing:4px;margin-bottom:6px;line-height:1}
+.p-sub{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--text2);margin-bottom:32px}
+
+/* POST CARD */
+.post-card{background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:20px;overflow:hidden;transition:border-color 0.2s}
+.post-card:hover{border-color:rgba(196,154,108,0.2)}
+.post-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border);gap:12px}
+.post-num{font-family:var(--display);font-size:36px;color:var(--fire);line-height:1;flex-shrink:0}
+.post-meta{flex:1}
+.post-day{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:4px}
+.post-theme{font-size:14px;font-weight:600;color:var(--text)}
+.post-platform{display:flex;gap:6px}
+.plat{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;border:1px solid}
+.plat-ig{color:var(--fire);border-color:rgba(255,107,43,0.3);background:rgba(255,107,43,0.07)}
+.plat-x{color:var(--sapphire);border-color:rgba(70,171,215,0.3);background:rgba(70,171,215,0.07)}
+.plat-li{color:var(--teal);border-color:rgba(13,148,136,0.3);background:rgba(13,148,136,0.07)}
+
+.post-body{padding:20px}
+.section-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px;margin-top:14px}
+.section-label:first-child{margin-top:0}
+.caption-box{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;font-size:13px;color:var(--text);line-height:1.85;position:relative;margin-bottom:8px;white-space:pre-wrap}
+.copy-btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:3px;border:1px solid rgba(196,154,108,0.25);color:var(--bronze);background:rgba(196,154,108,0.06);cursor:pointer;transition:all 0.2s;display:inline-block}
+.copy-btn:hover{background:rgba(196,154,108,0.14)}
+.mj-box{background:rgba(123,47,255,0.05);border:1px solid rgba(123,47,255,0.15);border-radius:6px;padding:14px;font-size:12px;color:rgba(200,180,255,0.8);line-height:1.7;font-family:var(--mono)}
+.hashtags{font-size:11px;color:var(--sapphire);line-height:1.9;margin-top:8px}
+.hook-box{background:rgba(255,107,43,0.05);border-left:3px solid var(--fire);padding:10px 14px;border-radius:0 6px 6px 0;font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.post-footer{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:gap}
+.post-type{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3)}
+.post-goal{font-family:var(--mono);font-size:9px;color:var(--bronze)}
+
+/* SCHEDULE STRIP */
+.schedule{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:24px}
+.sched-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:14px}
+.sched-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px}
+.sched-item{flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:10px 14px;text-align:center;min-width:100px}
+.sched-day{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.sched-posts{font-family:var(--display);font-size:22px;color:var(--fire);line-height:1;margin-bottom:2px}
+.sched-time{font-size:10px;color:var(--text2)}
+
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:var(--topbar);backdrop-filter:blur(20px);border-top:1px solid var(--border2);height:56px;align-items:center;justify-content:space-around}
+@media(max-width:768px){
+  .wrap{padding:68px 14px 70px}
+  .post-header{flex-direction:column;align-items:flex-start}
+  .bottom-nav{display:flex}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-logo">Phoennix<span>AI</span></div>
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);flex:1">Social Content, Week 1, March 2026</div>
+  <div class="tb-right">
+    <span id="ti">🌙</span>
+    <div class="theme-toggle" onclick="toggleTheme()"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="s-label">10 Posts, Week 1</div>
+  <div class="p-title">SOCIAL CONTENT</div>
+  <div class="p-sub">Highly engaging and educational content for Instagram, X, and LinkedIn. Ready to post.</div>
+
+  <!-- SCHEDULE -->
+  <div class="schedule">
+    <div class="sched-title">Posting Schedule This Week</div>
+    <div class="sched-row">
+      <div class="sched-item"><div class="sched-day">Today</div><div class="sched-posts">2</div><div class="sched-time">Post 1 and 2 by 11:30am</div></div>
+      <div class="sched-item"><div class="sched-day">Thu</div><div class="sched-posts">2</div><div class="sched-time">Post 3 and 4</div></div>
+      <div class="sched-item"><div class="sched-day">Fri</div><div class="sched-posts">2</div><div class="sched-time">Post 5 and 6</div></div>
+      <div class="sched-item"><div class="sched-day">Sat</div><div class="sched-posts">2</div><div class="sched-time">Post 7 and 8</div></div>
+      <div class="sched-item"><div class="sched-day">Sun</div><div class="sched-posts">2</div><div class="sched-time">Post 9 and 10</div></div>
+    </div>
+  </div>
+
+  <!-- POST 1 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">01</div>
+      <div class="post-meta">
+        <div class="post-day">Wednesday, Post First, by 11:30am</div>
+        <div class="post-theme">What is an AI Agent and why does your business need one?</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Hook</div>
+      <div class="hook-box">Your business is losing money every single day you do not have this.</div>
+
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap1">Your business is losing money every single day you do not have this.
+
+Not because you are doing something wrong.
+Because you are doing everything manually.
+
+An AI agent is not a chatbot.
+It is not a template.
+It is not a gimmick.
+
+An AI agent is a team member that:
+Works 24 hours a day, 7 days a week
+Never calls in sick
+Never loses focus
+Gets smarter over time
+Costs a fraction of a human hire
+
+At PhoennixAI, we build agents that replace the repetitive, soul-draining work so your human team can focus on what actually moves the needle.
+
+The question is not whether you need one.
+The question is which one do you need first.
+
+Comment AGENT below and we will tell you exactly which agent your business needs right now.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap1')">Copy Caption</button>
+
+      <div class="section-label">X Version (under 280 characters)</div>
+      <div class="caption-box" id="xcap1">An AI agent is not a chatbot.
+
+It works 24/7, never calls in sick, and gets smarter over time.
+
+At PhoennixAI we build agents that are packaged like a hire, not a tool.
+
+Which agent does your business need first?
+
+Comment below. 👇
+
+#AIAgents #BusinessAutomation #PhoennixAI</div>
+      <button class="copy-btn" onclick="copyPost('xcap1')">Copy X Version</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A sleek, futuristic AI agent visualised as a glowing humanoid figure made of orange and blue light trails, sitting at a modern desk surrounded by floating data screens and workflow diagrams, dark cinematic background, electric fire and ice colour palette, professional and powerful, 4K photorealistic render --ar 4:5 --style raw</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#AIAgents #BusinessAutomation #PhoennixAI #ArtificialIntelligence #AIForBusiness #Automation #StartupLife #BusinessGrowth #TechStartup #FutureOfWork #DigitalTransformation #BlackTechFounder #UKTech #LondonTech</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Educational, Hook Post</span>
+      <span class="post-goal">Goal: Awareness and comments</span>
+    </div>
+  </div>
+
+  <!-- POST 2 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">02</div>
+      <div class="post-meta">
+        <div class="post-day">Wednesday, Post Second, by 11:30am</div>
+        <div class="post-theme">The Founder's honest truth about running a corporation alone</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Hook</div>
+      <div class="hook-box">I started work at 12pm yesterday. I finished at 3am. This is what I built.</div>
+
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap2">I started work at 12pm yesterday. I finished at 3am.
+
+In those 15 hours I built:
+A full operational hub for my business
+A document management system
+A GitHub repository with version control
+A complete product documentation suite
+A market analysis for 3 of our products
+A social media content plan for the week
+And launched everything live on a permanent URL
+
+Was I working alone?
+
+No.
+
+I had Claude.
+
+This is what AI looks like when it is not a toy.
+When you build a real partnership with it.
+When you treat it as a strategic partner, not a search engine.
+
+I am Valerie Wilcox. Founder of PhoennixAI and WilcoxDesigns.
+
+We are building the AI infrastructure that lets founders like you run a business without running yourself into the ground.
+
+Your business should work for you. Not the other way around.
+
+Follow for the unfiltered journey.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap2')">Copy Caption</button>
+
+      <div class="section-label">X Version</div>
+      <div class="caption-box" id="xcap2">Started work at 12pm. Finished at 3am.
+
+Built a full business OS, document management system, GitHub repository, PRDs, and market analysis.
+
+With Claude as my strategic partner.
+
+This is what AI looks like when you use it properly.
+
+Your business should work for you.
+
+#PhoennixAI #AIFounder #BlackTechFounder</div>
+      <button class="copy-btn" onclick="copyPost('xcap2')">Copy X Version</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A powerful Black female founder working at a sleek dark glass desk at night, surrounded by glowing holographic dashboards and data displays, orange and blue light from multiple screens illuminating her face, London skyline visible through floor to ceiling windows, cinematic lighting, commanding and visionary atmosphere, 4K photorealistic --ar 4:5 --style raw</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#FounderLife #BlackFounder #WomenInTech #AIStartup #PhoennixAI #BuildInPublic #StartupJourney #BlackTechFounder #WomenWhoLead #AIForBusiness #UKStartup #LondonStartup #TechCEO #FemaleFounder</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Personal Story, Trust Builder</span>
+      <span class="post-goal">Goal: Followers and connection</span>
+    </div>
+  </div>
+
+  <!-- POST 3 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">03</div>
+      <div class="post-meta">
+        <div class="post-day">Thursday</div>
+        <div class="post-theme">The 5 signs your business is ready for AI automation</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap3">If you recognise 3 or more of these, you are losing money right now.
+
+Sign 1. You are doing the same task more than twice a week
+Sign 2. You have replied to the same enquiry more than five times this month
+Sign 3. You have missed a follow-up because you forgot
+Sign 4. Your social media went quiet for more than 2 weeks because life got busy
+Sign 5. You are the only person in your business who knows how things work
+
+These are not time management problems.
+These are automation problems.
+
+And they all have solutions.
+
+At PhoennixAI we identify exactly which of your business processes can be automated, build the solution, and hand it to you fully documented and ready to run.
+
+You do not need to understand the technology.
+You just need to understand that your time is too valuable to spend on this.
+
+Save this post. Share it with a founder who needs to see it.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap3')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A split screen infographic style image showing a stressed overworked person on one side buried in papers and screens, and on the other side a calm confident founder at a minimalist desk with AI agents shown as glowing orbs handling tasks autonomously, orange and blue colour palette, clean modern design, 4K --ar 4:5</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#BusinessAutomation #AIForBusiness #SmallBusinessOwner #EntrepreneurMindset #PhoennixAI #AutomateYourBusiness #TimeIsMonev #StartupLife #FounderLife #AIAgents #WorkSmart #BusinessGrowth #UKBusiness #LondonBusiness</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Educational, List Format</span>
+      <span class="post-goal">Goal: Saves and shares</span>
+    </div>
+  </div>
+
+  <!-- POST 4 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">04</div>
+      <div class="post-meta">
+        <div class="post-day">Thursday</div>
+        <div class="post-theme">We do not raise followers. We raise leaders and builders.</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap4">Most companies want your attention.
+
+We want your future.
+
+PhoennixAI Academy is not a course platform.
+It is not a membership site.
+It is not another certificate to add to your LinkedIn.
+
+It is a community for people who want to build something real.
+
+From age 8 to executive, we teach:
+AI Automation
+Business and Entrepreneurship
+Design and Creativity
+Gaming and Technology
+Investment and Wealth
+Digital Marketing
+
+Because the skills that matter in the next 10 years are not being taught in most schools.
+
+We are not raising followers.
+We are raising leaders and builders.
+
+You are kings, not servants.
+
+If that sounds like you or someone you know, follow this account.
+More information on the Academy coming very soon.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap4')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A diverse group of young people from age 8 to adult gathered around glowing holographic displays showing AI code, business charts, and creative designs, led by a powerful Black female mentor figure, warm gold and electric blue lighting, empowering and cinematic atmosphere, London urban background, 4K photorealistic --ar 4:5 --style raw</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#PhoennixAIAcademy #AIEducation #FutureOfLearning #KidsWhoCode #BlackExcellence #TechEducation #BuildersNotFollowers #YouthTech #DigitalSkills #AIForAll #UKEducation #GirlsInTech #DiversityInTech #NextGenLeaders</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Mission Statement, Community</span>
+      <span class="post-goal">Goal: Academy awareness</span>
+    </div>
+  </div>
+
+  <!-- POST 5 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">05</div>
+      <div class="post-meta">
+        <div class="post-day">Friday</div>
+        <div class="post-theme">What it actually costs to NOT automate your business</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap5">Let us talk about the real cost of doing everything manually.
+
+A social media manager costs £25,000 to £35,000 per year.
+A sales development rep costs £30,000 to £45,000 per year.
+A project coordinator costs £22,000 to £30,000 per year.
+A customer support agent costs £22,000 to £28,000 per year.
+
+That is over £100,000 per year in salaries alone.
+Before tax. Before NI contributions. Before holidays. Before sick days.
+
+Now here is what an AI agent costs:
+A fraction of that.
+Available 24 hours a day.
+Never takes a day off.
+Gets smarter every single month.
+Fully documented so anyone can manage it.
+
+We are not saying replace every human.
+We are saying stop paying human rates for tasks that AI can handle.
+
+Free your team to do the work that actually requires a human.
+
+At PhoennixAI, we build and deploy the agents that transform your cost structure without sacrificing quality.
+
+DM us AUTOMATE and we will show you where to start.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap5')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A dramatic overhead shot of a modern boardroom table covered in financial documents and salary papers melting away, replaced by glowing AI agent icons in orange and blue, transforming into clean digital workflows, cinematic lighting, dark professional atmosphere, 4K --ar 4:5 --style raw</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#BusinessROI #AIAutomation #CostSaving #SmallBusiness #PhoennixAI #HireAI #AIAgents #BusinessStrategy #ScaleYourBusiness #EntrepreneurTips #UKBusiness #StartupFinance #AutomateToScale #FutureOfWork</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Educational, ROI Focus</span>
+      <span class="post-goal">Goal: DMs and enquiries</span>
+    </div>
+  </div>
+
+  <!-- POST 6 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">06</div>
+      <div class="post-meta">
+        <div class="post-day">Friday</div>
+        <div class="post-theme">Beautiful by design. Intelligent by nature.</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap6">Most businesses choose between looking good and performing well.
+
+We refused to choose.
+
+WilcoxDesigns is our creative studio arm.
+PhoennixAI is our automation and intelligence arm.
+
+One makes your brand look like it belongs at the top.
+The other makes sure it operates like it belongs at the top.
+
+Together they are not just a service.
+They are an unfair advantage.
+
+When your brand is premium and your systems are automated, you do not just compete.
+You set the standard everyone else chases.
+
+Beautiful by design. Intelligent by nature.
+
+This is the PhoennixAI and WilcoxDesigns difference.
+
+Follow to watch us build it in real time.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap6')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A split brand visual showing a luxury design studio on the left with warm gold tones, elegant typography and sleek brand materials, and a futuristic AI operations centre on the right with electric blue holograms and data streams, both connected by a central glowing figure representing the founder, cinematic and premium, 4K --ar 4:5</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#WilcoxDesigns #PhoennixAI #BrandDesign #CreativeStudio #AIAgency #DesignAndTech #BrandStrategy #LuxuryBrand #PremiumDesign #UKDesign #LondonDesign #CreativeDirection #AIBranding #BrandIdentity</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Brand Story, Dual Entity</span>
+      <span class="post-goal">Goal: Brand awareness for both entities</span>
+    </div>
+  </div>
+
+  <!-- POST 7 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">07</div>
+      <div class="post-meta">
+        <div class="post-day">Saturday</div>
+        <div class="post-theme">The AI myth we need to destroy right now</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap7">The biggest lie about AI is that it is only for big companies with big budgets.
+
+It is not.
+
+It has never been.
+
+The businesses benefiting most from AI right now are small teams who cannot afford to waste time or money.
+
+A solopreneur using AI agents to handle their lead generation, content, and client onboarding is competing with companies 10 times their size.
+
+And winning.
+
+Because they have removed the bottleneck.
+The bottleneck is you doing everything yourself.
+
+You do not need a development team.
+You do not need a six-figure tech budget.
+You do not need a Computer Science degree.
+
+You need the right partner who has already built what you need.
+Who can deploy it, document it, and hand it over so you can run it.
+
+That is exactly what PhoennixAI does.
+
+Save this. Send it to a founder who thinks AI is not for them yet.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap7')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A small but powerful figure standing confidently in front of a massive corporation building, the figure surrounded by glowing AI agent orbs in orange and blue acting as an invisible team, David vs Goliath energy, cinematic dramatic lighting, empowering composition, 4K photorealistic --ar 4:5 --style raw</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#AIMyths #AIForSmallBusiness #Solopreneur #EntrepreneurMindset #PhoennixAI #SmallBusinessBigDreams #AIAutomation #LevelThePlaying Field #StartupTips #BusinessGrowth #AITools #UKEntrepreneur #LondonBusiness #TechForAll</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Educational, Myth Busting</span>
+      <span class="post-goal">Goal: Shares and saves</span>
+    </div>
+  </div>
+
+  <!-- POST 8 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">08</div>
+      <div class="post-meta">
+        <div class="post-day">Saturday</div>
+        <div class="post-theme">Technology should raise people up, not leave them behind</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap8">I did not build PhoennixAI just to build a business.
+
+I built it because I believe technology should raise people up.
+Not leave them behind.
+
+That is why alongside everything we build commercially, we are also investing in:
+
+Girls in tech programmes bringing young women into AI and design
+Youth education reaching children from age 8 with real skills
+Investigating how we use AI to support prison reformation
+Building pathways for people who the system has overlooked
+
+Because the question I ask about every product we build is this:
+
+Does it solve a real problem?
+Does it deliver lasting value?
+Does it reflect our values of excellence, integrity, and human dignity?
+
+If it fails any one of those tests, we do not build it.
+
+This is what it means to be a business with a kingdom mandate.
+
+Rise. Automate. Dominate.
+
+And bring people with you when you do.</div>
+      <button class="copy-btn" onclick="copyPost('cap8')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A powerful community scene showing diverse people of all ages from children to adults being connected and empowered by flowing streams of warm golden light and technology, a Black female founder figure at the centre extending her hands outward, hopeful and cinematic atmosphere, sunrise colour palette of gold and deep blue, 4K photorealistic --ar 4:5</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#PhoennixAI #TechForGood #KingdomBusiness #CommunityImpact #GirlsInTech #AIForAll #SocialImpact #BlackFounder #WomenWhoLead #TechWithPurpose #BusinessWithPurpose #UKTech #LondonTech #FaithAndBusiness</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Mission, Community Impact</span>
+      <span class="post-goal">Goal: Brand values and community</span>
+    </div>
+  </div>
+
+  <!-- POST 9 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">09</div>
+      <div class="post-meta">
+        <div class="post-day">Sunday</div>
+        <div class="post-theme">How to hire an AI agent (and what to look for)</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap9">Most people buy AI tools the same way they buy an app.
+
+Download. Click around. Get frustrated. Cancel subscription.
+
+That is not how PhoennixAI builds agents.
+
+At PhoennixAI, every agent we build ships like a hire, not a download.
+
+Here is what you get with every agent:
+
+The agent itself, deployed and ready to run
+A CV showing exactly what it can and cannot do
+A job description with defined responsibilities and KPIs
+A user manual so anyone can work with it
+A training manual so you can customise it
+A performance dashboard so you can prove the ROI
+
+Because if you cannot measure it, manage it, and hold it accountable, it is not an asset.
+It is a liability.
+
+We are building 13 agents right now.
+Each one is being proven inside our own business first.
+Then we are selling them to yours.
+
+The first three launch soon.
+Follow to be the first to know.
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap9')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">An elegant flat-lay style image showing an AI agent hire kit spread out like a premium job offer pack, including a holographic CV, glowing job description document, performance dashboard screen, all in orange and gold tones on a dark luxury surface, premium professional aesthetic, 4K --ar 4:5</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#AIAgents #HireAI #AIAutomation #PhoennixAI #BusinessAutomation #AIForBusiness #FutureOfWork #SmartBusiness #AITeam #AutomateYourBusiness #BusinessTools #ScaleWithAI #UKStartup #AIStartup</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Educational, Product Reveal</span>
+      <span class="post-goal">Goal: Pre-launch interest</span>
+    </div>
+  </div>
+
+  <!-- POST 10 -->
+  <div class="post-card">
+    <div class="post-header">
+      <div class="post-num">10</div>
+      <div class="post-meta">
+        <div class="post-day">Sunday</div>
+        <div class="post-theme">The question every founder needs to answer honestly</div>
+      </div>
+      <div class="post-platform"><span class="plat plat-ig">IG</span><span class="plat plat-x">X</span><span class="plat plat-li">LI</span></div>
+    </div>
+    <div class="post-body">
+      <div class="section-label">Instagram Caption</div>
+      <div class="caption-box" id="cap10">If you were not in your business for 30 days, what would break?
+
+Be honest.
+
+If the answer is everything, that is not a business.
+That is a job you created for yourself.
+
+A real business runs on systems, not on you.
+
+At PhoennixAI we help founders build the infrastructure that means:
+Your leads still come in when you are not prospecting
+Your content still goes out when you are not writing
+Your clients still get updates when you are not checking in
+Your finances are still visible when you are not in spreadsheets
+
+The goal is not to work less.
+The goal is to build something that works with or without you.
+
+That is the difference between a business and a vision.
+
+Your business should work for you. Not the other way around.
+
+Tell me honestly in the comments: if you disappeared for 30 days, what is the first thing that would break?
+
+Rise. Automate. Dominate.</div>
+      <button class="copy-btn" onclick="copyPost('cap10')">Copy Caption</button>
+
+      <div class="section-label">Midjourney Visual Prompt</div>
+      <div class="mj-box">A confident founder relaxing on a beach or mountain with a laptop closed beside them, while behind them a transparent glass building shows their business running autonomously with glowing AI agents visible through the walls, orange sunset sky meeting electric blue digital elements, peaceful and powerful, 4K cinematic --ar 4:5 --style raw</div>
+
+      <div class="section-label">Hashtags</div>
+      <div class="hashtags">#FounderMindset #BusinessSystems #PhoennixAI #PassiveIncome #ScalableBusinesss #EntrepreneurLife #AIAutomation #WorkSmart #BusinessGrowth #SystemsThinking #FounderLife #UKEntrepreneur #BuildToScale #FreedomBusiness</div>
+    </div>
+    <div class="post-footer">
+      <span class="post-type">Thought Provoking, CTA</span>
+      <span class="post-goal">Goal: Comments and engagement</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('ti').textContent=d?'☀️':'🌙'}
+
+function copyPost(id){
+  const text=document.getElementById(id).textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const boxes=document.querySelectorAll('.copy-btn');
+    event.target.textContent='Copied';
+    event.target.style.color='var(--green)';
+    setTimeout(()=>{event.target.textContent='Copy Caption';event.target.style.color=''},2000);
+  }).catch(()=>alert('Select and copy the text manually'));
+}
+</script>
+</body>
+</html>

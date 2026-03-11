@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI Session Log and Tomorrow's Tasks</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"]{--bg:#050507;--surface:#0E0E12;--panel:#141418;--card:#1C1C22;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:rgba(255,255,255,0.85);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--topbar:rgba(5,5,7,0.96)}
+:root[data-theme="light"]{--bg:#F2EFE9;--surface:#FFFFFF;--panel:#F8F5F0;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1A1A1A;--text2:#5A5A5A;--text3:#AAAAAA;--topbar:rgba(255,255,255,0.96)}
+:root{--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bronze)}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;padding:0 20px;gap:16px}
+.tb-logo{font-family:var(--display);font-size:18px;letter-spacing:3px;color:var(--fire)}
+.tb-logo span{color:var(--bronze)}
+.tb-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);flex:1}
+.tb-controls{display:flex;align-items:center;gap:10px}
+.theme-toggle{width:36px;height:20px;border-radius:10px;border:1px solid var(--border2);background:var(--panel);cursor:pointer;position:relative}
+.theme-toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--bronze);transition:transform 0.3s}
+[data-theme="light"] .theme-toggle::after{transform:translateX(16px)}
+
+.page{display:none;padding-top:68px;min-height:100vh}
+.page.active{display:block}
+
+.tabs{position:fixed;top:52px;left:0;right:0;z-index:190;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;height:40px;align-items:center}
+.tab{padding:0 16px;height:40px;display:flex;align-items:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--bronze);border-bottom-color:var(--bronze)}
+
+.wrap{max-width:1100px;margin:0 auto;padding:28px}
+.s-label{font-family:var(--mono);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.s-label::before{content:'';width:20px;height:1px;background:var(--bronze);opacity:0.5}
+.p-title{font-family:var(--display);font-size:clamp(28px,5vw,52px);letter-spacing:4px;margin-bottom:6px;line-height:1}
+.p-sub{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--text2);margin-bottom:28px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:14px}
+.card-title{font-family:var(--display);font-size:18px;letter-spacing:2px;margin-bottom:8px}
+.card-sub{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+.prose{font-size:12px;color:var(--text2);line-height:1.85}
+.prose strong{color:var(--text)}
+
+.chip{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;border:1px solid;display:inline-block;margin-right:4px}
+.chip-fire{color:var(--fire);border-color:rgba(255,107,43,0.3);background:rgba(255,107,43,0.07)}
+.chip-gold{color:var(--gold);border-color:rgba(255,184,48,0.3);background:rgba(255,184,48,0.07)}
+.chip-green{color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.07)}
+.chip-sapphire{color:var(--sapphire);border-color:rgba(70,171,215,0.3);background:rgba(70,171,215,0.07)}
+.chip-bronze{color:var(--bronze);border-color:rgba(196,154,108,0.3);background:rgba(196,154,108,0.07)}
+.chip-done{color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.07)}
+.chip-hold{color:var(--text3);border-color:var(--border2);background:transparent}
+
+/* TASK LIST */
+.task-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:10px;display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:start;cursor:pointer;transition:all 0.2s}
+.task-item:hover{border-color:rgba(196,154,108,0.2)}
+.task-item.done{opacity:0.4}
+.task-item.done .tk-title{text-decoration:line-through;color:var(--text3)}
+.tk-num{font-family:var(--display);font-size:26px;color:var(--border2);line-height:1}
+.tk-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.tk-body{font-size:11px;color:var(--text2);line-height:1.7}
+.tk-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+
+/* SESSION LOG */
+.session-item{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.session-item:last-child{border-bottom:none}
+.si-icon{font-size:18px;flex-shrink:0;margin-top:2px}
+.si-content{flex:1}
+.si-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:3px}
+.si-desc{font-size:11px;color:var(--text2);line-height:1.7;margin-bottom:6px}
+.si-url{font-family:var(--mono);font-size:9px;color:var(--sapphire);word-break:break-all;background:rgba(70,171,215,0.05);padding:4px 8px;border-radius:3px;display:block;margin-bottom:4px}
+.si-time{font-family:var(--mono);font-size:8px;color:var(--text3)}
+
+/* LINKS */
+.link-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:10px;transition:border-color 0.2s}
+.link-card:hover{border-color:rgba(196,154,108,0.25)}
+.lc-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.lc-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px}
+.lc-url{font-family:var(--mono);font-size:10px;color:var(--sapphire);word-break:break-all;background:rgba(70,171,215,0.05);padding:5px 10px;border-radius:3px;display:block;margin-bottom:8px;cursor:pointer}
+.lc-desc{font-size:11px;color:var(--text2);line-height:1.6}
+.copy-btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:3px;border:1px solid rgba(196,154,108,0.25);color:var(--bronze);background:rgba(196,154,108,0.06);cursor:pointer;transition:all 0.2s}
+.copy-btn:hover{background:rgba(196,154,108,0.14)}
+
+/* PROGRESS */
+.progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin:8px 0}
+.progress-fill{height:100%;background:linear-gradient(to right,var(--fire),var(--gold));border-radius:3px}
+
+/* TWO COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+/* BOTTOM NAV */
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:300;background:var(--topbar);backdrop-filter:blur(20px);border-top:1px solid var(--border2);height:58px;align-items:center;justify-content:space-around;padding:0 8px}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;flex:1;font-family:var(--mono);font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--text3);transition:color 0.2s;padding:6px 4px}
+.bn-item.active{color:var(--bronze)}
+.bn-icon{font-size:18px;line-height:1}
+
+@media(max-width:768px){
+  .wrap{padding:16px}
+  .tabs{display:none}
+  .page{padding-top:60px;padding-bottom:70px}
+  .bottom-nav{display:flex}
+  .two-col{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-logo">Phoennix<span>AI</span></div>
+  <div class="tb-title">Session 1 Log and Task Master, 10/11 March 2026</div>
+  <div class="tb-controls">
+    <span id="ti">🌙</span>
+    <div class="theme-toggle" onclick="toggleTheme()"></div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="show('tasks',this)">Tomorrow's Tasks</div>
+  <div class="tab" onclick="show('session',this)">Session 1 Log</div>
+  <div class="tab" onclick="show('links',this)">Bookmarks</div>
+  <div class="tab" onclick="show('decisions',this)">Decisions Logged</div>
+</div>
+
+<!-- TASKS PAGE -->
+<div class="page active" id="page-tasks">
+<div class="wrap">
+  <div class="s-label">Priority Ordered, 12 March 2026</div>
+  <div class="p-title">TOMORROW'S TASKS</div>
+  <div class="p-sub">Every item from tonight's session, logged in execution order</div>
+
+  <div style="background:rgba(255,107,43,0.05);border:1px solid rgba(255,107,43,0.15);border-radius:8px;padding:16px;margin-bottom:20px">
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:8px">First Thing Tomorrow</div>
+    <div class="prose">Before building anything new, we audit all 7 existing GitHub repositories. There is already significant technical work done that Claude has not seen. We cannot afford to duplicate it. This is the single most important task to do first.</div>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">01</div>
+    <div>
+      <div class="tk-title">GitHub Repository Audit, All 7 Repos</div>
+      <div class="tk-body">Review all existing repositories: Phoennix-AI-Agency, NeonGen-AI, My-repositories, Wilcox-Designs, UK-Security-Landscape-Training, phoennixai-mission-control, Phoennix-AI-Agency-Backend. Understand what has been built, what is live, and what can be built upon. Map the full GitHub structure for the organisation going forward.</div>
+      <div class="tk-tags"><span class="chip chip-fire">Do First</span><span class="chip chip-hold">30 mins</span></div>
+    </div>
+    <span class="chip chip-fire">Critical</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">02</div>
+    <div>
+      <div class="tk-title">Connect GitHub to Claude.ai Projects</div>
+      <div class="tk-body">Click the "+" button at the bottom left of Claude.ai chat. Select "Add from GitHub". Authenticate with valerie-github1. Select phoennixai-mission-control repository. Once connected Claude can read all files directly. No more manual sharing. Do this before any build session begins.</div>
+      <div class="tk-tags"><span class="chip chip-fire">Unlocks Real-Time Collaboration</span></div>
+    </div>
+    <span class="chip chip-fire">Critical</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">03</div>
+    <div>
+      <div class="tk-title">Security and Privacy Plan Session</div>
+      <div class="tk-body">The current GitHub repository is Public. Discuss and agree what level of information is safe to store publicly and what needs a private, authenticated solution. Do not upload passwords, API keys, financial data, or personal data until this session is complete. Define the rules for all future uploads.</div>
+      <div class="tk-tags"><span class="chip chip-fire">Do Before Any Sensitive Upload</span></div>
+    </div>
+    <span class="chip chip-fire">Critical</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">04</div>
+    <div>
+      <div class="tk-title">Add Mission Control App to Samsung Home Screen</div>
+      <div class="tk-body">Open Chrome on Samsung S24. Go to: https://valerie-github1.github.io/phoennixai-mission-control/ and tap the three dots top right, tap "Add to Home screen", tap "Add". It will appear on your home screen as an app. Do the same for the Document Hub URL.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Phone Setup</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">05</div>
+    <div>
+      <div class="tk-title">Developer Documentation Hub Build</div>
+      <div class="tk-body">Build a readme.io style developer and knowledge base hub. Houses only: product documentation, PRDs, tech specs, API references, and build guides. Nothing admin. Nothing task-related. All tasks stay in Mission Control. All products and solutions documentation goes here. Upload to GitHub when complete.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Build Session</span><span class="chip chip-hold">Tomorrow</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">06</div>
+    <div>
+      <div class="tk-title">Upload PhoennixAI_ProductDocumentation.html to GitHub</div>
+      <div class="tk-body">This file was not uploaded tonight due to time. Go to the phoennixai-mission-control repository, Add file, Upload files, drag in PhoennixAI_ProductDocumentation.html. Commit message: "Add Product Documentation". This completes tonight's upload set.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Quick, 5 mins</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">07</div>
+    <div>
+      <div class="tk-title">Brand Guidelines One-Pager</div>
+      <div class="tk-body">Single handout document covering all entities, colour systems, brand voice, typography, taglines, and the Created to Create philosophy. For new team members, contractors, and partners. Was Task 2 from today, not completed due to session depth.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Brand Session</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">08</div>
+    <div>
+      <div class="tk-title">Review All Session 1 Documents</div>
+      <div class="tk-body">Valerie to review all documents created in Session 1 over the next few days. Full list is in the Session Log tab of this document. Mark any corrections, additions, or changes and bring back to Claude. No document is final until reviewed by the Founder.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Valerie Action</span><span class="chip chip-hold">Next few days</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">09</div>
+    <div>
+      <div class="tk-title">Move Pending Review Items from Document Hub to Mission Control</div>
+      <div class="tk-body">The pending task list currently sits inside the Document Hub. It must be visible in Mission Control for daily monitoring and visibility. Claude to migrate all pending items into the Mission Control task manager in the next build session.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Integration Task</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">10</div>
+    <div>
+      <div class="tk-title">Social Media Posts, 10-Post Plan Continuation</div>
+      <div class="tk-body">Continue the 10-post social content plan from the Content Bible. Now informed by the full ecosystem context. Instagram and X. Midjourney prompts for visuals included. Was Task 3 from today.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Content Session</span></div>
+    </div>
+    <span class="chip chip-gold">High</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">11</div>
+    <div>
+      <div class="tk-title">Logo and Typography Direction</div>
+      <div class="tk-body">Lock visual identity for PhoennixAI (Fire and Ice confirmed) and WilcoxDesigns. Typography pairings, logo refinement brief for the designer. Was Task 4 from today.</div>
+      <div class="tk-tags"><span class="chip chip-sapphire">Brand Session</span></div>
+    </div>
+    <span class="chip chip-sapphire">Medium</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">12</div>
+    <div>
+      <div class="tk-title">PhoennixAI Website Strategy Brainstorm</div>
+      <div class="tk-body">Current website does not reflect new direction. Full strategic brainstorm with Claude before build begins. Feeds directly into the website build. Was Task 5 from today.</div>
+      <div class="tk-tags"><span class="chip chip-sapphire">Strategy Session</span></div>
+    </div>
+    <span class="chip chip-sapphire">Medium</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">13</div>
+    <div>
+      <div class="tk-title">Document Storage, Logging, and Archiving Rules</div>
+      <div class="tk-body">Define and document how we log, store, and archive all documents and notes across the organisation. Where does each type of document live? What triggers archiving? How long before deletion? This becomes the document governance policy for PhoennixAI.</div>
+      <div class="tk-tags"><span class="chip chip-sapphire">Policy Session</span></div>
+    </div>
+    <span class="chip chip-sapphire">Medium</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">14</div>
+    <div>
+      <div class="tk-title">KPI Framework Definition</div>
+      <div class="tk-body">Define the full KPI set for each entity and product. What are we measuring? How often? Against what targets? Connect to live data sources in Phase 2. For now, agree the framework and set manual quarterly update process.</div>
+      <div class="tk-tags"><span class="chip chip-sapphire">Analytics Session</span></div>
+    </div>
+    <span class="chip chip-sapphire">Medium</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">15</div>
+    <div>
+      <div class="tk-title">Mission Control Monetisation Review</div>
+      <div class="tk-body">Review Mission Control as a commercial SaaS product. Who is the target buyer? What is the pricing model? What features make it sellable? Build internal proof of concept first with analytics, then take to market. Discuss and agree go-to-market strategy.</div>
+      <div class="tk-tags"><span class="chip chip-sapphire">Strategy Session</span></div>
+    </div>
+    <span class="chip chip-sapphire">Medium</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">16</div>
+    <div>
+      <div class="tk-title">Completed Tasks Archiving, Backend Plan</div>
+      <div class="tk-body">Design the full completed task archiving system. Tasks completed move to visible archive with timestamp. Retrievable for 48 hours. Auto-deleted after 48 hours. Requires Phase 2 backend (cron job). Architect the system so it is ready to build when backend is in place.</div>
+      <div class="tk-tags"><span class="chip chip-hold">Phase 2</span></div>
+    </div>
+    <span class="chip chip-hold">Filed</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">17</div>
+    <div>
+      <div class="tk-title">Bookmarks and Links Management System</div>
+      <div class="tk-body">Discuss where all live URLs, document links, and bookmarks are stored permanently. Current candidates: Document Hub bookmarks section, Developer Hub, or a dedicated links page. Agree the single location and build it. All team members and agents to be given access.</div>
+      <div class="tk-tags"><span class="chip chip-hold">Discussion First</span></div>
+    </div>
+    <span class="chip chip-hold">Filed</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">18</div>
+    <div>
+      <div class="tk-title">Build Our Own Project Management OS</div>
+      <div class="tk-body">Valerie wants to build a proprietary project management OS to house the backlog and replace external tools. Discuss scope, requirements, and how it integrates with Mission Control. Decide if this is a standalone product or a section of Mission Control.</div>
+      <div class="tk-tags"><span class="chip chip-hold">Big Build, Phase 2</span></div>
+    </div>
+    <span class="chip chip-hold">Filed</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">19</div>
+    <div>
+      <div class="tk-title">Website Knowledge Base, Brainstorm</div>
+      <div class="tk-body">Knowledge base on the website is Phase 2. Trigger: when the website is live and inbound enquiries start requiring self-serve answers. Brainstorm the structure, content types, and platform. Do not build yet. Plan only.</div>
+      <div class="tk-tags"><span class="chip chip-hold">Phase 2, Plan Only</span></div>
+    </div>
+    <span class="chip chip-hold">Filed</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">20</div>
+    <div>
+      <div class="tk-title">SOPs, User Manuals, Training Manuals</div>
+      <div class="tk-body">Needed but not now. Trigger: first external client or new joiner who needs to use tools without Valerie guiding them. Build into Developer Doc Hub and website knowledge base when triggered. Do not build prematurely.</div>
+      <div class="tk-tags"><span class="chip chip-hold">Triggered Build</span></div>
+    </div>
+    <span class="chip chip-hold">Filed</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">21</div>
+    <div>
+      <div class="tk-title">St Paul's Work Experience Prep</div>
+      <div class="tk-body">3 girls arriving early April 2026. Date TBC, Valerie to confirm. Once confirmed, Claude to draft: onboarding brief, weekly schedule, project assignments, mentor allocation, and feedback framework.</div>
+      <div class="tk-tags"><span class="chip chip-gold">Date TBC</span><span class="chip chip-hold">Early April</span></div>
+    </div>
+    <span class="chip chip-gold">High, Date Dependent</span>
+  </div>
+
+  <div class="task-item" onclick="toggleTask(this)">
+    <div class="tk-num">22</div>
+    <div>
+      <div class="tk-title">Ecosystem 2026 Version Control Implementation</div>
+      <div class="tk-body">Dedicated session to implement full version control system into the Ecosystem document. Version numbering, change log, date-stamped history. Annual review minimum. Claude maintains the log when Valerie informs of changes.</div>
+      <div class="tk-tags"><span class="chip chip-hold">Next Week</span></div>
+    </div>
+    <span class="chip chip-hold">Next Week</span>
+  </div>
+
+</div>
+</div>
+
+<!-- SESSION LOG PAGE -->
+<div class="page" id="page-session">
+<div class="wrap">
+  <div class="s-label">Complete Record, 10 and 11 March 2026</div>
+  <div class="p-title">SESSION 1 LOG</div>
+  <div class="p-sub">Everything built, created, and decided in our first full working session</div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:16px">Apps and Tools Built</div>
+
+  <div class="session-item">
+    <div class="si-icon">🖥️</div>
+    <div class="si-content">
+      <div class="si-title">PhoennixAI Mission Control App v2</div>
+      <div class="si-desc">Full operational hub. 7 tabs: Today, Projects, Agents, Org Chart, Calendar, Notes, Backlog. Dark and light mode. Human and AI org chart. Add staff form. Calendar with events. Motion-style priority stack. Backlog with add function. Bottom navigation bar for mobile. Live on GitHub Pages.</div>
+      <span class="si-url">https://valerie-github1.github.io/phoennixai-mission-control/</span>
+      <div class="si-time">Built 10/11 Mar 2026, v2.1</div>
+    </div>
+    <span class="chip chip-done">Live</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">📚</div>
+    <div class="si-content">
+      <div class="si-title">PhoennixAI Document Management System</div>
+      <div class="si-desc">Sidebar navigation with all 5 entities. Automation Log with 6 completed automations. KPI Dashboard. Version History. Pending Review section. Approval and validation panel. Add New Entity modal. Founder Vault (confidential section, authentication in v2). Dark and light mode. Mobile bottom nav.</div>
+      <span class="si-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html</span>
+      <div class="si-time">Built 11 Mar 2026, v1.0</div>
+    </div>
+    <span class="chip chip-done">Live</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">📋</div>
+    <div class="si-content">
+      <div class="si-title">PhoennixAI Product Documentation Suite</div>
+      <div class="si-desc">5 tabs: PRD, Tech Spec, Market Analysis, Values and Benefits, Tomorrow's Tasks. Covers Mission Control App, Social Media App, and Agent Kit. Competitor landscapes. Build phases. Pricing models. Version history. Dark and light mode.</div>
+      <div class="si-time">Built 11 Mar 2026, v1.0, upload pending</div>
+    </div>
+    <span class="chip chip-gold">Upload Tomorrow</span>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:20px 0 16px">Documents Created</div>
+
+  <div class="session-item">
+    <div class="si-icon">🌐</div>
+    <div class="si-content">
+      <div class="si-title">Wilcox Complete Ecosystem 2026</div>
+      <div class="si-desc">Full brand architecture, all 5 entities, colour systems, honest analysis, priority matrix, taglines. Phantom Studio corrected to Q4 2024 launch. Em dashes removed. Navigation fixed. Single source of truth for the entire organisation.</div>
+      <div class="si-time">v1.2, 11 Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Live on GitHub</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">🤖</div>
+    <div class="si-content">
+      <div class="si-title">Claude CV, PhoennixAI</div>
+      <div class="si-desc">Professional CV with proficiency levels, domain knowledge, working style, current engagement deliverables, notes for HR. AI Strategic Partner, Research Director, Technical Writer.</div>
+      <div class="si-time">v1.0, Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Live on GitHub</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">📄</div>
+    <div class="si-content">
+      <div class="si-title">Claude Job Description, PhoennixAI</div>
+      <div class="si-desc">Formal JD. Ref: PAI-JD-001. 8 responsibility domains, KPI grid, scope of authority, hard boundaries. Electronic signature pads for both Valerie and Claude. Signed and filed.</div>
+      <div class="si-time">v1.0, Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Live on GitHub</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">📖</div>
+    <div class="si-content">
+      <div class="si-title">PhoennixAI Content Bible</div>
+      <div class="si-desc">7 Laws of Copy, Features vs Benefits Decoder, 10 social posts with Midjourney prompts, 5-email welcome sequence, landing page copy, 20-point proofreading checklist. Agency arm only, needs expansion to full ecosystem.</div>
+      <div class="si-time">v1.0, Mar 2026</div>
+    </div>
+    <span class="chip chip-bronze">Needs Expansion</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">🔥</div>
+    <div class="si-content">
+      <div class="si-title">PhoennixAI Logo Concepts HTML</div>
+      <div class="si-desc">6 logo concepts. Top pick confirmed: Fire and Ice Fusion. Orange and gold at core, electric blue at wingtips.</div>
+      <div class="si-time">Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Complete</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">📊</div>
+    <div class="si-content">
+      <div class="si-title">Session 1 Log and Task Master (this document)</div>
+      <div class="si-desc">Complete record of everything built. 22-item prioritised task list. Bookmarks section. Key decisions log. Version controlled.</div>
+      <div class="si-time">v1.0, 11 Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Complete</span>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:20px 0 16px">Infrastructure Completed</div>
+
+  <div class="session-item">
+    <div class="si-icon">🐙</div>
+    <div class="si-content">
+      <div class="si-title">GitHub Repository Live</div>
+      <div class="si-desc">phoennixai-mission-control repository created. GitHub Pages activated. HTTPS enforced. 4 files committed. All documents permanently backed up and version controlled.</div>
+      <div class="si-time">11 Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Live</span>
+  </div>
+
+  <div class="session-item">
+    <div class="si-icon">🔒</div>
+    <div class="si-content">
+      <div class="si-title">Em Dash Removal, All Files</div>
+      <div class="si-desc">All em dash symbols removed from all 4 existing HTML files. Zero remaining. This rule applies to all future documents from Claude permanently.</div>
+      <div class="si-time">11 Mar 2026</div>
+    </div>
+    <span class="chip chip-done">Complete</span>
+  </div>
+</div>
+</div>
+
+<!-- BOOKMARKS PAGE -->
+<div class="page" id="page-links">
+<div class="wrap">
+  <div class="s-label">All Live URLs, Bookmarked</div>
+  <div class="p-title">BOOKMARKS</div>
+  <div class="p-sub">Every live link for PhoennixAI. Share with team. Add to phone home screen.</div>
+
+  <div style="background:rgba(70,171,215,0.05);border:1px solid rgba(70,171,215,0.12);border-radius:6px;padding:14px;margin-bottom:20px">
+    <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--sapphire);margin-bottom:6px">Note, To Discuss Tomorrow</div>
+    <div class="prose">Where these bookmarks permanently live is to be decided. Options: this document, the Developer Hub, or a dedicated links page. All options to be discussed and agreed tomorrow. For now they live here.</div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:12px">Live Apps</div>
+
+  <div class="link-card">
+    <div class="lc-label">Mission Control, Primary App</div>
+    <div class="lc-title">PhoennixAI Mission Control v2</div>
+    <div class="lc-url" onclick="copyLink(this)">https://valerie-github1.github.io/phoennixai-mission-control/</div>
+    <div class="lc-desc">Main operational hub. Task management, org chart, agents, calendar, notes, backlog. Add to Samsung home screen: open in Chrome, three dots top right, Add to Home Screen.</div>
+    <button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/')">Copy Link</button>
+  </div>
+
+  <div class="link-card">
+    <div class="lc-label">Document Hub</div>
+    <div class="lc-title">PhoennixAI Document Management System</div>
+    <div class="lc-url" onclick="copyLink(this)">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html</div>
+    <div class="lc-desc">Master document library for all entities. Share this link with team members and directors. This is their entry point to all organisational documentation.</div>
+    <button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html')">Copy Link</button>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:20px 0 12px">GitHub Repository</div>
+
+  <div class="link-card">
+    <div class="lc-label">GitHub, Version Control and Backup</div>
+    <div class="lc-title">phoennixai-mission-control Repository</div>
+    <div class="lc-url" onclick="copyLink(this)">https://github.com/valerie-github1/phoennixai-mission-control</div>
+    <div class="lc-desc">Where all documents are stored, backed up, and version controlled. Upload updated files here whenever Claude produces a new version.</div>
+    <button class="copy-btn" onclick="copyText('https://github.com/valerie-github1/phoennixai-mission-control')">Copy Link</button>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:20px 0 12px">HR and Staff Documents (on GitHub)</div>
+
+  <div class="link-card">
+    <div class="lc-label">Claude, AI Strategic Partner</div>
+    <div class="lc-title">Claude CV and Job Description</div>
+    <div class="lc-url">https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html</div>
+    <div class="lc-desc">Claude's formal job description with electronic signature panel. Reference PAI-JD-001. Claude CV is a separate file in the same repository.</div>
+    <button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html')">Copy Link</button>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:20px 0 12px">External Tools</div>
+
+  <div class="link-card">
+    <div class="lc-label">Social Media, Agency</div>
+    <div class="lc-title">PhoennixAI Instagram</div>
+    <div class="lc-url">https://www.instagram.com/phoennix_ai_agency</div>
+    <div class="lc-desc">Official agency Instagram account.</div>
+    <button class="copy-btn" onclick="copyText('https://www.instagram.com/phoennix_ai_agency')">Copy Link</button>
+  </div>
+
+  <div class="link-card">
+    <div class="lc-label">Social Media, Agency</div>
+    <div class="lc-title">PhoennixAI X (Twitter)</div>
+    <div class="lc-url">https://x.com/phoennixai</div>
+    <div class="lc-desc">Official agency X account.</div>
+    <button class="copy-btn" onclick="copyText('https://x.com/phoennixai')">Copy Link</button>
+  </div>
+
+  <div class="link-card">
+    <div class="lc-label">Website, Agency</div>
+    <div class="lc-title">PhoennixAI Website</div>
+    <div class="lc-url">https://www.phoennixai.com</div>
+    <div class="lc-desc">Current agency website. Rebrand and content update required. Strategy session to be done before any changes are made.</div>
+    <button class="copy-btn" onclick="copyText('https://www.phoennixai.com')">Copy Link</button>
+  </div>
+</div>
+</div>
+
+<!-- DECISIONS PAGE -->
+<div class="page" id="page-decisions">
+<div class="wrap">
+  <div class="s-label">Permanent Record, Session 1</div>
+  <div class="p-title">KEY DECISIONS</div>
+  <div class="p-sub">Every strategic decision made and confirmed in Session 1. These are locked unless formally reviewed.</div>
+
+  <div class="two-col">
+    <div>
+      <div class="card">
+        <div class="card-sub">Decision 01, Brand</div>
+        <div class="card-title">FIRE AND ICE LOGO</div>
+        <div class="prose">PhoennixAI logo direction confirmed as Fire and Ice Fusion. Orange and gold at the core, electric blue at the wingtips. This is locked. Designer to execute against this brief.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 02, Entity Structure</div>
+        <div class="card-title">PHANTOM STUDIO IS ACADEMY</div>
+        <div class="prose">Phantom Studio is a sub-arm of the Academy. Not a separate entity. Already live since Q4 2024 with 8 students. Not a current priority. Academy and Agency lead first.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 03, Typography</div>
+        <div class="card-title">WILCOXDESIGNS SUBTITLE</div>
+        <div class="prose">WilcoxDesigns subtitle is "Creative Studio" not "Creative Designer". Creative Designer undersells. This must be updated everywhere the old subtitle appears.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 04, Product Strategy</div>
+        <div class="card-title">BUILD INTERNALLY FIRST</div>
+        <div class="prose">Every PhoennixAI product is built and proven internally before it is sold externally. Mission Control and the Social Media App are the first two. Proof of concept with analytics before any commercial launch.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 05, Formatting</div>
+        <div class="card-title">NO EM DASHES EVER</div>
+        <div class="prose">The em dash symbol is permanently banned from all Claude output for PhoennixAI. Use commas where required. All existing files cleaned. This instruction applies to all agents going forward.</div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-sub">Decision 06, Agent Philosophy</div>
+        <div class="card-title">AGENTS ARE HIRES NOT TOOLS</div>
+        <div class="prose">Every PhoennixAI agent is packaged and sold as a complete hire kit: CV, job description, user manual, training manual, and analytics dashboard. This framing is the market differentiator. No competitor does this.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 07, Finance</div>
+        <div class="card-title">LEDGER AGENT HARD BOUNDARY</div>
+        <div class="prose">LEDGER (financial intelligence agent) is advisory only. It NEVER executes financial transactions. Human sign-off is mandatory on all financial outputs. This is non-negotiable and applies permanently.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 08, Documents</div>
+        <div class="card-title">DOCUMENT HUB IS THE INDEX</div>
+        <div class="prose">The Document Hub is the shelf. Individual documents are the books. The hub references and links to documents, it does not embed them. Product docs, PRDs, and specs stay as separate files.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 09, Confidentiality</div>
+        <div class="card-title">ECOSYSTEM DOC IS CONFIDENTIAL</div>
+        <div class="prose">The Wilcox Complete Ecosystem 2026 document is internal only. Never published, never shared without Valerie's explicit authorisation. The Founder Vault is the home for revenue, cashflow, and company secrets.</div>
+      </div>
+      <div class="card">
+        <div class="card-sub">Decision 10, Timing</div>
+        <div class="card-title">BUILD WHAT IS NEEDED NOW</div>
+        <div class="prose">SOPs, user manuals, and training manuals are not to be built until the first external client or new joiner requires them. No premature builds. Every deliverable must have a clear audience and purpose before Claude builds it.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <div class="bn-item active" onclick="show('tasks',this)"><span class="bn-icon">✅</span><span>Tasks</span></div>
+  <div class="bn-item" onclick="show('session',this)"><span class="bn-icon">📋</span><span>Log</span></div>
+  <div class="bn-item" onclick="show('links',this)"><span class="bn-icon">🔗</span><span>Links</span></div>
+  <div class="bn-item" onclick="show('decisions',this)"><span class="bn-icon">🔒</span><span>Decisions</span></div>
+</nav>
+
+<script>
+function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('ti').textContent=d?'☀️':'🌙'}
+
+function show(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab,.bn-item').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  document.querySelectorAll('.tab[onclick*="\''+id+'\'"]').forEach(t=>t.classList.add('active'));
+  document.querySelectorAll('.bn-item[onclick*="\''+id+'\'"]').forEach(t=>t.classList.add('active'));
+  window.scrollTo(0,0);
+}
+
+let doneCount=0;
+function toggleTask(el){
+  el.classList.toggle('done');
+  doneCount=document.querySelectorAll('.task-item.done').length;
+}
+
+function copyText(text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=event.target;
+    const orig=btn.textContent;
+    btn.textContent='Copied';
+    btn.style.color='var(--green)';
+    setTimeout(()=>{btn.textContent=orig;btn.style.color=''},2000);
+  }).catch(()=>alert('Copy: '+text));
+}
+function copyLink(el){copyText(el.textContent.trim())}
+</script>
+</body>
+</html>

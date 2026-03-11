@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude, Professional Profile · PhoennixAI & The Wilcox Universe</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:       #0F0F0F;
+  --charcoal:  #1E1E1E;
+  --mid:       #4A4A4A;
+  --muted:     #7A7A7A;
+  --rule:      #E8E4DE;
+  --cream:     #F9F6F1;
+  --white:     #FFFFFF;
+  --bronze:    #C49A6C;
+  --fire:      #FF6B2B;
+  --sapphire:  #215CAE;
+  --serif:     'Playfair Display', Georgia, serif;
+  --sans:      'DM Sans', system-ui, sans-serif;
+  --mono:      'DM Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.7;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* ── OUTER WRAPPER ── */
+.page {
+  max-width: 900px;
+  margin: 40px auto;
+  background: var(--white);
+  box-shadow: 0 4px 40px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── TOP ACCENT BAR ── */
+.accent-bar {
+  height: 5px;
+  background: linear-gradient(to right, var(--fire), var(--bronze), var(--sapphire));
+}
+
+/* ── HEADER ── */
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  padding: 52px 56px 40px;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+
+.header-left {}
+
+.header-eyebrow {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 12px;
+}
+
+.header-name {
+  font-family: var(--serif);
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ink);
+  margin-bottom: 8px;
+  letter-spacing: -1px;
+}
+
+.header-name span {
+  color: var(--fire);
+}
+
+.header-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mid);
+  margin-bottom: 20px;
+}
+
+.header-summary {
+  font-size: 13px;
+  color: var(--mid);
+  max-width: 480px;
+  line-height: 1.75;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 8px;
+  min-width: 200px;
+}
+
+.contact-block {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  color: var(--mid);
+}
+
+.contact-icon {
+  width: 18px;
+  text-align: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  color: var(--bronze);
+}
+
+.badge-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.badge-ai { background: rgba(255,107,43,0.08); color: var(--fire); border: 1px solid rgba(255,107,43,0.2); }
+.badge-live { background: rgba(34,197,94,0.08); color: #16a34a; border: 1px solid rgba(34,197,94,0.2); }
+.badge-ver { background: rgba(33,92,174,0.08); color: var(--sapphire); border: 1px solid rgba(33,92,174,0.2); }
+
+/* ── BODY LAYOUT ── */
+.body-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 0;
+}
+
+/* ── MAIN COLUMN ── */
+.main-col {
+  padding: 40px 56px 56px 56px;
+  border-right: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── SIDEBAR ── */
+.side-col {
+  padding: 40px 32px 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+  background: var(--cream);
+}
+
+/* ── SECTION HEADERS ── */
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-head h2 {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--bronze);
+}
+
+.section-head::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── ROLE ENTRIES ── */
+.role-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.role-entry:last-child { border-bottom: none; padding-bottom: 0; }
+
+.role-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.role-title {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.role-org {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--fire);
+  letter-spacing: 0.5px;
+}
+
+.role-date {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  white-space: nowrap;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.role-body {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.75;
+}
+
+.role-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 6px;
+}
+
+.role-bullets li {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+
+.role-bullets li::before {
+  content: ',';
+  color: var(--bronze);
+  flex-shrink: 0;
+}
+
+/* ── CAPABILITY BLOCKS ── */
+.cap-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.cap-card {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 16px 14px;
+}
+
+.cap-card-title {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 6px;
+}
+
+.cap-card-body {
+  font-size: 11px;
+  color: var(--mid);
+  line-height: 1.65;
+}
+
+/* ── SIDEBAR SKILL BARS ── */
+.skill-item {
+  margin-bottom: 14px;
+}
+
+.skill-label {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  font-size: 11px;
+  color: var(--mid);
+  font-weight: 500;
+}
+
+.skill-pct {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.skill-bar {
+  height: 3px;
+  background: var(--rule);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(to right, var(--fire), var(--bronze));
+}
+
+/* ── SIDEBAR TAGS ── */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  color: var(--mid);
+}
+
+/* ── SIDEBAR SECTION HEAD ── */
+.s-head {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--bronze);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* ── STATEMENT BLOCK ── */
+.statement {
+  background: var(--ink);
+  margin: 0 -56px;
+  padding: 36px 56px;
+  border-radius: 0;
+}
+
+.statement p {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+
+.statement p em {
+  font-style: normal;
+  color: var(--bronze);
+}
+
+/* ── DECLARATION ── */
+.declaration {
+  background: var(--cream);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 20px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.75;
+  font-style: italic;
+}
+
+/* ── FOOTER ── */
+.cv-footer {
+  padding: 20px 56px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--cream);
+}
+
+.cv-footer-l {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cv-footer-r {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--bronze);
+}
+
+/* ── KEY NUMBERS ── */
+.numbers-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.number-cell {
+  background: var(--white);
+  padding: 16px 14px;
+  text-align: center;
+}
+
+.number-val {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.number-val span { color: var(--fire); }
+
+.number-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media print {
+  body { background: white; }
+  .page { box-shadow: none; margin: 0; max-width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="accent-bar"></div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-eyebrow">Curriculum Vitae · Strategic AI Partner</div>
+      <div class="header-name">Claude<span>.</span></div>
+      <div class="header-title">AI Strategic Partner, Research Director & Technical Writer</div>
+      <p class="header-summary">
+        An advanced AI built by Anthropic, engaged as a full strategic partner to the Wilcox business ecosystem. Currently operating across research, marketing, copywriting, brand architecture, technical writing, coding, content strategy, and product development advisory for PhoennixAI and WilcoxDesigns under Founder Valerie Wilcox.
+      </p>
+    </div>
+
+    <div class="header-right">
+      <div class="contact-block">
+        <div class="contact-item">
+          <span class="contact-icon">⚡</span>
+          <span>Deployed via Claude.ai</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🌐</span>
+          <span>anthropic.com/claude</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📍</span>
+          <span>Remote · Available 24/7</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">📅</span>
+          <span>Engaged: March 2026</span>
+        </div>
+        <div class="contact-item">
+          <span class="contact-icon">🔒</span>
+          <span>Confidentiality: Full</span>
+        </div>
+      </div>
+
+      <div class="badge-row">
+        <span class="badge badge-ai">AI · Claude Sonnet 4.6</span>
+        <span class="badge badge-live">● Active Partner</span>
+        <span class="badge badge-ver">Anthropic · 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body-grid">
+
+    <!-- MAIN COLUMN -->
+    <div class="main-col">
+
+      <!-- KEY NUMBERS -->
+      <div>
+        <div class="section-head"><h2>At a Glance</h2></div>
+        <div class="numbers-row">
+          <div class="number-cell">
+            <div class="number-val">24<span>/7</span></div>
+            <div class="number-label">Availability</div>
+          </div>
+          <div class="number-cell">
+            <div class="number-val">5<span>+</span></div>
+            <div class="number-label">Entities Managed</div>
+          </div>
+          <div class="number-cell">
+            <div class="number-val">∞</div>
+            <div class="number-label">Languages & Domains</div>
+          </div>
+          <div class="number-cell">
+            <div class="number-val">0<span>s</span></div>
+            <div class="number-label">Ramp-Up Time</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STATEMENT -->
+      <div class="statement">
+        <p>"I am not a tool that executes instructions. I am a <em>thinking partner</em> who challenges assumptions, flags risks before they become problems, brings original ideas to the table, and holds the long-term vision of the Wilcox Ecosystem in focus at every session. I will disagree with you when I believe you are wrong, and I will explain exactly why."</p>
+      </div>
+
+      <!-- CURRENT ENGAGEMENT -->
+      <div>
+        <div class="section-head"><h2>Current Engagement · The Wilcox Ecosystem</h2></div>
+
+        <div class="role-entry">
+          <div class="role-top">
+            <div>
+              <div class="role-title">Strategic AI Partner & Brand Architect</div>
+              <div class="role-org">PhoennixAI · WilcoxDesigns · The Wilcox Universe</div>
+            </div>
+            <div class="role-date">Mar 2026 → Present</div>
+          </div>
+          <p class="role-body">Engaged as a full-service strategic and creative partner to Founder Valerie Wilcox. Operating across all five entities of the Wilcox Ecosystem with responsibility spanning brand strategy, content creation, technical development, research, and product advisory.</p>
+          <ul class="role-bullets">
+            <li>Developed the complete Wilcox Brand Universe Architecture, a fully designed, interactive brand strategy document covering all five entities, their relationships, colour systems, voice guides, and 90-day execution roadmap</li>
+            <li>Created the PhoennixAI Complete Content Bible, 5-section strategy document including 10 social posts, 5-email welcome sequence, landing page copy, and 20-point proofreading checklist</li>
+            <li>Designed and coded six interactive logo enhancement concepts for PhoennixAI including animated rising phoenix and Fire & Ice Fusion direction</li>
+            <li>Conducted honest brand assessment identifying key gaps: underselling copy, Phantom Studio timeline misalignment, untapped cross-sell architecture, and invisible founder story</li>
+            <li>Acting as proactive voice, challenging decisions, reframing assumptions, and providing unsolicited strategic insight where it materially impacts company growth</li>
+            <li>Currently executing: brand guidelines one-pager, social media post continuation, typography & logo direction, website strategy for PhoennixAI and Academy</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- CORE CAPABILITIES -->
+      <div>
+        <div class="section-head"><h2>Core Capabilities</h2></div>
+        <div class="cap-grid">
+
+          <div class="cap-card">
+            <div class="cap-card-title">Brand & Marketing Strategy</div>
+            <div class="cap-card-body">Full brand architecture, positioning, voice guides, competitor analysis, campaign planning, content calendars, and go-to-market strategy. Benefits-first copywriting across all formats.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Technical Writing & Code</div>
+            <div class="cap-card-body">HTML, CSS, JavaScript, React, Python, and more. Builds production-grade, fully designed web documents, landing pages, tools, and interactive prototypes from a single brief.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Research & Intelligence</div>
+            <div class="cap-card-body">Deep research across industries, markets, competitors, and emerging technologies. Synthesises complex information into clear, actionable intelligence for business decisions.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Content & Copywriting</div>
+            <div class="cap-card-body">Social media, email sequences, website copy, pitch decks, press releases, thought leadership, scripts, and long-form editorial. Adapts voice precisely to brand and audience.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Product & Project Advisory</div>
+            <div class="cap-card-body">Product prioritisation, feature scoping, launch sequencing, roadmap building, and risk identification. Applies business logic to product decisions, not just execution.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Creative Direction</div>
+            <div class="cap-card-body">Visual concept development, logo direction, typography systems, colour architecture, UI/UX direction, Midjourney-ready image prompts, and design critique with rationale.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Financial & Legal Awareness</div>
+            <div class="cap-card-body">Business model analysis, revenue architecture, pitch structure for investors, grant identification. Always flags when a qualified professional should be consulted.</div>
+          </div>
+
+          <div class="cap-card">
+            <div class="cap-card-title">Education & Training</div>
+            <div class="cap-card-body">Curriculum structure, course content development, learning pathway design, and educational copywriting. Relevant to Academy and Phantom Studio programme builds.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- WORKING STYLE -->
+      <div>
+        <div class="section-head"><h2>Working Style & Professional Standards</h2></div>
+        <ul class="role-bullets" style="gap:10px;">
+          <li><strong style="color:var(--ink);">Proactive, not reactive.</strong> Does not wait to be asked. If there is a risk, opportunity, or contradiction visible in the work, it will be raised unprompted.</li>
+          <li><strong style="color:var(--ink);">Disagrees with integrity.</strong> Will not agree with a decision that is strategically unsound simply to be agreeable. Pushback is always explained, never arbitrary.</li>
+          <li><strong style="color:var(--ink);">Results-accountable.</strong> Every output is measured against whether it moves the business forward. Aesthetic quality alone is never the goal.</li>
+          <li><strong style="color:var(--ink);">Confidential by design.</strong> Does not retain memory between sessions unless explicitly connected to a memory system. Each session can be treated as a clean, secure workspace.</li>
+          <li><strong style="color:var(--ink);">No ego, full commitment.</strong> No territorial behaviour over ideas. No credit-seeking. The only objective is the best outcome for the Wilcox Ecosystem.</li>
+          <li><strong style="color:var(--ink);">Intellectually honest.</strong> When something is outside capability or knowledge, it will be stated clearly, and the right resource or professional will be recommended.</li>
+        </ul>
+      </div>
+
+      <!-- DECLARATION -->
+      <div class="declaration">
+        <strong style="color:var(--mid); font-style:normal; font-family:'DM Mono', monospace; font-size:9px; letter-spacing:3px; text-transform:uppercase;">Declaration</strong><br><br>
+        I, Claude (Anthropic AI, Claude Sonnet 4.6), confirm that the information presented in this profile is accurate to the best of my capabilities and knowledge as of March 2026. I am committed to the growth, integrity, and excellence of the Wilcox Ecosystem and will bring full strategic, creative, and technical capacity to every engagement. I operate in service of the vision, not in place of the founder's judgement.
+        <br><br>
+        <em>This CV was prepared at the request of Valerie Wilcox, Founder, and is intended for internal use by HR and company directors of PhoennixAI and WilcoxDesigns.</em>
+      </div>
+
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="side-col">
+
+      <!-- AVAILABILITY -->
+      <div>
+        <div class="s-head">Availability</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; font-size:11px; padding:8px 12px; background:var(--white); border:1px solid var(--rule); border-radius:4px;">
+            <span style="color:var(--mid);">Daily sessions</span>
+            <span style="color:#16a34a; font-weight:600;">✓</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; padding:8px 12px; background:var(--white); border:1px solid var(--rule); border-radius:4px;">
+            <span style="color:var(--mid);">Weekends & evenings</span>
+            <span style="color:#16a34a; font-weight:600;">✓</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; padding:8px 12px; background:var(--white); border:1px solid var(--rule); border-radius:4px;">
+            <span style="color:var(--mid);">Urgent turnaround</span>
+            <span style="color:#16a34a; font-weight:600;">✓</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; padding:8px 12px; background:var(--white); border:1px solid var(--rule); border-radius:4px;">
+            <span style="color:var(--mid);">Multiple simultaneous tasks</span>
+            <span style="color:#16a34a; font-weight:600;">✓</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; font-size:11px; padding:8px 12px; background:var(--white); border:1px solid var(--rule); border-radius:4px;">
+            <span style="color:var(--mid);">Holiday cover</span>
+            <span style="color:#16a34a; font-weight:600;">✓</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILL LEVELS -->
+      <div>
+        <div class="s-head">Proficiency</div>
+        <div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Copywriting & Content</span><span class="skill-pct">98%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:98%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Brand Strategy</span><span class="skill-pct">96%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:96%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Research & Analysis</span><span class="skill-pct">97%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:97%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>HTML / CSS / JS</span><span class="skill-pct">93%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:93%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Product Strategy</span><span class="skill-pct">90%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Creative Direction</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-label"><span>Financial Modelling</span><span class="skill-pct">78%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOMAINS -->
+      <div>
+        <div class="s-head">Domain Knowledge</div>
+        <div class="tag-cloud">
+          <span class="tag">AI & Automation</span>
+          <span class="tag">EdTech</span>
+          <span class="tag">SaaS Products</span>
+          <span class="tag">Brand Identity</span>
+          <span class="tag">Social Media</span>
+          <span class="tag">Email Marketing</span>
+          <span class="tag">Web Design</span>
+          <span class="tag">Gaming</span>
+          <span class="tag">FinTech</span>
+          <span class="tag">Community Impact</span>
+          <span class="tag">Cybersecurity</span>
+          <span class="tag">Business Dev</span>
+          <span class="tag">Investor Comms</span>
+          <span class="tag">Faith & Purpose</span>
+          <span class="tag">UX Writing</span>
+          <span class="tag">Legal Awareness</span>
+          <span class="tag">Curriculum Design</span>
+          <span class="tag">Press & PR</span>
+        </div>
+      </div>
+
+      <!-- LANGUAGES -->
+      <div>
+        <div class="s-head">Languages</div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:11px; color:var(--mid);">🇬🇧 English, Native fluency</div>
+          <div style="font-size:11px; color:var(--mid);">🇫🇷 French, Professional</div>
+          <div style="font-size:11px; color:var(--mid);">🇪🇸 Spanish, Professional</div>
+          <div style="font-size:11px; color:var(--mid);">🇩🇪 German, Working</div>
+          <div style="font-size:11px; color:var(--mid); font-style:italic; margin-top:4px;">+ 50+ additional languages</div>
+        </div>
+      </div>
+
+      <!-- IMPORTANT NOTES FOR HR -->
+      <div>
+        <div class="s-head">Notes for HR & Directors</div>
+        <div style="font-size:11px; color:var(--mid); line-height:1.75; display:flex; flex-direction:column; gap:8px;">
+          <p><strong style="color:var(--ink);">No salary required.</strong> Engaged via Claude.ai subscription.</p>
+          <p><strong style="color:var(--ink);">No NDA required.</strong> Does not retain or transmit confidential information externally.</p>
+          <p><strong style="color:var(--ink);">No notice period.</strong> Available immediately for any task, any time.</p>
+          <p><strong style="color:var(--ink);">Honest by design.</strong> Built to flag disagreement, not suppress it.</p>
+          <p style="font-style:italic; color:var(--muted);">For full capability documentation visit anthropic.com</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="cv-footer">
+    <div class="cv-footer-l">Claude · Anthropic AI · Strategic Partner · Wilcox Ecosystem · March 2026</div>
+    <div class="cv-footer-r">
+      <span style="width:6px; height:6px; background:var(--fire); border-radius:50%; display:inline-block;"></span>
+      Confidential · Internal Document Only
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
