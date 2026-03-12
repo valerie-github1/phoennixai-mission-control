@@ -590,7 +590,7 @@ function noteHTML(n){return'<div class="note-card'+(n.pinned?' pinned':'')+'">'+
 function renderNotes(){const notes=ld(K.notes);const pg=document.getElementById('pinned-grid');const ag=document.getElementById('all-grid');const pinned=notes.filter(n=>n.pinned);const rest=notes.filter(n=>!n.pinned);if(pg)pg.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:8px">No pinned notes yet. Save a note and tap the pin icon.</div>';if(ag)ag.innerHTML=rest.length?rest.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:8px">No notes yet.</div>'}
 function renderHome(){const evs=ld(K.ev);const notes=ld(K.notes);const today=new Date().toISOString().split('T')[0];const te=evs.filter(e=>e.date===today).sort((a,b)=>a.time.localeCompare(b.time));const pinned=notes.filter(n=>n.pinned);const se=document.getElementById('stat-events');if(se)se.textContent=te.length;const sp=document.getElementById('stat-pinned');if(sp)sp.textContent=pinned.length;const sd=document.getElementById('stat-done');if(sd)sd.textContent=ld(K.tasks).filter(t=>t.done).length;
   // Dynamic stats from stored config
-  const cfg=ld('pai_stats_config')||{files:13,github:7,posts:10};
+  const cfg=JSON.parse(localStorage.getItem('pai_stats_config')||'null')||{files:17,github:15,posts:10};
   const sf=document.getElementById('stat-files');if(sf)sf.textContent=cfg.files;
   const sg=document.getElementById('stat-github');if(sg)sg.textContent=cfg.github;
   const spo=document.getElementById('stat-posts');if(spo)spo.textContent=cfg.posts;const hel=document.getElementById('home-events-list');if(hel)hel.innerHTML=te.length?te.map(e=>'<div class="ev-item type-'+e.type+'"><div class="ei-content"><div class="ei-title">'+e.title+'</div><div class="ei-meta">'+(e.time||'All day')+' | '+e.type+'</div></div></div>').join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px">No events today. Go to Planner to add one.</div>';const hnl=document.getElementById('home-notes-list');if(hnl)hnl.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;grid-column:1/-1">No pinned notes. Go to Notes and pin something important.</div>'}
@@ -752,16 +752,6 @@ Use plain text only. No markdown. No symbols. Professional and clean.`;
 function renderTasks(){const done=ld(K.tasks).filter(t=>t.done).map(t=>t.id);const dc=document.getElementById('task-progress');if(dc)dc.textContent=done.length+' of '+TASKS.length+' completed';const c=document.getElementById('task-container');if(!c)return;c.innerHTML=TASKS.map(t=>'<div class="task-item'+(done.includes(t.n)?' done':'')+'" onclick="toggleTask(\''+t.n+'\')"><div class="tk-num">'+t.n+'</div><div><div class="tk-title">'+t.t+'</div><div class="tk-body">'+t.b+'</div><div class="tk-tags"><span class="chip chip-'+t.p+'">'+t.tag+'</span></div></div><span style="font-size:18px">'+(done.includes(t.n)?'✅':'⬜')+'</span></div>').join('');}
 function toggleTask(id){const tasks=ld(K.tasks);const ex=tasks.find(t=>t.id===id);if(ex)ex.done=!ex.done;else tasks.push({id,done:true});sv(K.tasks,tasks);renderTasks();renderARIA();renderHome()}
 document.addEventListener('DOMContentLoaded',()=>{
-  // Force bottom nav on mobile - bypasses browser media query inconsistencies
-  function checkMobile(){
-    const isMobile=window.innerWidth<=900||('ontouchstart' in window)||navigator.maxTouchPoints>0;
-    const nav=document.querySelector('.bottom-nav');
-    const tabs=document.querySelector('.tabs');
-    if(nav){nav.style.display=isMobile?'flex':'none';}
-    if(tabs){tabs.style.display=isMobile?'none':'flex';}
-  }
-  checkMobile();
-  window.addEventListener('resize',checkMobile);
   renderHome();renderARIA();renderCal();renderTasks();renderPendingBanner();
   // Init reminder button state
   if(Notification.permission==='granted')updateReminderBtns(true);
