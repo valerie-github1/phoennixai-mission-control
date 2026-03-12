@@ -13,7 +13,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7;overflow-x:hidden}
 ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bronze)}
-.topbar{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 16px;gap:10px}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:54px;display:flex;align-items:center;padding:0 16px 0 74px;gap:10px}
 .tb-logo{font-family:var(--display);font-size:19px;letter-spacing:3px;color:var(--fire);flex-shrink:0}
 .tb-logo span{color:var(--bronze)}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
@@ -177,8 +177,7 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
 #toast{position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;border-radius:6px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap}
 /* ── SIDE RAIL ── */
 .tabs{display:none}
-.side-rail{position:fixed;top:54px;left:0;bottom:0;width:58px;z-index:290;background:rgba(14,14,18,0.72);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-right:1px solid rgba(255,255,255,0.06);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:1px}
-[data-theme="light"] .side-rail{background:rgba(255,255,255,0.72);border-right:1px solid rgba(0,0,0,0.06)}
+.side-rail{position:fixed;top:54px;left:0;bottom:0;width:58px;z-index:290;background:var(--topbar);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:1px}
 .sr-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;width:46px;height:46px;border-radius:10px;font-family:var(--mono);font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.22);transition:all 0.2s;border:1px solid transparent;position:relative}
 [data-theme="light"] .sr-item{color:rgba(0,0,0,0.3)}
 .sr-item:hover{color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.05)}
@@ -187,7 +186,7 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
 .sr-item.sr-aria.active{color:var(--aria);background:rgba(0,229,255,0.07);border-color:rgba(0,229,255,0.18)}
 .sr-icon{width:18px;height:18px;flex-shrink:0}
 .sr-icon svg{width:100%;height:100%;stroke-width:1.5}
-.page{padding:74px 0 30px;margin-left:58px}
+.page{padding:74px 0 30px;margin-left:58px;min-height:100vh}
 .wrap{max-width:1000px;margin:0 auto;padding:0 18px}
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -211,7 +210,7 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
   .stat-card{padding:10px 8px}
   .stat-val{font-size:22px}
   .btn{padding:10px 14px}
-  .topbar{padding:0 10px;gap:6px}
+  .topbar{padding:0 10px 0 62px;gap:6px}
   .tb-logo{font-size:15px;letter-spacing:2px}
   .modal{width:96%;padding:18px}
   .s-title{font-size:clamp(22px,7vw,32px)}
@@ -643,7 +642,23 @@ function renderARIA(){
   if(!items.length)items.push({i:'🎯',t:'All clear, Valerie',b:'No outstanding actions. ARIA is monitoring in the background.',x:'All done'});
   ac.innerHTML=items.map(i=>'<div class="ap-item"><div class="ap-icon">'+i.i+'</div><div style="flex:1"><div class="ap-title">'+i.t+'</div><div class="ap-body">'+i.b+'</div></div><div class="ap-time">'+i.x+'</div></div>').join('');
 }
-const TASKS=[{n:'01',t:'Recover and archive Ecosystem file to private repo',b:'Ecosystem doc deleted from public repo. Now recover it from commit history (28a3fdf) and upload to phoennixai-agency-backend private repo to complete the archive.',tag:'Security, Today',p:'fire'},{n:'02',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables. Copy and post to phoennix_ai_agency and x.com/phoennixai. Social Media App build starts next week.',tag:'Today, Revenue',p:'fire'},{n:'03',t:'Phase 2 developer decision',b:'React, Next.js, Tailwind, Supabase stack confirmed. Thursday 12 March agenda item 1.',tag:'Friday 13 Mar',p:'fire'},{n:'04',t:'Finance section scope',b:'Define what Finance and Revenue section should contain. LEDGER agent integration in scope.',tag:'Friday 13 Mar',p:'fire'},{n:'05',t:'Logo final design and approval',b:'Fire and Ice direction confirmed. Final file approved by end of Friday 13 March.',tag:'Friday 13 Mar',p:'fire'},{n:'06',t:'Favicon approval for all 3 apps',b:'Phoenix Mark design. Approve or revise in Friday session.',tag:'Friday 13 Mar',p:'bronze'},{n:'07',t:'Agent walkthrough, PA, SCOUT, PULSE',b:'Build CVs and JDs for the first 3 commercial agents using the governance framework established in Session 5.',tag:'Next Session',p:'sapphire'},{n:'08',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select repo. Unlocks full repo context in every session.',tag:'Unlocks Collaboration',p:'sapphire'},{n:'09',t:'Brand Guidelines One-Pager',b:'Single reference document covering typography, colours, tone of voice, and usage rules for all entities.',tag:'Queued',p:'bronze'},{n:'10',t:'St Pauls work experience prep',b:'3 girls, early April 2026. Draft onboarding brief, weekly schedule, project assignments, and feedback framework.',tag:'Early April',p:'bronze'}];
+const TASKS=[
+{n:'01',t:'Fix Workspace and nav on Samsung S24',b:'Workspace not loading on mobile. Side rail navigation built and deployed. Stats fixed. Glass rail with SVG icons live.',tag:'Done Today',p:'fire'},
+{n:'02',t:'Favicon approved and live on all apps',b:'Phoenix flame favicon live across Mission Control, Workspace, and Document Hub. Confirmed rendering in Chrome on S24.',tag:'Done Today',p:'fire'},
+{n:'03',t:'Recover and archive Ecosystem file to private repo',b:'Ecosystem doc deleted from public repo. Recover from commit 28a3fdf in phoennixai-mission-control history and upload to phoennixai-agency-backend private repo.',tag:'Security, Today',p:'fire'},
+{n:'04',t:'Sign Claude JD and ARIA JD',b:'Reset accidental signature on Claude JD first, then sign. Then sign ARIA JD. Both documents live in Document Hub.',tag:'Today',p:'fire'},
+{n:'05',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables tab. Copy and post to phoennix_ai_agency on Instagram and x.com/phoennixai.',tag:'Today, Revenue',p:'fire'},
+{n:'06',t:'Logo final design and approval',b:'Fire and Ice direction confirmed. Orange and gold core, electric blue wingtips. Final file approved by end of Friday 13 March.',tag:'Friday 13 Mar',p:'fire'},
+{n:'07',t:'Finance and Revenue section scope',b:'Define what the Finance and Revenue section should contain. LEDGER agent integration in scope. Valerie to define requirements Friday.',tag:'Friday 13 Mar',p:'fire'},
+{n:'08',t:'Phase 2 developer decision',b:'React, Next.js, Tailwind, Supabase stack ready. Decision to be confirmed Friday 13 March.',tag:'Friday 13 Mar',p:'fire'},
+{n:'09',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select phoennixai-mission-control repo. Unlocks full repo context in every session.',tag:'Unlocks Collaboration',p:'sapphire'},
+{n:'10',t:'Agent walkthrough, PA, SCOUT, PULSE',b:'Build CVs and JDs for the first 3 commercial agents. Each ships with Agent + CV + JD + User Manual + Training Manual + Performance Dashboard.',tag:'Next Session',p:'sapphire'},
+{n:'11',t:'Add Workspace to Samsung S24 home screen',b:'In Chrome on S24, tap the three dots, tap Add to Home Screen. Names it PhoennixAI Workspace. Runs like a native app.',tag:'Quick Win',p:'bronze'},
+{n:'12',t:'Brand Guidelines One-Pager',b:'Single reference document covering typography, colours, tone of voice, and usage rules for all 5 entities.',tag:'Queued',p:'bronze'},
+{n:'13',t:'St Pauls work experience prep',b:'3 girls, early April 2026. Draft onboarding brief, weekly schedule, project assignments, and feedback framework.',tag:'Early April',p:'bronze'},
+{n:'14',t:'WilcoxDesigns social media strategy session',b:'Dedicated session for WilcoxDesigns content calendar, platform selection, and brand voice for the creative studio.',tag:'Queued',p:'bronze'},
+{n:'15',t:'Security and Privacy Plan',b:'Document data handling, agent boundaries, vault access rules, and GDPR compliance across all 5 entities.',tag:'Queued',p:'bronze'}
+];
 
 function loadPendingReview(){
   try{
@@ -770,6 +785,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Set current stats config
   const currentCfg=ld('pai_stats_config');
   if(!currentCfg){sv('pai_stats_config',{files:17,github:15,posts:10});}
+  // Pre-mark completed tasks if not already set
+  const existingTasks=ld(K.tasks);
+  const doneIds=existingTasks.map(t=>t.id);
+  const completedToday=['01','02'];
+  completedToday.forEach(id=>{if(!doneIds.includes(id))existingTasks.push({id,done:true});});
+  sv(K.tasks,existingTasks);
   renderHome();
   const n=new Date();document.getElementById('ev-date').value=n.toISOString().split('T')[0];document.getElementById('ev-time').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
   if(Notification.permission==='granted')schedRem();
