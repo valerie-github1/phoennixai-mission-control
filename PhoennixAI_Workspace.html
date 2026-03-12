@@ -606,21 +606,21 @@ function renderARIA(){
     else m+='No pinned notes. Go to Notes and pin your current top priority so it surfaces on Home.\n\n';
     m+='Tasks: '+tasksDone+' of '+TASKS.length+' completed today.\n\n';
     const githubDone=ld(K.tasks).find(t=>t.id==='01'&&t.done);
-    if(!githubDone)m+='Action required: 11 files need uploading to GitHub. Go to the GitHub tab for the full list.';
-    else m+='GitHub upload complete. All files are backed up and live.';
+    if(!githubDone)m+='Action required: Recover Ecosystem file from commit history and upload to private repo to complete the archive.';
+    else m+='GitHub fully secured. Public repo clean, private repo backed up. All files live.';
     b.textContent=m;
   }
   const ac=document.getElementById('aria-actions');if(!ac)return;
   const items=[];
   if(teOpen.length)items.push({i:'📅',t:teOpen.length+' open event'+(teOpen.length>1?'s':'')+' today',b:teOpen.map(e=>(e.time||'all day')+' - '+e.title).join(' | '),x:'Open'});
   if(!pinned.length)items.push({i:'📌',t:'No pinned notes',b:'Go to Notes and pin your most important current priority.',x:'Now'});
-  items.push({i:'🚨',t:'Delete Ecosystem doc from GitHub',b:'Wilcox_Complete_Ecosystem_2026.html is still live on the public repo. Confidential. Go to GitHub and delete it now.',x:'Security'});
-  items.push({i:'📋',t:'Thursday 12 March agenda',b:'Phase 2 developer decision, Finance scope, Logo approval, Favicon. Four items. Prepare tonight.',x:'Friday'});
+  items.push({i:'🗂️',t:'Recover Ecosystem file to private repo',b:'Recover from commit 28a3fdf in Mission Control history. Upload to phoennixai-agency-backend. Final step to secure the archive.',x:'Security'});
+  items.push({i:'📋',t:'Friday 13 March agenda',b:'Phase 2 developer decision, Finance scope, Logo approval, Favicon. Four items. Prepare tonight.',x:'Tomorrow'});
   if(tasksDone===0)items.push({i:'✅',t:'No tasks completed yet',b:'Open the Tasks tab and start working through today\'s priority list.',x:'Today'});
   if(!items.length)items.push({i:'🎯',t:'All clear, Valerie',b:'No outstanding actions. ARIA is monitoring in the background.',x:'All done'});
   ac.innerHTML=items.map(i=>'<div class="ap-item"><div class="ap-icon">'+i.i+'</div><div style="flex:1"><div class="ap-title">'+i.t+'</div><div class="ap-body">'+i.b+'</div></div><div class="ap-time">'+i.x+'</div></div>').join('');
 }
-const TASKS=[{n:'01',t:'Delete Ecosystem doc from GitHub',b:'Wilcox_Complete_Ecosystem_2026.html is still live on the public repo. Confidential document. Delete it now.',tag:'Security, Urgent',p:'fire'},{n:'02',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables. Copy and post to phoennix_ai_agency and x.com/phoennixai. Social Media App build starts next week.',tag:'Today, Revenue',p:'fire'},{n:'03',t:'Phase 2 developer decision',b:'React, Next.js, Tailwind, Supabase stack confirmed. Thursday 12 March agenda item 1.',tag:'Thursday 12 Mar',p:'fire'},{n:'04',t:'Finance section scope',b:'Define what Finance and Revenue section should contain. LEDGER agent integration in scope.',tag:'Thursday 12 Mar',p:'fire'},{n:'05',t:'Logo final design and approval',b:'Fire and Ice direction confirmed. Final file approved by end of Thursday 12 March.',tag:'Thursday 12 Mar',p:'fire'},{n:'06',t:'Favicon approval for all 3 apps',b:'Phoenix Mark design. Approve or revise in Friday session.',tag:'Thursday 12 Mar',p:'bronze'},{n:'07',t:'Agent walkthrough, PA, SCOUT, PULSE',b:'Build CVs and JDs for the first 3 commercial agents using the governance framework established in Session 5.',tag:'Next Session',p:'sapphire'},{n:'08',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select repo.',tag:'Unlocks Collaboration',p:'sapphire'},{n:'09',t:'Brand Guidelines One-Pager',b:'Single reference document covering typography, colours, tone of voice, and usage rules for all entities.',tag:'Queued',p:'bronze'},{n:'10',t:'St Pauls work experience prep',b:'3 girls, early April 2026. Draft onboarding brief, weekly schedule, project assignments, and feedback framework.',tag:'Early April',p:'bronze'}];
+const TASKS=[{n:'01',t:'Recover and archive Ecosystem file to private repo',b:'Ecosystem doc deleted from public repo. Now recover it from commit history (28a3fdf) and upload to phoennixai-agency-backend private repo to complete the archive.',tag:'Security, Today',p:'fire'},{n:'02',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables. Copy and post to phoennix_ai_agency and x.com/phoennixai. Social Media App build starts next week.',tag:'Today, Revenue',p:'fire'},{n:'03',t:'Phase 2 developer decision',b:'React, Next.js, Tailwind, Supabase stack confirmed. Thursday 12 March agenda item 1.',tag:'Friday 13 Mar',p:'fire'},{n:'04',t:'Finance section scope',b:'Define what Finance and Revenue section should contain. LEDGER agent integration in scope.',tag:'Friday 13 Mar',p:'fire'},{n:'05',t:'Logo final design and approval',b:'Fire and Ice direction confirmed. Final file approved by end of Friday 13 March.',tag:'Friday 13 Mar',p:'fire'},{n:'06',t:'Favicon approval for all 3 apps',b:'Phoenix Mark design. Approve or revise in Friday session.',tag:'Friday 13 Mar',p:'bronze'},{n:'07',t:'Agent walkthrough, PA, SCOUT, PULSE',b:'Build CVs and JDs for the first 3 commercial agents using the governance framework established in Session 5.',tag:'Next Session',p:'sapphire'},{n:'08',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select repo. Unlocks full repo context in every session.',tag:'Unlocks Collaboration',p:'sapphire'},{n:'09',t:'Brand Guidelines One-Pager',b:'Single reference document covering typography, colours, tone of voice, and usage rules for all entities.',tag:'Queued',p:'bronze'},{n:'10',t:'St Pauls work experience prep',b:'3 girls, early April 2026. Draft onboarding brief, weekly schedule, project assignments, and feedback framework.',tag:'Early April',p:'bronze'}];
 
 function loadPendingReview(){
   try{
@@ -746,7 +746,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(Notification.permission==='granted')updateReminderBtns(true);
   // Set current stats config
   const currentCfg=ld('pai_stats_config');
-  if(!currentCfg)sv('pai_stats_config',{files:16,github:11,posts:10});
+  if(!currentCfg)sv('pai_stats_config',{files:17,github:15,posts:10});
   renderHome();
   const n=new Date();document.getElementById('ev-date').value=n.toISOString().split('T')[0];document.getElementById('ev-time').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
   if(Notification.permission==='granted')schedRem();
