@@ -180,28 +180,44 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
 .bn-item.active{color:var(--bronze)}
 .bn-item.bn-aria.active{color:var(--aria)}
 .bn-icon{font-size:19px;line-height:1}
-@media(max-width:768px){
-  .wrap{padding:0 12px}.page{padding:99px 0 75px}.bottom-nav{display:flex}.tabs{display:none}
-  .form-row{grid-template-columns:1fr}.cal-cell{min-height:48px;padding:3px}.notes-grid{grid-template-columns:1fr}.bm-grid{grid-template-columns:1fr}.modal-actions{flex-direction:column}
-  .del-table{font-size:10px}
+/* ── TABLET ── */
+@media(max-width:900px){
+  .wrap{padding:0 14px}.page{padding:99px 0 75px}.bottom-nav{display:flex}.tabs{display:none}
+  .form-row{grid-template-columns:1fr}.cal-cell{min-height:52px;padding:4px}.notes-grid{grid-template-columns:1fr 1fr}.bm-grid{grid-template-columns:1fr 1fr}
   .stat-grid{grid-template-columns:repeat(3,1fr)}
+  .task-item{grid-template-columns:26px 1fr auto}
+  .s-title{font-size:clamp(26px,6vw,40px)}
+}
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .wrap{padding:0 12px}.page{padding:99px 0 75px}
+  .notes-grid{grid-template-columns:1fr}.bm-grid{grid-template-columns:1fr}
+  .modal-actions{flex-direction:column}
+  .del-table{font-size:10px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
   .btn{padding:10px 14px}
   .bn-item{min-width:0;padding:6px 2px}
   .topbar{padding:0 12px;gap:7px}
   .tb-logo{font-size:16px;letter-spacing:2px}
-  .task-item{grid-template-columns:26px 1fr auto}
   .modal{width:96%;padding:18px}
-  .s-title{font-size:clamp(24px,7vw,36px)}
+  .s-title{font-size:clamp(22px,7vw,32px)}
+  .cal-cell{min-height:44px;padding:3px}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:420px}
 }
+/* ── SMALL PHONE ── */
 @media(max-width:390px){
   .stat-grid{grid-template-columns:repeat(2,1fr)}
   .bn-item span:last-child{font-size:6px}
+  .wrap{padding:0 8px}
+  .btn{padding:8px 10px;font-size:9px}
 }
 @supports(padding-bottom:env(safe-area-inset-bottom)){
   .bottom-nav{padding-bottom:env(safe-area-inset-bottom);height:calc(57px + env(safe-area-inset-bottom))}
-  @media(max-width:768px){.page{padding-bottom:calc(75px + env(safe-area-inset-bottom))}}
+  @media(max-width:900px){.page{padding-bottom:calc(75px + env(safe-area-inset-bottom))}}
 }
 </style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
 </head>
 <body>
 <div id="toast"></div>
@@ -239,10 +255,10 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
   <div class="stat-grid">
     <div class="stat-card"><div class="stat-val" id="stat-events">0</div><div class="stat-label">Events Today</div></div>
     <div class="stat-card"><div class="stat-val" id="stat-pinned">0</div><div class="stat-label">Pinned Notes</div></div>
-    <div class="stat-card"><div class="stat-val">13</div><div class="stat-label">Files Created</div></div>
-    <div class="stat-card"><div class="stat-val">5</div><div class="stat-label">On GitHub</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-files">0</div><div class="stat-label">Files Created</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-github">0</div><div class="stat-label">On GitHub</div></div>
     <div class="stat-card"><div class="stat-val" id="stat-done">0</div><div class="stat-label">Tasks Done</div></div>
-    <div class="stat-card"><div class="stat-val">10</div><div class="stat-label">Posts Ready</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-posts">0</div><div class="stat-label">Posts Ready</div></div>
   </div>
   <div class="alert alert-fire"><div class="alert-title" style="color:var(--fire)">ARIA is Active</div>Your second brain is running. Check the ARIA tab for your full briefing and proactive actions. Calendar syncs with Mission Control via shared browser storage.</div>
   <div id="pending-review-banner" style="background:var(--card);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:14px;margin-bottom:14px;display:none"></div>
@@ -306,7 +322,7 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
     <div class="btn btn-ghost" onclick="reqNotif()">Enable Reminders</div>
   </div>
   <!-- AI OUTPUT -->
-  <div id="ws-ai-out" style="display:none;background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.2);border-radius:8px;padding:16px;margin-bottom:14px;font-size:12px;color:var(--text);line-height:1.8;white-space:pre-wrap"></div>
+  <div id="ws-ai-out" style="display:none;background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.2);border-radius:8px;padding:16px;margin-bottom:14px;font-size:12px;color:var(--text);line-height:1.8"></div>
   <div class="card" style="margin-bottom:14px">
     <div class="cal-nav">
       <div class="cal-btn" onclick="chMonth(-1)">&#8592;</div>
@@ -346,25 +362,26 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
 <!-- DELIVERABLES -->
 <div class="page" id="page-deliverables">
 <div class="wrap">
-  <div class="s-eyebrow">Session 1</div>
+  <div class="s-eyebrow">Session 7, 12 March 2026</div>
   <div class="s-title">DELIVERABLES</div>
-  <div class="s-sub">Every file created. Green = live on GitHub. Amber = upload today.</div>
+  <div class="s-sub">Every file created. Review and confirm GitHub status at the start of every session. This is a standing instruction for Valerie and ARIA.</div>
+  <div style="background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.15);border-radius:6px;padding:12px 16px;margin-bottom:14px;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--fire)">STANDING INSTRUCTION: Review this list at the start of every session. Any file not yet on GitHub must be uploaded before the session ends. Priority zero: delete Wilcox_Complete_Ecosystem_2026.html from the public repo.</div>
   <table class="del-table">
     <thead><tr><th>#</th><th>File</th><th>What It Does</th><th>GitHub</th><th>Open</th></tr></thead>
     <tbody>
-      <tr><td>01</td><td><div class="del-name">Mission Control v2</div><div class="del-desc">index.html</div></td><td>Full business OS. Tasks, org chart, agents, calendar, notes, backlog.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/" target="_blank">Open</a></td></tr>
-      <tr><td>02</td><td><div class="del-name">Document Hub</div><div class="del-desc">PhoennixAI_DocumentHub.html</div></td><td>Master library for all org documents. All entities, version control, automation log.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html" target="_blank">Open</a></td></tr>
-      <tr><td>03</td><td><div class="del-name">Ecosystem 2026</div><div class="del-desc">Wilcox_Complete_Ecosystem_2026.html</div></td><td>Full brand architecture. Confidential internal document.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/Wilcox_Complete_Ecosystem_2026.html" target="_blank">Open</a></td></tr>
-      <tr><td>04</td><td><div class="del-name">Claude JD</div><div class="del-desc">Claude_JobDescription_PhoennixAI.html</div></td><td>Formal JD. PAI-JD-001. Needs Valerie signature today.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank">Open</a></td></tr>
-      <tr><td>05</td><td><div class="del-name">Claude CV</div><div class="del-desc">Claude_CV_PhoennixAI.html</div></td><td>AI Strategic Partner CV. Proficiency levels, domains.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
-      <tr><td>06</td><td><div class="del-name">Product Documentation</div><div class="del-desc">PhoennixAI_ProductDocumentation.html</div></td><td>PRD, Tech Spec, Market Analysis for all 7 products.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
-      <tr><td>07</td><td><div class="del-name">Session 1 Log and Tasks</div><div class="del-desc">PhoennixAI_Session1_Log_and_Tasks.html</div></td><td>22 tasks, session log, decisions, bookmarks.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
-      <tr><td>08</td><td><div class="del-name">Social Posts Week 1</div><div class="del-desc">PhoennixAI_SocialPosts_Week1.html</div></td><td>10 posts with copy buttons. Posts 1 and 2 today.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
-      <tr><td>09</td><td><div class="del-name">This Workspace</div><div class="del-desc">PhoennixAI_Workspace.html</div></td><td>Unified workspace with ARIA, planner, notes, bookmarks.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
-      <tr><td>10</td><td><div class="del-name">Content Bible</div><div class="del-desc">PhoennixAI_Complete_Content_Bible.docx</div></td><td>7 Laws of Copy, email sequences, landing page copy.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Word doc</span></td></tr>
-      <tr><td>11</td><td><div class="del-name">Logo Concepts</div><div class="del-desc">phoennixai_logo_concepts.html</div></td><td>6 logo concepts. Fire and Ice confirmed.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
-      <tr><td>12</td><td><div class="del-name">ARIA Job Description</div><div class="del-desc">ARIA_JobDescription_PhoennixAI.html</div></td><td>Agent 000 JD. PAI-JD-002. Awaiting signature.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">New today</span></td></tr>
-      <tr><td>13</td><td><div class="del-name">ARIA CV</div><div class="del-desc">ARIA_CV_PhoennixAI.html</div></td><td>Agent 000 CV. PAI-CV-002. Full capability record.</td><td><span class="chip chip-pending">Upload Today</span></td><td><span style="color:var(--text3);font-size:10px">New today</span></td></tr>
+      <tr><td>01</td><td><div class="del-name">Mission Control v2</div><div class="del-desc">PhoennixAI_MissionControl_v2.html (index.html)</div></td><td>Full business OS. Org chart with Dilpreet Kaur. SVG icons. All agents board.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/" target="_blank">Open</a></td></tr>
+      <tr><td>02</td><td><div class="del-name">Document Hub v1.7</div><div class="del-desc">PhoennixAI_DocumentHub.html</div></td><td>Full document management system. Insights, User Manual, all sections populated.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html" target="_blank">Open</a></td></tr>
+      <tr><td>03</td><td><div class="del-name">Workspace v3</div><div class="del-desc">PhoennixAI_Workspace.html</div></td><td>Updated ARIA schedule rendering. Deliverables and Bookmarks updated Session 7.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">This file</span></td></tr>
+      <tr><td>04</td><td><div class="del-name">WilcoxDesigns Brand Guidelines</div><div class="del-desc">WilcoxDesigns_BrandGuidelines.html</div></td><td>Full brand system. Section 08 UI Components added. WD-BG-001.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Session 6</span></td></tr>
+      <tr><td>05</td><td><div class="del-name">Claude JD</div><div class="del-desc">Claude_JobDescription_PhoennixAI.html</div></td><td>PAI-JD-001. Signed by Valerie and Claude. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>06</td><td><div class="del-name">Claude CV</div><div class="del-desc">Claude_CV_PhoennixAI.html</div></td><td>PAI-CV-001. Strategic Partner profile. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>07</td><td><div class="del-name">ARIA Job Description</div><div class="del-desc">ARIA_JobDescription_PhoennixAI.html</div></td><td>PAI-JD-002. Stage 1 signed. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>08</td><td><div class="del-name">ARIA CV</div><div class="del-desc">ARIA_CV_PhoennixAI.html</div></td><td>PAI-CV-002. Agent 000 capability record. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>09</td><td><div class="del-name">Ecosystem 2026</div><div class="del-desc">Wilcox_Complete_Ecosystem_2026.html</div></td><td>Confidential internal document. MUST be deleted from public GitHub. Security risk.</td><td><span class="chip chip-fire" style="background:rgba(239,68,68,0.1);color:#ef4444;border-color:rgba(239,68,68,0.3)">DELETE FROM GITHUB</span></td><td><span style="color:#ef4444;font-size:10px;font-family:var(--mono)">Urgent</span></td></tr>
+      <tr><td>10</td><td><div class="del-name">Social Posts Week 1</div><div class="del-desc">PhoennixAI_SocialPosts_Week1.html</div></td><td>10 posts for Instagram, X, LinkedIn. Posts 1 and 2 live.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
+      <tr><td>11</td><td><div class="del-name">Product Documentation</div><div class="del-desc">PhoennixAI_ProductDocumentation.html</div></td><td>PRD suite for all 7 products.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
+      <tr><td>12</td><td><div class="del-name">Logo Concepts</div><div class="del-desc">phoennixai_logo_concepts.html</div></td><td>6 concepts. Fire and Ice direction confirmed. Final approval Friday.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
+      <tr><td>13</td><td><div class="del-name">Content Bible</div><div class="del-desc">PhoennixAI_Complete_Content_Bible.docx</div></td><td>7 Laws of Copy, email sequences, landing page copy.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Word doc</span></td></tr>
     </tbody>
   </table>
 </div>
@@ -376,13 +393,13 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
   <div class="s-eyebrow">Do This First</div>
   <div class="s-title">GITHUB UPLOAD</div>
   <div class="s-sub">4 steps. Upload all pending files. Everything backed up and live.</div>
-  <div class="alert alert-fire"><div class="alert-title" style="color:var(--fire)">11 Files to Upload (9 new, 2 updated)</div>
-  <strong style="color:var(--text)">New files (9):</strong> Claude_CV_PhoennixAI.html, ARIA_JobDescription_PhoennixAI.html, ARIA_CV_PhoennixAI.html, PhoennixAI_Workspace.html, PhoennixAI_SocialPosts_Week1.html, phoennixai_logo_concepts.html, PhoennixAI_ProductDocumentation.html, PhoennixAI_Session1_Log_and_Tasks.html, PhoennixAI_Complete_Content_Bible.docx<br>
-  <strong style="color:var(--text)">Updated (2):</strong> PhoennixAI_DocumentHub.html (significant updates), PhoennixAI_MissionControl_v2.html (ARIA org chart, BL-005)</div>
+  <div class="alert alert-fire"><div class="alert-title" style="color:var(--fire)">5 Files to Upload This Session</div>
+  <strong style="color:var(--text)">New or updated (5):</strong> PhoennixAI_MissionControl_v2.html, PhoennixAI_DocumentHub.html, PhoennixAI_Workspace.html, WilcoxDesigns_BrandGuidelines.html, PhoennixAI_SocialPosts_Week1.html<br>
+  <strong style="color:#ef4444">Delete immediately:</strong> Wilcox_Complete_Ecosystem_2026.html (confidential, must not be public)</div>
   <div class="upload-step"><div class="us-num">1</div><div><div class="us-title">Go to your repository</div><div class="us-body">Type in your browser address bar:</div><div class="us-code">github.com/valerie-github1/phoennixai-mission-control</div></div></div>
   <div class="upload-step"><div class="us-num">2</div><div><div class="us-title">Click Add file then Upload files</div><div class="us-body">Top right of the file list. Click Add file then Upload files.</div></div></div>
-  <div class="upload-step"><div class="us-num">3</div><div><div class="us-title">Drag all 11 files into the upload box</div><div class="us-body">Open Downloads on your Mac. Select all 11. Drag into GitHub. All appear in the queue. For the 2 updated files (DocumentHub and MissionControl), GitHub will overwrite the existing versions automatically.</div></div></div>
-  <div class="upload-step"><div class="us-num">4</div><div><div class="us-title">Commit message and confirm</div><div class="us-body">Type in the commit message box:</div><div class="us-code">Session 2 and 3 complete, 11 files uploaded, ARIA deployed</div><div class="us-body" style="margin-top:5px">Click the green Commit changes button. Wait 2 minutes. Everything is live. Then Open JD and Open CV buttons in Document Hub will work.</div></div></div>
+  <div class="upload-step"><div class="us-num">3</div><div><div class="us-title">Drag 5 files into the upload box, then delete 1</div><div class="us-body">Upload: MissionControl v2, DocumentHub, Workspace, WilcoxDesigns Brand Guidelines, Social Posts Week 1. Then find Wilcox_Complete_Ecosystem_2026.html in the file list, click it, and delete it from the repo.</div></div></div>
+  <div class="upload-step"><div class="us-num">4</div><div><div class="us-title">Commit message and confirm</div><div class="us-body">Type in the commit message box:</div><div class="us-code">Session 7 complete, 5 files uploaded, Ecosystem doc deleted</div><div class="us-body" style="margin-top:5px">Click the green Commit changes button. Wait 2 minutes. All live.</div></div></div>
   <div class="alert alert-teal" style="margin-top:8px"><div class="alert-title" style="color:var(--teal)">After Upload, Add Workspace to Phone</div>Open Chrome on Samsung S24. Go to the Workspace URL. Three dots top right. Add to Home screen.</div>
 </div>
 </div>
@@ -403,13 +420,23 @@ textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
 <div class="wrap">
   <div class="s-eyebrow">All Links, One Place</div>
   <div class="s-title">BOOKMARKS</div>
-  <div class="s-sub">Every live URL. Copy buttons working. LinkedIn and WilcoxDesigns social to be added.</div>
+  <div class="s-sub">All live URLs. Updated Session 7, 12 March 2026. LinkedIn and WilcoxDesigns social to be added.</div>
   <div class="bm-st">Live Apps on GitHub</div>
   <div class="bm-grid">
-    <div class="bm-card"><div class="bm-label">Primary App</div><div class="bm-title">Mission Control v2</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/</div><div class="bm-desc">Daily operational hub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Primary App</div><div class="bm-title">Mission Control v2</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/</div><div class="bm-desc">Daily operational hub. Updated Session 5.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/',this)">Copy</button></div>
     <div class="bm-card"><div class="bm-label">This Portal</div><div class="bm-title">Workspace Portal</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_Workspace.html</div><div class="bm-desc">Your daily starting point. Add to home screen.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_Workspace.html',this)">Copy</button></div>
-    <div class="bm-card"><div class="bm-label">Document Hub</div><div class="bm-title">Document Management System</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html</div><div class="bm-desc">Share with team and directors.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html',this)">Copy</button></div>
-    <div class="bm-card"><div class="bm-label">Social Content</div><div class="bm-title">Social Posts Week 1</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html</div><div class="bm-desc">10 posts with copy buttons.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Document Hub</div><div class="bm-title">Document Management System</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html</div><div class="bm-desc">Single source of truth. Updated Session 5.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Social Content</div><div class="bm-title">Social Posts Week 1</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html</div><div class="bm-desc">10 posts ready. Posts 1 and 2 published on Instagram and X.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html',this)">Copy</button></div>
+  </div>
+  <div class="bm-st">Brand Documents</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">WilcoxDesigns, WD-BG-001</div><div class="bm-title">WilcoxDesigns Brand Guidelines</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html</div><div class="bm-desc">Full brand system. Typography, colour, tone of voice, UI components. Session 7.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html',this)">Copy</button></div>
+  <div class="bm-st">Agent Documents, Live on GitHub</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Claude, PAI-JD-001</div><div class="bm-title">Claude Job Description</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html</div><div class="bm-desc">Signed by Valerie and Claude. PAI-JD-001. Live.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Claude, PAI-CV-001</div><div class="bm-title">Claude CV</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html</div><div class="bm-desc">PAI-CV-001. Live on GitHub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">ARIA, PAI-JD-002</div><div class="bm-title">ARIA Job Description</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html</div><div class="bm-desc">Stage 1 signed. PAI-JD-002. Live on GitHub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">ARIA, PAI-CV-002</div><div class="bm-title">ARIA CV</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html</div><div class="bm-desc">PAI-CV-002. Live on GitHub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html',this)">Copy</button></div>
   </div>
   <div class="bm-st">GitHub</div>
   <div class="bm-grid">
@@ -481,8 +508,8 @@ function showPage(id){
   const bn=document.getElementById('bn-'+id);if(bn)bn.classList.add('active');
   if(id==='planner')renderCal();
   if(id==='notes')renderNotes();
-  if(id==='aria')renderARIA();
-  if(id==='home')renderHome();
+  if(id==='aria'){renderARIA();}
+  if(id==='home'){renderHome();}
   if(id==='tasks')renderTasks();
   window.scrollTo(0,0);
 }
@@ -493,7 +520,22 @@ function copyText(text,btn){
   if(navigator.clipboard){navigator.clipboard.writeText(t).then(ok).catch(()=>{fb(t);ok()})}else{fb(t);ok()}
 }
 function fb(text){const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta)}
-function reqNotif(){if(!('Notification'in window)){showToast('Not supported in this browser','var(--amber)');return}Notification.requestPermission().then(p=>{if(p==='granted'){showToast('Reminders enabled');schedRem()}else showToast('Enable in browser settings','var(--amber)')})}
+function reqNotif(){
+  if(!('Notification'in window)){showToast('Not supported in this browser','var(--amber)');return}
+  if(Notification.permission==='granted'){showToast('Reminders already active','var(--teal)');updateReminderBtns(true);schedRem();return}
+  Notification.requestPermission().then(p=>{
+    if(p==='granted'){showToast('Reminders enabled. ARIA will alert you 15 minutes before events.','var(--green)');updateReminderBtns(true);schedRem()}
+    else{showToast('To enable: click the lock icon in your browser address bar then allow notifications','var(--amber)');updateReminderBtns(false)}
+  })
+}
+function updateReminderBtns(on){
+  document.querySelectorAll('[onclick="reqNotif()"]').forEach(b=>{
+    b.textContent=on?'Reminders Active':'Enable Reminders';
+    b.style.color=on?'var(--green)':'';
+    b.style.borderColor=on?'rgba(34,197,94,0.4)':'';
+    b.style.background=on?'rgba(34,197,94,0.08)':'';
+  })
+}
 function schedRem(){const evs=ld(K.ev);const now=new Date();evs.forEach(e=>{const d=new Date(e.date+'T'+(e.time||'09:00'));const diff=d-now;if(diff>0&&diff<86400000){const r=diff-900000;if(r>0)setTimeout(()=>{new Notification('ARIA Reminder',{body:e.title+' in 15 minutes'})},r)}})}
 let calY=new Date().getFullYear(),calM=new Date().getMonth();
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -533,7 +575,12 @@ function togglePin(id){const notes=ld(K.notes);const n=notes.find(x=>x.id===id);
 function delNote(id){sv(K.notes,ld(K.notes).filter(n=>n.id!==id));renderNotes();renderHome();renderARIA();showToast('Note deleted')}
 function noteHTML(n){return'<div class="note-card'+(n.pinned?' pinned':'')+'">'+( n.pinned?'<div class="note-pinned-label">Pinned</div>':'' )+'<div class="note-pin'+(n.pinned?' pinned-on':'')+'" onclick="togglePin(\''+n.id+'\')" title="'+(n.pinned?'Unpin':'Pin')+'">📌</div><div class="note-date">'+n.date+'</div>'+(n.title?'<div class="note-heading">'+n.title+'</div>':'')+'<div class="note-text">'+n.text+'</div><button class="note-del" onclick="delNote(\''+n.id+'\')">&#215;</button></div>'}
 function renderNotes(){const notes=ld(K.notes);const pg=document.getElementById('pinned-grid');const ag=document.getElementById('all-grid');const pinned=notes.filter(n=>n.pinned);const rest=notes.filter(n=>!n.pinned);if(pg)pg.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:8px">No pinned notes yet. Save a note and tap the pin icon.</div>';if(ag)ag.innerHTML=rest.length?rest.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:8px">No notes yet.</div>'}
-function renderHome(){const evs=ld(K.ev);const notes=ld(K.notes);const today=new Date().toISOString().split('T')[0];const te=evs.filter(e=>e.date===today).sort((a,b)=>a.time.localeCompare(b.time));const pinned=notes.filter(n=>n.pinned);const se=document.getElementById('stat-events');if(se)se.textContent=te.length;const sp=document.getElementById('stat-pinned');if(sp)sp.textContent=pinned.length;const sd=document.getElementById('stat-done');if(sd)sd.textContent=ld(K.tasks).filter(t=>t.done).length;const hel=document.getElementById('home-events-list');if(hel)hel.innerHTML=te.length?te.map(e=>'<div class="ev-item type-'+e.type+'"><div class="ei-content"><div class="ei-title">'+e.title+'</div><div class="ei-meta">'+(e.time||'All day')+' | '+e.type+'</div></div></div>').join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px">No events today. Go to Planner to add one.</div>';const hnl=document.getElementById('home-notes-list');if(hnl)hnl.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;grid-column:1/-1">No pinned notes. Go to Notes and pin something important.</div>'}
+function renderHome(){const evs=ld(K.ev);const notes=ld(K.notes);const today=new Date().toISOString().split('T')[0];const te=evs.filter(e=>e.date===today).sort((a,b)=>a.time.localeCompare(b.time));const pinned=notes.filter(n=>n.pinned);const se=document.getElementById('stat-events');if(se)se.textContent=te.length;const sp=document.getElementById('stat-pinned');if(sp)sp.textContent=pinned.length;const sd=document.getElementById('stat-done');if(sd)sd.textContent=ld(K.tasks).filter(t=>t.done).length;
+  // Dynamic stats from stored config
+  const cfg=ld('pai_stats_config')||{files:13,github:7,posts:10};
+  const sf=document.getElementById('stat-files');if(sf)sf.textContent=cfg.files;
+  const sg=document.getElementById('stat-github');if(sg)sg.textContent=cfg.github;
+  const spo=document.getElementById('stat-posts');if(spo)spo.textContent=cfg.posts;const hel=document.getElementById('home-events-list');if(hel)hel.innerHTML=te.length?te.map(e=>'<div class="ev-item type-'+e.type+'"><div class="ei-content"><div class="ei-title">'+e.title+'</div><div class="ei-meta">'+(e.time||'All day')+' | '+e.type+'</div></div></div>').join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px">No events today. Go to Planner to add one.</div>';const hnl=document.getElementById('home-notes-list');if(hnl)hnl.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;grid-column:1/-1">No pinned notes. Go to Notes and pin something important.</div>'}
 function renderARIA(){
   const evs=ld(K.ev);const notes=ld(K.notes);const today=new Date().toISOString().split('T')[0];
   const te=evs.filter(e=>e.date===today);
@@ -565,16 +612,22 @@ function renderARIA(){
   const items=[];
   if(teOpen.length)items.push({i:'📅',t:teOpen.length+' open event'+(teOpen.length>1?'s':'')+' today',b:teOpen.map(e=>(e.time||'all day')+' - '+e.title).join(' | '),x:'Open'});
   if(!pinned.length)items.push({i:'📌',t:'No pinned notes',b:'Go to Notes and pin your most important current priority.',x:'Now'});
-  if(!ld(K.tasks).find(t=>t.id==='01'&&t.done))items.push({i:'⬆️',t:'11 files pending GitHub upload',b:'9 new files, 2 updated. Once uploaded, all Open JD/CV links become live. Go to the GitHub tab.',x:'Priority'});
-  if(!ld(K.tasks).find(t=>t.id==='02'&&t.done))items.push({i:'✍️',t:'Sign Claude JD and ARIA JD',b:'Both JDs are in Agent Documentation in the Document Hub. Needs your signature.',x:'Today'});
+  items.push({i:'🚨',t:'Delete Ecosystem doc from GitHub',b:'Wilcox_Complete_Ecosystem_2026.html is still live on the public repo. Confidential. Go to GitHub and delete it now.',x:'Security'});
+  items.push({i:'📋',t:'Thursday 12 March agenda',b:'Phase 2 developer decision, Finance scope, Logo approval, Favicon. Four items. Prepare tonight.',x:'Friday'});
   if(tasksDone===0)items.push({i:'✅',t:'No tasks completed yet',b:'Open the Tasks tab and start working through today\'s priority list.',x:'Today'});
   if(!items.length)items.push({i:'🎯',t:'All clear, Valerie',b:'No outstanding actions. ARIA is monitoring in the background.',x:'All done'});
   ac.innerHTML=items.map(i=>'<div class="ap-item"><div class="ap-icon">'+i.i+'</div><div style="flex:1"><div class="ap-title">'+i.t+'</div><div class="ap-body">'+i.b+'</div></div><div class="ap-time">'+i.x+'</div></div>').join('');
 }
-const TASKS=[{n:'01',t:'Upload all 11 files to GitHub',b:'GitHub tab has the full list. 9 new, 2 updated. Once uploaded all Open JD and CV links will work.',tag:'Do First',p:'fire'},{n:'02',t:'Sign Claude JD, PAI-JD-001',b:'Document Hub, Agent Documentation. Sign JD button. Reset Sig button available if accidentally clicked.',tag:'5 mins',p:'fire'},{n:'03',t:'Sign ARIA JD, PAI-JD-002',b:'Document Hub, Agent Documentation. Sign JD button next to ARIA.',tag:'5 mins',p:'fire'},{n:'04',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables. Copy and post to phoennix_ai_agency and x.com/phoennixai.',tag:'Today',p:'fire'},{n:'05',t:'Logo discussion with Claude today',b:'Fire and Ice direction confirmed. Discuss final design today. Approve by Friday 13 March.',tag:'Today',p:'fire'},{n:'06',t:'GitHub Repository Audit',b:'Review all 7 existing repos before building anything new.',tag:'Critical',p:'fire'},{n:'07',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select repo.',tag:'Unlocks Collaboration',p:'sapphire'},{n:'08',t:'Finance section scope, Friday 13 March',b:'Define what Finance and Revenue section should contain. LEDGER agent integration in scope.',tag:'Friday 13 Mar',p:'bronze'},{n:'09',t:'Logo final design and approval, Friday 13 March',b:'Final logo file to be approved by end of Friday 13 March.',tag:'Friday 13 Mar',p:'bronze'},{n:'10',t:'Security and Privacy Plan',b:'Define what is safe on public GitHub before any sensitive uploads.',tag:'Before Sensitive Uploads',p:'fire'}];
+const TASKS=[{n:'01',t:'Delete Ecosystem doc from GitHub',b:'Wilcox_Complete_Ecosystem_2026.html is still live on the public repo. Confidential document. Delete it now.',tag:'Security, Urgent',p:'fire'},{n:'02',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables. Copy and post to phoennix_ai_agency and x.com/phoennixai. Social Media App build starts next week.',tag:'Today, Revenue',p:'fire'},{n:'03',t:'Phase 2 developer decision',b:'React, Next.js, Tailwind, Supabase stack confirmed. Thursday 12 March agenda item 1.',tag:'Thursday 12 Mar',p:'fire'},{n:'04',t:'Finance section scope',b:'Define what Finance and Revenue section should contain. LEDGER agent integration in scope.',tag:'Thursday 12 Mar',p:'fire'},{n:'05',t:'Logo final design and approval',b:'Fire and Ice direction confirmed. Final file approved by end of Thursday 12 March.',tag:'Thursday 12 Mar',p:'fire'},{n:'06',t:'Favicon approval for all 3 apps',b:'Phoenix Mark design. Approve or revise in Friday session.',tag:'Thursday 12 Mar',p:'bronze'},{n:'07',t:'Agent walkthrough, PA, SCOUT, PULSE',b:'Build CVs and JDs for the first 3 commercial agents using the governance framework established in Session 5.',tag:'Next Session',p:'sapphire'},{n:'08',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select repo.',tag:'Unlocks Collaboration',p:'sapphire'},{n:'09',t:'Brand Guidelines One-Pager',b:'Single reference document covering typography, colours, tone of voice, and usage rules for all entities.',tag:'Queued',p:'bronze'},{n:'10',t:'St Pauls work experience prep',b:'3 girls, early April 2026. Draft onboarding brief, weekly schedule, project assignments, and feedback framework.',tag:'Early April',p:'bronze'}];
 
 function loadPendingReview(){
-  try{return JSON.parse(localStorage.getItem('pai_pending_review')||'[]')}catch{return[]}
+  try{
+    const raw=JSON.parse(localStorage.getItem('pai_pending_review')||'[]');
+    // Strip stale items with no valid title (leftover from old sessions)
+    const clean=raw.filter(p=>p&&p.title&&p.title!=='undefined'&&p.body&&p.body!=='undefined');
+    if(clean.length!==raw.length)localStorage.setItem('pai_pending_review',JSON.stringify(clean));
+    return clean;
+  }catch{return[]}
 }
 function renderPendingBanner(){
   const items=loadPendingReview().filter(p=>!p.dismissed);
@@ -594,31 +647,113 @@ function dismissPending(id){
     renderPendingBanner();showToast('Item marked complete');
   }catch(e){}
 }
+function renderAriaScheduleHtml(raw){
+  // Strip markdown and render clean styled HTML
+  const lines=raw.split('\n');
+  let html='';
+  let inBlock=false;
+  for(let line of lines){
+    line=line.trim();
+    if(!line)continue;
+    // Remove leading ## headings — render as section labels
+    if(line.startsWith('## ')||line.startsWith('# ')){
+      const txt=line.replace(/^#+\s*/,'').replace(/\*\*/g,'');
+      html+=`<div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:16px 0 6px">${txt}</div>`;
+    }
+    // Bold lines (standalone **text**) — render as block headers
+    else if(line.match(/^\*\*[^*]+\*\*$/)){
+      const txt=line.replace(/\*\*/g,'');
+      html+=`<div style="font-weight:600;color:var(--text);font-size:13px;margin:10px 0 3px">${txt}</div>`;
+    }
+    // Time blocks: lines starting with time pattern or **time**
+    else if(line.match(/^\*?\*?\d{1,2}:\d{2}/)){
+      const txt=line.replace(/\*\*/g,'').replace(/^-\s*/,'');
+      html+=`<div style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0"><span style="font-family:var(--mono);font-size:11px;color:var(--fire)">${txt}</span></div>`;
+    }
+    // Dash items inside blocks
+    else if(line.startsWith('- ')){
+      const txt=line.substring(2).replace(/\*\*/g,'');
+      html+=`<div style="font-size:12px;color:var(--text2);padding:3px 0 3px 14px;border-left:2px solid var(--border)">${txt}</div>`;
+    }
+    // Priority lines (*Priority:*)
+    else if(line.match(/^\*Priority/i)||line.match(/^Priority:/i)){
+      const txt=line.replace(/\*/g,'').replace(/^-?\s*/,'');
+      html+=`<div style="font-family:var(--mono);font-size:9px;color:var(--sapphire);padding:2px 0 6px 14px">${txt}</div>`;
+    }
+    // Horizontal rules
+    else if(line==='---'){
+      html+=`<div style="border-top:1px solid var(--border);margin:10px 0"></div>`;
+    }
+    // Regular text
+    else{
+      const txt=line.replace(/\*\*/g,'').replace(/^-\s*/,'');
+      if(txt)html+=`<div style="font-size:12px;color:var(--text2);line-height:1.7;margin:4px 0">${txt}</div>`;
+    }
+  }
+  return html;
+}
+
 async function wsAiSchedule(){
   const btn=document.getElementById('ws-ai-btn');
   const out=document.getElementById('ws-ai-out');
   btn.textContent='Thinking...';btn.disabled=true;
-  out.style.display='block';out.textContent='ARIA is analysing your day...';
+  out.style.display='block';
+  out.innerHTML='<div style="font-family:var(--mono);font-size:11px;color:var(--text3);padding:12px 0">ARIA is analysing your day...</div>';
   const today=new Date().toISOString().split('T')[0];
   const evs=ld(K.ev).filter(e=>e.date===today&&!e.done);
   const tasks=ld(K.tasks);
   const pending=TASKS.filter(t=>!tasks.find(x=>x.id===t.n&&x.done)).map(t=>t.t);
-  const prompt=`You are ARIA, AI scheduling assistant for Valerie Wilcox, Founder of PhoennixAI. Today is ${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}. Valerie works 12pm to 3am.\n\nToday's scheduled events:\n${evs.length?evs.map(e=>`- ${e.time||'TBD'}: ${e.title} (${e.type})`).join('\n'):'- None scheduled yet'}\n\nOutstanding tasks:\n${pending.slice(0,8).map((t,i)=>`${i+1}. ${t}`).join('\n')}\n\nCreate a Motion-style intelligent schedule. Include: recommended time blocks, priority reasoning, a single "do this first" action, and any conflicts. Be direct and concise.`;
+  const prompt=`You are ARIA, Workspace Intelligence Agent for Valerie Wilcox, Founder of PhoennixAI. Today is ${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}. Valerie works 12pm to 3am.
+
+Today scheduled events:
+${evs.length?evs.map(e=>`- ${e.time||'TBD'}: ${e.title} (${e.type})`).join('\n'):'None scheduled yet'}
+
+Outstanding tasks:
+${pending.slice(0,8).map((t,i)=>`${i+1}. ${t}`).join('\n')}
+
+Create a professional time-blocked schedule. Format your response EXACTLY as follows with NO asterisks and NO hash symbols:
+
+DO THIS FIRST
+[Single most important action, one sentence, with time estimate]
+
+SCHEDULE
+[time range] | [BLOCK NAME]
+[task 1]
+[task 2]
+
+[time range] | [BLOCK NAME]
+[task 1]
+
+NOTES
+[Any conflicts or reasoning, plain sentences only]
+
+Use plain text only. No markdown. No symbols. Professional and clean.`;
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
     const data=await res.json();
-    out.textContent=data.content?.map(c=>c.text||'').join('')||'No response received.';
-  }catch(e){out.textContent='AI scheduling unavailable right now. Your events are displayed below.';}
+    const raw=data.content?.map(c=>c.text||'').join('')||'No response received.';
+    out.innerHTML=renderAriaScheduleHtml(raw);
+  }catch(e){out.innerHTML='<div style="font-size:12px;color:var(--text2);padding:12px 0">AI scheduling unavailable right now. Your events are displayed in the calendar below.</div>';}
   btn.textContent='AI Schedule My Day';btn.disabled=false;
 }
 function renderTasks(){const done=ld(K.tasks).filter(t=>t.done).map(t=>t.id);const dc=document.getElementById('task-progress');if(dc)dc.textContent=done.length+' of '+TASKS.length+' completed';const c=document.getElementById('task-container');if(!c)return;c.innerHTML=TASKS.map(t=>'<div class="task-item'+(done.includes(t.n)?' done':'')+'" onclick="toggleTask(\''+t.n+'\')"><div class="tk-num">'+t.n+'</div><div><div class="tk-title">'+t.t+'</div><div class="tk-body">'+t.b+'</div><div class="tk-tags"><span class="chip chip-'+t.p+'">'+t.tag+'</span></div></div><span style="font-size:18px">'+(done.includes(t.n)?'✅':'⬜')+'</span></div>').join('');}
 function toggleTask(id){const tasks=ld(K.tasks);const ex=tasks.find(t=>t.id===id);if(ex)ex.done=!ex.done;else tasks.push({id,done:true});sv(K.tasks,tasks);renderTasks();renderARIA();renderHome()}
 document.addEventListener('DOMContentLoaded',()=>{
   renderHome();renderARIA();renderCal();renderTasks();renderPendingBanner();
+  // Init reminder button state
+  if(Notification.permission==='granted')updateReminderBtns(true);
+  // Set current stats config
+  const currentCfg=ld('pai_stats_config');
+  if(!currentCfg)sv('pai_stats_config',{files:16,github:11,posts:10});
+  renderHome();
   const n=new Date();document.getElementById('ev-date').value=n.toISOString().split('T')[0];document.getElementById('ev-time').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
   if(Notification.permission==='granted')schedRem();
   setInterval(()=>{renderHome();renderARIA();renderTasks();renderPendingBanner();renderCal();},30000);
-  window.addEventListener('storage',function(e){if(e.key===K.ev){renderCal();renderHome();renderARIA();showToast('Synced from Mission Control');}});
+  window.addEventListener('storage',function(e){
+    if(e.key===K.ev){renderCal();renderHome();renderARIA();showToast('Synced from Mission Control');}
+    if(e.key===K.notes||e.key===K.tasks){renderHome();renderARIA();}
+    if(e.key==='pai_stats_config'){renderHome();}
+  });
 });
 </script>
 </body>

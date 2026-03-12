@@ -2,7 +2,8 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- favicon replaced --><link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060A18' rx='6'/%3E%3Cpath d='M16 3 C11 3 7 8 9 13 C11 17 10 19 8 21 C12 20 14 17 13 14 C15 18 14 22 11 25 C15 24 20 20 19 15 C21 18 21 23 18 26 C22 23 25 17 22 12 C24 14 25 17 24 20 C26 15 24 8 19 5 C18 4 17 3 16 3Z' fill='%23FF6B2B'/%3E%3Cpath d='M13 14 C15 18 14 22 11 25 C12 23 13 21 13 19 C13 17 12 16 13 14Z' fill='%23FFB830'/%3E%3Cpath d='M8 21 C6 24 8 28 11 29 C9 27 9 24 11 22' fill='%2300E5FF' opacity='0.85'/%3E%3Cpath d='M18 26 C19 28 22 29 24 28 C22 26 20 25 18 26Z' fill='%2300E5FF' opacity='0.85'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PhoennixAI Document Management System</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -152,17 +153,46 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .bn-item.active{color:var(--bronze)}
 .bn-icon{font-size:18px;line-height:1}
 
-@media(max-width:800px){
+
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+  .bottom-nav{padding-bottom:env(safe-area-inset-bottom)!important;height:calc(57px + env(safe-area-inset-bottom))!important}
+}
+/* ── TABLET ── */
+@media(max-width:900px){
   .sidebar{display:none}
   .main{padding-top:60px;padding-bottom:70px}
-  .content-area{padding:16px}
-  .doc-header{flex-direction:column}.dh-actions{width:100%;flex-wrap:wrap}
-  .doc-grid{grid-template-columns:1fr}
-  .kpi-grid{grid-template-columns:repeat(2,1fr)}
   .bottom-nav{display:flex}
+  .content-area{padding:20px}
+  .doc-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .doc-header{flex-direction:column;gap:12px}.dh-actions{width:100%;flex-wrap:wrap}
+  .ver-table{font-size:11px}
+  .form-row{grid-template-columns:1fr 1fr}
+}
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .content-area{padding:12px}
+  .doc-grid{grid-template-columns:1fr}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .dh-title{font-size:22px!important}
+  .topbar{padding:0 14px}
+  .tb-title{display:none}
+  .ver-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .ver-table{min-width:520px}
+  .chip{font-size:7px!important;padding:3px 7px!important}
+  .dc-title{font-size:14px}
   .form-row{grid-template-columns:1fr}
+  .modal{padding:20px 16px;max-width:96vw}
+}
+/* ── SMALL PHONE ── */
+@media(max-width:390px){
+  .doc-grid{grid-template-columns:1fr!important}
+  .kpi-grid{grid-template-columns:1fr!important}
+  .content-area{padding:10px}
+  .dh-title{font-size:20px!important}
 }
 </style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
 </head>
 <body>
 
@@ -185,12 +215,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="sb-sect-label">Entities</div>
 
       <div class="sb-entity">
-        <div class="sb-entity-head active" onclick="showSection('phoennixai')">
+        <div class="sb-entity-head active" onclick="toggleEntity('pai-children');showSection('phoennixai')">
           <div class="sb-dot" style="background:var(--fire)"></div>
           <span class="sb-name">PhoennixAI Agency</span>
           <span class="sb-count">12</span>
         </div>
-        <div class="sb-children">
+        <div class="sb-children" id="pai-children" style="display:block">
           <div class="sb-child active" onclick="showSection('phoennixai')">All Documents</div>
           <div class="sb-child" onclick="showSection('strategy')">Strategy</div>
           <div class="sb-child" onclick="showSection('products')">Products and PRDs</div>
@@ -203,13 +233,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       </div>
 
       <div class="sb-entity">
-        <div class="sb-entity-head" onclick="showSection('wilcox')">
+        <div class="sb-entity-head" onclick="toggleEntity('wd-children');showSection('wilcox')">
           <div class="sb-dot" style="background:var(--bronze)"></div>
           <span class="sb-name">WilcoxDesigns</span>
           <span class="sb-count">6</span>
         </div>
-        <div class="sb-children" style="display:none">
+        <div class="sb-children" id="wd-children" style="display:block">
           <div class="sb-child" onclick="showSection('wd-brand')">Brand Guidelines</div>
+          <div class="sb-child" onclick="showSection('wd-brand-system')">Brand System</div>
           <div class="sb-child" onclick="showSection('wd-clients')">Client Documents</div>
           <div class="sb-child" onclick="showSection('wd-creative')">Creative Lab</div>
         </div>
@@ -250,6 +281,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
     <div class="sb-section">
       <div class="sb-sect-label">Views</div>
+      <div class="sb-child" onclick="showSection('insights')">Insights</div>
+      <div class="sb-child" onclick="showSection('usermanual')">User Manual</div>
       <div class="sb-child" onclick="showSection('automation')">Automation Log</div>
       <div class="sb-child" onclick="showSection('kpi')">KPI Dashboard</div>
       <div class="sb-child" onclick="showSection('versions')">Version History</div>
@@ -273,22 +306,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dh-title">PHOENNIXAI AGENCY</div>
             <div class="dh-sub">All operational, strategic, and product documents for the agency</div>
             <div class="dh-meta">
-              <div class="dh-meta-item"><strong>Last reviewed:</strong> 11 Mar 2026</div>
+              <div class="dh-meta-item"><strong>Last reviewed:</strong> 12 Mar 2026</div>
               <div class="dh-meta-item"><strong>Owner:</strong> Valerie Wilcox</div>
+              <div class="dh-meta-item"><strong>Director / CTO:</strong> Dilpreet Kaur</div>
               <div class="dh-meta-item"><strong>Documents:</strong> 12 live</div>
               <div class="dh-meta-item"><strong>Next review:</strong> Q2 2026</div>
             </div>
           </div>
-          <div class="dh-actions">
-            <div class="action-btn btn-approve" onclick="alert('Review approved and logged.')">Approve Review</div>
-            <div class="action-btn btn-edit">Request Update</div>
-            <div class="action-btn btn-archive">Archive</div>
-          </div>
+
         </div>
 
         <div class="section-title">Core Documents</div>
         <div class="doc-grid">
-          <div class="doc-card" onclick="alert('Opens full document view')">
+          <div class="doc-card" onclick="showSection('strategy')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
             <div class="dc-type">Strategy, Ecosystem</div>
             <div class="dc-title">Wilcox Complete Ecosystem 2026</div>
@@ -302,10 +332,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-desc">Full operational hub. Task management, org chart, agent directory, calendar, notes, backlog. Live on GitHub Pages.</div>
             <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 12 Mar 2026</span></div>
           </div>
-          <div class="doc-card">
+          <div class="doc-card" onclick="showSection('products')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:var(--gold)"></div>
             <div class="dc-type">Product, PRD</div>
-            <div class="dc-title">Product Requirements Document Suite</div>
+            <div class="dc-title">Product Requirements Document Suite <span style="font-family:var(--mono);font-size:8px;color:var(--gold)">→ Products</span></div>
             <div class="dc-desc">PRD, Tech Spec, Market Analysis, and Values and Benefits for all 7 PhoennixAI products.</div>
             <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
@@ -340,17 +370,17 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             </div>
             <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
-          <div class="doc-card">
+          <div class="doc-card" onclick="showSection('agents')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:var(--violet)"></div>
             <div class="dc-type">AI, Agents</div>
-            <div class="dc-title">Agent Masterlist, 13 Agents</div>
+            <div onclick="showSection('agents')" class="dc-title">Agent Masterlist, 15 Agents <span style="font-family:var(--mono);font-size:8px;color:var(--violet)">→ Agents</span></div>
             <div class="dc-desc">Full directory of all 13 agents. Role, codename, value delivered, category, build priority, and monetisation model.</div>
             <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
-          <div class="doc-card">
+          <div class="doc-card" onclick="showSection('agents')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:var(--sapphire)"></div>
             <div class="dc-type">HR, AI Staff</div>
-            <div class="dc-title">Claude, CV and Job Description</div>
+            <div class="dc-title">Claude, CV and Job Description <span style="font-family:var(--mono);font-size:8px;color:var(--sapphire)">→ Agents</span></div>
             <div class="dc-desc">Strategic AI Partner. CV with proficiency levels, domains, and working principles. JD with responsibilities, KPIs, and e-signature panel. PAI-JD-001, PAI-CV-001.</div>
             <div style="display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap;align-items:center">
               <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);text-decoration:none">Open JD</a>
@@ -358,68 +388,75 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             </div>
             <div style="display:flex;gap:6px;margin:4px 0 4px;flex-wrap:wrap;align-items:center">
               <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);text-decoration:none">Open CV</a>
-              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">CV needs GitHub upload</span>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">CV live on GitHub</span>
             </div>
             <div class="dc-footer"><span class="chip chip-approved">Signed</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
-          <div class="doc-card">
+          <div class="doc-card" onclick="showSection('agents')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:#00E5FF"></div>
             <div class="dc-type" style="color:#00E5FF">HR, AI Staff, Agent 000</div>
-            <div class="dc-title">ARIA, CV and Job Description</div>
+            <div class="dc-title">ARIA, CV and Job Description <span style="font-family:var(--mono);font-size:8px;color:#00E5FF">→ Agents</span></div>
             <div class="dc-desc">Workspace Intelligence Agent. Second brain, real-time briefing, calendar monitoring, notes intelligence, task tracking. PAI-JD-002, PAI-CV-002.</div>
             <div style="display:flex;gap:6px;margin:8px 0 2px;flex-wrap:wrap;align-items:center">
-              <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open JD</a>
-              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">Needs GitHub upload</span>
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open JD</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">JD live on GitHub</span>
             </div>
             <div style="display:flex;gap:6px;margin:4px 0 4px;flex-wrap:wrap;align-items:center">
-              <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open CV</a>
-              <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">Needs GitHub upload</span>
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open CV</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">CV live on GitHub</span>
             </div>
-            <div class="dc-footer"><span class="chip" style="color:#f59e0b;border:1px solid rgba(245,158,11,0.3);background:rgba(245,158,11,0.06)">Awaiting Signature</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+            <div class="dc-footer"><span class="chip chip-approved">Stage 1 Signed</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
-          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+          <div class="doc-card" onclick="showSection('brand-pai')" style="cursor:pointer">
+            <div class="dc-status-bar" style="background:var(--green)"></div>
             <div class="dc-type">Brand, Identity</div>
-            <div class="dc-title">Brand Guidelines One-Pager</div>
-            <div class="dc-desc">Unified brand handout for all entities. Colour systems, typography, voice, taglines. For new staff and contractors.</div>
-            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Brand Session</span></div>
+            <div class="dc-title">Brand Guidelines One-Pager <span style="font-family:var(--mono);font-size:8px;color:var(--green)">→ Brand</span></div>
+            <div class="dc-desc">Unified brand handout for all entities. Colour systems, typography, voice, taglines. For new staff and contractors. WD-BG-001.</div>
+            <div style="margin:8px 0 4px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open Document</a>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Complete, Filed</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
           <div class="doc-card" style="border-style:dashed;opacity:0.5">
             <div class="dc-type">Finance, Revenue</div>
             <div class="dc-title">Finance and Revenue Section</div>
-            <div class="dc-desc">Scope to be defined by Valerie. Finance intelligence, cashflow, revenue targets. Build session scheduled Friday 13 March 2026.</div>
-            <div class="dc-footer"><span class="chip chip-draft">Friday 13 Mar</span></div>
+            <div class="dc-desc">Scope to be defined by Valerie. Finance intelligence, cashflow, revenue targets. Build session scheduled Thursday 12 March 2026.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Thursday 12 Mar</span></div>
           </div>
         </div>
 
         <!-- VERSION LOG -->
         <div class="section-title">Version History, This Entity</div>
-        <table class="ver-table">
+        <div class="ver-table-wrap"><table class="ver-table">
           <thead><tr><th>Version</th><th>Date</th><th>Changed By</th><th>What Changed</th><th>Status</th></tr></thead>
           <tbody>
-            <tr class="ver-current"><td>v1.3</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>ARIA Agent 000 deployed. ARIA JD (PAI-JD-002) and CV (PAI-CV-002) created. Agent Documentation section updated with full listings and direct links. Backlog BL-005 cross-device sync documented. Workspace v2 built with ARIA briefing, calendar done feature, real-time auto-refresh.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr class="ver-current"><td>v1.6</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 6 changes: SCRIBE added to org chart alongside ARIA. Claude and ARIA cards added to All Agents board with Core AI filter. WilcoxDesigns sidebar sub-sections now expand correctly. Automation Log updated to 11 active processes with all Session 5 and 6 entries. UI Components and Status System section added to WilcoxDesigns Brand Guidelines and Brand System. Header action buttons removed, card chips are single source of status. Calendar ARIA output fixed to side panel with Dismiss. Dilpreet Kaur confirmed as PhoennixAI Director.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr><td>v1.5</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>WilcoxDesigns Brand System section added. Brand Guidelines One-Pager (WD-BG-001) complete and filed to GitHub. Mission Control TODAY tab automated. Request Update wired to ARIA alerts. PRJ-003 and PRJ-006 priorities confirmed.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr><td>v1.4</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 5 complete. Claude JD and ARIA JD Stage 1 signed. Signature persistence via localStorage. All 4 agent documents filed to GitHub. Governance framework established across all JDs.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr><td>v1.3</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>ARIA Agent 000 deployed. ARIA JD (PAI-JD-002) and CV (PAI-CV-002) created. Agent Documentation section updated. Workspace v2 built with ARIA briefing, calendar done feature, real-time auto-refresh.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.2</td><td>11 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Full session: Mission Control v2, PRD suite, GitHub Pages deployment. 6 new documents added. Em dashes removed across all files. Phantom Studio date corrected to Q4 2024.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.1</td><td>10 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Initial ecosystem document, logo concepts, Claude CV and JD created. Content Bible v1 built.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.0</td><td>10 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Brand architecture and colour system established. Initial session.</td><td><span class="chip chip-approved">Archived</span></td></tr>
           </tbody>
-        </table>
+        </table></div>
 
         <!-- VALIDATION -->
         <div class="validation-panel">
           <div class="vp-title">Approval and Validation Status</div>
           <div class="vp-row">
-            <div class="vp-icon">👑</div>
+            <div class="vp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.75"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
             <div class="vp-info"><div class="vp-name">Valerie Wilcox</div><div class="vp-role">Founder, Final Approver</div></div>
-            <div class="vp-status" style="color:var(--green)">Approved, 11 Mar 2026</div>
+            <div class="vp-status" style="color:var(--green)">Approved, 12 Mar 2026</div>
           </div>
           <div class="vp-row">
-            <div class="vp-icon">🤖</div>
+            <div class="vp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.75;color:var(--fire)"><rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M7 19c0-2.8 2.2-5 5-5s5 2.2 5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
             <div class="vp-info"><div class="vp-name">Claude</div><div class="vp-role">AI Strategic Partner, Document Author</div></div>
             <div class="vp-status" style="color:var(--green)">Authored and Verified</div>
           </div>
           <div class="vp-row">
-            <div class="vp-icon">👤</div>
-            <div class="vp-info"><div class="vp-name">Company Director</div><div class="vp-role">To be appointed</div></div>
-            <div class="vp-status" style="color:var(--amber)">Pending Appointment</div>
+            <div class="vp-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.75"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+            <div class="vp-info"><div class="vp-name">Dilpreet Kaur</div><div class="vp-role">Director / CTO, PhoennixAI</div></div>
+            <div class="vp-status" style="color:var(--sapphire)">Active</div>
           </div>
         </div>
       </div>
@@ -434,8 +471,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         </div>
 
         <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-val">6<span class="unit"></span></div><div class="kpi-label">Processes Automated</div><div class="kpi-trend">Session 1</div></div>
-          <div class="kpi-card"><div class="kpi-val">~40<span class="unit">hr</span></div><div class="kpi-label">Est. Time Saved per Month</div><div class="kpi-trend">Growing</div></div>
+          <div class="kpi-card"><div class="kpi-val">11<span class="unit"></span></div><div class="kpi-label">Processes Automated</div><div class="kpi-trend">Sessions 1 to 5</div></div>
+          <div class="kpi-card"><div class="kpi-val">~65<span class="unit">hr</span></div><div class="kpi-label">Est. Time Saved per Month</div><div class="kpi-trend">Growing each session</div></div>
           <div class="kpi-card"><div class="kpi-val">£0<span class="unit"></span></div><div class="kpi-label">Tool Cost So Far</div><div class="kpi-trend">GitHub Pages Free</div></div>
           <div class="kpi-card"><div class="kpi-val">13<span class="unit"></span></div><div class="kpi-label">Agents in Pipeline</div><div class="kpi-trend">When Built</div></div>
         </div>
@@ -443,7 +480,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="auto-log">
           <div class="al-title">
             <span>Successfully Automated Processes</span>
-            <span class="chip chip-live">6 Active</span>
+            <span class="chip chip-live">11 Active</span>
           </div>
           <div class="al-item">
             <div class="al-icon">✅</div>
@@ -493,6 +530,46 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             </div>
             <div class="al-date">11 Mar 2026</div>
           </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">E-Signature System, Agent JDs and CVs</div>
+              <div class="al-why">Why: Signatures previously had no persistence and reset on page reload. Now every agent JD signature is stored in localStorage permanently. Theme-aware canvas ink adjusts automatically to dark and light mode. RESET capability added for corrections.</div>
+            </div>
+            <div class="al-date">12 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Document Hub Request Update, ARIA Alert Pipeline</div>
+              <div class="al-why">Why: Document update requests were informal and untracked. Now every Request Update fires to pai_pending_review and pai_aria_alerts simultaneously, triggers a cross-tab storage event, and shows a confirmation toast. ARIA can now be informed of stale documents programmatically. Foundation of the Phase 2 SCRIBE agent workflow.</div>
+            </div>
+            <div class="al-date">12 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">Mission Control TODAY Tab, Task Persistence via localStorage</div>
+              <div class="al-why">Why: Task completion previously reset on every page reload. Now every checked task is stored in localStorage and survives reload, session end, and browser restart. Progress counter is fully dynamic and reads live from storage. Eliminates re-checking completed work each session.</div>
+            </div>
+            <div class="al-date">12 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">WilcoxDesigns Brand Guidelines, Filed and Live on GitHub</div>
+              <div class="al-why">Why: Brand guidelines existed only in conversation. Now a permanent, versioned document (WD-BG-001) live on GitHub Pages, accessible to contractors and collaborators at a permanent URL. Colour system, typography, voice, logo direction, and UI component standards all documented in one place.</div>
+            </div>
+            <div class="al-date">12 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content">
+              <div class="al-title-text">WilcoxDesigns Brand System, Structured in Document Hub</div>
+              <div class="al-why">Why: WilcoxDesigns brand assets were undocumented in the hub. Now a full Brand System section with colour palette swatches, typography, voice, taglines, and UI component standards is live in the Document Hub. Consistent with PhoennixAI Brand System structure.</div>
+            </div>
+            <div class="al-date">12 Mar 2026</div>
+          </div>
           <div class="al-item" style="opacity:0.5">
             <div class="al-icon">⏳</div>
             <div class="al-content">
@@ -520,7 +597,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dh-sub">Key performance indicators across the full Wilcox Ecosystem</div>
             <div class="dh-meta"><div class="dh-meta-item"><strong>Note:</strong> Live data integration requires backend connection (BL-004, BL-005). Current data is manually updated.</div></div>
           </div>
-          <div class="dh-actions"><div class="action-btn btn-edit">Update Data</div></div>
+          
         </div>
 
         <div class="section-title">Organisation Health</div>
@@ -543,7 +620,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
         <div style="background:rgba(70,171,215,0.04);border:1px solid rgba(70,171,215,0.12);border-radius:8px;padding:20px;margin-top:8px">
           <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--sapphire);margin-bottom:10px">Tomorrow's KPI Task</div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.8">Define the full KPI framework for each entity and product. Connect to live data sources (Google Analytics, Meta Business Suite, Stripe, Supabase) in Phase 2. For now, manual quarterly updates. Dashboard to be reviewed every month minimum.</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.8">Define the full KPI framework for each entity and product. Connect to live data sources (Google Analytics, Meta Business Suite, Stripe, Supabase) in Phase 2. For now, manual quarterly updates. Dashboard to be reviewed every month minimum.
+
+<strong style="color:var(--text)">BL-011 (NEW): Agent Intelligence Dashboard.</strong> A BI-style dashboard housed in the Document Hub sidebar. Will display agent activity, communication flow, performance trends, predictions, and forecasts in real-time charts and graphs. Agents will be visible interacting with each other and with customers (safely). Built in Phase 2 when agent data flows through Supabase. Session scheduled: next available working day.</div>
         </div>
       </div>
 
@@ -635,13 +714,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           </div>
         </div>
         <div class="doc-grid">
-          <div class="doc-card">
-            <div class="dc-status-bar" style="background:var(--gold)"></div>
-            <div class="dc-type">Brand, All Entities</div>
-            <div class="dc-title">Brand Guidelines One-Pager</div>
-            <div class="dc-desc">Currently in build. Must be completed and approved before being shared with new staff, contractors, or partners.</div>
-            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Due Tomorrow</span></div>
-          </div>
+
           <div class="doc-card">
             <div class="dc-status-bar" style="background:var(--sapphire)"></div>
             <div class="dc-type">HR, All AI Agents</div>
@@ -663,6 +736,88 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-desc">Onboarding brief, schedule, and project assignments for 3 students arriving early April. Date TBC.</div>
             <div class="dc-footer"><span class="chip chip-draft">Date TBC</span><span class="dc-ver">Early April 2026</span></div>
           </div>
+        </div>
+      </div>
+
+      <!-- INSIGHTS SECTION -->
+      <div id="sec-insights" style="display:none">
+        <div class="doc-header"><div class="dh-left">
+          <div class="dh-entity-chip chip chip-live" style="margin-bottom:8px">Agent Intelligence, Phase 2</div>
+          <div class="dh-title">INSIGHTS</div>
+          <div class="dh-sub">Agent and human performance monitoring. Behaviour, intelligence, growth, and collaboration over time.</div>
+        </div></div>
+
+        <div style="background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.12);border-radius:8px;padding:20px;margin-bottom:24px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--fire);margin-bottom:8px">BL-011: Agent Intelligence Dashboard</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.8">This section will become a live BI dashboard tracking every agent and human team member across all dimensions below. Real-time charts, trend graphs, predictive forecasting, and customer interaction maps. Powered by Supabase in Phase 2. The framework below defines what will be monitored.</div>
+        </div>
+
+        <div class="section-title">Performance Dimensions</div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--fire)"></div>
+            <div class="dc-type">Core Intelligence</div>
+            <div class="dc-title">Behaviour and Intelligence</div>
+            <div class="dc-desc">How each agent or team member thinks, decides, and acts. Tracks reasoning quality, decision consistency, response accuracy, and whether actions align with company values and the kingdom mandate.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--gold)"></div>
+            <div class="dc-type">Output Quality</div>
+            <div class="dc-title">Performance and Proactivity</div>
+            <div class="dc-desc">Task completion rate, output quality scores, how often actions are taken without being prompted, and initiative taken beyond the defined role. Tracks whether the agent or person raises standards over time.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--sapphire)"></div>
+            <div class="dc-type">Collaboration</div>
+            <div class="dc-title">Teamwork and Partnership</div>
+            <div class="dc-desc">How effectively each agent or person works with others. Covers inter-agent communication quality, human-agent partnership scores, handoff accuracy, conflict resolution, and collaborative output versus solo output.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--neon)"></div>
+            <div class="dc-type">Soft Skills</div>
+            <div class="dc-title">Communication and Empathy</div>
+            <div class="dc-desc">Quality and clarity of written and verbal output. Ability to read context and adapt tone. Empathy signals in customer and team interactions. Documentation quality, briefing accuracy, and clarity of instruction.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--bronze)"></div>
+            <div class="dc-type">Hard Skills</div>
+            <div class="dc-title">Technical and Domain Competency</div>
+            <div class="dc-desc">Measured by domain: financial intelligence, sales conversion, marketing effectiveness, project delivery, strategic accuracy, and coding or technical output quality. Each agent rated against their defined JD competencies.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--violet)"></div>
+            <div class="dc-type">Creativity and Growth</div>
+            <div class="dc-title">Innovation and Intuition</div>
+            <div class="dc-desc">Tracks novel solutions offered, creative approaches to problems, pattern recognition speed, and how quickly an agent or team member develops new capabilities. Intuition is measured as the gap between task definition and quality output.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--teal)"></div>
+            <div class="dc-type">Problem Solving</div>
+            <div class="dc-title">Resolution and Resilience</div>
+            <div class="dc-desc">Speed to resolution on flagged issues, escalation rate, quality of proposed solutions, and ability to operate under ambiguity. Resilience is tracked as performance consistency across high-pressure sessions.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--deep-royal)"></div>
+            <div class="dc-type">Business Intelligence</div>
+            <div class="dc-title">Strategic, Financial and Sales Acuity</div>
+            <div class="dc-desc">Business reasoning quality, revenue-aware decision making, sales pipeline contribution, financial literacy in recommendations, and ability to think at ecosystem level rather than task level.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+        </div>
+
+        <div class="section-title">Monitored Entities</div>
+        <div class="kpi-grid">
+          <div class="kpi-card"><div class="kpi-val">2</div><div class="kpi-label">Active Agents</div><div class="kpi-trend">Claude, ARIA</div></div>
+          <div class="kpi-card"><div class="kpi-val">13</div><div class="kpi-label">Agents Queued</div><div class="kpi-trend">Monitoring ready at deploy</div></div>
+          <div class="kpi-card"><div class="kpi-val">1</div><div class="kpi-label">Human Team</div><div class="kpi-trend">Valerie Wilcox, Founder</div></div>
+          <div class="kpi-card"><div class="kpi-val">1</div><div class="kpi-label">Director</div><div class="kpi-trend">Dilpreet Kaur, Active</div></div>
         </div>
       </div>
 
@@ -690,15 +845,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
               <strong style="color:var(--text)">Colour Palette (Tier 2):</strong> Charcoal #2A2725, Warm Taupe #C8C0B4, Cream #EDE8E0, Linen #F7F4F0, Mocha #8B7355.<br>
               <strong style="color:var(--text)">Typography:</strong> Display: Bebas Neue. Body: DM Sans (300, 400, 500, 600). Accent: Playfair Display (italic). Code: DM Mono.<br>
               <strong style="color:var(--text)">Logo Direction:</strong> Digital Atelier positioning. Minimal, browser-as-canvas, design-first.<br>
-              <strong style="color:var(--text)">Voice:</strong> Refined. Quiet confidence. Precision over performance.
+              <strong style="color:var(--text)">Voice:</strong> Refined. Quiet confidence. Precision over performance.<br>
+              <strong style="color:var(--text)">UI Components:</strong> Buttons, chips, and status indicators defined. See Brand Guidelines One-Pager section 08.
             </div>
             <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
-          <div class="doc-card" style="border-style:dashed;opacity:0.65">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#2A2725,#8B7355,#C8C0B4)"></div>
             <div class="dc-type">Brand, Identity</div>
             <div class="dc-title">WilcoxDesigns Brand Guidelines One-Pager</div>
-            <div class="dc-desc">Full brand handout: colour swatches, type specimen, logo usage rules, voice and tone. For contractors and collaborators.</div>
-            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Brand Guidelines Session</span></div>
+            <div class="dc-desc">Full brand handout: colour swatches, type specimen, logo usage rules, voice and tone, do and do not. For contractors and collaborators. WD-BG-001.</div>
+            <div style="margin:8px 0 4px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(196,154,108,0.3);color:var(--bronze);background:rgba(196,154,108,0.06);text-decoration:none">Open Document</a>
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">Complete, Filed</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
           <div class="doc-card" style="border-style:dashed;opacity:0.65">
             <div class="dc-type">Product, PRD</div>
@@ -765,12 +925,88 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
             <div class="dc-type">Brand, Logo</div>
             <div class="dc-title">Logo Direction, Fire and Ice</div>
-            <div class="dc-desc">Direction confirmed. Final logo design to be completed and approved by Friday 13 March 2026. Currently: 6 concepts explored, Fire and Ice selected. Orange/gold core transitions to electric blue wingtips. Bebas Neue wordmark lockup. Logo discussion and final approval is a priority task for today.</div>
+            <div class="dc-desc">Direction confirmed. Final logo design to be completed and approved by Thursday 12 March 2026. Currently: 6 concepts explored, Fire and Ice selected. Orange/gold core transitions to electric blue wingtips. Bebas Neue wordmark lockup. Logo discussion and final approval is a priority task for today.</div>
             <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
               <a href="https://valerie-github1.github.io/phoennixai-mission-control/phoennixai_logo_concepts.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">View Concepts</a>
               <span style="font-family:var(--mono);font-size:7px;color:#f59e0b">Needs GitHub upload first</span>
             </div>
-            <div class="dc-footer"><span class="chip" style="color:#f59e0b;border:1px solid rgba(245,158,11,0.3);background:rgba(245,158,11,0.06)">Approval by Friday 13 Mar</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+            <div class="dc-footer"><span class="chip" style="color:#f59e0b;border:1px solid rgba(245,158,11,0.3);background:rgba(245,158,11,0.06)">Approval by Thursday 12 Mar</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- WILCOXDESIGNS BRAND SYSTEM -->
+      <div id="sec-wd-brand-system" style="display:none">
+        <div class="doc-header">
+          <div class="dh-left">
+            <div class="dh-entity-chip chip chip-bronze" style="color:var(--bronze);border-color:rgba(196,154,108,0.3);background:rgba(196,154,108,0.07)">WilcoxDesigns, Brand System</div>
+            <div class="dh-title">WILCOXDESIGNS BRAND SYSTEM</div>
+            <div class="dh-sub">Colour architecture, typography, voice, logo direction, and brand guidelines. Tier 2 of the Wilcox Colour System.</div>
+          </div>
+        </div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#2A2725,#8B7355,#C8C0B4,#EDE8E0)"></div>
+            <div class="dc-type">Brand, Colour System, Tier 2</div>
+            <div class="dc-title">WilcoxDesigns Colour Palette</div>
+            <div class="dc-desc" style="line-height:2">
+              <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px">
+                <span style="background:#2A2725;border:1px solid rgba(255,255,255,0.15);padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Charcoal #2A2725</span>
+                <span style="background:#C8C0B4;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#2A2725">Warm Taupe #C8C0B4</span>
+                <span style="background:#EDE8E0;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#2A2725">Cream #EDE8E0</span>
+                <span style="background:#F7F4F0;border:1px solid rgba(42,39,37,0.15);padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#2A2725">Linen #F7F4F0</span>
+                <span style="background:#8B7355;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Mocha #8B7355</span>
+              </div>
+              <strong style="color:var(--text)">Concept:</strong> Warm, restrained, tactile. No bright primaries. Five colours used with purpose. Restraint is the aesthetic. Signals craft, precision, and refinement.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#2A2725,#C8C0B4)"></div>
+            <div class="dc-type">Brand, Typography</div>
+            <div class="dc-title">Typography System</div>
+            <div class="dc-desc" style="line-height:2">
+              <strong style="color:var(--text)">Display:</strong> Bebas Neue. Headlines, hero titles, section headers. All caps.<br>
+              <strong style="color:var(--text)">Body:</strong> DM Sans, weights 300, 400, 500, 600. All body copy and UI.<br>
+              <strong style="color:var(--text)">Accent:</strong> Playfair Display, italic only. Taglines and moments of emphasis.<br>
+              <strong style="color:var(--text)">Code/Labels:</strong> DM Mono. References, version numbers, badges, metadata.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#8B7355,#C8C0B4)"></div>
+            <div class="dc-type">Brand, Voice and Taglines</div>
+            <div class="dc-title">Voice and Taglines</div>
+            <div class="dc-desc" style="line-height:2">
+              <strong style="color:var(--text)">Primary Tagline:</strong> Where precision meets artistry<br>
+              <strong style="color:var(--text)">Mantra:</strong> Created to Create<br>
+              <strong style="color:var(--text)">Unified:</strong> Beautiful by design. Intelligent by nature.<br>
+              <strong style="color:var(--text)">Voice:</strong> Refined. Quiet confidence. Precision over performance. Direct sentences, no buzzwords.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#2A2725,#8B7355)"></div>
+            <div class="dc-type">Brand, Guidelines Document</div>
+            <div class="dc-title">Brand Guidelines One-Pager</div>
+            <div class="dc-desc">Full brand handout: colour swatches, type specimen, logo usage rules, voice and tone, do and do not. For contractors and collaborators. WD-BG-001.</div>
+            <div style="margin:8px 0 4px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(196,154,108,0.3);color:var(--bronze);background:rgba(196,154,108,0.06);text-decoration:none">Open Document</a>
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">Complete, Filed</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,#C8C0B4,#8B7355)"></div>
+            <div class="dc-type">Brand, UI System</div>
+            <div class="dc-title">UI Components and Status System</div>
+            <div class="dc-desc" style="line-height:1.9">
+              <strong style="color:var(--text)">Buttons:</strong> Primary (Charcoal fill), Secondary (Taupe border), Ghost (Rule border), Mocha (warm accent), Destructive (red border only).<br>
+              <strong style="color:var(--text)">Status Chips:</strong> System Locked, Approved, Live, In Build, Planned, Date TBC, Archived.<br>
+              <strong style="color:var(--text)">Status Dots:</strong> Active (green), In Build (blue), Pending (amber), Planned (taupe), Archived (stone).<br>
+              <strong style="color:var(--text)">Rule:</strong> DM Mono always on interactive elements. Never decorative fonts on buttons. Chips for document status, dots for operational status. Never mixed in the same row.
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
         </div>
       </div>
@@ -781,26 +1017,121 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="dh-left">
             <div class="dh-entity-chip chip" style="color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">PhoennixAI Agency, Finance</div>
             <div class="dh-title">FINANCE AND REVENUE</div>
-            <div class="dh-sub">Revenue targets, cashflow model, financial intelligence. Scope to be defined by Valerie, Friday 13 March 2026.</div>
+            <div class="dh-sub">Revenue targets, cashflow model, financial intelligence. Scope to be defined by Valerie, Thursday 12 March 2026.</div>
           </div>
         </div>
         <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:24px;text-align:center">
           <div style="font-size:28px;margin-bottom:12px">📊</div>
           <div style="font-family:var(--display);font-size:22px;letter-spacing:2px;margin-bottom:8px;color:var(--text)">SECTION IN DESIGN</div>
-          <div style="font-size:13px;color:var(--text2);max-width:540px;margin:0 auto;line-height:1.85">This section is reserved for Finance and Revenue management. Valerie will define the scope and requirements on Friday 13 March 2026. Build session to follow. Possible contents: monthly revenue targets and actuals, cashflow projections, agency pricing model, SaaS revenue forecast, and financial KPI dashboard. LEDGER agent (Agent 006) will integrate with this section in Phase 2 for advisory-only financial intelligence (human sign-off mandatory on all outputs).</div>
+          <div style="font-size:13px;color:var(--text2);max-width:540px;margin:0 auto;line-height:1.85">This section is reserved for Finance and Revenue management. Valerie will define the scope and requirements on Thursday 12 March 2026. Build session to follow. Possible contents: monthly revenue targets and actuals, cashflow projections, agency pricing model, SaaS revenue forecast, and financial KPI dashboard. LEDGER agent (Agent 006) will integrate with this section in Phase 2 for advisory-only financial intelligence (human sign-off mandatory on all outputs).</div>
           <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-            <span class="chip" style="color:var(--green);border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">Build Session: Friday 13 Mar</span>
+            <span class="chip" style="color:var(--green);border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">Build Session: Thursday 12 Mar</span>
             <span class="chip chip-draft">Scope TBC by Valerie</span>
           </div>
         </div>
       </div>
 
       <!-- OTHER SECTIONS PLACEHOLDER -->
-      <div id="sec-strategy" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">STRATEGY DOCUMENTS</div><div class="dh-sub">All strategic planning, ecosystem architecture, and priority documents</div></div></div><div style="color:var(--text2);font-size:13px">Strategy documents are filed under the main PhoennixAI Agency section. Navigate back to view the Wilcox Complete Ecosystem 2026 and all related documents.</div></div>
-      <div id="sec-products" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">PRODUCTS AND PRDs</div><div class="dh-sub">Product Requirements Documents for all 7 products in the portfolio</div></div></div><div style="color:var(--text2);font-size:13px">The full PRD suite is available in PhoennixAI_ProductDocumentation.html on GitHub. Navigate to the main PhoennixAI section to access it.</div></div>
+      <div id="sec-strategy" style="display:none">
+        <div class="doc-header"><div class="dh-left">
+          <div class="dh-entity-chip chip chip-live" style="margin-bottom:8px">PhoennixAI Agency, Strategy</div>
+          <div class="dh-title">STRATEGY DOCUMENTS</div>
+          <div class="dh-sub">Ecosystem architecture, honest analysis, priority matrix, and annual planning</div>
+        </div></div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
+            <div class="dc-type">Strategy, Ecosystem</div>
+            <div class="dc-title">Wilcox Complete Ecosystem 2026</div>
+            <div class="dc-desc">Full ecosystem architecture, honest analysis, priority matrix, brand guidelines. Single source of truth for the entire organisation. Confidential. Internal use only.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.2, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Strategy, Annual Planning</div>
+            <div class="dc-title">Annual Business Plan 2026</div>
+            <div class="dc-desc">Revenue targets, headcount plan, product roadmap, and quarterly milestones. To be built when Finance and Revenue section is scoped.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Planned</span><span class="dc-ver">Q2 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Strategy, Investor</div>
+            <div class="dc-title">Investor-Ready Brand Deck</div>
+            <div class="dc-desc">BL-010. Pitch deck for investors. To be built after first revenue milestone and data proof points are established.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Backlog</span><span class="dc-ver">BL-010</span></div>
+          </div>
+        </div>
+      </div>
+      <div id="sec-products" style="display:none">
+        <div class="doc-header"><div class="dh-left">
+          <div class="dh-entity-chip chip chip-live" style="margin-bottom:8px">PhoennixAI Agency, Products</div>
+          <div class="dh-title">PRODUCTS AND PRDs</div>
+          <div class="dh-sub">Product Requirements Documents for all 7 products in the portfolio</div>
+        </div></div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--gold)"></div>
+            <div class="dc-type">Product, PRD Suite</div>
+            <div class="dc-title">Product Requirements Document Suite</div>
+            <div class="dc-desc">PRD, Tech Spec, Market Analysis, and Values and Benefits for all 7 PhoennixAI products. Approved and live on GitHub.</div>
+            <div style="margin:8px 0 4px"><a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_ProductDocumentation.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(255,184,48,0.25);color:var(--gold);background:rgba(255,184,48,0.05);text-decoration:none">Open Document</a></div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-color:rgba(255,107,43,0.2)">
+            <div class="dc-status-bar" style="background:var(--fire)"></div>
+            <div class="dc-type">Product, Priority 1</div>
+            <div class="dc-title">PRJ-001: Mission Control App</div>
+            <div class="dc-desc">Full operational hub. Task management, org chart, agent directory, calendar, notes, backlog. Live on GitHub Pages.</div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 12 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.7">
+            <div class="dc-type">Product, Priority 2</div>
+            <div class="dc-title">PRJ-003: Social Media and Marketing App</div>
+            <div class="dc-desc">Social media management, content scheduler, analytics dashboard. Priority 2 build.</div>
+            <div class="dc-footer"><span class="chip chip-draft">In Build</span><span class="dc-ver">Q2 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Product, Creative</div>
+            <div class="dc-title">PRJ-002: Creative Designer Lab Tool</div>
+            <div class="dc-desc">24/7 client workspace. Built by PhoennixAI Agency for internal and external creative use.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Planned</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Product, Education</div>
+            <div class="dc-title">PRJ-004: EduTech Platform</div>
+            <div class="dc-desc">Academy digital platform. Age 8 to executive. Faith and kingdom mandate. Q3 2026.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Q3 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Product, Finance</div>
+            <div class="dc-title">PRJ-005: Financial App</div>
+            <div class="dc-desc">Requires qualified professional oversight. Advisory only. LEDGER agent integration.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Planned</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Product, Marketplace</div>
+            <div class="dc-title">PRJ-006: Marketplace App Store</div>
+            <div class="dc-desc">Agent and tool marketplace. BL-009.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Backlog</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.5">
+            <div class="dc-type">Product, Gaming</div>
+            <div class="dc-title">PRJ-007: Gaming App Platform</div>
+            <div class="dc-desc">Phantom Studio gaming platform. Linked to Academy sub-arm.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Backlog</span></div>
+          </div>
+        </div>
+      </div>
       <div id="sec-agents" style="display:none">
         <div class="doc-header"><div class="dh-left"><div class="dh-title">AGENT DOCUMENTATION</div><div class="dh-sub">CVs, job descriptions, manuals for all 15 agents including Claude and ARIA</div></div></div>
         <div style="background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.1);border-radius:8px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--text2);line-height:1.8">Every agent ships with a full hire kit. Documents live here, not in separate files. One-click signing below. Once signed, the action is logged automatically in Version History.</div>
+
+        <!-- AGENT MASTERLIST CARD — always first -->
+        <div id="agent-masterlist-card" class="doc-card" style="margin-bottom:14px;border-color:rgba(139,92,246,0.25)">
+          <div class="dc-status-bar" style="background:var(--violet)"></div>
+          <div class="dc-type">AI, Agents Directory</div>
+          <div class="dc-title" id="agent-count-title">Agent Masterlist, 15 Agents</div>
+          <div class="dc-desc">Full directory of all 15 agents including Claude and ARIA. Role, codename, value delivered, category, build priority, and monetisation model. Claude (000), ARIA (000), plus 13 commercial agents PA, SCOUT, PULSE, ATLAS, RELAY, LEDGER, ECHO, ENROL, GRID, SIGNAL, GRANT, FORGE, BRIDGE.</div>
+          <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver" id="agent-count-ver">15 agents total</span></div>
+        </div</div>
 
         <!-- CLAUDE -->
         <div style="background:var(--card);border:1px solid rgba(255,107,43,0.2);border-radius:10px;padding:18px;margin-bottom:12px">
@@ -814,7 +1145,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open JD <span style="color:var(--green);margin-left:4px">Live</span></a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open CV <span style="color:#f59e0b;margin-left:4px">Upload first</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open CV <span style="color:var(--green);margin-left:4px">Live</span></a>
             <button id="sign-btn-claude-jd" onclick="signDoc('claude','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);color:#f59e0b;background:rgba(245,158,11,0.06);cursor:pointer;transition:all 0.2s">Sign JD</button>
             <button onclick="resetSig('claude','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);color:var(--text3);background:transparent;cursor:pointer;transition:all 0.2s" title="Reset accidental signature">Reset Sig</button>
           </div>
@@ -828,11 +1159,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
               <div style="font-family:var(--display);font-size:20px;letter-spacing:2px;color:#00E5FF">ARIA</div>
               <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3)">PAI-JD-002, PAI-CV-002, Workspace Agent 000</div>
             </div>
-            <span id="sig-status-aria-jd" style="font-family:var(--mono);font-size:8px;color:#f59e0b">JD awaiting signature</span>
+            <span id="sig-status-aria-jd" style="font-family:var(--mono);font-size:8px;color:var(--green)">Stage 1 signed by Valerie Wilcox</span>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open JD <span style="color:#f59e0b;margin-left:4px">Upload first</span></a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open CV <span style="color:#f59e0b;margin-left:4px">Upload first</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open JD <span style="color:var(--green);margin-left:4px">Live</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open CV <span style="color:var(--green);margin-left:4px">Live</span></a>
             <button id="sign-btn-aria-jd" onclick="signDoc('aria','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);color:#f59e0b;background:rgba(245,158,11,0.06);cursor:pointer;transition:all 0.2s">Sign JD</button>
           </div>
         </div>
@@ -852,8 +1183,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">Action</th>
             <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">By</th>
           </tr></thead>
-          <tbody id="auto-version-log"></tbody>
-        </table>
+          <tbody id="auto-version-log">
+            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">12 Mar 2026, 12:00</td><td style="font-size:12px;font-weight:600;color:var(--text)">ARIA JD + CV</td><td style="font-size:12px;color:var(--text2)">Filed to GitHub. Stage 1 signed by Valerie Wilcox. PAI-JD-002, PAI-CV-002 live.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
+            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">12 Mar 2026, 12:00</td><td style="font-size:12px;font-weight:600;color:var(--text)">Claude JD + CV</td><td style="font-size:12px;color:var(--text2)">Filed to GitHub. Signed by Valerie Wilcox and Claude. PAI-JD-001, PAI-CV-001 live.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
+            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">12 Mar 2026, 12:00</td><td style="font-size:12px;font-weight:600;color:var(--text)">WD Brand Guidelines</td><td style="font-size:12px;color:var(--text2)">WD-BG-001 complete and filed to GitHub. Section 08 UI Components added.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
+            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">11 Mar 2026, 18:37</td><td style="font-size:12px;font-weight:600;color:var(--text)">Claude JD</td><td style="font-size:12px;color:var(--text2)">Signed by Valerie Wilcox. First signature recorded.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
+          </tbody>
+        </table></div>
       </div>
       <div id="sec-hr" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">HR AND PEOPLE</div><div class="dh-sub">All staff documents, contracts, onboarding packs</div></div></div>
       <div style="color:var(--text2);font-size:13px;margin-bottom:16px;line-height:1.8">All AI agent CVs and JDs are housed in the Agent Documentation section. Human staff contracts, onboarding packs, and employment records will be filed here as the team grows. Master HR Vault (human and AI combined) is planned for the next build session.</div>
@@ -882,11 +1218,73 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div id="sec-community" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">COMMUNITY IMPACT</div><div class="dh-sub">Girls in tech, prison reformation, children in crisis</div></div></div><div style="color:var(--text2);font-size:13px">Prison reformation programme: investigating. Application form received, not yet started. Girls in tech: St Paul's work experience April 2026. Documentation to be built per programme.</div></div>
       <div id="sec-legal" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">LEGAL AND COMPLIANCE</div><div class="dh-sub">Contracts, terms, compliance documentation</div></div></div><div style="color:var(--text2);font-size:13px">Legal documents require qualified legal counsel before being filed here. Placeholder section ready for when legal documents are produced.</div></div>
       <div id="sec-versions" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">FULL VERSION HISTORY</div><div class="dh-sub">All changes across all documents, all entities</div></div></div>
-        <table class="ver-table"><thead><tr><th>Version</th><th>Date</th><th>Entity</th><th>Changed By</th><th>Summary</th></tr></thead><tbody>
-          <tr class="ver-current"><td>v1.2</td><td>11 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Mission Control v2 with org chart and bottom nav. PRD suite. Document Management System. GitHub Pages live. Em dashes removed.</td></tr>
-          <tr><td>v1.1</td><td>10 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Claude CV, JD with e-signature. Mission Control v1. Content Bible. Logo concepts.</td></tr>
-          <tr><td>v1.0</td><td>10 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Brand architecture established. Colour systems confirmed. First session.</td></tr>
-        </tbody></table>
+        <div class="ver-table-wrap"><table class="ver-table"><thead><tr><th>Version</th><th>Date</th><th>Entity</th><th>Changed By</th><th>Summary</th></tr></thead><tbody>
+          <tr class="ver-current"><td>v1.6</td><td>12 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Session 6: SCRIBE added to org chart. Claude and ARIA on All Agents board. WilcoxDesigns sidebar sub-sections fixed. UI Components system added to Brand Guidelines. ARIA JD and CV Live. Dilpreet Kaur confirmed as PhoennixAI Director. Pending Review cleared. Automation Log 11 active. Agent dashboard scoped for backlog.</td></tr>
+          <tr><td>v1.5</td><td>12 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>WilcoxDesigns Brand System section with colour palette, typography, voice, and UI components. Brand Guidelines One-Pager (WD-BG-001) complete and filed to GitHub. Mission Control TODAY tab automated via localStorage. Request Update wired to ARIA alerts pipeline. PRJ-003 and PRJ-006 priorities confirmed.</td></tr>
+          <tr><td>v1.4</td><td>12 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Session 5: Claude JD (PAI-JD-001) signed by Valerie and Claude. ARIA JD (PAI-JD-002) Stage 1 signed. Signature localStorage persistence and theme-aware canvas ink. All 4 agent documents filed to GitHub. Governance framework and kingdom culture foundation in all JDs.</td></tr>
+          <tr><td>v1.3</td><td>12 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>ARIA Agent 000 deployed. ARIA JD (PAI-JD-002) and CV (PAI-CV-002) created. Agent Documentation section updated. Workspace v2 built with ARIA briefing, calendar done feature, and real-time auto-refresh.</td></tr>
+          <tr><td>v1.2</td><td>11 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Mission Control v2 with org chart and bottom nav. Full PRD suite. Document Management System live on GitHub Pages. Em dashes removed across all files. Phantom Studio date corrected to Q4 2024.</td></tr>
+          <tr><td>v1.1</td><td>10 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Claude CV and JD created with e-signature. Mission Control v1. Content Bible v1. Logo concepts (6 explored, Fire and Ice selected).</td></tr>
+          <tr><td>v1.0</td><td>10 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Brand architecture established. Wilcox Colour System (Tier 1, 2, 3) confirmed. PhoennixAI and WilcoxDesigns palettes locked. First session.</td></tr>
+        </tbody></table></div>
+      </div>
+
+      <!-- USER MANUAL SECTION -->
+      <div id="sec-usermanual" style="display:none">
+        <div class="doc-header"><div class="dh-left">
+          <div class="dh-entity-chip chip chip-draft" style="margin-bottom:8px">System Knowledge Base, In Build</div>
+          <div class="dh-title">USER MANUAL</div>
+          <div class="dh-sub">How to use the PhoennixAI ecosystem. Navigation, features, agent interactions, and system rules.</div>
+        </div></div>
+
+        <div style="background:rgba(70,171,215,0.04);border:1px solid rgba(70,171,215,0.12);border-left:3px solid var(--sapphire);border-radius:0 8px 8px 0;padding:16px;margin-bottom:20px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--sapphire);margin-bottom:6px">STANDING INSTRUCTION</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.8">The Deliverables section in the Workspace must be reviewed at the start of every session by the human (Valerie Wilcox) and the responsible AI partner (Claude or ARIA). Every file listed must have its GitHub status confirmed. Any file marked Upload Today must be actioned before the session ends. This is a non-negotiable system rule.</div>
+        </div>
+
+        <div class="section-title">Navigation Guide</div>
+        <div class="doc-grid">
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--fire)"></div>
+            <div class="dc-type">Document Hub</div>
+            <div class="dc-title">How to Use the Document Hub</div>
+            <div class="dc-desc">Click any entity in the sidebar to expand its sub-sections. Click the entity name again to collapse. Click any card in Core Documents to navigate directly to its home section. Each card shows a coloured arrow label indicating its destination. The PhoennixAI Agency and WilcoxDesigns sections both support collapsible sub-navigation.</div>
+            <div class="dc-footer"><span class="chip chip-live">Active Feature</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--sapphire)"></div>
+            <div class="dc-type">Agent Documentation</div>
+            <div class="dc-title">Signing Agent Documents</div>
+            <div class="dc-desc">Navigate to Agent Documentation in the sidebar. The Sign JD button is one-click. Once signed, the timestamp is stored in localStorage and the action is logged automatically in the Document Actions Log. The Reset Sig button allows accidental signatures to be cleared. All documents link directly to their live GitHub URL.</div>
+            <div class="dc-footer"><span class="chip chip-live">Active Feature</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--gold)"></div>
+            <div class="dc-type">Workspace</div>
+            <div class="dc-title">AI Schedule My Day</div>
+            <div class="dc-desc">Located on the ARIA tab in the Workspace. ARIA reads your calendar events and outstanding tasks, then generates an intelligent time-blocked schedule. The output is formatted as clean blocks with reasoning. Used best when your calendar is populated for the day. Valerie works 12pm to 3am and ARIA schedules within that window.</div>
+            <div class="dc-footer"><span class="chip chip-live">Active Feature</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:var(--bronze)"></div>
+            <div class="dc-type">Version Control</div>
+            <div class="dc-title">Version History and Document Log</div>
+            <div class="dc-desc">Every document action (signing, filing, updating) is logged automatically in the Document Actions Log. The Full Version History under Views tracks all changes across all entities from v1.0. The entity-level Version History shows changes specific to that section. Phase 2 will auto-trigger version logs from Supabase.</div>
+            <div class="dc-footer"><span class="chip chip-live">Active Feature</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+            <div class="dc-type">Coming in Phase 2</div>
+            <div class="dc-title">Agent Communication Log</div>
+            <div class="dc-desc">Full inter-agent communication map showing what each agent passed to another, when, and the outcome. Will live in Insights. Requires Supabase backend (BL-005).</div>
+            <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
+          </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+            <div class="dc-type">Coming in Phase 2</div>
+            <div class="dc-title">Full User Manual Document</div>
+            <div class="dc-desc">Comprehensive knowledge base covering all three apps, all agent interactions, system rules, onboarding guide for new staff and contractors. To be built as a standalone document filed here and on GitHub.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Next Build Session</span></div>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -930,7 +1328,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('theme-icon').textContent=d?'☀️':'🌙'}
 
 // ═══ SECTIONS ═══
-const allSections=['phoennixai','wilcox','automation','kpi','versions','pending','founder','strategy','products','agents','hr','legal','academy','phantom','community','wd-brand','wd-creative','brand-pai','finance'];
+function requestUpdate(docTitle, docRef) {
+  const now = new Date();
+  const ds = now.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  const ts = now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  // Log to pending review
+  const pending = JSON.parse(localStorage.getItem('pai_pending_review') || '[]');
+  pending.unshift({type:'update_request', doc: docTitle, ref: docRef, date: ds, time: ts, status:'pending'});
+  localStorage.setItem('pai_pending_review', JSON.stringify(pending));
+  // Log to ARIA briefing
+  const ariaAlerts = JSON.parse(localStorage.getItem('pai_aria_alerts') || '[]');
+  ariaAlerts.unshift({msg: 'Update requested for ' + docTitle + ' (' + docRef + ') at ' + ts + ' on ' + ds, read: false});
+  localStorage.setItem('pai_aria_alerts', JSON.stringify(ariaAlerts));
+  // Fire cross-tab storage event for Workspace/Mission Control to pick up
+  localStorage.setItem('pai_last_action', JSON.stringify({action:'update_request', doc:docTitle, ts: Date.now()}));
+  showToastDH('Update request logged for ' + docTitle + '. ARIA and Mission Control notified.');
+}
+
+const allSections=['phoennixai','wilcox','automation','kpi','versions','pending','founder','strategy','products','agents','hr','legal','academy','phantom','community','wd-brand','wd-brand-system','wd-creative','brand-pai','finance','insights','usermanual'];
+function toggleEntity(childId){const el=document.getElementById(childId);if(el)el.style.display=el.style.display==='none'?'block':'none';}
 function showSection(id){
   allSections.forEach(s=>{const el=document.getElementById('sec-'+s);if(el)el.style.display='none'});
   const target=document.getElementById('sec-'+id);
@@ -967,7 +1383,9 @@ function renderVersionLog(){
   const el=document.getElementById('auto-version-log');
   if(!el)return;
   const log=loadVLog();
-  el.innerHTML=log.length?log.map(v=>'<tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">'+v.date+'</td><td style="font-size:12px;font-weight:600;color:var(--text)">'+v.doc+'</td><td style="font-size:12px;color:var(--text2)">'+v.desc+'</td><td style="font-size:11px;color:var(--text3)">'+v.author+'</td></tr>').join(''):'<tr><td colspan="4" style="color:var(--text3);font-size:12px;padding:14px">No version events yet. Actions like signing, approving, and updating documents will appear here automatically.</td></tr>';
+  if(!log.length)return; // keep seeded rows
+  const dynamicRows=log.map(v=>'<tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">'+v.date+'</td><td style="font-size:12px;font-weight:600;color:var(--text)">'+v.doc+'</td><td style="font-size:12px;color:var(--text2)">'+v.desc+'</td><td style="font-size:11px;color:var(--text3)">'+v.author+'</td></tr>').join('');
+  el.innerHTML=dynamicRows+el.innerHTML;
 }
 
 // ═══ PENDING REVIEW, push to Workspace ═══
@@ -981,10 +1399,9 @@ function pushPendingToWorkspace(items){
 }
 function initPendingReview(){
   const defaults=[
-    {id:'pr-001',title:'Sign ARIA JD (PAI-JD-002)',body:'ARIA Job Description requires your signature. Open Document Hub, Agent Documentation.',priority:'fire'},
-    {id:'pr-002',title:'Sign Claude JD (PAI-JD-001)',body:'Claude Job Description still pending your signature. Live on GitHub.',priority:'fire'},
-    {id:'pr-003',title:'Brand Guidelines One-Pager',body:'WilcoxDesigns brand guidelines are in build. Session needs scheduling.',priority:'bronze'},
-    {id:'pr-004',title:'St Pauls Work Experience Pack',body:'3 students arriving early April 2026. Pack needs creating before their arrival.',priority:'amber'}
+    {id:'pr-004',title:'St Pauls Work Experience Pack',body:'3 students arriving early April 2026. Pack needs creating before their arrival.',priority:'amber'},
+    {id:'pr-005',title:'Master HR Vault',body:'Unified HR record for all human staff and agents. Planned for next build session.',priority:'amber'},
+    {id:'pr-006',title:'Finance and Revenue Section',body:'Scope to be defined by Valerie. Build session: Friday 13 March 2026.',priority:'fire'}
   ];
   pushPendingToWorkspace(defaults);
 }
@@ -1027,8 +1444,8 @@ function injectARIANotes(){
   try{
     const notes=JSON.parse(localStorage.getItem('pai_notes')||'[]');
     const reminders=[
-      {id:'aria-logo',title:'REMINDER: Logo discussion today',text:'Logo direction (Fire and Ice) confirmed but needs final design and approval by Friday 13 March. Discuss with Claude today.',pinned:true,date:'12 Mar, ARIA'},
-      {id:'aria-finance',title:'REMINDER: Finance section, Friday 13 Mar',text:'Finance and Revenue section build session Friday 13 March. Valerie to define scope first.',pinned:true,date:'12 Mar, ARIA'},
+      {id:'aria-logo',title:'REMINDER: Logo discussion today',text:'Logo direction (Fire and Ice) confirmed but needs final design and approval by Thursday 12 March. Discuss with Claude today.',pinned:true,date:'12 Mar, ARIA'},
+      {id:'aria-finance',title:'REMINDER: Finance section, Thursday 12 Mar',text:'Finance and Revenue section build session Thursday 12 March. Valerie to define scope first.',pinned:true,date:'12 Mar, ARIA'},
       {id:'aria-github',title:'REMINDER: 11 files need GitHub upload',text:'11 files total pending upload. 9 new plus 2 updated. Upload all before end of session.',pinned:false,date:'12 Mar, ARIA'}
     ];
     reminders.forEach(r=>{if(!notes.find(n=>n.id===r.id))notes.push({...r,date:new Date().toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})});});
@@ -1100,7 +1517,15 @@ function showToastDH(msg){
 document.addEventListener('DOMContentLoaded',()=>{
   renderVersionLog();
   loadSigStates();
+  // Clear stale signed-JD items from any old localStorage sessions
+  try{
+    const PR_KEY_INIT='pai_pending_review';
+    const pr=JSON.parse(localStorage.getItem(PR_KEY_INIT)||'[]');
+    const clean=pr.filter(p=>p.id!=='pr-001'&&p.id!=='pr-002'&&p.id!=='pr-003');
+    localStorage.setItem(PR_KEY_INIT,JSON.stringify(clean));
+  }catch(e){}
   initPendingReview();
+  showSection('phoennixai');
   injectARIANotes();
 });
 </script>

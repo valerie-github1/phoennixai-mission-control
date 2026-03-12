@@ -2,7 +2,8 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060A18' rx='6'/%3E%3Cpath d='M16 3 C11 3 7 8 9 13 C11 17 10 19 8 21 C12 20 14 17 13 14 C15 18 14 22 11 25 C15 24 20 20 19 15 C21 18 21 23 18 26 C22 23 25 17 22 12 C24 14 25 17 24 20 C26 15 24 8 19 5 C18 4 17 3 16 3Z' fill='%23FF6B2B'/%3E%3Cpath d='M13 14 C15 18 14 22 11 25 C12 23 13 21 13 19 C13 17 12 16 13 14Z' fill='%23FFB830'/%3E%3Cpath d='M8 21 C6 24 8 28 11 29 C9 27 9 24 11 22' fill='%2300E5FF' opacity='0.85'/%3E%3Cpath d='M18 26 C19 28 22 29 24 28 C22 26 20 25 18 26Z' fill='%2300E5FF' opacity='0.85'/%3E%3C/svg%3E">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PhoennixAI Mission Control v2</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -117,6 +118,12 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .progress-fill{height:100%;background:linear-gradient(to right,var(--fire),var(--gold));border-radius:3px;transition:width 0.4s ease}
 
 .pipeline-item{font-size:11px;color:var(--text2);padding:7px 10px;background:var(--panel);border-radius:4px;margin-bottom:5px;border:1px solid var(--border)}
+@keyframes pulse-border {
+  0%,100%{box-shadow:0 0 0 0 rgba(255,184,48,0.0)}
+  50%{box-shadow:0 0 0 4px rgba(255,184,48,0.25)}
+}
+.notice-box-alert{animation:pulse-border 2.5s ease-in-out infinite}
+.tbc-badge{display:inline-block;font-family:var(--mono);font-size:7px;letter-spacing:2px;padding:2px 7px;background:rgba(255,184,48,0.15);border:1px solid rgba(255,184,48,0.4);color:var(--gold);border-radius:3px;margin-left:6px;animation:pulse-border 1.8s ease-in-out infinite}
 .notice-box{background:rgba(255,184,48,0.05);border:1px solid rgba(255,184,48,0.18);border-radius:6px;padding:14px;margin-bottom:14px}
 .notice-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
 .notice-body{font-size:11px;color:var(--text2);line-height:1.7}
@@ -293,7 +300,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .bn-icon{font-size:18px;line-height:1;transition:transform 0.2s}
 .bn-label{line-height:1}
 
-@media(max-width:860px){
+
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+  .bottom-nav{padding-bottom:env(safe-area-inset-bottom);height:calc(60px + env(safe-area-inset-bottom))}
+  .page{padding-bottom:calc(72px + env(safe-area-inset-bottom))}
+}
+/* ── TABLET ── */
+@media(max-width:900px){
   .topbar{padding:0 12px}
   .tb-date,.tb-controls .live-dot{display:none}
   .tb-tabs{display:none}
@@ -301,10 +314,34 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   .page{padding-bottom:72px}
   .wrap{padding:16px 14px}
   .today-layout,.cal-layout,.notes-grid{grid-template-columns:1fr}
-  .proj-grid,.agents-grid{grid-template-columns:1fr}
+  .proj-grid,.agents-grid{grid-template-columns:repeat(2,1fr)}
   .asf-grid{grid-template-columns:1fr 1fr}
+  .org-level{flex-wrap:wrap;justify-content:center}
+  .org-node{min-width:130px}
+}
+/* ── MOBILE ── */
+@media(max-width:600px){
+  .wrap{padding:12px 10px}
+  .proj-grid,.agents-grid{grid-template-columns:1fr}
+  .asf-grid{grid-template-columns:1fr}
+  .tb-logo{font-size:15px;letter-spacing:2px}
+  .section-label{font-size:9px}
+  .org-node{min-width:110px;padding:12px 8px}
+  .on-name{font-size:11px}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:480px}
+  .filter-row{flex-wrap:wrap;gap:6px}
+  .filter-btn{font-size:8px;padding:5px 10px}
+}
+/* ── SMALL PHONE ── */
+@media(max-width:390px){
+  .asf-grid{grid-template-columns:1fr!important}
+  .proj-grid,.agents-grid{grid-template-columns:1fr!important}
+  .tb-logo{font-size:14px;letter-spacing:1px}
+  .wrap{padding:10px 8px}
 }
 </style>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
 </head>
 <body>
 
@@ -339,25 +376,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
   <div class="today-layout">
     <div>
-      <div class="task-item" onclick="toggleTask(this)">
+      <div class="task-item done" onclick="toggleTask(this)" data-tid="t01">
         <div class="tk-num">01</div>
         <div>
           <div class="tk-title">Claude CV and Job Description</div>
-          <div class="tk-body">Formal CV and JD for HR and directors. Includes electronic signature pad for both parties. Print-ready with e-sign functionality.</div>
-          <div class="tk-tags"><span class="chip chip-done">Completed</span><span class="chip chip-hold">HR, Directors</span></div>
+          <div class="tk-body">Signed, filed, and uploaded to GitHub. PAI-JD-001 signed by both Valerie Wilcox and Claude. PAI-CV-001 filed. Signature persistence locked via localStorage.</div>
+          <div class="tk-tags"><span class="chip chip-done">Signed and Filed</span><span class="chip chip-hold">Session 5</span></div>
         </div>
         <div><span class="chip chip-done">Done</span></div>
       </div>
-      <div class="task-item" onclick="toggleTask(this)">
+      <div class="task-item" onclick="toggleTask(this)" data-tid="t02">
         <div class="tk-num">02</div>
         <div>
-          <div class="tk-title">Unified Brand Guidelines One-Pager</div>
-          <div class="tk-body">Single handout document covering all entities, colour systems, brand voice, typography, taglines, and the Created to Create philosophy. For new team members, contractors, and partners.</div>
-          <div class="tk-tags"><span class="chip chip-now">In Progress</span><span class="chip chip-hold">All Entities</span></div>
+          <div class="tk-title">WilcoxDesigns Brand Guidelines One-Pager</div>
+          <div class="tk-body">Colour system locked. Typography locked. Building the full brand guidelines document now. PhoennixAI brand system already stored in Document Hub under Brand System.</div>
+          <div class="tk-tags"><span class="chip chip-now">In Build Now</span><span class="chip chip-hold">WilcoxDesigns</span></div>
         </div>
         <div><span class="chip chip-now">Now</span></div>
       </div>
-      <div class="task-item" onclick="toggleTask(this)">
+      <div class="task-item" onclick="toggleTask(this)" data-tid="t03">
         <div class="tk-num">03</div>
         <div>
           <div class="tk-title">PhoennixAI Social Media Posts</div>
@@ -366,7 +403,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         </div>
         <div><span class="chip chip-next">Next</span></div>
       </div>
-      <div class="task-item" onclick="toggleTask(this)">
+      <div class="task-item" onclick="toggleTask(this)" data-tid="t04">
         <div class="tk-num">04</div>
         <div>
           <div class="tk-title">Logo and Typography Direction</div>
@@ -375,7 +412,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         </div>
         <div><span class="chip chip-next">Next</span></div>
       </div>
-      <div class="task-item" onclick="toggleTask(this)">
+      <div class="task-item" onclick="toggleTask(this)" data-tid="t05">
         <div class="tk-num">05</div>
         <div>
           <div class="tk-title">PhoennixAI Website Strategy Brainstorm</div>
@@ -395,26 +432,27 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="progress-bar"><div class="progress-fill" id="prog-bar" style="width:20%"></div></div>
         </div>
         <div class="ss-title" style="margin-top:16px">Coming Up</div>
-        <div class="pipeline-item">Academy website build</div>
-        <div class="pipeline-item">WilcoxDesigns website build</div>
-        <div class="pipeline-item">Product priority matrix session</div>
-        <div class="pipeline-item">AI OS architecture plan</div>
-        <div class="pipeline-item">Business automation mapping</div>
-        <div class="pipeline-item">Agent architecture session</div>
+        <div class="pipeline-item">Social Media App build, PRJ-003</div>
+        <div class="pipeline-item">Marketplace MVP landing page</div>
+        <div class="pipeline-item">PA, SCOUT, PULSE agent JDs and CVs</div>
+        <div class="pipeline-item">Phase 2 developer hire</div>
+        <div class="pipeline-item">Brand Guidelines One-Pager all entities</div>
+        <div class="pipeline-item">St Pauls work experience prep, April</div>
       </div>
-      <div class="notice-box">
-        <div class="notice-label">Work Experience, St Paul's Academy</div>
-        <div class="notice-body"><strong>3 girls arriving early April 2026.</strong> Exact date TBC, Valerie to confirm. Onboarding brief, schedule, and project assignments needed. Claude to draft once date is confirmed.</div>
+      <div class="notice-box notice-box-alert">
+        <div class="notice-label">Work Experience, St Paul's Academy <span class="tbc-badge">DATE TBC</span></div>
+        <div class="notice-body"><strong>3 girls arriving early April 2026.</strong> Date not yet confirmed. Chase this up. Onboarding brief, schedule, project assignments, and mentor allocation needed. Claude drafts full pack once date is locked.</div>
       </div>
       <div class="sidebar-section">
         <div class="ss-title">Session Log</div>
-        <div style="display:flex;flex-direction:column;gap:5px">
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Ecosystem 2026 Document</span><span style="color:var(--green)">Done</span></div>
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Claude CV</span><span style="color:var(--green)">Done</span></div>
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Claude Job Description (e-sign)</span><span style="color:var(--green)">Done</span></div>
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Mission Control v2</span><span style="color:var(--green)">Done</span></div>
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Content Bible</span><span style="color:var(--green)">Done</span></div>
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Logo Concepts HTML</span><span style="color:var(--green)">Done</span></div>
+        <div id="session-log-list" style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Claude JD, PAI-JD-001 Signed</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>ARIA JD, PAI-JD-002 Stage 1 Signed</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Signature persistence, localStorage</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Governance framework, all JDs</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Workspace fix, favicon, mobile</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>All 7 files uploaded to GitHub</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>WilcoxDesigns Brand Guidelines</span><span style="color:#f59e0b">In Build</span></div>
         </div>
       </div>
     </div>
@@ -504,6 +542,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <div class="fbtn" onclick="filterA('edu',this)">Education</div>
     <div class="fbtn" onclick="filterA('finance',this)">Finance</div>
     <div class="fbtn" onclick="filterA('hr',this)">HR</div>
+    <div class="fbtn" onclick="filterA('core',this)" style="border-color:rgba(255,107,43,0.4);color:var(--fire)">Core AI</div>
   </div>
   <div class="agents-grid" id="agents-grid">
 
@@ -611,6 +650,23 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="ag-tags"><span class="atag at-hr">PR, Growth</span><span class="atag at-creative">Brand Amplifier</span></div>
     </div>
 
+    <!-- CORE AI PARTNERS -->
+    <div class="ag-card" data-cat="core" style="border-color:rgba(255,107,43,0.25);background:rgba(255,107,43,0.02)"><div class="ag-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
+      <div class="ag-id" style="color:var(--fire)">CORE AI, Strategic Partner</div>
+      <div class="ag-name" style="color:var(--fire)">CLAUDE</div><div class="ag-code">AI Strategic Partner, Research Director, Technical Writer</div>
+      <div class="ag-role">Operates as Valerie's senior strategic partner across all entities. Leads technical architecture, builds all products and documents, researches markets and competitors, challenges decisions, and manages the agent team. Thinks at the highest level and is accountable for accuracy and quality in every output. Reports directly to Valerie. All 13 commercial agents report through Claude.</div>
+      <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Replaces multiple senior hires across strategy, technical writing, product design, and research. Operates 24/7 with zero performance variance. Produces investor-grade documents, production-ready code, and strategic decisions in a single session. PAI-JD-001, PAI-CV-001. Signed and active.</div></div>
+      <div class="ag-tags"><span class="atag at-ops" style="color:var(--fire);border-color:rgba(255,107,43,0.3)">Active, Deployed</span><span class="atag at-ops" style="color:var(--fire);border-color:rgba(255,107,43,0.3)">PAI-JD-001 Signed</span><span class="atag" style="color:var(--green);border-color:rgba(34,197,94,0.2)">Anthropic, Claude Sonnet</span></div>
+    </div>
+
+    <div class="ag-card" data-cat="core" style="border-color:rgba(0,229,255,0.25);background:rgba(0,229,255,0.02)"><div class="ag-bar" style="background:linear-gradient(to right,#00E5FF,#46ABD7)"></div>
+      <div class="ag-id" style="color:#00E5FF">CORE AI, Agent 000</div>
+      <div class="ag-name" style="color:#00E5FF">ARIA</div><div class="ag-code">Workspace Intelligence Agent, Second Brain</div>
+      <div class="ag-role">ARIA is the operational intelligence layer that runs beneath every session. Monitors the workspace, briefs Valerie in real-time, tracks calendar, surfaces high-priority items, analyses the working day, manages notes, and keeps the founder informed without adding to their cognitive load. ARIA is always on, always watching, always ready. Not a commercial agent. Internal infrastructure only.</div>
+      <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Eliminates the daily mental overhead of tracking what needs doing, when, and why. Valerie opens Mission Control and ARIA has already synthesised everything. A second brain that never forgets. PAI-JD-002, PAI-CV-002. Stage 1 signed. Active since 12 March 2026.</div></div>
+      <div class="ag-tags"><span class="atag" style="color:#00E5FF;border-color:rgba(0,229,255,0.3)">Active, Deployed</span><span class="atag" style="color:#00E5FF;border-color:rgba(0,229,255,0.3)">PAI-JD-002 Stage 1 Signed</span><span class="atag" style="color:var(--gold);border-color:rgba(255,184,48,0.2)">Agent 000, Internal</span></div>
+    </div>
+
   </div>
 
   <div class="intel-box">
@@ -644,7 +700,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <div class="org-tree">
       <div class="org-level">
         <div class="org-node founder">
-          <div class="on-avatar" style="background:rgba(196,154,108,0.15);border-color:rgba(196,154,108,0.3)">👑</div>
+          <div class="on-avatar" style="background:rgba(196,154,108,0.15);border-color:rgba(196,154,108,0.3)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name">VALERIE WILCOX</div>
           <div class="on-role">Founder and Visionary<br>PhoennixAI and WilcoxDesigns</div>
           <div class="on-status" style="color:var(--bronze)">Active</div>
@@ -652,20 +708,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       </div>
       <div class="org-connector-v"></div>
       <div class="org-level">
-        <div class="org-node human">
-          <div class="on-avatar" style="background:rgba(70,171,215,0.1);border-color:rgba(70,171,215,0.2)">👤</div>
-          <div class="on-name">DIRECTOR</div>
+        <div class="org-node human" style="border-color:rgba(70,171,215,0.3)">
+          <div class="on-avatar" style="background:rgba(70,171,215,0.15);border-color:rgba(70,171,215,0.3)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="on-name">DILPREET KAUR</div>
           <div class="on-role">Company Director<br>PhoennixAI</div>
-          <div class="on-status" style="color:var(--sapphire)">Add Name</div>
+          <div class="on-status" style="color:var(--sapphire)">Active</div>
         </div>
-        <div class="org-node human">
-          <div class="on-avatar" style="background:rgba(70,171,215,0.1);border-color:rgba(70,171,215,0.2)">👤</div>
-          <div class="on-name">DIRECTOR</div>
+        <div class="org-node human" style="border-color:rgba(70,171,215,0.15);opacity:0.6">
+          <div class="on-avatar" style="background:rgba(70,171,215,0.05);border-color:rgba(70,171,215,0.1)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+          <div class="on-name" style="color:var(--text3)">TO BE APPOINTED</div>
           <div class="on-role">Company Director<br>WilcoxDesigns</div>
-          <div class="on-status" style="color:var(--sapphire)">Add Name</div>
+          <div class="on-status" style="color:var(--text3)">Vacant</div>
         </div>
         <div class="org-node human">
-          <div class="on-avatar" style="background:rgba(13,148,136,0.1);border-color:rgba(13,148,136,0.2)">👤</div>
+          <div class="on-avatar" style="background:rgba(13,148,136,0.1);border-color:rgba(13,148,136,0.2)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name">ACADEMY LEAD</div>
           <div class="on-role">Head of Academy<br>PhoennixAI Academy</div>
           <div class="on-status" style="color:var(--teal)">Add Name</div>
@@ -674,19 +730,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="org-connector-v"></div>
       <div class="org-level" style="gap:10px">
         <div class="org-node human" style="min-width:120px">
-          <div class="on-avatar" style="background:rgba(70,171,215,0.07);font-size:14px">🎓</div>
+          <div class="on-avatar" style="background:rgba(70,171,215,0.07);font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name" style="font-size:12px">WORK EXP</div>
           <div class="on-role" style="font-size:9px">St Paul's Academy<br>3 students, April 2026</div>
           <div class="on-status" style="color:var(--gold);font-size:8px">Incoming</div>
         </div>
         <div class="org-node human" style="min-width:120px">
-          <div class="on-avatar" style="background:rgba(70,171,215,0.07);font-size:14px">👤</div>
+          <div class="on-avatar" style="background:rgba(70,171,215,0.07);font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name" style="font-size:12px">PHANTOM LEAD</div>
           <div class="on-role" style="font-size:9px">Phantom Studio<br>8 pilot students</div>
           <div class="on-status" style="color:var(--neon);font-size:8px">Active</div>
         </div>
         <div class="org-node human" style="min-width:120px;border-style:dashed">
-          <div class="on-avatar" style="background:rgba(255,255,255,0.03);font-size:14px">+</div>
+          <div class="on-avatar" style="background:rgba(255,255,255,0.03);font-size:14px"><span style="font-size:18px;color:var(--text3)">+</span></div>
           <div class="on-name" style="font-size:11px;color:var(--text3)">ADD STAFF</div>
           <div class="on-role" style="font-size:9px;color:var(--text3)">Use form below<br>to add a new member</div>
         </div>
@@ -699,7 +755,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <div class="org-tree">
       <div class="org-level">
         <div class="org-node founder">
-          <div class="on-avatar" style="background:rgba(196,154,108,0.15);border-color:rgba(196,154,108,0.3)">👑</div>
+          <div class="on-avatar" style="background:rgba(196,154,108,0.15);border-color:rgba(196,154,108,0.3)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name">VALERIE WILCOX</div>
           <div class="on-role">Founder, All AI reports here</div>
           <div class="on-status" style="color:var(--bronze)">Active</div>
@@ -708,17 +764,22 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="org-connector-v"></div>
       <div class="org-level">
         <div class="org-node me">
-          <div class="on-avatar" style="background:rgba(255,107,43,0.1);border-color:rgba(255,107,43,0.3)">🤖</div>
+          <div class="on-avatar" style="background:rgba(255,107,43,0.1);border-color:rgba(255,107,43,0.3)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name">CLAUDE</div>
           <div class="on-role">AI Strategic Partner<br>Research Director, Technical Writer</div>
           <div class="on-status" style="color:var(--fire)">Active, Anthropic</div>
         </div>
         <div class="org-node" style="border-color:rgba(0,229,255,0.3);background:rgba(0,229,255,0.04)">
-          <div class="org-node::before" style="display:none"></div>
-          <div class="on-avatar" style="background:rgba(0,229,255,0.1);border-color:rgba(0,229,255,0.3)">🧠</div>
+          <div class="on-avatar" style="background:rgba(0,229,255,0.1);border-color:rgba(0,229,255,0.3)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name" style="color:#00E5FF">ARIA</div>
-          <div class="on-role">Workspace Agent 000<br>Second Brain, Briefings, Reminders</div>
+          <div class="on-role">Workspace Agent 000<br>Second Brain, Briefings, Real-time Alerts</div>
           <div class="on-status" style="color:#00E5FF">Active, Deployed 12 Mar</div>
+        </div>
+        <div class="org-node" style="border-color:rgba(196,154,108,0.3);background:rgba(196,154,108,0.04)">
+          <div class="on-avatar" style="background:rgba(196,154,108,0.1);border-color:rgba(196,154,108,0.3)">📋</div>
+          <div class="on-name" style="color:var(--bronze)">SCRIBE</div>
+          <div class="on-role">Document Intelligence Agent<br>Version Control, Review Triggers, Audit Trail</div>
+          <div class="on-status" style="color:var(--amber)">Planned, Phase 2</div>
         </div>
       </div>
       <div class="org-connector-v"></div>
@@ -766,7 +827,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="on-status" style="color:var(--amber);font-size:8px">Next</div>
         </div>
         <div class="org-node ai-node" style="min-width:110px">
-          <div class="on-avatar" style="background:rgba(123,47,255,0.08);font-size:14px">🎓</div>
+          <div class="on-avatar" style="background:rgba(123,47,255,0.08);font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
           <div class="on-name" style="font-size:12px">ENROL</div>
           <div class="on-role" style="font-size:9px">Academy Enrolment</div>
           <div class="on-status" style="color:var(--amber);font-size:8px">Next</div>
@@ -819,8 +880,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <span style="font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:1px">Synced with Workspace · updates every 5s</span>
   </div>
 
-  <!-- AI OUTPUT -->
-  <div id="ai-schedule-out" style="display:none;background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.2);border-radius:8px;padding:16px;margin-bottom:16px;font-size:12px;color:var(--text);line-height:1.8;white-space:pre-wrap;font-family:var(--body)"></div>
+  <!-- ARIA SCHEDULE OUTPUT — shows above calendar, collapsible -->
+  <div id="ai-schedule-out" style="display:none;background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.2);border-radius:8px;padding:16px;margin-bottom:16px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--fire)">ARIA DAILY SCHEDULE</div>
+      <button onclick="document.getElementById('ai-schedule-out').style.display='none'" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:4px;border:1px solid rgba(255,107,43,0.2);color:var(--text3);background:transparent;cursor:pointer">Dismiss</button>
+    </div>
+    <div id="ai-schedule-text" style="font-size:12px;color:var(--text);line-height:1.8;white-space:pre-wrap;font-family:var(--body)"></div>
+  </div>
 
   <div class="cal-layout">
     <div>
@@ -850,12 +917,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="ss-title">Priority Stack, Today</div>
         <div style="font-size:10px;color:var(--text3);margin-bottom:12px;font-family:var(--mono)">Ranked by value, urgency, and strategic impact</div>
         <div class="task-priority" id="priority-stack">
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Upload 11 files to GitHub</div><div class="tp-meta">Today, Do First</div></div><span class="tp-value">Critical</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Sign Claude JD and ARIA JD</div><div class="tp-meta">Today, 5 mins</div></div><span class="tp-value">Critical</span></div>
+          <div class="tp-item" style="opacity:0.45;text-decoration:line-through"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Upload files to GitHub</div><div class="tp-meta">Done, Session 5</div></div><span class="tp-value" style="color:#22c55e">Done</span></div>
+          <div class="tp-item" style="opacity:0.45;text-decoration:line-through"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Sign Claude JD and ARIA JD</div><div class="tp-meta">Done, 12 March 2026</div></div><span class="tp-value" style="color:#22c55e">Done</span></div>
+          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Delete Ecosystem doc from GitHub</div><div class="tp-meta">Urgent, Security Risk</div></div><span class="tp-value">Critical</span></div>
           <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p2"></span><div class="tp-content"><div class="tp-name">Post 1 and 2 on Instagram and X</div><div class="tp-meta">Today, Revenue</div></div><span class="tp-value">High</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p2"></span><div class="tp-content"><div class="tp-name">Logo discussion and direction</div><div class="tp-meta">Today, Brand</div></div><span class="tp-value">High</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p3"></span><div class="tp-content"><div class="tp-name">Finance section scope</div><div class="tp-meta">Friday 13 Mar</div></div><span class="tp-value">Medium</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p4"></span><div class="tp-content"><div class="tp-name">Logo final approval</div><div class="tp-meta">Friday 13 Mar</div></div><span class="tp-value">Filed</span></div>
+          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p2"></span><div class="tp-content"><div class="tp-name">Phase 2 developer decision</div><div class="tp-meta">Thursday 12 Mar</div></div><span class="tp-value">High</span></div>
+          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p3"></span><div class="tp-content"><div class="tp-name">Finance section scope</div><div class="tp-meta">Thursday 12 Mar</div></div><span class="tp-value">Medium</span></div>
+          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p3"></span><div class="tp-content"><div class="tp-name">Logo final design and approval</div><div class="tp-meta">Thursday 12 Mar</div></div><span class="tp-value">Medium</span></div>
+          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p4"></span><div class="tp-content"><div class="tp-name">Agent walkthrough, PA, SCOUT, PULSE JDs and CVs</div><div class="tp-meta">Next Session</div></div><span class="tp-value">Queued</span></div>
         </div>
       </div>
       <div class="card">
@@ -1050,13 +1119,30 @@ function showPageMobile(id, el) {
 }
 
 // ══ TASKS ══
-let doneCount = 1;
+function saveMCTasks(){
+  const tasks = {};
+  document.querySelectorAll('.task-item[data-tid]').forEach(el => {
+    tasks[el.dataset.tid] = el.classList.contains('done');
+  });
+  localStorage.setItem('pai_mc_today_tasks', JSON.stringify(tasks));
+  updateProgress();
+}
+function updateProgress(){
+  const total = document.querySelectorAll('.task-item[data-tid]').length;
+  const done = document.querySelectorAll('.task-item[data-tid].done').length;
+  document.getElementById('prog-count').innerHTML = done + '<span style="font-size:22px;color:var(--text3)">/' + total + '</span>';
+  document.getElementById('prog-bar').style.width = (total ? (done/total*100) : 0) + '%';
+}
+function restoreMCTasks(){
+  const saved = JSON.parse(localStorage.getItem('pai_mc_today_tasks') || '{}');
+  document.querySelectorAll('.task-item[data-tid]').forEach(el => {
+    if(saved[el.dataset.tid]) el.classList.add('done');
+  });
+  updateProgress();
+}
 function toggleTask(el) {
-  const wasDone = el.classList.contains('done');
   el.classList.toggle('done');
-  doneCount = wasDone ? Math.max(0, doneCount - 1) : Math.min(5, doneCount + 1);
-  document.getElementById('prog-count').innerHTML = doneCount + '<span style="font-size:22px;color:var(--text3)">/5</span>';
-  document.getElementById('prog-bar').style.width = (doneCount / 5 * 100) + '%';
+  saveMCTasks();
 }
 
 // ══ ORG CHART ══
@@ -1193,17 +1279,22 @@ setInterval(renderCal, 5000);
 async function aiScheduleDay(){
   const btn = document.getElementById('ai-schedule-btn');
   const out = document.getElementById('ai-schedule-out');
+  const txt = document.getElementById('ai-schedule-text');
   btn.textContent = 'Thinking...';
   btn.disabled = true;
   out.style.display = 'block';
-  out.textContent = 'ARIA is analysing your day...';
+  txt.textContent = 'ARIA is analysing your day...';
+  window.scrollTo(0,0);
 
   const today = new Date().toISOString().split('T')[0];
   const evs = ldEv().filter(e => e.date === today && !e.done);
   const tasks = [
-    'Upload 11 files to GitHub', 'Sign Claude JD', 'Sign ARIA JD',
-    'Post 1 and 2 on Instagram and X', 'Logo discussion with Claude',
-    'GitHub Repository Audit', 'Finance section scope Friday 13 March'
+    'Delete Ecosystem doc from GitHub (security)',
+    'Post 1 and 2 on Instagram and X',
+    'Phase 2 developer decision Thursday 12 March',
+    'Finance section scope Thursday 12 March',
+    'Logo final approval Thursday 12 March',
+    'Agent walkthrough PA SCOUT PULSE'
   ];
 
   const prompt = `You are ARIA, the AI scheduling assistant for Valerie Wilcox, Founder of PhoennixAI.
@@ -1237,9 +1328,9 @@ Be direct, specific, and practical. Format with clear time blocks. Keep it tight
     });
     const data = await res.json();
     const text = data.content?.map(c=>c.text||'').join('') || 'No response received.';
-    out.textContent = text;
+    txt.textContent = text;
   }catch(err){
-    out.textContent = 'AI scheduling unavailable right now. Your events and tasks are still displayed below.';
+    txt.textContent = 'AI scheduling unavailable right now. Your events and tasks are still displayed below.';
   }
   btn.textContent = 'AI Schedule My Day';
   btn.disabled = false;
@@ -1268,6 +1359,7 @@ function updateDate() {
   document.getElementById('live-date').textContent = now.toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'}) + ' ' + now.toLocaleTimeString('en-GB', {hour:'2-digit',minute:'2-digit'});
 }
 updateDate(); setInterval(updateDate, 30000);
+restoreMCTasks();
 </script>
 </body>
 </html>

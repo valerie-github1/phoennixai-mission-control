@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WilcoxDesigns Brand Guidelines</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%232A2725' rx='6'/%3E%3Ctext x='50%25' y='68%25' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='18' fill='%23C8C0B4'%3EW%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital@0;1&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --charcoal:#2A2725;
+  --taupe:#C8C0B4;
+  --cream:#EDE8E0;
+  --linen:#F7F4F0;
+  --mocha:#8B7355;
+  --text:#2A2725;
+  --text2:#5A5550;
+  --text3:#9A948E;
+  --rule:rgba(42,39,37,0.1);
+  --display:'Bebas Neue',Impact,sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+}
+body{background:var(--linen);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6}
+.page{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+
+/* HEADER */
+.brand-header{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:32px;border-bottom:1px solid var(--rule);margin-bottom:48px;flex-wrap:wrap;gap:16px}
+.brand-wordmark{font-family:var(--display);font-size:48px;letter-spacing:4px;color:var(--charcoal)}
+.brand-sub{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--mocha);margin-top:4px}
+.brand-meta{text-align:right;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);line-height:2}
+
+/* SECTION */
+.section{margin-bottom:56px}
+.section-label{font-family:var(--mono);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--mocha);margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+.section-title{font-family:var(--display);font-size:32px;letter-spacing:2px;color:var(--charcoal);margin-bottom:24px}
+
+/* COLOUR GRID */
+.colour-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.colour-swatch{border-radius:6px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
+.swatch-block{height:80px}
+.swatch-info{background:#fff;padding:10px 12px}
+.swatch-name{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:2px}
+.swatch-hex{font-family:var(--mono);font-size:11px;color:var(--charcoal);font-weight:500}
+.swatch-role{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* TYPOGRAPHY SPECIMENS */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.type-card{background:#fff;border-radius:8px;padding:24px;border:1px solid var(--rule)}
+.type-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.type-specimen-display{font-family:var(--display);font-size:36px;letter-spacing:2px;color:var(--charcoal);line-height:1}
+.type-specimen-body{font-family:var(--sans);font-size:15px;color:var(--text2);line-height:1.7;font-weight:400}
+.type-specimen-accent{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--mocha);line-height:1.5}
+.type-specimen-mono{font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:1px}
+.type-name{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--mocha);margin-top:10px}
+.type-weights{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.type-weight{font-size:11px;color:var(--text3);font-family:var(--sans)}
+
+/* VOICE AND TONE */
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.voice-card{background:#fff;border-radius:8px;padding:20px 24px;border:1px solid var(--rule)}
+.voice-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.voice-value{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--charcoal);margin-bottom:6px}
+.voice-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* DO / DONT */
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.do-block{background:rgba(139,115,85,0.05);border:1px solid rgba(139,115,85,0.2);border-radius:8px;padding:20px}
+.dont-block{background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:20px}
+.block-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.do-label{color:var(--mocha)}
+.dont-label{color:#ef4444}
+.do-dont ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.do-dont li{font-size:13px;color:var(--text2);padding-left:16px;position:relative;line-height:1.5}
+.do-dont li::before{position:absolute;left:0;font-size:11px}
+.do-block li::before{content:'✓';color:var(--mocha)}
+.dont-block li::before{content:'✕';color:#ef4444}
+
+/* LOGO SECTION */
+.logo-area{background:#fff;border-radius:8px;border:1px solid var(--rule);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.logo-concept{font-family:var(--display);font-size:42px;letter-spacing:5px;color:var(--charcoal)}
+.logo-concept span{color:var(--mocha)}
+.logo-notes{display:flex;flex-direction:column;gap:12px}
+.logo-note{font-size:13px;color:var(--text2);line-height:1.6;padding-left:14px;border-left:2px solid var(--taupe)}
+
+/* TAGLINE BLOCK */
+.tagline-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.tagline-card{background:#fff;border-radius:8px;padding:20px;border:1px solid var(--rule);text-align:center}
+.tl-role{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.tl-line{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--charcoal);line-height:1.4}
+
+/* BADGE / CHIPS */
+.badge{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.badge-locked{background:rgba(139,115,85,0.12);border:1px solid rgba(139,115,85,0.3);color:var(--mocha)}
+.badge-active{background:rgba(42,39,37,0.08);border:1px solid rgba(42,39,37,0.2);color:var(--charcoal)}
+
+/* UI COMPONENTS */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.comp-card{background:#fff;border-radius:8px;padding:24px;border:1px solid var(--rule)}
+.comp-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.comp-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.comp-desc{font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.5px;margin-top:4px}
+
+/* BUTTONS */
+.btn{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;cursor:pointer;border:1px solid;transition:all 0.2s;text-decoration:none}
+.btn-primary{background:var(--charcoal);border-color:var(--charcoal);color:#F7F4F0}
+.btn-secondary{background:transparent;border-color:var(--taupe);color:var(--charcoal)}
+.btn-ghost{background:transparent;border-color:var(--rule);color:var(--text2)}
+.btn-mocha{background:rgba(139,115,85,0.1);border-color:rgba(139,115,85,0.3);color:var(--mocha)}
+.btn-destructive{background:transparent;border-color:rgba(239,68,68,0.3);color:#ef4444}
+.btn-sm{padding:5px 10px;font-size:8px;letter-spacing:1.5px}
+.btn-lg{padding:12px 24px;font-size:10px}
+
+/* STATUS CHIPS */
+.chip{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:3px;border:1px solid}
+.chip-locked{background:rgba(42,39,37,0.07);border-color:rgba(42,39,37,0.18);color:var(--charcoal)}
+.chip-approved{background:rgba(139,115,85,0.1);border-color:rgba(139,115,85,0.3);color:var(--mocha)}
+.chip-live{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.25);color:#16a34a}
+.chip-in-build{background:rgba(59,130,246,0.08);border-color:rgba(59,130,246,0.25);color:#2563eb}
+.chip-planned{background:rgba(200,192,180,0.15);border-color:rgba(200,192,180,0.4);color:var(--text2)}
+.chip-tbc{background:rgba(245,158,11,0.08);border-color:rgba(245,158,11,0.25);color:#b45309}
+.chip-archived{background:rgba(42,39,37,0.04);border-color:rgba(42,39,37,0.12);color:var(--text3)}
+
+/* STATUS DOTS */
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-active{background:#22c55e}
+.dot-build{background:#3b82f6}
+.dot-pending{background:#f59e0b}
+.dot-planned{background:#C8C0B4}
+.dot-archived{background:#9A948E}
+
+/* STATUS LINE */
+.status-line{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2)}
+.status-line strong{color:var(--charcoal);font-weight:600}
+
+/* FOOTER */
+.doc-footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-l{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3)}
+.footer-r{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--mocha)}
+
+@media(max-width:640px){
+  .colour-grid{grid-template-columns:repeat(3,1fr)}
+  .type-grid,.voice-grid,.do-dont,.tagline-grid,.logo-area{grid-template-columns:1fr}
+  .brand-header{flex-direction:column}
+  .brand-meta{text-align:left}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="brand-header">
+    <div>
+      <div class="brand-wordmark">WilcoxDesigns</div>
+      <div class="brand-sub">Brand Guidelines · v1.0 · 12 March 2026</div>
+    </div>
+    <div class="brand-meta">
+      <div>Document Ref: WD-BG-001</div>
+      <div>Tier 2, Wilcox Colour System</div>
+      <div>Status: <span style="color:var(--mocha)">System Locked</span></div>
+      <div style="margin-top:6px"><span class="badge badge-locked">Confidential</span></div>
+    </div>
+  </div>
+
+  <!-- POSITIONING -->
+  <div class="section">
+    <div class="section-label">01 · Positioning</div>
+    <div class="section-title">The Digital Atelier</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-label">Subtitle</div>
+        <div class="voice-value">Creative Studio</div>
+        <div class="voice-desc">WilcoxDesigns operates as a precision creative studio. Not an agency. Not a freelancer. A studio, with the discipline, craft, and standards of an atelier.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Mantra</div>
+        <div class="voice-value">Created to Create</div>
+        <div class="voice-desc">This is the philosophical core. WilcoxDesigns exists because creativity is the calling, not the product. Everything produced reflects this purpose.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Tagline</div>
+        <div class="voice-value">Where precision meets artistry</div>
+        <div class="voice-desc">Used in headers, introductions, and brand touchpoints. Signals that beauty and exactness are not opposing forces here.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Positioning Statement</div>
+        <div class="voice-value">Digital Atelier</div>
+        <div class="voice-desc">WilcoxDesigns is a digital atelier: a place where craft is taken seriously, clients are treated as collaborators, and every output is held to a high standard.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COLOUR SYSTEM -->
+  <div class="section">
+    <div class="section-label">02 · Colour System <span class="badge badge-locked" style="font-size:7px">Tier 2, Locked</span></div>
+    <div class="section-title">Palette</div>
+    <div class="colour-grid">
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#2A2725"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Charcoal</div>
+          <div class="swatch-hex">#2A2725</div>
+          <div class="swatch-role">Primary, backgrounds</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#C8C0B4"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Warm Taupe</div>
+          <div class="swatch-hex">#C8C0B4</div>
+          <div class="swatch-role">Secondary, accents</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#EDE8E0"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Cream</div>
+          <div class="swatch-hex">#EDE8E0</div>
+          <div class="swatch-role">Surfaces, panels</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#F7F4F0"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Linen</div>
+          <div class="swatch-hex">#F7F4F0</div>
+          <div class="swatch-role">Page background</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#8B7355"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Mocha</div>
+          <div class="swatch-hex">#8B7355</div>
+          <div class="swatch-role">Highlight, warmth</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:12px;color:var(--text3);font-family:var(--mono);letter-spacing:1px">Tier 2 of the Wilcox Colour System. Warm, refined, tactile. No bright primaries. Restraint is the aesthetic.</div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">03 · Typography <span class="badge badge-locked" style="font-size:7px">Locked, All Entities</span></div>
+    <div class="section-title">Type System</div>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-label">Display</div>
+        <div class="type-specimen-display">WilcoxDesigns</div>
+        <div class="type-name">Bebas Neue</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Headlines, hero titles, section headers. All caps. Used across all Wilcox entities.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Body</div>
+        <div class="type-specimen-body">Crafted with intention. Every detail considered. Precision is not a constraint, it is the standard.</div>
+        <div class="type-name">DM Sans</div>
+        <div class="type-weights">
+          <span class="type-weight" style="font-weight:300">Light 300</span>
+          <span class="type-weight" style="font-weight:400">Regular 400</span>
+          <span class="type-weight" style="font-weight:500">Medium 500</span>
+          <span class="type-weight" style="font-weight:600">Semibold 600</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Accent</div>
+        <div class="type-specimen-accent">Where precision meets artistry</div>
+        <div class="type-name">Playfair Display, Italic only</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Taglines, pull quotes, and moments of emphasis. Always italic. Never overused.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Code and Labels</div>
+        <div class="type-specimen-mono">WD-BG-001 · v1.0 · LOCKED</div>
+        <div class="type-name">DM Mono</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Document references, version numbers, badges, metadata, and UI labels.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGO DIRECTION -->
+  <div class="section">
+    <div class="section-label">04 · Logo Direction</div>
+    <div class="section-title">Identity Concept</div>
+    <div class="logo-area">
+      <div>
+        <div class="logo-concept">Wilcox<span>Designs</span></div>
+        <div style="font-family:var(--serif);font-style:italic;font-size:14px;color:var(--mocha);margin-top:8px">Digital Atelier</div>
+        <div style="margin-top:16px"><span class="badge badge-locked">Direction: Browser as Canvas</span></div>
+      </div>
+      <div class="logo-notes">
+        <div class="logo-note">Minimal, design-first positioning. The logo should feel crafted, not manufactured.</div>
+        <div class="logo-note">The wordmark sits in Bebas Neue. Clean, architectural, confident. No decorative elements on the mark itself.</div>
+        <div class="logo-note">Tagline in Playfair Display italic sits beneath. Whispers rather than shouts.</div>
+        <div class="logo-note">Colour usage: Charcoal on light, Linen on dark. Mocha as a secondary accent only.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOICE AND TONE -->
+  <div class="section">
+    <div class="section-label">05 · Voice and Tone</div>
+    <div class="section-title">How WilcoxDesigns Speaks</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-label">Personality</div>
+        <div class="voice-value">Refined. Quiet confidence.</div>
+        <div class="voice-desc">WilcoxDesigns does not shout. It demonstrates. Work speaks. The brand voice mirrors this: precise, warm, authoritative without arrogance.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Tone in Copy</div>
+        <div class="voice-value">Precision over performance.</div>
+        <div class="voice-desc">No buzzwords. No trend-chasing language. Direct sentences. Active voice. Every word earns its place on the page.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Client Communication</div>
+        <div class="voice-value">Collaborative. Clear. Considered.</div>
+        <div class="voice-desc">Clients are treated as partners. Briefs are taken seriously. Feedback is welcomed without defensiveness. Deliverables are explained, not just handed over.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">What We Never Do</div>
+        <div class="voice-value">Compromise the standard.</div>
+        <div class="voice-desc">WilcoxDesigns does not race to the bottom on price, quality, or craft. The brand exists to demonstrate what thoughtful design looks like. This must show in every communication.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAGLINES -->
+  <div class="section">
+    <div class="section-label">06 · Taglines and Usage</div>
+    <div class="section-title">Approved Lines</div>
+    <div class="tagline-grid">
+      <div class="tagline-card">
+        <div class="tl-role">Primary Tagline</div>
+        <div class="tl-line">Where precision meets artistry</div>
+      </div>
+      <div class="tagline-card">
+        <div class="tl-role">Mantra</div>
+        <div class="tl-line">Created to Create</div>
+      </div>
+      <div class="tagline-card">
+        <div class="tl-role">Unified Ecosystem</div>
+        <div class="tl-line">Beautiful by design. Intelligent by nature.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DO AND DONT -->
+  <div class="section">
+    <div class="section-label">07 · Do and Do Not</div>
+    <div class="section-title">Usage Rules</div>
+    <div class="do-dont">
+      <div class="do-block">
+        <div class="block-label do-label">Do</div>
+        <ul>
+          <li>Use Bebas Neue for all display text and section headings</li>
+          <li>Use DM Sans at weights 300, 400, 500, or 600 only</li>
+          <li>Use Playfair Display italic for taglines and accent moments only</li>
+          <li>Keep the palette warm and restrained. Five colours, used with purpose</li>
+          <li>Lead with craft. Show work. Let quality speak first</li>
+          <li>Maintain generous whitespace. Breathing room is part of the brand</li>
+          <li>Refer to the studio as WilcoxDesigns, one word, capital W and D</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <div class="block-label dont-label">Do Not</div>
+        <ul>
+          <li>Do not use bright or saturated colours from other brand tiers</li>
+          <li>Do not use PhoennixAI Fire Orange or Electric Blue in WilcoxDesigns materials</li>
+          <li>Do not use Playfair Display in regular weight or non-italic form</li>
+          <li>Do not clutter layouts. Restraint is the aesthetic</li>
+          <li>Do not use aggressive sales language or urgency tactics</li>
+          <li>Do not refer to the studio as Wilcox Designs, two words</li>
+          <li>Do not use em dashes in any written output</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- UI COMPONENTS -->
+  <div class="section">
+    <div class="section-label">08 · UI Components and Status System</div>
+    <div class="section-title">Buttons, Chips, and Status Indicators</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.7">All interactive elements and document status indicators must follow this system. Consistency across documents, apps, and contractor handouts is non-negotiable. These components apply to the WilcoxDesigns Creative Lab Tool, client documents, and all brand touchpoints.</p>
+    <div class="comp-grid">
+
+      <div class="comp-card">
+        <div class="comp-label">Buttons, Primary Actions</div>
+        <div class="comp-row">
+          <span class="btn btn-primary">Confirm</span>
+          <span class="btn btn-secondary">Request Update</span>
+          <span class="btn btn-ghost">Cancel</span>
+        </div>
+        <div class="comp-row">
+          <span class="btn btn-mocha">Open Document</span>
+          <span class="btn btn-destructive btn-sm">Remove</span>
+        </div>
+        <div class="comp-desc">Primary: Charcoal fill, Linen text. Secondary: Taupe border, no fill. Ghost: Rule border, muted text. Mocha: warm accent actions. Destructive: red border only, reserved for delete or remove actions.</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Button Sizes</div>
+        <div class="comp-row" style="align-items:flex-end">
+          <span class="btn btn-primary btn-lg">Large Action</span>
+          <span class="btn btn-primary">Default</span>
+          <span class="btn btn-primary btn-sm">Small</span>
+        </div>
+        <div class="comp-desc">Large: 12px 24px padding. Default: 8px 16px. Small: 5px 10px. Font always DM Mono, uppercase, letter-spacing 2px. Never use decorative fonts on buttons.</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Document Status Chips</div>
+        <div class="comp-row" style="flex-direction:column;align-items:flex-start;gap:8px">
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-locked">System Locked</span><span style="font-size:11px;color:var(--text3)">Brand, colour, and type systems. Cannot be changed without a formal review.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-approved">Approved</span><span style="font-size:11px;color:var(--text3)">Document reviewed and signed off by Valerie Wilcox.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-live">Live</span><span style="font-size:11px;color:var(--text3)">Active and deployed. Available at its permanent URL.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-in-build">In Build</span><span style="font-size:11px;color:var(--text3)">Currently being built this session. Not yet approved.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-planned">Planned</span><span style="font-size:11px;color:var(--text3)">Scoped and in backlog. Build not yet started.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-tbc">Date TBC</span><span style="font-size:11px;color:var(--text3)">Action required. Date or decision outstanding.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-archived">Archived</span><span style="font-size:11px;color:var(--text3)">Superseded. Kept for audit trail. Not in active use.</span></div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Status Indicators, Inline Text</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="status-line"><span class="status-dot dot-active"></span><strong>Active</strong> System running and operational</div>
+          <div class="status-line"><span class="status-dot dot-build"></span><strong>In Build</strong> Currently in development this session</div>
+          <div class="status-line"><span class="status-dot dot-pending"></span><strong>Pending</strong> Action or decision outstanding</div>
+          <div class="status-line"><span class="status-dot dot-planned"></span><strong>Planned</strong> Scoped, not yet started</div>
+          <div class="status-line"><span class="status-dot dot-archived"></span><strong>Archived</strong> Superseded, kept for audit</div>
+        </div>
+        <div class="comp-desc" style="margin-top:12px">Use dots for operational status in dashboards and logs. Use chips for document and deliverable status in cards and tables. Never mix the two in the same row.</div>
+      </div>
+
+    </div>
+
+    <!-- DO AND DONT FOR COMPONENTS -->
+    <div class="do-dont" style="margin-top:20px">
+      <div class="do-block">
+        <div class="block-label do-label">Do</div>
+        <ul>
+          <li>Use DM Mono for all button labels, chip text, and status indicators</li>
+          <li>Keep button labels to two or three words maximum</li>
+          <li>Use chips for document status, dots for operational status</li>
+          <li>Pair a Primary button with a Ghost or Secondary, never two Primaries</li>
+          <li>Use Mocha chip for approved states, green chip for live states only</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <div class="block-label dont-label">Do Not</div>
+        <ul>
+          <li>Do not use PhoennixAI Fire Orange or Electric Blue in WilcoxDesigns UI</li>
+          <li>Do not use sentence case on buttons. Always uppercase, always DM Mono</li>
+          <li>Do not create new chip colours outside this system without a brand review</li>
+          <li>Do not use the Destructive button style for anything other than delete actions</li>
+          <li>Do not stack more than three buttons in a single action row</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-l">
+      WilcoxDesigns · Brand Guidelines · WD-BG-001 · v1.0 · 12 March 2026 · Confidential
+    </div>
+    <div class="footer-r">Created to Create</div>
+  </div>
+
+</div>
+</body>
+</html>
