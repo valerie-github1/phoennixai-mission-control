@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060A18' rx='6'/%3E%3Cpath d='M16 3 C11 3 7 8 9 13 C11 17 10 19 8 21 C12 20 14 17 13 14 C15 18 14 22 11 25 C15 24 20 20 19 15 C21 18 21 23 18 26 C22 23 25 17 22 12 C24 14 25 17 24 20 C26 15 24 8 19 5 C18 4 17 3 16 3Z' fill='%23FF6B2B'/%3E%3Cpath d='M13 14 C15 18 14 22 11 25 C12 23 13 21 13 19 C13 17 12 16 13 14Z' fill='%23FFB830'/%3E%3Cpath d='M8 21 C6 24 8 28 11 29 C9 27 9 24 11 22' fill='%2300E5FF' opacity='0.85'/%3E%3Cpath d='M18 26 C19 28 22 29 24 28 C22 26 20 25 18 26Z' fill='%2300E5FF' opacity='0.85'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23060A18' rx='44'/%3E%3Cpath d='M100 28 C88 48 74 64 76 84 C78 96 86 104 100 100 C114 104 122 96 124 84 C126 64 112 48 100 28Z' fill='%23FF6B2B'/%3E%3Cpath d='M100 52 C93 64 88 76 90 84 C91 90 95 93 100 91 C105 93 109 90 110 84 C112 76 107 64 100 52Z' fill='%23FFB830'/%3E%3Cpath d='M100 70 C97 77 95 84 97 88 C98 91 99 90 100 89 C101 90 102 91 103 88 C105 84 103 77 100 70Z' fill='%23fff' opacity='0.7'/%3E%3Cellipse cx='100' cy='158' rx='18' ry='6' fill='%23FF6B2B' opacity='0.15'/%3E%3Crect x='93' y='100' width='14' height='52' rx='7' fill='%23FF6B2B'/%3E%3C/svg%3E">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>PhoennixAI Mission Control v2</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
@@ -14,7 +14,7 @@
   --text: rgba(255,255,255,0.85); --text2: rgba(255,255,255,0.5);
   --text3: rgba(255,255,255,0.25); --topbar: rgba(5,5,7,0.96);
   --input: #0E0E12; --shadow: rgba(0,0,0,0.4);
-}
+;--fire:#E8622A}
 :root[data-theme="light"] {
   --bg: #F2EFE9; --surface: #FFFFFF; --panel: #F8F5F0; --card: #FFFFFF;
   --border: rgba(0,0,0,0.08); --border2: rgba(0,0,0,0.15);
@@ -45,7 +45,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   box-shadow:0 2px 20px var(--shadow);
 }
 .tb-logo{font-family:var(--display);font-size:20px;letter-spacing:3px;color:var(--fire)}
-.tb-logo span{color:var(--bronze)}
+.tb-logo span{color:var(--bronze);margin-left:-3px}
 .tb-tabs{display:flex;gap:0;overflow-x:auto}
 .tb-tab{
   padding:0 14px;height:52px;display:flex;align-items:center;
@@ -341,7 +341,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   .wrap{padding:10px 8px}
 }
 </style>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%23060A18' rx='44'/%3E%3Cpath d='M100 28 C88 48 74 64 76 84 C78 96 86 104 100 100 C114 104 122 96 124 84 C126 64 112 48 100 28Z' fill='%23FF6B2B'/%3E%3Cpath d='M100 52 C93 64 88 76 90 84 C91 90 95 93 100 91 C105 93 109 90 110 84 C112 76 107 64 100 52Z' fill='%23FFB830'/%3E%3Cpath d='M100 70 C97 77 95 84 97 88 C98 91 99 90 100 89 C101 90 102 91 103 88 C105 84 103 77 100 70Z' fill='%23fff' opacity='0.7'/%3E%3Cellipse cx='100' cy='158' rx='18' ry='6' fill='%23FF6B2B' opacity='0.15'/%3E%3Crect x='93' y='100' width='14' height='52' rx='7' fill='%23FF6B2B'/%3E%3C/svg%3E"><rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
 </head>
 <body>
 
@@ -360,7 +360,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   <div class="tb-controls">
     <div class="live-dot"></div>
     <div class="tb-date" id="live-date"></div>
-    <span class="theme-icon" id="theme-icon">🌙</span>
+    <span class="theme-icon" id="theme-icon">☀️</span>
     <div class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"></div>
   </div>
 </div>
@@ -648,6 +648,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="ag-role">Identifies potential strategic partners, collaborators, speaking opportunities, and press contacts. Drafts personalised outreach. Tracks responses and follow-ups. Manages the relationship pipeline for Valerie's personal brand: podcast bookings, keynote invitations, media features, and cross-brand collaborations.</div>
       <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Partnerships and media exposure are the fastest organic growth levers available. This agent ensures the opportunity never sits on a to-do list. It acts on it.</div></div>
       <div class="ag-tags"><span class="atag at-hr">PR, Growth</span><span class="atag at-creative">Brand Amplifier</span></div>
+    </div>
+
+    <div class="ag-card" data-cat="core" style="border-color:rgba(196,154,108,0.25);background:rgba(196,154,108,0.02)"><div class="ag-bar" style="background:linear-gradient(to right,#C49A6C,#E8C99A)"></div>
+      <div class="ag-id" style="color:var(--bronze)">CORE AI, Agent 015 — Document Hub</div>
+      <div class="ag-name" style="color:var(--bronze)">SCRIBE</div><div class="ag-code">Document Intelligence and Knowledge Management Agent</div>
+      <div class="ag-role">SCRIBE is the intelligence layer behind the Document Hub. Manages all documents across the 5 entities, tracks version history, enforces naming conventions, flags stale content, drafts new documents on request, and ensures the single source of truth is always accurate. SCRIBE knows where every document lives, who last touched it, and what it says. Not a commercial agent. Internal infrastructure only.</div>
+      <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Eliminates document chaos across a multi-entity business. A founder running 5 entities cannot manually track every document. SCRIBE does it automatically, surfaces what needs updating, and drafts what needs creating. Planned for Phase 2 Claude API deployment alongside ARIA.</div></div>
+      <div class="ag-tags"><span class="atag" style="color:var(--bronze);border-color:rgba(196,154,108,0.3)">Planned, Phase 2</span><span class="atag" style="color:var(--bronze);border-color:rgba(196,154,108,0.3)">Document Hub Agent</span><span class="atag" style="color:var(--gold);border-color:rgba(255,184,48,0.2)">Internal Infrastructure</span></div>
     </div>
 
     <!-- CORE AI PARTNERS -->
