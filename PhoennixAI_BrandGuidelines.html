@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23060A18' rx='44'/><path d='M100 170 C80 160 55 140 50 115 C45 90 55 70 65 55 C70 75 68 90 72 100 C76 80 82 60 90 42 C94 65 88 85 92 100 C96 75 100 50 100 30 C104 50 104 75 108 100 C112 85 106 65 110 42 C118 60 124 80 128 100 C132 90 130 75 135 55 C145 70 155 90 150 115 C145 140 120 160 100 170Z' fill='%233A0E00' opacity='0.9'/><path d='M100 168 C82 158 60 138 56 112 C52 88 62 68 74 52 C78 72 74 92 80 106 C84 84 90 62 96 40 C100 60 100 82 104 96 C108 72 110 52 116 38 C126 56 132 80 128 106 C134 92 130 72 134 52 C146 68 156 88 152 112 C148 138 118 158 100 168Z' fill='%23FF6B2B'/><path d='M100 168 C88 155 70 135 68 112 C66 90 74 72 82 58 C84 74 80 92 84 106 C88 85 93 65 97 44 C100 63 100 83 103 96 C107 76 112 57 116 43 C122 58 126 80 122 106 C126 92 122 74 126 62 C136 76 144 95 140 115 C136 138 112 155 100 168Z' fill='%23FFB830'/><ellipse cx='100' cy='135' rx='20' ry='25' fill='%23FFE566' opacity='0.8'/><ellipse cx='100' cy='138' rx='10' ry='12' fill='%23FFFFFF' opacity='0.85'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PhoennixAI Brand Guidelines</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital@0;1&family=DM+Mono&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --midnight:#060A18;
+  --fire:#FF6B2B;
+  --gold:#FFB830;
+  --sapphire:#46ABD7;
+  --electric:#00E5FF;
+  --royal:#215CAE;
+  --surface:#0D1220;
+  --card:#111827;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --text:rgba(255,255,255,0.88);
+  --text2:rgba(255,255,255,0.55);
+  --text3:rgba(255,255,255,0.28);
+  --rule:rgba(255,255,255,0.07);
+  --bronze:#C49A6C;
+  --display:'Bebas Neue',Impact,sans-serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+  --mono:'DM Mono',monospace;
+}
+body{background:var(--midnight);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.6}
+.page{max-width:960px;margin:0 auto;padding:48px 32px 80px}
+
+/* HEADER */
+.brand-header{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:32px;border-bottom:1px solid var(--rule);margin-bottom:48px;flex-wrap:wrap;gap:16px}
+.brand-wordmark{font-family:var(--display);font-size:48px;letter-spacing:4px;color:var(--fire);line-height:1}
+.brand-wordmark span{color:#fff}
+.brand-sub{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--electric);margin-top:6px;opacity:0.7}
+.brand-meta{text-align:right;font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);line-height:2}
+
+/* SECTION */
+.section{margin-bottom:56px}
+.section-label{font-family:var(--mono);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--electric);margin-bottom:8px;display:flex;align-items:center;gap:12px;opacity:0.7}
+.section-label::after{content:'';flex:1;height:1px;background:var(--rule)}
+.section-title{font-family:var(--display);font-size:32px;letter-spacing:2px;color:#fff;margin-bottom:24px}
+
+/* COLOUR GRID */
+.colour-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.colour-swatch{border-radius:6px;overflow:hidden;border:1px solid var(--border)}
+.swatch-block{height:72px}
+.swatch-info{background:var(--card);padding:10px 12px}
+.swatch-name{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text2);margin-bottom:2px}
+.swatch-hex{font-family:var(--mono);font-size:11px;color:var(--text);font-weight:500}
+.swatch-role{font-size:10px;color:var(--text3);margin-top:2px}
+
+/* TYPOGRAPHY */
+.type-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.type-card{background:var(--card);border-radius:8px;padding:24px;border:1px solid var(--border)}
+.type-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.type-specimen-display{font-family:var(--display);font-size:36px;letter-spacing:2px;color:#fff;line-height:1}
+.type-specimen-body{font-family:var(--sans);font-size:15px;color:var(--text2);line-height:1.7;font-weight:400}
+.type-specimen-accent{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--gold);line-height:1.5}
+.type-specimen-mono{font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:1px}
+.type-name{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--fire);margin-top:10px;opacity:0.8}
+.type-weights{display:flex;gap:12px;margin-top:8px;flex-wrap:wrap}
+.type-weight{font-size:11px;color:var(--text3);font-family:var(--sans)}
+
+/* VOICE */
+.voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.voice-card{background:var(--card);border-radius:8px;padding:20px 24px;border:1px solid var(--border)}
+.voice-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:6px}
+.voice-value{font-family:var(--serif);font-style:italic;font-size:17px;color:var(--fire);margin-bottom:6px}
+.voice-desc{font-size:12px;color:var(--text2);line-height:1.6}
+
+/* LOGO AREA */
+.logo-area{background:var(--card);border-radius:8px;border:1px solid var(--border);padding:32px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.logo-concept{font-family:var(--display);font-size:42px;letter-spacing:5px;color:var(--fire);line-height:1}
+.logo-concept span{color:#fff}
+.logo-sub{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--gold);margin-top:8px}
+.logo-notes{display:flex;flex-direction:column;gap:12px}
+.logo-note{font-size:13px;color:var(--text2);line-height:1.6;padding-left:14px;border-left:2px solid rgba(255,107,43,0.3)}
+
+/* TAGLINE */
+.tagline-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.tagline-card{background:var(--card);border-radius:8px;padding:20px;border:1px solid var(--border);text-align:center}
+.tl-role{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px}
+.tl-line{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text);line-height:1.4}
+.tl-line strong{font-family:var(--display);font-style:normal;font-size:18px;color:var(--fire);letter-spacing:2px;font-weight:400}
+
+/* DO / DONT */
+.do-dont{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.do-block{background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.18);border-radius:8px;padding:20px}
+.dont-block{background:rgba(239,68,68,0.04);border:1px solid rgba(239,68,68,0.15);border-radius:8px;padding:20px}
+.block-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.do-label{color:var(--fire)}
+.dont-label{color:#ef4444}
+.do-dont ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.do-dont li{font-size:13px;color:var(--text2);padding-left:16px;position:relative;line-height:1.5}
+.do-dont li::before{position:absolute;left:0;font-size:11px}
+.do-block li::before{content:'✓';color:var(--fire)}
+.dont-block li::before{content:'✕';color:#ef4444}
+
+/* BADGE */
+.badge{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:3px}
+.badge-locked{background:rgba(255,107,43,0.1);border:1px solid rgba(255,107,43,0.25);color:var(--fire)}
+.badge-pending{background:rgba(255,184,48,0.1);border:1px solid rgba(255,184,48,0.25);color:var(--gold)}
+.badge-confidential{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);color:var(--text2)}
+
+/* COMPONENTS */
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.comp-card{background:var(--card);border-radius:8px;padding:24px;border:1px solid var(--border)}
+.comp-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:16px}
+.comp-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.comp-desc{font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.5px;margin-top:4px}
+
+/* BUTTONS */
+.btn{display:inline-block;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;cursor:pointer;border:1px solid}
+.btn-primary{background:var(--fire);border-color:var(--fire);color:#fff}
+.btn-secondary{background:transparent;border-color:rgba(255,107,43,0.4);color:var(--fire)}
+.btn-ghost{background:transparent;border-color:var(--border2);color:var(--text2)}
+.btn-electric{background:rgba(0,229,255,0.08);border-color:rgba(0,229,255,0.25);color:var(--electric)}
+.btn-destructive{background:transparent;border-color:rgba(239,68,68,0.3);color:#ef4444}
+.btn-sm{padding:5px 10px;font-size:8px;letter-spacing:1.5px}
+.btn-lg{padding:12px 24px;font-size:10px}
+
+/* STATUS CHIPS */
+.chip{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:3px;border:1px solid}
+.chip-locked{background:rgba(255,107,43,0.1);border-color:rgba(255,107,43,0.3);color:var(--fire)}
+.chip-deployed{background:rgba(0,229,255,0.08);border-color:rgba(0,229,255,0.25);color:var(--electric)}
+.chip-live{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.25);color:#22c55e}
+.chip-in-build{background:rgba(70,171,215,0.08);border-color:rgba(70,171,215,0.25);color:var(--sapphire)}
+.chip-planned{background:rgba(33,92,174,0.12);border-color:rgba(33,92,174,0.3);color:var(--sapphire)}
+.chip-tbc{background:rgba(255,184,48,0.08);border-color:rgba(255,184,48,0.25);color:var(--gold)}
+.chip-archived{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.1);color:var(--text3)}
+
+/* STATUS DOTS */
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0}
+.dot-active{background:#22c55e;box-shadow:0 0 5px rgba(34,197,94,0.5)}
+.dot-aria{background:var(--electric);box-shadow:0 0 5px rgba(0,229,255,0.5)}
+.dot-build{background:var(--sapphire)}
+.dot-pending{background:var(--gold)}
+.dot-planned{background:var(--royal)}
+.dot-archived{background:var(--text3)}
+
+/* STATUS LINE */
+.status-line{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text2)}
+.status-line strong{color:var(--text);font-weight:600}
+
+/* AGENTS SECTION */
+.agent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.agent-card{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:14px 16px}
+.agent-code{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--electric);margin-bottom:4px;opacity:0.7}
+.agent-name{font-family:var(--display);font-size:16px;letter-spacing:2px;color:#fff;margin-bottom:2px}
+.agent-role{font-size:11px;color:var(--text3)}
+.agent-card.deployed{border-left:2px solid var(--electric)}
+.agent-card.queue{border-left:2px solid rgba(33,92,174,0.5)}
+
+/* ECOSYSTEM NOTE */
+.ecosystem-bar{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:16px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px}
+.eco-tier{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3)}
+.eco-chain{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2);flex-wrap:wrap}
+.eco-arrow{color:var(--text3)}
+.eco-active{color:var(--fire);font-weight:600}
+
+/* FOOTER */
+.doc-footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-l{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3)}
+.footer-r{font-family:var(--serif);font-style:italic;font-size:12px;color:var(--fire)}
+
+@media(max-width:640px){
+  .colour-grid{grid-template-columns:repeat(3,1fr)}
+  .type-grid,.voice-grid,.do-dont,.tagline-grid,.logo-area,.comp-grid{grid-template-columns:1fr}
+  .brand-header{flex-direction:column}
+  .brand-meta{text-align:left}
+  .agent-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="brand-header">
+    <div>
+      <div class="brand-wordmark">PHOENNIX<span>AI</span></div>
+      <div class="brand-sub">Brand Guidelines · v1.0 · 13 March 2026</div>
+    </div>
+    <div class="brand-meta">
+      <div>Document Ref: PAI-BG-001</div>
+      <div>Tier 3, Wilcox Colour System</div>
+      <div>Entity: PhoennixAI Agency</div>
+      <div>Status: <span style="color:var(--fire)">System Locked</span></div>
+      <div style="margin-top:6px"><span class="badge badge-confidential">Confidential</span></div>
+    </div>
+  </div>
+
+  <!-- 01 POSITIONING -->
+  <div class="section">
+    <div class="section-label">01 · Positioning</div>
+    <div class="section-title">Rise. Automate. Dominate.</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-label">Entity Type</div>
+        <div class="voice-value">AI Agency</div>
+        <div class="voice-desc">PhoennixAI is an AI agency building intelligent systems, agents, and products. Not a consultancy. Not a software house. An agency that deploys AI as a workforce, not a feature.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Tagline</div>
+        <div class="voice-value">Rise. Automate. Dominate.</div>
+        <div class="voice-desc">Three commands. A movement arc from inception to execution to market leadership. Used as the primary brand statement across all client-facing touchpoints.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Logo Concept</div>
+        <div class="voice-value">Fire and Ice</div>
+        <div class="voice-desc">Orange and gold radiate from the core (the phoenix), transitioning to electric blue and sapphire at the wingtips. Energy, transformation, and intelligence in one visual system. Approval due Friday 13 March 2026.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Market Position</div>
+        <div class="voice-value">Intelligent by design.</div>
+        <div class="voice-desc">PhoennixAI sits at the intersection of brand, automation, and AI deployment. Clients are businesses that want to rise, not just digitise. The agency builds the systems that make that possible.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 COLOUR SYSTEM -->
+  <div class="section">
+    <div class="section-label">02 · Colour System <span class="badge badge-locked" style="font-size:7px">Tier 3, Locked</span></div>
+    <div class="section-title">Palette</div>
+    <div class="colour-grid">
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#060A18"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Midnight</div>
+          <div class="swatch-hex">#060A18</div>
+          <div class="swatch-role">Primary bg, dark mode</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#FF6B2B"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Phoenix Fire</div>
+          <div class="swatch-hex">#FF6B2B</div>
+          <div class="swatch-role">Primary brand, CTA</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#FFB830"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Ember Gold</div>
+          <div class="swatch-hex">#FFB830</div>
+          <div class="swatch-role">Warmth, hierarchy</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#46ABD7"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Sapphire Wing</div>
+          <div class="swatch-hex">#46ABD7</div>
+          <div class="swatch-role">Secondary, cool accent</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#00E5FF"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Electric Tip</div>
+          <div class="swatch-hex">#00E5FF</div>
+          <div class="swatch-role">ARIA, live states</div>
+        </div>
+      </div>
+      <div class="colour-swatch">
+        <div class="swatch-block" style="background:#215CAE"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Deep Royal</div>
+          <div class="swatch-hex">#215CAE</div>
+          <div class="swatch-role">Planned states, depth</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;font-size:12px;color:var(--text3);font-family:var(--mono);letter-spacing:1px">Tier 3 of the Wilcox Colour System. Fire and Ice. Warm core, cool extremities. These six colours define every product, agent, and touchpoint across the PhoennixAI ecosystem.</div>
+    <div class="ecosystem-bar">
+      <div class="eco-tier">Wilcox Colour System</div>
+      <div class="eco-chain">
+        <span>Tier 1 · Valerie Wilcox</span>
+        <span class="eco-arrow">›</span>
+        <span>Tier 2 · WilcoxDesigns</span>
+        <span class="eco-arrow">›</span>
+        <span class="eco-active">Tier 3 · PhoennixAI ← You are here</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-label">03 · Typography <span class="badge badge-locked" style="font-size:7px">Locked, All Entities</span></div>
+    <div class="section-title">Type System</div>
+    <div class="type-grid">
+      <div class="type-card">
+        <div class="type-label">Display</div>
+        <div class="type-specimen-display">PHOENNIXAI</div>
+        <div class="type-name">Bebas Neue</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Headlines, hero titles, section headers, wordmark. All caps. Used across all Wilcox entities. The authority voice of the system.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Body</div>
+        <div class="type-specimen-body">Intelligent systems built for growth. Every agent deployed with precision. Every product designed to scale.</div>
+        <div class="type-name">DM Sans</div>
+        <div class="type-weights">
+          <span class="type-weight" style="font-weight:300">Light 300</span>
+          <span class="type-weight" style="font-weight:400">Regular 400</span>
+          <span class="type-weight" style="font-weight:500">Medium 500</span>
+          <span class="type-weight" style="font-weight:600">Semibold 600</span>
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Accent</div>
+        <div class="type-specimen-accent">Rise. Automate. Dominate.</div>
+        <div class="type-name">Playfair Display, Italic only</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Taglines, pull quotes, and moments of brand emphasis. Always italic. Carries the warmth behind the intelligence.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-label">Code and Labels</div>
+        <div class="type-specimen-mono">PAI-BG-001 · v1.0 · ARIA ACTIVE</div>
+        <div class="type-name">DM Mono</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:6px">Document refs, version numbers, agent IDs, badges, status labels, metadata, and all UI micro-copy.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 LOGO -->
+  <div class="section">
+    <div class="section-label">04 · Logo Direction <span class="badge badge-locked" style="font-size:7px">Approved 13 March 2026</span></div>
+    <div class="section-title">Fire and Ice</div>
+    <div class="logo-area" style="border-color:rgba(255,107,43,0.2)">
+      <div>
+        <!-- LOGO DISPLAY: Full lock-up — icon + wordmark -->
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+          <!-- Phoenix flame icon — built from approved artwork 13 March 2026 -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="72" height="72">
+            <defs>
+              <!-- Core glow: white centre to gold -->
+              <radialGradient id="coreGlow" cx="50%" cy="70%" r="35%">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="40%" stop-color="#FFE566"/>
+                <stop offset="100%" stop-color="#FFB830" stop-opacity="0"/>
+              </radialGradient>
+              <!-- Main flame body: gold base to deep red tip -->
+              <linearGradient id="flameBody" x1="50%" y1="100%" x2="50%" y2="0%">
+                <stop offset="0%" stop-color="#FFB830"/>
+                <stop offset="30%" stop-color="#FF6B2B"/>
+                <stop offset="70%" stop-color="#E03A1A"/>
+                <stop offset="100%" stop-color="#C02010"/>
+              </linearGradient>
+              <!-- Shadow depth: dark inner -->
+              <linearGradient id="flameShadow" x1="50%" y1="100%" x2="50%" y2="0%">
+                <stop offset="0%" stop-color="#1A0800"/>
+                <stop offset="100%" stop-color="#3A0E00"/>
+              </linearGradient>
+            </defs>
+            <!-- Background -->
+            <rect width="200" height="200" fill="#060A18" rx="36"/>
+
+            <!-- Shadow / depth layer behind main flame -->
+            <path d="M100 170 C80 160 55 140 50 115 C45 90 55 70 65 55 C70 75 68 90 72 100 C76 80 82 60 90 42 C94 65 88 85 92 100 C96 75 100 50 100 30 C104 50 104 75 108 100 C112 85 106 65 110 42 C118 60 124 80 128 100 C132 90 130 75 135 55 C145 70 155 90 150 115 C145 140 120 160 100 170Z" fill="url(#flameShadow)" opacity="0.85"/>
+
+            <!-- Left side tendril -->
+            <path d="M72 130 C62 118 58 100 62 82 C66 96 68 108 72 118 C70 105 72 88 78 72 C80 88 78 108 80 120Z" fill="#C02010" opacity="0.9"/>
+
+            <!-- Right side tendril -->
+            <path d="M128 130 C138 118 142 100 138 82 C134 96 132 108 128 118 C130 105 128 88 122 72 C120 88 122 108 120 120Z" fill="#C02010" opacity="0.9"/>
+
+            <!-- Main flame body -->
+            <path d="M100 168 C82 158 60 138 56 112 C52 88 62 68 74 52 C78 72 74 92 80 106 C84 84 90 62 96 40 C100 60 100 82 104 96 C108 72 110 52 116 38 C126 56 132 80 128 106 C134 92 130 72 134 52 C146 68 156 88 152 112 C148 138 118 158 100 168Z" fill="url(#flameBody)"/>
+
+            <!-- Core glow overlay -->
+            <ellipse cx="100" cy="132" rx="22" ry="28" fill="url(#coreGlow)" opacity="0.95"/>
+
+            <!-- Bright white hot-spot at very centre -->
+            <ellipse cx="100" cy="136" rx="9" ry="11" fill="#FFFFFF" opacity="0.85"/>
+          </svg>
+          <div>
+            <div class="logo-concept">PHOENNIX<span>AI</span></div>
+            <div class="logo-sub">Rise. Automate. Dominate.</div>
+          </div>
+        </div>
+        <!-- Wordmark alone -->
+        <div style="margin-bottom:16px;padding:14px 16px;background:var(--surface);border:1px solid var(--border);border-radius:6px;display:inline-block">
+          <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:22px;letter-spacing:4px;color:var(--fire);line-height:1">PHOENNIX<span style="color:#fff">AI</span></div>
+          <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:10px;color:var(--gold);margin-top:4px">Rise. Automate. Dominate.</div>
+        </div>
+        <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+          <span class="badge badge-locked">Direction: Fire and Ice</span>
+          <span class="badge" style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:#22c55e">Approved 13 March 2026</span>
+        </div>
+      </div>
+      <div class="logo-notes">
+        <div class="logo-note"><strong style="color:var(--text)">Fire core.</strong> Orange and gold radiate from the body outward. The phoenix rises from flame. PHOENNIX in Phoenix Fire #FF6B2B. The AI wordmark in white on dark, Phoenix Fire on light.</div>
+        <div class="logo-note"><strong style="color:var(--text)">Ice wings.</strong> Sapphire Wing #46ABD7 transitions to Electric Tip #00E5FF at the outer tips. Intelligence and precision cool the fire. One mark, two forces, one identity.</div>
+        <div class="logo-note"><strong style="color:var(--text)">AI in white = peace.</strong> PHOENNIX in fire orange is transformation and power. AI in white is peace and clarity. Fire burns fear away. White is what remains. Locked into brand story.</div>
+        <div class="logo-note"><strong style="color:var(--text)">Three forms.</strong> Icon alone for small sizes and avatars. Wordmark alone for documents. Full lock-up for all first-impression contexts. See Section 10 for full Logo Usage Rules.</div>
+        <div class="logo-note"><strong style="color:var(--text)">Final mark status.</strong> Direction approved Friday 13 March 2026. Concept SVG active as interim mark across all apps and documents. Professional final artwork: next scheduled build session.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 VOICE AND TONE -->
+  <div class="section">
+    <div class="section-label">05 · Voice and Tone</div>
+    <div class="section-title">How PhoennixAI Speaks</div>
+    <div class="voice-grid">
+      <div class="voice-card">
+        <div class="voice-label">Personality</div>
+        <div class="voice-value">Bold. Direct. Transformative.</div>
+        <div class="voice-desc">PhoennixAI does not qualify or hedge. It speaks with the authority of a system that works. The brand voice is confident, forward-looking, and built on demonstrated capability.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Tone in Copy</div>
+        <div class="voice-value">Commands, not suggestions.</div>
+        <div class="voice-desc">Rise. Automate. Dominate. Three verbs. No filler. PhoennixAI copy is punchy, precise, and purposeful. Short sentences. Active voice. The reader always knows what happens next.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Client Communication</div>
+        <div class="voice-value">Strategic partner, not vendor.</div>
+        <div class="voice-desc">Clients are spoken to as equals building something significant. PhoennixAI brings intelligence, systems, and execution. The client brings the vision. Together they build the outcome.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">What We Never Do</div>
+        <div class="voice-value">Diminish the standard.</div>
+        <div class="voice-desc">No buzzword-heavy AI marketing language. No vague promises. PhoennixAI speaks about what it actually builds, deploys, and delivers. Capability is demonstrated, not performed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 06 TAGLINES -->
+  <div class="section">
+    <div class="section-label">06 · Taglines and Usage</div>
+    <div class="section-title">Approved Lines</div>
+    <div class="tagline-grid">
+      <div class="tagline-card">
+        <div class="tl-role">Primary Tagline</div>
+        <div class="tl-line"><strong>Rise. Automate. Dominate.</strong></div>
+      </div>
+      <div class="tagline-card">
+        <div class="tl-role">Logo Concept</div>
+        <div class="tl-line">Fire and Ice</div>
+      </div>
+      <div class="tagline-card">
+        <div class="tl-role">Unified Ecosystem</div>
+        <div class="tl-line">Beautiful by design. Intelligent by nature.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 AGENTS -->
+  <div class="section">
+    <div class="section-label">07 · Agent Identity</div>
+    <div class="section-title">Agents Are Hires, Not Tools</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.7;max-width:640px">Every PhoennixAI agent ships with a full employment kit: configuration, CV, Job Description, User Manual, Training Manual, and Performance Dashboard. Each agent has a codename, a defined scope, and a hard boundary on what it can and cannot do.</p>
+    <div class="agent-grid">
+      <div class="agent-card deployed">
+        <div class="agent-code">Agent 000</div>
+        <div class="agent-name">ARIA</div>
+        <div class="agent-role">Workspace Agent, Second Brain</div>
+        <div style="margin-top:8px"><span class="chip chip-deployed">Deployed</span></div>
+      </div>
+      <div class="agent-card queue">
+        <div class="agent-code">Agent 001</div>
+        <div class="agent-name">PA</div>
+        <div class="agent-role">Personal Productivity</div>
+        <div style="margin-top:8px"><span class="chip chip-planned">Queue</span></div>
+      </div>
+      <div class="agent-card queue">
+        <div class="agent-code">Agent 002</div>
+        <div class="agent-name">SCOUT</div>
+        <div class="agent-role">Lead Generation and Sales</div>
+        <div style="margin-top:8px"><span class="chip chip-planned">Queue</span></div>
+      </div>
+      <div class="agent-card queue">
+        <div class="agent-code">Agent 003</div>
+        <div class="agent-name">PULSE</div>
+        <div class="agent-role">Social Media and Content</div>
+        <div style="margin-top:8px"><span class="chip chip-planned">Queue</span></div>
+      </div>
+      <div class="agent-card queue">
+        <div class="agent-code">Agent 006</div>
+        <div class="agent-name">LEDGER</div>
+        <div class="agent-role">Financial Intelligence</div>
+        <div style="margin-top:8px"><span class="chip chip-tbc" style="font-size:7px">Advisory only, never executes</span></div>
+      </div>
+      <div class="agent-card queue">
+        <div class="agent-code">Agent 014</div>
+        <div class="agent-name">GUARDIAN</div>
+        <div class="agent-role">Founder Vault Security</div>
+        <div style="margin-top:8px"><span class="chip chip-planned">Planned</span></div>
+      </div>
+    </div>
+    <div style="margin-top:12px;font-size:11px;color:var(--text3);font-family:var(--mono);letter-spacing:0.5px">Full masterlist: 15 agents (000 to 014). Each requires full kit before deployment. See Agent Masterlist in Document Hub.</div>
+  </div>
+
+  <!-- 08 DO AND DONT -->
+  <div class="section">
+    <div class="section-label">08 · Do and Do Not</div>
+    <div class="section-title">Usage Rules</div>
+    <div class="do-dont">
+      <div class="do-block">
+        <div class="block-label do-label">Do</div>
+        <ul>
+          <li>Use Bebas Neue for all display text, headings, and the wordmark</li>
+          <li>Use DM Sans at weights 300, 400, 500, or 600 only</li>
+          <li>Use Playfair Display italic for taglines and accent moments only</li>
+          <li>Use Phoenix Fire #FF6B2B as the primary action and brand colour</li>
+          <li>Use Electric Tip #00E5FF exclusively for ARIA and live agent states</li>
+          <li>Use Midnight #060A18 as the primary dark background</li>
+          <li>Write copy in short, direct sentences. Commands, not suggestions</li>
+          <li>Refer to agents by codename in all documents and communications</li>
+          <li>Spell the brand as PhoennixAI, one word, capital P and AI</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <div class="block-label dont-label">Do Not</div>
+        <ul>
+          <li>Do not change, replace, or modify the six locked brand colours</li>
+          <li>Do not use WilcoxDesigns warm tones (Charcoal, Taupe, Mocha) in PhoennixAI materials</li>
+          <li>Do not use Playfair Display in regular weight or non-italic form</li>
+          <li>Do not use Electric Tip (#00E5FF) for anything other than ARIA and live states</li>
+          <li>Do not allow LEDGER to execute any financial transaction, advisory only</li>
+          <li>Do not deploy any agent without its full employment kit</li>
+          <li>Do not use em dashes in any written output across all entities</li>
+          <li>Do not spell the brand as Phoennix AI, Phoenix AI, or PhoenixAI</li>
+          <li>Do not publish the Wilcox Ecosystem document without founder authorisation</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 09 COMPONENTS -->
+  <div class="section">
+    <div class="section-label">09 · UI Components and Status System</div>
+    <div class="section-title">Buttons, Chips, and Status Indicators</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.7">All interactive elements and status indicators across Mission Control, Workspace, Document Hub, and all future products must follow this system exactly. Consistency is non-negotiable.</p>
+    <div class="comp-grid">
+
+      <div class="comp-card">
+        <div class="comp-label">Buttons, Primary Actions</div>
+        <div class="comp-row">
+          <span class="btn btn-primary">Deploy Agent</span>
+          <span class="btn btn-secondary">View Details</span>
+          <span class="btn btn-ghost">Cancel</span>
+        </div>
+        <div class="comp-row">
+          <span class="btn btn-electric">ARIA Active</span>
+          <span class="btn btn-destructive btn-sm">Remove</span>
+        </div>
+        <div class="comp-desc">Primary: Fire fill, white text. Secondary: Fire border, no fill. Ghost: subtle border, muted text. Electric: ARIA and live system actions only. Destructive: red border, delete actions only.</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Button Sizes</div>
+        <div class="comp-row" style="align-items:flex-end">
+          <span class="btn btn-primary btn-lg">Large Action</span>
+          <span class="btn btn-primary">Default</span>
+          <span class="btn btn-primary btn-sm">Small</span>
+        </div>
+        <div class="comp-desc">Large: 12px 24px padding. Default: 8px 16px. Small: 5px 10px. Font always DM Mono, uppercase, letter-spacing 2px. Never decorative fonts on buttons.</div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Document Status Chips</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-locked">System Locked</span><span style="font-size:11px;color:var(--text3)">Brand, colour, and type systems. Cannot be changed without formal review.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-deployed">Deployed</span><span style="font-size:11px;color:var(--text3)">Agent or system active in production.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-live">Live</span><span style="font-size:11px;color:var(--text3)">Active, deployed, and accessible at its permanent URL.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-in-build">In Build</span><span style="font-size:11px;color:var(--text3)">Currently being built this session.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-planned">Queue</span><span style="font-size:11px;color:var(--text3)">Scoped and in backlog. Build not yet started.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-tbc">Date TBC</span><span style="font-size:11px;color:var(--text3)">Decision or date outstanding. Action required.</span></div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="chip chip-archived">Archived</span><span style="font-size:11px;color:var(--text3)">Superseded. Kept for audit. Not in active use.</span></div>
+        </div>
+      </div>
+
+      <div class="comp-card">
+        <div class="comp-label">Status Indicators, Inline</div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div class="status-line"><span class="status-dot dot-active"></span><strong>Active</strong> System live and operational</div>
+          <div class="status-line"><span class="status-dot dot-aria"></span><strong>ARIA</strong> Agent deployed and running</div>
+          <div class="status-line"><span class="status-dot dot-build"></span><strong>In Build</strong> Currently in development</div>
+          <div class="status-line"><span class="status-dot dot-pending"></span><strong>Pending</strong> Action or decision outstanding</div>
+          <div class="status-line"><span class="status-dot dot-planned"></span><strong>Planned</strong> Scoped, not yet started</div>
+          <div class="status-line"><span class="status-dot dot-archived"></span><strong>Archived</strong> Superseded, kept for audit</div>
+        </div>
+        <div class="comp-desc" style="margin-top:12px">Use dots for live operational status in dashboards. Use chips for document and deliverable status in cards and tables. Never mix in the same row.</div>
+      </div>
+
+    </div>
+
+    <div class="do-dont" style="margin-top:20px">
+      <div class="do-block">
+        <div class="block-label do-label">Do</div>
+        <ul>
+          <li>Use DM Mono for all button labels, chip text, and status indicators</li>
+          <li>Keep button labels to two or three words maximum</li>
+          <li>Use chips for document status, dots for operational status</li>
+          <li>Use Electric chip and cyan dot exclusively for ARIA and live agent states</li>
+          <li>Pair a Primary button with Ghost or Secondary, never two Primaries</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <div class="block-label dont-label">Do Not</div>
+        <ul>
+          <li>Do not create new chip or button colours outside this system without brand review</li>
+          <li>Do not use Electric Tip (#00E5FF) for any state other than ARIA and live systems</li>
+          <li>Do not use sentence case on buttons. Always uppercase, always DM Mono</li>
+          <li>Do not use the Destructive style for anything other than delete actions</li>
+          <li>Do not stack more than three buttons in a single action row</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 10 LOGO USAGE RULES -->
+  <div class="section">
+    <div class="section-label">10 · Logo Usage Rules <span class="badge badge-locked" style="font-size:7px">Locked</span></div>
+    <div class="section-title">Icon vs Wordmark vs Full Lock-Up</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:24px;line-height:1.7;max-width:640px">The PhoennixAI brand has three logo forms. Each has a defined use case. Using the wrong form in the wrong context dilutes the mark. This section is the definitive guide for all team members and contractors.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-bottom:24px">
+
+      <div class="comp-card" style="border-color:rgba(255,107,43,0.2)">
+        <div class="comp-label">Form 01 — Icon Only</div>
+        <div style="text-align:center;padding:20px 0;margin-bottom:16px">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="56" height="56" style="display:inline-block">
+            <rect width="200" height="200" fill="#060A18" rx="36"/>
+            <path d="M100 168 C100 168 62 154 42 128 C22 102 28 76 44 62 C60 48 76 54 86 60 C76 44 80 24 100 18 C120 24 124 44 114 60 C124 54 140 48 156 62 C172 76 178 102 158 128 C138 154 100 168 100 168Z" fill="#FF6B2B"/>
+            <path d="M100 85 C85 62 55 50 28 62 C12 70 8 88 18 100 C35 84 62 78 82 88Z" fill="#46ABD7"/>
+            <path d="M100 85 C115 62 145 50 172 62 C188 70 192 88 182 100 C165 84 138 78 118 88Z" fill="#46ABD7"/>
+            <circle cx="100" cy="46" r="4" fill="#FFB830"/>
+          </svg>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:6px">Use when:</strong>
+          Favicon and browser tab. App icon on home screen. Social media profile picture. Avatar in chat or messaging platforms. Any context under 48px where text will not read. Watermarks on imagery.</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--text3)">The phoenix mark reads instantly at any size. Warmth to the left, ice to the right.</div>
+      </div>
+
+      <div class="comp-card" style="border-color:rgba(255,107,43,0.2)">
+        <div class="comp-label">Form 02 — Wordmark Only</div>
+        <div style="text-align:center;padding:20px 0;margin-bottom:16px">
+          <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:28px;letter-spacing:4px;color:#fff;line-height:1">PHOENNIX<span style="color:var(--fire)">AI</span></div>
+          <div style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:11px;color:var(--gold);margin-top:6px">Rise. Automate. Dominate.</div>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:6px">Use when:</strong>
+          Document headers and footers. Email signatures. Press releases and formal correspondence. Navigation bars in apps where the icon is already visible. Contexts where the mark would be redundant.</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--text3)">PHOENNIX in white or Platinum. AI in Phoenix Fire. Tagline in Playfair italic beneath, optional.</div>
+      </div>
+
+      <div class="comp-card" style="border-color:rgba(255,107,43,0.2)">
+        <div class="comp-label">Form 03 — Full Lock-Up</div>
+        <div style="text-align:center;padding:20px 0;margin-bottom:16px;display:flex;align-items:center;justify-content:center;gap:12px">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="40" height="40">
+            <rect width="200" height="200" fill="#060A18" rx="36"/>
+            <path d="M100 168 C100 168 62 154 42 128 C22 102 28 76 44 62 C60 48 76 54 86 60 C76 44 80 24 100 18 C120 24 124 44 114 60 C124 54 140 48 156 62 C172 76 178 102 158 128 C138 154 100 168 100 168Z" fill="#FF6B2B"/>
+            <path d="M100 85 C85 62 55 50 28 62 C12 70 8 88 18 100 C35 84 62 78 82 88Z" fill="#46ABD7"/>
+            <path d="M100 85 C115 62 145 50 172 62 C188 70 192 88 182 100 C165 84 138 78 118 88Z" fill="#46ABD7"/>
+          </svg>
+          <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:24px;letter-spacing:3px;color:#fff">PHOENNIX<span style="color:var(--fire)">AI</span></div>
+        </div>
+        <div style="font-size:12px;color:var(--text2);line-height:1.7"><strong style="color:var(--text);display:block;margin-bottom:6px">Use when:</strong>
+          Website hero sections and landing pages. Pitch decks and investor materials. Marketing content, social posts, and promotional assets. Presentations. Any first impression touchpoint. Print materials.</div>
+        <div style="margin-top:12px;font-size:11px;color:var(--text3)">Icon left of wordmark. Minimum spacing: 1x icon width between mark and type. Never stack vertically unless space forces it.</div>
+      </div>
+    </div>
+    <div class="do-dont">
+      <div class="do-block">
+        <div class="block-label do-label">Do</div>
+        <ul>
+          <li>Use the icon alone at all sizes below 48px</li>
+          <li>Use the full lock-up for all first-impression contexts</li>
+          <li>Use the wordmark alone in running documents where the icon has already appeared</li>
+          <li>Maintain clear space equal to the height of the I in AI around all logo forms</li>
+          <li>Use the icon on Midnight dark background by default. On light surfaces, use a Midnight container.</li>
+        </ul>
+      </div>
+      <div class="dont-block">
+        <div class="block-label dont-label">Do Not</div>
+        <ul>
+          <li>Do not stretch, rotate, or distort any logo form</li>
+          <li>Do not change the colour of AI from Phoenix Fire</li>
+          <li>Do not place the wordmark on a mid-grey or low contrast background</li>
+          <li>Do not use the icon without its dark background container at small sizes</li>
+          <li>Do not create new arrangements of the mark without brand review</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 11 AGENT COLOUR FRAMEWORK -->
+  <div class="section">
+    <div class="section-label">11 · Agent Colour Identity Framework <span class="badge badge-locked" style="font-size:7px">Locked 13 Mar 2026</span></div>
+    <div class="section-title">Colour Is Data</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:20px;line-height:1.7;max-width:640px">Every agent in the PhoennixAI ecosystem has a unique colour identity assigned permanently. This is not aesthetic. Each colour enables instant identification in dashboards, charts, graphs, performance reports, and communication logs. When you see a colour, you know which agent is active. The same principle used by air traffic control, financial terminals, and emergency services. This register updates automatically when a new agent joins the team.</p>
+    <div style="background:rgba(196,154,108,0.04);border:1px solid rgba(196,154,108,0.15);border-left:3px solid var(--bronze,#C49A6C);border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:24px">
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#C49A6C;margin-bottom:8px">Framework Rules</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:12px;color:var(--text2);line-height:1.7">
+        <div>No two agents share a colour</div>
+        <div>Colour must be legible at small chart sizes</div>
+        <div>Core AI agents take precedence in the palette</div>
+        <div>Commercial agents draw from the extended spectrum</div>
+        <div>Once assigned, a colour is locked to that agent permanently</div>
+        <div>New agents added below as the team grows</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+      <div class="comp-card" style="border-color:rgba(255,107,43,0.25)"><div style="width:100%;height:6px;background:#FF6B2B;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">CORE AI</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#FF6B2B">CLAUDE</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Phoenix Fire</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#FF6B2B / #E8622A dark</div></div>
+      <div class="comp-card" style="border-color:rgba(0,229,255,0.25)"><div style="width:100%;height:6px;background:#00E5FF;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 000</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#00E5FF">ARIA</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Electric Cyan. Reserved.</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#00E5FF</div></div>
+      <div class="comp-card" style="border-color:rgba(196,154,108,0.25)"><div style="width:100%;height:6px;background:#C49A6C;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 015</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#C49A6C">SCRIBE</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Bronze</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#C49A6C</div></div>
+      <div class="comp-card" style="border-color:rgba(255,184,48,0.25)"><div style="width:100%;height:6px;background:#FFB830;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 006</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#FFB830">LEDGER</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Ember Gold</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#FFB830</div></div>
+      <div class="comp-card" style="border-color:rgba(70,171,215,0.25)"><div style="width:100%;height:6px;background:#46ABD7;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 010</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#46ABD7">SIGNAL</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Sapphire Wing</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#46ABD7</div></div>
+      <div class="comp-card" style="border-color:rgba(34,197,94,0.25)"><div style="width:100%;height:6px;background:#22C55E;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 002</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#22C55E">SCOUT</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Signal Green</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#22C55E</div></div>
+      <div class="comp-card" style="border-color:rgba(167,139,250,0.25)"><div style="width:100%;height:6px;background:#A78BFA;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 003</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#A78BFA">PULSE</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Soft Violet</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#A78BFA</div></div>
+      <div class="comp-card" style="border-color:rgba(251,146,60,0.25)"><div style="width:100%;height:6px;background:#FB923C;border-radius:2px;margin-bottom:10px"></div><div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:4px">AGENT 005</div><div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:18px;letter-spacing:2px;color:#FB923C">RELAY</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Warm Amber</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">#FB923C</div></div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:14px 20px">
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Pending Assignment — PA, ATLAS, ECHO, ENROL, GRID, GRANT, FORGE, BRIDGE, GUARDIAN</div>
+      <div style="font-size:12px;color:var(--text2)">Colour assignments confirmed in the agent walkthrough session. When assigned, update this register in both Brand Guidelines and Document Hub simultaneously. The rule: if you can tell agents apart at 8px in a chart, the colours are working.</div>
+    </div>
+  </div>
+
+  <!-- 12 BRAND STORY -->
+  <div class="section">
+    <div class="section-label">12 · Brand Story <span class="badge badge-locked" style="font-size:7px">13 Mar 2026</span></div>
+    <div class="section-title">The PhoennixAI Story</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+      <div class="voice-card">
+        <div class="voice-label">The Origin</div>
+        <div class="voice-value">Built from the ground up.</div>
+        <div class="voice-desc">PhoennixAI was not born from venture capital or an exit. It was built by a founder who refused to accept that intelligent systems were only available to businesses with enterprise budgets. The agency began as a single mission: make AI a workforce, not a feature, and make it accessible to businesses that are actually building something.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">The Name</div>
+        <div class="voice-value">Rise from the fire.</div>
+        <div class="voice-desc">The phoenix rises from flame. The double-N in PhoennixAI is intentional, not a typo. It is the brand's signature, a mark that demands attention and signals that this is not a generic AI product. The fire and ice visual language reinforces this: transformation through intensity, intelligence through precision.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">The Mandate</div>
+        <div class="voice-value">Faith, excellence, and no one left behind.</div>
+        <div class="voice-desc">PhoennixAI operates with a kingdom mandate. Excellence is not optional, it is the floor. The agency builds for businesses that want to genuinely rise, and through the Academy, it ensures the next generation learns AI on their own terms. From age 8 to executive level. Every product is built with this mandate embedded.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">The Direction</div>
+        <div class="voice-value">Phase 0 to global.</div>
+        <div class="voice-desc">Launched in Phase 0 by design. Zero cost, zero technical debt, maximum strategic clarity. Every product being built was mapped before a single line of code was written. The agent team was hired on paper before being deployed in production. This is how PhoennixAI builds: methodically, with intention, and with the end state already in view.</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.15);border-radius:8px;padding:20px 24px">
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--fire);margin-bottom:10px;text-transform:uppercase">Approved Short Version — For Social, Press, and Introductions</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:15px;color:var(--text);line-height:1.8">PhoennixAI is an AI agency deploying intelligent agents as a workforce, not a feature. Built from the ground up in Phase 0. Rising towards global. Rise. Automate. Dominate.</div>
+    </div>
+  </div>
+
+  <!-- 13 FOUNDER STORY AND BIO -->
+  <div class="section">
+    <div class="section-label">13 · Founder Story and Bio <span class="badge badge-confidential" style="font-size:7px">Internal — Expand Before Publishing</span></div>
+    <div class="section-title">Valerie Wilcox</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px">
+      <div class="voice-card" style="grid-column:1/-1">
+        <div class="voice-label">Short Bio — 50 Words</div>
+        <div class="voice-value">Founder. Builder. Visionary.</div>
+        <div class="voice-desc" style="font-size:13px;line-height:1.9">Valerie Wilcox is the founder of PhoennixAI and the Wilcox Ecosystem: five entities spanning AI agency services, creative design, education, and intelligent product development. She built PhoennixAI from Phase 0 with a single mandate: deploy AI as a workforce for businesses that are genuinely rising. She believes no one gets left behind.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">Founder Values — Locked</div>
+        <div class="voice-value">What drives the business.</div>
+        <div class="voice-desc">Integrity · Excellence · Growth · Lasting Impact · No one left behind · Humanity moving forward together. These six values are not aspirational. They are operational. Every product, every agent, and every partnership is evaluated against them.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">The Ecosystem</div>
+        <div class="voice-value">Five entities. One vision.</div>
+        <div class="voice-desc">Valerie Wilcox (parent brand) · WilcoxDesigns (creative studio) · PhoennixAI Agency (main entity) · PhoennixAI Academy (education, age 8 to executive, faith and kingdom mandate) · Creative Lab Tool (built by the Agency, 24/7 client workspace). Every entity serves the same mission from a different angle.</div>
+      </div>
+      <div class="voice-card">
+        <div class="voice-label">The Academy</div>
+        <div class="voice-value">Phantom Studio is live.</div>
+        <div class="voice-desc">The Academy arm of PhoennixAI operates with a faith and kingdom mandate. Phantom Studio, a live sub-arm of the Academy, has been operational since Q4 2024 with 8 active students. The EduTech Platform product is in build for Q3 2026. Education is not peripheral to PhoennixAI. It is core to the mandate.</div>
+      </div>
+    </div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px">
+      <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:10px">Build Note — For Claude and Team</div>
+      <div style="font-size:12px;color:var(--text2);line-height:1.8">This section is the skeleton. The full founder story, detailed biography, and narrative arc require a dedicated documentation session with Valerie. Content to include: origin story in full, pivotal decisions, personal mission, the faith mandate in context, career timeline, and the vision for 2030 and beyond. When written, the long-form version lives here and in the Document Hub. The short bio above is approved for internal use now.</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="footer-l">
+      PhoennixAI · Brand Guidelines · PAI-BG-001 · v1.2 · 13 March 2026 · Confidential
+    </div>
+    <div class="footer-r">Rise. Automate. Dominate.</div>
+  </div>
+
+</div>
+</body>
+</html>
