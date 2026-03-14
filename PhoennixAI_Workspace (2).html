@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23060A18' rx='44'/><path d='M100 170 C80 160 55 140 50 115 C45 90 55 70 65 55 C70 75 68 90 72 100 C76 80 82 60 90 42 C94 65 88 85 92 100 C96 75 100 50 100 30 C104 50 104 75 108 100 C112 85 106 65 110 42 C118 60 124 80 128 100 C132 90 130 75 135 55 C145 70 155 90 150 115 C145 140 120 160 100 170Z' fill='%233A0E00' opacity='0.9'/><path d='M100 168 C82 158 60 138 56 112 C52 88 62 68 74 52 C78 72 74 92 80 106 C84 84 90 62 96 40 C100 60 100 82 104 96 C108 72 110 52 116 38 C126 56 132 80 128 106 C134 92 130 72 134 52 C146 68 156 88 152 112 C148 138 118 158 100 168Z' fill='%23FF6B2B'/><path d='M100 168 C88 155 70 135 68 112 C66 90 74 72 82 58 C84 74 80 92 84 106 C88 85 93 65 97 44 C100 63 100 83 103 96 C107 76 112 57 116 43 C122 58 126 80 122 106 C126 92 122 74 126 62 C136 76 144 95 140 115 C136 138 112 155 100 168Z' fill='%23FFB830'/><ellipse cx='100' cy='135' rx='20' ry='25' fill='%23FFE566' opacity='0.8'/><ellipse cx='100' cy='138' rx='10' ry='12' fill='%23FFFFFF' opacity='0.85'/></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>PhoennixAI Workspace, Valerie Wilcox</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="dark"]{--bg:#050507;--surface:#0E0E12;--panel:#141418;--card:#1C1C22;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:rgba(255,255,255,0.85);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--topbar:rgba(5,5,7,0.82);--input:#0E0E12;--fire:#E8622A}
+:root[data-theme="light"]{--bg:#F2EFE9;--surface:#FFFFFF;--panel:#F8F5F0;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#111111;--text2:#444444;--text3:#767676;--topbar:rgba(248,245,240,0.82);--input:#F2EFE9}
+:root{--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--aria:#00E5FF;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.7;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:var(--bronze)}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:300;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:12px}
+.tb-logo{font-family:var(--display);font-size:20px;letter-spacing:3px;color:var(--fire);line-height:1}
+.tb-logo span{color:var(--bronze);margin-left:-3px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--aria);box-shadow:0 0 8px var(--aria);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
+.tb-controls{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.tb-date{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--aria);opacity:0.7}
+.theme-toggle{width:44px;height:24px;border-radius:12px;border:1px solid var(--border2);background:var(--panel);cursor:pointer;position:relative;transition:background 0.3s;flex-shrink:0}
+.theme-toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:var(--bronze);transition:transform 0.3s}
+[data-theme="light"] .theme-toggle::after{transform:translateX(20px)}
+.theme-icon{font-size:12px;margin-right:4px}
+.tb-aria-btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:4px 10px;border-radius:4px;border:1px solid rgba(0,229,255,0.2);color:var(--aria);background:rgba(0,229,255,0.05);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.tb-aria-btn:hover{background:rgba(0,229,255,0.1)}
+.tb-sync{font-family:var(--mono);font-size:7px;color:var(--aria);opacity:0.45;letter-spacing:1px}
+.tabs{position:fixed;top:52px;left:0;right:0;z-index:290;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;overflow-x:auto;height:37px;align-items:center}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:0 14px;height:37px;display:flex;align-items:center;font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;white-space:nowrap;flex-shrink:0}
+.tab:hover{color:var(--text2)}
+.tab.active{color:var(--bronze);border-bottom-color:var(--bronze)}
+.tab.tab-aria.active{color:var(--aria);border-bottom-color:var(--aria)}
+.page{display:none;padding:99px 0 80px}
+.page.active{display:block}
+.wrap{max-width:1060px;margin:0 auto;padding:0 18px}
+.chip{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 8px;border-radius:3px;border:1px solid;display:inline-block;white-space:nowrap}
+.chip-live{color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)}
+.chip-pending{color:var(--amber);border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.06)}
+.chip-fire{color:var(--fire);border-color:rgba(255,107,43,0.3);background:rgba(255,107,43,0.06)}
+.chip-sapphire{color:var(--sapphire);border-color:rgba(70,171,215,0.3);background:rgba(70,171,215,0.06)}
+.chip-bronze{color:var(--bronze);border-color:rgba(196,154,108,0.3);background:rgba(196,154,108,0.06)}
+.chip-na{color:var(--text3);border-color:var(--border2);background:transparent}
+.chip-aria{color:var(--aria);border-color:rgba(0,229,255,0.3);background:rgba(0,229,255,0.06)}
+.s-eyebrow{font-family:var(--mono);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--bronze);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.s-eyebrow::before{content:'';width:16px;height:1px;background:var(--bronze)}
+.s-title{font-family:var(--display);font-size:clamp(32px,5vw,60px);letter-spacing:4px;line-height:1;margin-bottom:6px}
+.s-sub{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text2);margin-bottom:28px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:20px;margin-bottom:12px}
+.form-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--bronze);margin-bottom:4px;display:block}
+.form-input{width:100%;background:var(--panel);border:1px solid var(--border2);border-radius:4px;padding:8px 11px;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color 0.2s}
+.form-input:focus{border-color:var(--bronze)}
+select.form-input{cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;border-radius:4px;cursor:pointer;border:1px solid;transition:all 0.2s;display:inline-block}
+.btn-fire{background:rgba(255,107,43,0.1);border-color:rgba(255,107,43,0.3);color:var(--fire)}
+.btn-fire:hover{background:rgba(255,107,43,0.2)}
+.btn-bronze{background:rgba(196,154,108,0.1);border-color:rgba(196,154,108,0.3);color:var(--bronze)}
+.btn-bronze:hover{background:rgba(196,154,108,0.2)}
+.btn-ghost{background:transparent;border-color:var(--border2);color:var(--text3)}
+.btn-ghost:hover{color:var(--text2)}
+.copy-btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:5px 12px;border-radius:3px;border:1px solid rgba(196,154,108,0.25);color:var(--bronze);background:rgba(196,154,108,0.06);cursor:pointer;transition:all 0.2s}
+.copy-btn:hover{background:rgba(196,154,108,0.16)}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:9px;margin-bottom:18px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
+.stat-val{font-family:var(--display);font-size:28px;color:var(--text);line-height:1;margin-bottom:2px}
+.stat-label{font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--text3)}
+.alert{border-radius:8px;padding:13px 15px;margin-bottom:14px;font-size:12px;line-height:1.75}
+.alert-fire{background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.18)}
+.alert-teal{background:rgba(13,148,136,0.05);border:1px solid rgba(13,148,136,0.18)}
+.alert-title{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-bottom:5px}
+.aria-header{background:linear-gradient(135deg,rgba(0,229,255,0.07) 0%,rgba(70,171,215,0.04) 100%);border:1px solid rgba(0,229,255,0.15);border-radius:10px;padding:20px;margin-bottom:18px;position:relative;overflow:hidden}
+.aria-name{font-family:var(--display);font-size:34px;letter-spacing:4px;color:var(--aria);line-height:1;margin-bottom:3px}
+.aria-role{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,229,255,0.5);margin-bottom:10px}
+.aria-status{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--text2)}
+.aria-dot{width:7px;height:7px;border-radius:50%;background:var(--aria);animation:pulse 2s infinite;flex-shrink:0}
+.aria-brief-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px;margin-bottom:18px}
+.aria-brief-card{background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.1);border-radius:8px;padding:13px;text-align:center}
+.abc-val{font-family:var(--display);font-size:28px;color:var(--text);line-height:1;margin-bottom:2px}
+.abc-label{font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,229,255,0.5)}
+.aria-msg{background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.12);border-radius:8px;padding:15px;margin-bottom:13px}
+.aria-msg-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--aria);margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.aria-msg-body{font-size:12px;color:var(--text2);line-height:1.85;white-space:pre-wrap}
+.ap-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--aria);border-radius:0 8px 8px 0;padding:11px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:7px}
+.ap-icon{font-size:15px;flex-shrink:0;margin-top:2px}
+.ap-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.ap-body{font-size:11px;color:var(--text2);line-height:1.6}
+.ap-time{font-family:var(--mono);font-size:8px;color:var(--text3);flex-shrink:0;margin-top:2px}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.cal-title{font-family:var(--display);font-size:22px;letter-spacing:2px;color:var(--text)}
+.cal-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--border2);background:var(--panel);color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all 0.2s}
+.cal-btn:hover{border-color:var(--bronze);color:var(--bronze)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:2px}
+.cal-day-hd{text-align:center;font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);padding:6px 0}
+.cal-cell{min-height:64px;background:var(--card);border:1px solid var(--border);border-radius:4px;padding:5px;cursor:pointer;transition:all 0.2s;position:relative}
+.cal-cell:hover{border-color:rgba(196,154,108,0.3)}
+.cal-cell.today{border-color:var(--fire);background:rgba(255,107,43,0.04)}
+.cal-cell.other-m{opacity:0.3}
+.cal-num{font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:2px}
+.cal-cell.today .cal-num{color:var(--fire);font-weight:700}
+.ev-dot{font-size:8px;line-height:1.4;color:var(--text2);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:rgba(196,154,108,0.1);border-radius:2px;padding:1px 3px;margin-bottom:1px}
+.ev-dot.type-meeting{background:rgba(70,171,215,0.12);color:var(--sapphire)}
+.ev-dot.type-deadline{background:rgba(239,68,68,0.12);color:var(--red)}
+.ev-dot.type-task{background:rgba(255,184,48,0.12);color:var(--gold)}
+.ev-dot.type-personal{background:rgba(123,47,255,0.12);color:var(--violet)}
+.event-form{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;margin-bottom:14px}
+.event-form-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:12px}
+.ev-item{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--bronze);border-radius:0 8px 8px 0;padding:10px 14px;display:flex;align-items:flex-start;gap:10px;margin-bottom:7px;transition:all 0.2s}
+.ev-item.type-meeting{border-left-color:var(--sapphire)}
+.ev-item.type-deadline{border-left-color:var(--red)}
+.ev-item.type-task{border-left-color:var(--gold)}
+.ev-item.type-personal{border-left-color:var(--violet)}
+.ev-item.ev-done{opacity:0.4;background:rgba(34,197,94,0.03);border-left-color:var(--green)}
+.ev-item.ev-done .ei-title{text-decoration:line-through;color:var(--text3)}
+.ei-done-btn{background:none;border:1px solid var(--border2);border-radius:3px;color:var(--text3);cursor:pointer;font-size:11px;padding:3px 7px;transition:all 0.2s;font-family:var(--mono);letter-spacing:1px;white-space:nowrap;flex-shrink:0}
+.ei-done-btn:hover{border-color:var(--green);color:var(--green)}
+.ei-done-btn.is-done{border-color:var(--green);color:var(--green);background:rgba(34,197,94,0.08)}
+.ei-content{flex:1}
+.ei-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:2px}
+.ei-meta{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.ei-del{background:none;border:none;color:var(--text3);cursor:pointer;font-size:15px;padding:0 2px;transition:color 0.2s;line-height:1}
+.ei-del:hover{color:var(--red)}
+.sync-badge{font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--teal);background:rgba(13,148,136,0.08);border:1px solid rgba(13,148,136,0.2);padding:2px 8px;border-radius:3px;display:inline-flex;align-items:center;gap:4px}
+.notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:14px}
+.note-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;position:relative;transition:all 0.2s}
+.note-card:hover{border-color:rgba(196,154,108,0.2)}
+.note-card.pinned{border-color:rgba(255,184,48,0.3);background:rgba(255,184,48,0.03)}
+.note-pin{position:absolute;top:9px;right:9px;font-size:14px;cursor:pointer;transition:all 0.2s;opacity:0.35}
+.note-pin:hover{opacity:1}
+.note-pin.pinned-on{opacity:1}
+.note-del{position:absolute;bottom:9px;right:9px;background:none;border:none;color:var(--text3);cursor:pointer;font-size:13px;padding:2px;transition:color 0.2s}
+.note-del:hover{color:var(--red)}
+.note-date{font-family:var(--mono);font-size:7px;color:var(--text3);margin-bottom:5px}
+.note-heading{font-weight:600;font-size:12px;color:var(--text);margin-bottom:4px}
+.note-text{font-size:12px;color:var(--text2);line-height:1.7;white-space:pre-wrap;word-break:break-word;padding-bottom:18px}
+.note-pinned-label{font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.note-input-area{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:14px}
+.note-input-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:10px}
+textarea.form-input{resize:vertical;min-height:85px;font-family:var(--sans)}
+.del-table{width:100%;border-collapse:collapse;margin-bottom:18px}
+.del-table th{background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)}
+.del-table td{border:1px solid var(--border);padding:9px 11px;font-size:11px;color:var(--text2);vertical-align:middle}
+.del-table tr:hover td{background:rgba(196,154,108,0.02)}
+.del-name{font-weight:600;color:var(--text);font-size:12px;margin-bottom:1px}
+.del-desc{font-size:10px;color:var(--text3)}
+.open-btn{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 9px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);cursor:pointer;text-decoration:none;display:inline-block;transition:all 0.2s;white-space:nowrap}
+.open-btn:hover{background:rgba(70,171,215,0.12)}
+.task-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:7px;display:grid;grid-template-columns:36px 1fr auto;gap:10px;align-items:start;cursor:pointer;transition:all 0.2s}
+.task-item:hover{border-color:rgba(196,154,108,0.2)}
+.task-item.done{opacity:0.38}
+.task-item.done .tk-title{text-decoration:line-through;color:var(--text3)}
+.tk-num{font-family:var(--display);font-size:30px;color:var(--border2);line-height:1;padding-top:2px}
+.tk-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.tk-body{font-size:12px;color:var(--text2);line-height:1.7;margin-bottom:6px}
+.tk-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tk-check{width:22px;height:22px;border-radius:6px;border:1.5px solid var(--border2);background:transparent;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.25s;margin-top:3px}
+.tk-check.is-done{background:#86EFAC;border-color:#86EFAC}
+.tk-check svg{width:12px;height:12px;display:block}
+.upload-step{display:flex;gap:11px;padding:13px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:9px}
+.us-num{font-family:var(--display);font-size:24px;color:var(--fire);line-height:1;flex-shrink:0;width:26px}
+.us-title{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px}
+.us-body{font-size:12px;color:var(--text2);line-height:1.7}
+.us-code{font-family:var(--mono);font-size:9px;background:var(--panel);border:1px solid var(--border);padding:4px 9px;border-radius:3px;color:var(--bronze);margin-top:3px;display:inline-block}
+.bm-st{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:16px 0 9px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+.bm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:9px;margin-bottom:5px}
+.bm-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:13px;transition:border-color 0.2s}
+.bm-card:hover{border-color:rgba(196,154,108,0.2)}
+.bm-label{font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.bm-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px}
+.bm-url{font-family:var(--mono);font-size:9px;color:var(--sapphire);background:rgba(70,171,215,0.05);padding:5px 7px;border-radius:3px;display:block;margin-bottom:7px;word-break:break-all}
+.bm-desc{font-size:11px;color:var(--text3);margin-bottom:7px;line-height:1.55}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.78);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:24px;width:92%;max-width:460px;max-height:90vh;overflow-y:auto}
+.modal-title{font-family:var(--display);font-size:20px;letter-spacing:2px;margin-bottom:4px}
+.modal-sub{font-size:11px;color:var(--text2);margin-bottom:16px}
+.modal-actions{display:flex;gap:9px;margin-top:16px;justify-content:flex-end}
+.modal-group{margin-bottom:11px}
+#toast{position:fixed;bottom:68px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;border-radius:6px;z-index:9999;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap}
+#notif-card{position:fixed;bottom:80px;right:16px;width:min(340px,calc(100vw - 32px));background:var(--card);border:1px solid rgba(255,184,48,0.35);border-radius:10px;padding:16px 16px 14px;z-index:9999;display:none;box-shadow:0 8px 32px rgba(0,0,0,0.5);animation:slideUp 0.25s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+#notif-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+#notif-card-title{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+#notif-card-close{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:4px;border:1px solid var(--border);color:var(--text2);cursor:pointer;font-size:14px;line-height:1;flex-shrink:0}
+#notif-card-close:hover{color:var(--text);background:var(--surface)}
+#notif-card-msg{font-size:12px;color:var(--text2);line-height:1.7}
+/* ── SIDE RAIL ── */
+.tabs{display:none}
+.side-rail{position:fixed;top:52px;left:0;bottom:0;width:58px;z-index:290;background:var(--topbar);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-right:1px solid var(--border);display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:1px}
+
+.sr-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;width:46px;height:46px;border-radius:10px;font-family:var(--mono);font-size:5.5px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,0.22);transition:all 0.2s;border:1px solid transparent;position:relative}
+[data-theme="light"] .sr-item{color:rgba(0,0,0,0.45)}
+.sr-item:hover{color:rgba(255,255,255,0.55);background:rgba(255,255,255,0.05)}
+[data-theme="light"] .sr-item:hover{color:rgba(0,0,0,0.75);background:rgba(0,0,0,0.05)}
+.sr-item.active{color:var(--fire);background:rgba(255,107,43,0.1);border-color:rgba(255,107,43,0.2)}
+.sr-item.sr-aria.active{color:var(--aria);background:rgba(0,229,255,0.07);border-color:rgba(0,229,255,0.18)}
+.sr-icon{width:18px;height:18px;flex-shrink:0}
+.sr-icon svg{width:100%;height:100%;stroke-width:1.5}
+.page{padding:82px 0 30px;margin-left:58px;min-height:100vh}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .wrap{padding:0 14px}
+  .form-row{grid-template-columns:1fr}.cal-cell{min-height:52px;padding:4px}.notes-grid{grid-template-columns:1fr 1fr}.bm-grid{grid-template-columns:1fr 1fr}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+  .task-item{grid-template-columns:26px 1fr auto}
+  .s-title{font-size:clamp(26px,6vw,40px)}
+}
+@media(max-width:600px){
+  .wrap{padding:0 10px}
+  .side-rail{width:50px}
+  .page{margin-left:50px}
+  .sr-item{width:40px;height:40px;border-radius:8px}
+  .sr-icon{width:16px;height:16px}
+  .sr-item span.sr-label{display:none}
+  .notes-grid{grid-template-columns:1fr}.bm-grid{grid-template-columns:1fr}
+  .modal-actions{flex-direction:column}
+  .del-table{font-size:10px}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:7px}
+  .stat-card{padding:10px 8px}
+  .stat-val{font-size:22px}
+  .btn{padding:10px 14px}
+  .topbar{padding:0 12px;gap:8px}
+  .tb-logo{font-size:16px;letter-spacing:2px}
+  .modal{width:96%;padding:18px}
+  .s-title{font-size:clamp(22px,7vw,32px)}
+  .cal-cell{min-height:44px;padding:3px}
+  .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table{min-width:420px}
+}
+@media(max-width:390px){
+  .side-rail{width:44px}
+  .page{margin-left:44px}
+  .sr-item{width:36px;height:36px}
+  .wrap{padding:0 8px}
+}
+</style>
+<rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
+</head>
+<body>
+<div id="toast"></div>
+<div id="notif-card"><div id="notif-card-header"><span id="notif-card-title">Enable Reminders</span><span id="notif-card-close" onclick="closeNotifBanner()">&#215;</span></div><div id="notif-card-msg"></div></div>
+
+<div class="topbar">
+  <div class="tb-logo">Phoennix<span>AI</span></div>
+  <div class="tb-controls">
+    <div class="live-dot"></div>
+    <div class="tb-date" id="live-clock"></div>
+    <span class="theme-icon" id="theme-icon">🌙</span>
+    <div class="theme-toggle" onclick="toggleTheme()" title="Toggle light/dark mode"></div>
+    <div class="tb-aria-btn" onclick="showPage('aria')">ARIA</div>
+  </div>
+</div>
+
+<nav class="side-rail" id="side-rail">
+  <div class="sr-item active" id="sr-home" onclick="showPage('home')" title="Home">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></span>
+    <span class="sr-label">Home</span>
+  </div>
+  <div class="sr-item sr-aria" id="sr-aria" onclick="showPage('aria')" title="ARIA">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"/></svg></span>
+    <span class="sr-label">ARIA</span>
+  </div>
+  <div class="sr-item" id="sr-planner" onclick="showPage('planner')" title="Planner">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>
+    <span class="sr-label">Plan</span>
+  </div>
+  <div class="sr-item" id="sr-notes" onclick="showPage('notes')" title="Notes">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></span>
+    <span class="sr-label">Notes</span>
+  </div>
+  <div class="sr-item" id="sr-deliverables" onclick="showPage('deliverables')" title="Deliverables">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></span>
+    <span class="sr-label">Deliver</span>
+  </div>
+  <div class="sr-item" id="sr-github" onclick="showPage('github')" title="GitHub">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3"/><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.49.5.09.66-.22.66-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0112 6.8c.85 0 1.71.11 2.51.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.16.58.67.48A10.01 10.01 0 0022 12c0-5.52-4.48-10-10-10z"/></svg></span>
+    <span class="sr-label">GitHub</span>
+  </div>
+  <div class="sr-item" id="sr-tasks" onclick="showPage('tasks')" title="Tasks">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+    <span class="sr-label">Tasks</span>
+  </div>
+  <div class="sr-item" id="sr-bookmarks" onclick="showPage('bookmarks')" title="Bookmarks">
+    <span class="sr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg></span>
+    <span class="sr-label">Links</span>
+  </div>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+<div class="wrap">
+  <div style="margin-bottom:18px">
+    <div style="font-family:var(--mono);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--bronze);margin-bottom:5px" id="home-date-label"></div>
+    <div style="font-family:var(--display);font-size:clamp(28px,6vw,50px);letter-spacing:4px;line-height:1;margin-bottom:5px">GOOD <span id="greeting-time" style="color:var(--fire)">DAY</span>, VALERIE</div>
+    <div style="font-family:var(--serif);font-style:italic;font-size:15px;color:var(--text2)">Workspace Portal, PhoennixAI, ARIA Active</div>
+  </div>
+  <div class="stat-grid">
+    <div class="stat-card"><div class="stat-val" id="stat-events">0</div><div class="stat-label">Events Today</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-pinned">0</div><div class="stat-label">Pinned Notes</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-files">0</div><div class="stat-label">Files Created</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-github">0</div><div class="stat-label">On GitHub</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-done">0</div><div class="stat-label">Tasks Done</div></div>
+    <div class="stat-card"><div class="stat-val" id="stat-posts">0</div><div class="stat-label">Posts Ready</div></div>
+  </div>
+  <div class="alert alert-fire"><div class="alert-title" style="color:var(--fire)">ARIA is Active</div>Your second brain is running. Check the ARIA tab for your full briefing and proactive actions. Calendar syncs with Mission Control via shared browser storage.</div>
+  <div id="pending-review-banner" style="background:var(--card);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:14px;margin-bottom:14px;display:none"></div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:9px">Today's Schedule</div>
+  <div id="home-events-list" style="margin-bottom:18px"></div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:9px">Pinned Notes</div>
+  <div id="home-notes-list" class="notes-grid"></div>
+</div>
+</div>
+
+<!-- ARIA -->
+<div class="page" id="page-aria">
+<div class="wrap">
+  <div class="aria-header">
+    <div class="aria-dot" style="margin-bottom:9px"></div>
+    <div class="aria-name">ARIA</div>
+    <div class="aria-role">Automated Responsive Intelligence Assistant, Workspace Agent 000</div>
+    <div class="aria-status"><span>Status: Active and monitoring</span><span class="chip chip-aria" style="margin-left:8px">Agent 000</span></div>
+  </div>
+  <div class="aria-brief-grid">
+    <div class="aria-brief-card"><div class="abc-val" id="a-ev">0</div><div class="abc-label">Events Today</div></div>
+    <div class="aria-brief-card"><div class="abc-val" id="a-notes">0</div><div class="abc-label">Total Notes</div></div>
+    <div class="aria-brief-card"><div class="abc-val" id="a-pin">0</div><div class="abc-label">Pinned</div></div>
+    <div class="aria-brief-card"><div class="abc-val" id="a-done" style="font-size:16px;margin-top:4px">0</div><div class="abc-label">Completed</div></div>
+  </div>
+  <div class="aria-msg">
+    <div class="aria-msg-label"><div class="aria-dot"></div>ARIA Live Briefing, updates every 30 seconds</div>
+    <div class="aria-msg-body" id="aria-briefing">Loading briefing...</div>
+  </div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,229,255,0.5);margin-bottom:9px">Proactive Actions Required</div>
+  <div id="aria-actions"></div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,229,255,0.5);margin:16px 0 9px">ARIA Capabilities</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:9px">
+    <div class="card" style="border-color:rgba(0,229,255,0.1)"><div style="font-size:18px;margin-bottom:7px">🧠</div><div style="font-weight:600;font-size:14px;margin-bottom:4px">Second Brain</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Holds notes, events, and context. Surfaces what matters, when it matters.</div></div>
+    <div class="card" style="border-color:rgba(0,229,255,0.1)"><div style="font-size:18px;margin-bottom:7px">⏰</div><div style="font-weight:600;font-size:14px;margin-bottom:4px">Smart Reminders</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Browser reminders for events and deadlines. 15-minute advance warning.</div></div>
+    <div class="card" style="border-color:rgba(0,229,255,0.1)"><div style="font-size:18px;margin-bottom:7px">🔄</div><div style="font-weight:600;font-size:14px;margin-bottom:4px">Planner Sync</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Same events in Workspace and Mission Control. Shared browser storage.</div></div>
+    <div class="card" style="border-color:rgba(0,229,255,0.1)"><div style="font-size:18px;margin-bottom:7px">📌</div><div style="font-weight:600;font-size:14px;margin-bottom:4px">Notes Intelligence</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Pinned notes surface on Home tab. Key items highlighted in briefing.</div></div>
+    <div class="card" style="border-color:rgba(0,229,255,0.1)"><div style="font-size:18px;margin-bottom:7px">📊</div><div style="font-weight:600;font-size:14px;margin-bottom:4px">Daily Briefing</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Compiles your day: events, notes, tasks, and priority actions on demand.</div></div>
+    <div class="card" style="border-color:rgba(0,229,255,0.1)"><div style="font-size:18px;margin-bottom:7px">🚀</div><div style="font-weight:600;font-size:14px;margin-bottom:4px">Phase 2 Ready</div><div style="font-size:12px;color:var(--text2);line-height:1.7">Built for cross-device sync, email reminders, and Claude API integration.</div></div>
+  </div>
+  <div style="margin-top:16px;background:rgba(0,229,255,0.03);border:1px solid rgba(0,229,255,0.08);border-radius:8px;padding:14px">
+    <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(0,229,255,0.4);margin-bottom:5px">ARIA JD Reference</div>
+    <div style="font-size:13px;color:var(--text2);line-height:1.8">ARIA is Workspace Agent 000. Role: Automated Responsive Intelligence Assistant. Responsibility: Full workspace optimisation, proactive intelligence, daily briefings, reminders, notes and calendar oversight. Reports to: Valerie Wilcox. Full CV and JD to be built in the agent session alongside the other 13 agents.</div>
+  </div>
+  <div style="margin-top:12px;display:flex;gap:9px;flex-wrap:wrap">
+    <div class="btn btn-ghost" onclick="reqNotif()">Enable Reminders</div>
+    <div class="btn btn-ghost" onclick="renderARIA()">Refresh Briefing</div>
+  </div>
+</div>
+</div>
+
+<!-- PLANNER -->
+<div class="page" id="page-planner">
+<div class="wrap">
+  <div class="s-eyebrow">Synced with Mission Control</div>
+  <div class="s-title">PLANNER</div>
+  <div class="s-sub">Events sync in real-time with Mission Control on this browser. <span class="sync-badge">Live Sync Active</span></div>
+  <div style="display:flex;gap:9px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
+    <div class="btn btn-bronze" onclick="openEvModal()">+ Add Event</div>
+    <button id="ws-ai-btn" onclick="wsAiSchedule()" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:10px 18px;background:linear-gradient(135deg,#FF6B2B,#FFB830);color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600">AI Schedule My Day</button>
+    <div class="btn btn-ghost" onclick="reqNotif()">Enable Reminders</div>
+  </div>
+  <!-- AI OUTPUT -->
+  <div id="ws-ai-out" style="display:none;background:rgba(255,107,43,0.04);border:1px solid rgba(255,107,43,0.2);border-radius:8px;padding:16px;margin-bottom:14px;font-size:12px;color:var(--text);line-height:1.8"></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="cal-nav">
+      <div class="cal-btn" onclick="chMonth(-1)">&#8592;</div>
+      <div class="cal-title" id="cal-label"></div>
+      <div class="cal-btn" onclick="chMonth(1)">&#8594;</div>
+    </div>
+    <div class="cal-grid" id="cal-hds"></div>
+    <div class="cal-grid" id="cal-cells"></div>
+  </div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:9px">All Upcoming Events</div>
+  <div id="events-list"></div>
+</div>
+</div>
+
+<!-- NOTES -->
+<div class="page" id="page-notes">
+<div class="wrap">
+  <div class="s-eyebrow">Quick Capture and Pin</div>
+  <div class="s-title">NOTES</div>
+  <div class="s-sub">Tap the pin icon on any note to keep it at the top. Notes save automatically.</div>
+  <div class="note-input-area">
+    <div class="note-input-title">New Note</div>
+    <div class="modal-group"><label class="form-label">Title (optional)</label><input class="form-input" id="note-title-inp" placeholder="e.g. Strategy idea, action item..."></div>
+    <div class="modal-group"><label class="form-label">Note</label><textarea class="form-input" id="note-text-inp" placeholder="Any idea, task, reminder, or thought..."></textarea></div>
+    <div style="display:flex;gap:9px;flex-wrap:wrap">
+      <div class="btn btn-bronze" onclick="saveNote(false)">Save Note</div>
+      <div class="btn btn-ghost" onclick="saveNote(true)">Save and Pin</div>
+    </div>
+  </div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:9px">Pinned Notes</div>
+  <div id="pinned-grid" class="notes-grid"></div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:14px 0 9px">All Notes</div>
+  <div id="all-grid" class="notes-grid"></div>
+</div>
+</div>
+
+<!-- DELIVERABLES -->
+<div class="page" id="page-deliverables">
+<div class="wrap">
+  <div class="s-eyebrow">Session 7, 12 March 2026</div>
+  <div class="s-title">DELIVERABLES</div>
+  <div class="s-sub">Every file created. Review and confirm GitHub status at the start of every session. This is a standing instruction for Valerie and ARIA.</div>
+  <div style="background:rgba(255,107,43,0.06);border:1px solid rgba(255,107,43,0.15);border-radius:6px;padding:12px 16px;margin-bottom:14px;font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--fire)">STANDING INSTRUCTION: Review this list at the start of every session. Any file not yet on GitHub must be uploaded before the session ends. Priority zero: delete Wilcox_Complete_Ecosystem_2026.html from the public repo.</div>
+  <table class="del-table">
+    <thead><tr><th>#</th><th>File</th><th>What It Does</th><th>GitHub</th><th>Open</th></tr></thead>
+    <tbody>
+      <tr><td>01</td><td><div class="del-name">Mission Control v2</div><div class="del-desc">PhoennixAI_MissionControl_v2.html (index.html)</div></td><td>9 products. Session 10 updates. Flame favicon. Session log current.</td><td><span class="chip chip-live">Live, Session 10</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/" target="_blank">Open</a></td></tr>
+      <tr><td>02</td><td><div class="del-name">Document Hub v1.7</div><div class="del-desc">PhoennixAI_DocumentHub.html</div></td><td>Logo approved. v1.7 version log. 9 products. PAI-BG-001 filed. Light mode fix.</td><td><span class="chip chip-live">Live, Session 10</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html" target="_blank">Open</a></td></tr>
+      <tr><td>03</td><td><div class="del-name">Workspace v3</div><div class="del-desc">PhoennixAI_Workspace.html</div></td><td>Task list current. Phase 2 log. SCRIBE and GRID queued. Notification card. Light mode fix.</td><td><span class="chip chip-live">Live, Session 10</span></td><td><span style="color:var(--text3);font-size:10px">This file</span></td></tr>
+      <tr><td>04</td><td><div class="del-name">WilcoxDesigns Brand Guidelines</div><div class="del-desc">WilcoxDesigns_BrandGuidelines.html</div></td><td>Full brand system. WD-BG-001. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html" target="_blank">Open</a></td></tr>
+      <tr><td>05</td><td><div class="del-name">Claude JD</div><div class="del-desc">Claude_JobDescription_PhoennixAI.html</div></td><td>PAI-JD-001. Signed by Valerie and Claude. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>06</td><td><div class="del-name">Claude CV</div><div class="del-desc">Claude_CV_PhoennixAI.html</div></td><td>PAI-CV-001. Strategic Partner profile. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>07</td><td><div class="del-name">ARIA Job Description</div><div class="del-desc">ARIA_JobDescription_PhoennixAI.html</div></td><td>PAI-JD-002. Stage 1 signed. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>08</td><td><div class="del-name">ARIA CV</div><div class="del-desc">ARIA_CV_PhoennixAI.html</div></td><td>PAI-CV-002. Agent 000 capability record. Live on GitHub.</td><td><span class="chip chip-live">Live</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank">Open</a></td></tr>
+      <tr><td>09</td><td><div class="del-name">Ecosystem 2026</div><div class="del-desc">Wilcox_Complete_Ecosystem_2026.html</div></td><td>Deleted from public repo. Recovered from commit 28a3fdf and secured to phoennixai-agency-backend private repo. Committed 13 March 2026.</td><td><span class="chip chip-approved">Secured, Private Repo</span></td><td><span style="color:var(--green);font-size:10px;font-family:var(--mono)">Done</span></td></tr>
+      <tr><td>10</td><td><div class="del-name">Social Posts Week 1</div><div class="del-desc">PhoennixAI_SocialPosts_Week1.html</div></td><td>10 posts for Instagram, X, LinkedIn. Posts 1 and 2 live.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
+      <tr><td>11</td><td><div class="del-name">Product Documentation</div><div class="del-desc">PhoennixAI_ProductDocumentation.html</div></td><td>PRD suite. Updated to reference 9 products including Workspace and Document Hub.</td><td><span class="chip chip-pending">Upload Pending</span></td><td><span style="color:var(--text3);font-size:10px">Local</span></td></tr>
+      <tr><td>12</td><td><div class="del-name">Logo Concepts</div><div class="del-desc">phoennixai_logo_concepts.html</div></td><td>6 concepts. Fire and Ice approved 13 March 2026. Superseded by Brand Guidelines v1.2.</td><td><span class="chip chip-approved">Approved</span></td><td><span style="color:var(--text3);font-size:10px">Archived</span></td></tr>
+      <tr><td>13</td><td><div class="del-name">PhoennixAI Brand Guidelines</div><div class="del-desc">PhoennixAI_BrandGuidelines.html</div></td><td>PAI-BG-001. 13 sections. Logo approved. Agent colour framework. Brand story. Founder bio. v1.2.</td><td><span class="chip chip-live">Live, Session 10</span></td><td><a class="open-btn" href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_BrandGuidelines.html" target="_blank">Open</a></td></tr>
+      <tr><td>14</td><td><div class="del-name">Content Bible</div><div class="del-desc">PhoennixAI_Complete_Content_Bible.docx</div></td><td>7 Laws of Copy, email sequences, landing page copy.</td><td><span class="chip chip-pending">Upload Session 7</span></td><td><span style="color:var(--text3);font-size:10px">Word doc</span></td></tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<!-- GITHUB -->
+<div class="page" id="page-github">
+<div class="wrap">
+  <div class="s-eyebrow">Do This First</div>
+  <div class="s-title">GITHUB UPLOAD</div>
+  <div class="s-sub">4 steps. Upload all pending files. Everything backed up and live.</div>
+  <div class="alert alert-fire"><div class="alert-title" style="color:var(--fire)">5 Files to Upload This Session</div>
+  <strong style="color:var(--text)">New or updated (5):</strong> PhoennixAI_MissionControl_v2.html, PhoennixAI_DocumentHub.html, PhoennixAI_Workspace.html, WilcoxDesigns_BrandGuidelines.html, PhoennixAI_SocialPosts_Week1.html<br>
+  <strong style="color:#ef4444">Delete immediately:</strong> Wilcox_Complete_Ecosystem_2026.html (confidential, must not be public)</div>
+  <div class="upload-step"><div class="us-num">1</div><div><div class="us-title">Go to your repository</div><div class="us-body">Type in your browser address bar:</div><div style="display:flex;align-items:center;gap:8px;margin-top:5px"><div class="us-code" style="flex:1;margin:0">github.com/valerie-github1/phoennixai-mission-control</div><button class="copy-btn" onclick="copyText('https://github.com/valerie-github1/phoennixai-mission-control',this)">Copy</button></div></div></div>
+  <div class="upload-step"><div class="us-num">2</div><div><div class="us-title">Click Add file then Upload files</div><div class="us-body">Top right of the file list. Click Add file then Upload files.</div></div></div>
+  <div class="upload-step"><div class="us-num">3</div><div><div class="us-title">Drag 5 files into the upload box, then delete 1</div><div class="us-body">Upload: MissionControl v2, DocumentHub, Workspace, WilcoxDesigns Brand Guidelines, Social Posts Week 1. Then find Wilcox_Complete_Ecosystem_2026.html in the file list, click it, and delete it from the repo.</div></div></div>
+  <div class="upload-step"><div class="us-num">4</div><div><div class="us-title">Commit message and confirm</div><div class="us-body">Type in the commit message box:</div><div style="display:flex;align-items:center;gap:8px;margin-top:5px"><div class="us-code" style="flex:1;margin:0">Session 9 complete, Workspace aligned, flame favicon, brand guidelines</div><button class="copy-btn" onclick="copyText('Session 9 complete, Workspace aligned, flame favicon, brand guidelines',this)">Copy</button></div><div class="us-body" style="margin-top:5px">Click the green Commit changes button. Wait 2 minutes. All live.</div></div></div>
+  <div class="alert alert-teal" style="margin-top:8px"><div class="alert-title" style="color:var(--teal)">After Upload, Add Workspace to Phone</div>Open Chrome on Samsung S24. Go to the Workspace URL. Three dots top right. Add to Home screen.</div>
+</div>
+</div>
+
+<!-- TASKS -->
+<div class="page" id="page-tasks">
+<div class="wrap">
+  <div class="s-eyebrow">12 March 2026</div>
+  <div class="s-title">TODAY'S TASKS</div>
+  <div class="s-sub">Tap any task to mark it done.</div>
+  <div id="task-progress" style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:12px"></div>
+  <div id="task-container"></div>
+</div>
+</div>
+
+<!-- BOOKMARKS -->
+<div class="page" id="page-bookmarks">
+<div class="wrap">
+  <div class="s-eyebrow">All Links, One Place</div>
+  <div class="s-title">BOOKMARKS</div>
+  <div class="s-sub">All live URLs. Updated Session 7, 12 March 2026. LinkedIn and WilcoxDesigns social to be added.</div>
+  <div class="bm-st">Live Apps on GitHub</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Primary App</div><div class="bm-title">Mission Control v2</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/</div><div class="bm-desc">Daily operational hub. Updated Session 5.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">This Portal</div><div class="bm-title">Workspace Portal</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_Workspace.html</div><div class="bm-desc">Your daily starting point. Add to home screen.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_Workspace.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Document Hub</div><div class="bm-title">Document Management System</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html</div><div class="bm-desc">Single source of truth. Updated Session 5.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Social Content</div><div class="bm-title">Social Posts Week 1</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html</div><div class="bm-desc">10 posts ready. Posts 1 and 2 published on Instagram and X.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html',this)">Copy</button></div>
+  </div>
+  <div class="bm-st">Brand Documents</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Design Asset — Logo Flame</div><div class="bm-title">PhoennixAI Logo Flame</div><div class="bm-url">https://chatgpt.com/s/m_69b46d7525e0819197ea47ee1e8848f8</div><div class="bm-desc">Source flame artwork for the PhoennixAI logo. Approved 13 March 2026. Used in Brand Guidelines Section 04.</div><button class="copy-btn" onclick="copyText('https://chatgpt.com/s/m_69b46d7525e0819197ea47ee1e8848f8',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">PhoennixAI, PAI-BG-001</div><div class="bm-title">PhoennixAI Brand Guidelines</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_BrandGuidelines.html</div><div class="bm-desc">Full brand system. Colours, typography, logo direction approved 13 March 2026, agent colour framework, brand story, founder bio. v1.2.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_BrandGuidelines.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">WilcoxDesigns, WD-BG-001</div><div class="bm-title">WilcoxDesigns Brand Guidelines</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html</div><div class="bm-desc">Full brand system. Typography, colour, tone of voice, UI components. Session 7.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/WilcoxDesigns_BrandGuidelines.html',this)">Copy</button></div>
+  <div class="bm-st">Agent Documents, Live on GitHub</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Claude, PAI-JD-001</div><div class="bm-title">Claude Job Description</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html</div><div class="bm-desc">Signed by Valerie and Claude. PAI-JD-001. Live.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Claude, PAI-CV-001</div><div class="bm-title">Claude CV</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html</div><div class="bm-desc">PAI-CV-001. Live on GitHub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">ARIA, PAI-JD-002</div><div class="bm-title">ARIA Job Description</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html</div><div class="bm-desc">Stage 1 signed. PAI-JD-002. Live on GitHub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">ARIA, PAI-CV-002</div><div class="bm-title">ARIA CV</div><div class="bm-url">https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html</div><div class="bm-desc">PAI-CV-002. Live on GitHub.</div><button class="copy-btn" onclick="copyText('https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html',this)">Copy</button></div>
+  </div>
+  <div class="bm-st">GitHub</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Repository</div><div class="bm-title">phoennixai-mission-control</div><div class="bm-url">https://github.com/valerie-github1/phoennixai-mission-control</div><div class="bm-desc">Upload all new files here.</div><button class="copy-btn" onclick="copyText('https://github.com/valerie-github1/phoennixai-mission-control',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">All Repositories</div><div class="bm-title">GitHub Dashboard</div><div class="bm-url">https://github.com/valerie-github1</div><div class="bm-desc">All 7 repos. Audit needed.</div><button class="copy-btn" onclick="copyText('https://github.com/valerie-github1',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Commit History</div><div class="bm-title">Mission Control Commit Log</div><div class="bm-url">https://github.com/valerie-github1/phoennixai-mission-control/commits/main</div><div class="bm-desc">Full version history. Use this to recover any deleted file at any time.</div><button class="copy-btn" onclick="copyText('https://github.com/valerie-github1/phoennixai-mission-control/commits/main',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">Private Backup</div><div class="bm-title">Agency Backend Repo</div><div class="bm-url">https://github.com/valerie-github1/phoennixai-agency-backend</div><div class="bm-desc">Private repo. Session backups and confidential files live here.</div><button class="copy-btn" onclick="copyText('https://github.com/valerie-github1/phoennixai-agency-backend',this)">Copy</button></div>
+  </div>
+  <div class="bm-st">PhoennixAI Social Media</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Instagram</div><div class="bm-title">PhoennixAI Agency</div><div class="bm-url">https://www.instagram.com/phoennix_ai_agency</div><div class="bm-desc">Posts 1 and 2 go here today.</div><button class="copy-btn" onclick="copyText('https://www.instagram.com/phoennix_ai_agency',this)">Copy</button></div>
+    <div class="bm-card"><div class="bm-label">X</div><div class="bm-title">PhoennixAI Agency</div><div class="bm-url">https://x.com/phoennixai</div><div class="bm-desc">X version of posts goes here.</div><button class="copy-btn" onclick="copyText('https://x.com/phoennixai',this)">Copy</button></div>
+    <div class="bm-card" style="opacity:0.5;border-style:dashed"><div class="bm-label">LinkedIn</div><div class="bm-title">Valerie Wilcox, To Add</div><div class="bm-url" style="color:var(--text3)">To be added</div><div class="bm-desc">Add your LinkedIn URL. On task list.</div></div>
+    <div class="bm-card" style="opacity:0.5;border-style:dashed"><div class="bm-label">WilcoxDesigns Social</div><div class="bm-title">Not Yet Created</div><div class="bm-url" style="color:var(--text3)">Accounts to be created</div><div class="bm-desc">Strategy session first.</div></div>
+  </div>
+  <div class="bm-st">Website</div>
+  <div class="bm-grid">
+    <div class="bm-card"><div class="bm-label">Agency</div><div class="bm-title">PhoennixAI.com</div><div class="bm-url">https://www.phoennixai.com</div><div class="bm-desc">Rebrand required. Strategy session first.</div><button class="copy-btn" onclick="copyText('https://www.phoennixai.com',this)">Copy</button></div>
+  </div>
+</div>
+</div>
+
+<!-- EVENT MODAL -->
+<div class="modal-overlay" id="ev-modal">
+  <div class="modal">
+    <div class="modal-title">ADD EVENT</div>
+    <div class="modal-sub">Syncs with Mission Control on this browser.</div>
+    <div class="modal-group"><label class="form-label">Event Title</label><input class="form-input" id="ev-title" placeholder="Meeting, deadline, call..."></div>
+    <div class="form-row">
+      <div class="modal-group"><label class="form-label">Date</label><input class="form-input" type="date" id="ev-date"></div>
+      <div class="modal-group"><label class="form-label">Time</label><input class="form-input" type="time" id="ev-time"></div>
+    </div>
+    <div class="modal-group"><label class="form-label">Type</label>
+      <select class="form-input" id="ev-type">
+        <option value="meeting">Meeting</option>
+        <option value="deadline">Deadline</option>
+        <option value="task">Task</option>
+        <option value="personal">Personal</option>
+      </select>
+    </div>
+    <div class="modal-group"><label class="form-label">Notes (optional)</label><input class="form-input" id="ev-notes" placeholder="Any details..."></div>
+    <div class="modal-actions">
+      <div class="btn btn-ghost" onclick="closeEvModal()">Cancel</div>
+      <div class="btn btn-fire" onclick="saveEvent()">Save Event</div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+const K={ev:'pai_events',notes:'pai_notes',tasks:'pai_ws_tasks'};
+function ld(k){try{return JSON.parse(localStorage.getItem(k))||[]}catch{return[]}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));const el=document.getElementById('sync-status');if(el)el.textContent='synced '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}catch(e){}}
+function setTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  const icon=document.getElementById('theme-icon');
+  if(icon) icon.textContent=t==='dark'?'🌙':'☀️';
+}
+function toggleTheme(){
+  const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+  setTheme(isDark?'light':'dark');
+}
+function updateClock(){const n=new Date();document.getElementById('live-clock').textContent=n.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});const h=n.getHours();const ge=document.getElementById('greeting-time');if(ge)ge.textContent=h<12?'MORNING':h<17?'AFTERNOON':'EVENING';const dl=document.getElementById('home-date-label');if(dl)dl.textContent=n.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+setInterval(updateClock,1000);updateClock();
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.sr-item').forEach(t=>t.classList.remove('active'));
+  const pg=document.getElementById('page-'+id);if(pg)pg.classList.add('active');
+  const sr=document.getElementById('sr-'+id);if(sr)sr.classList.add('active');
+  if(id==='planner')renderCal();
+  if(id==='notes')renderNotes();
+  if(id==='aria'){renderARIA();}
+  if(id==='home'){renderHome();}
+  if(id==='tasks')renderTasks();
+  window.scrollTo(0,0);
+}
+function showToast(msg,col){const t=document.getElementById('toast');t.textContent=msg;t.style.background=col||'var(--green)';t.style.opacity='1';clearTimeout(t._h);t._h=setTimeout(()=>t.style.opacity='0',2500)}
+function copyText(text,btn){
+  const t=(typeof text==='string'?text:'').trim();
+  const ok=()=>{showToast('Copied to clipboard');if(btn&&btn.tagName){const o=btn.textContent;btn.textContent='Copied';btn.style.color='var(--green)';setTimeout(()=>{btn.textContent=o;btn.style.color=''},2000)}};
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(ok).catch(()=>{fb(t);ok()})}else{fb(t);ok()}
+}
+function fb(text){const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta)}
+function showNotifBanner(msg){const b=document.getElementById('notif-card');const m=document.getElementById('notif-card-msg');if(b&&m){m.textContent=msg;b.style.display='block'}}
+function closeNotifBanner(){const b=document.getElementById('notif-card');if(b)b.style.display='none'}
+function reqNotif(){
+  if(!('Notification'in window)){showNotifBanner('Browser notifications are not supported in this browser. Try opening this page in Chrome on your Samsung S24.');return}
+  if(Notification.permission==='granted'){showToast('Reminders already active','var(--teal)');updateReminderBtns(true);schedRem();return}
+  Notification.requestPermission().then(p=>{
+    if(p==='granted'){closeNotifBanner();showToast('Reminders enabled. ARIA will alert you 15 minutes before events.','var(--green)');updateReminderBtns(true);schedRem()}
+    else{showNotifBanner('Permission was not granted. To enable: tap the lock icon in your browser address bar, find Notifications, and set to Allow. Then tap Enable Reminders again. On Samsung S24, go to Settings, Apps, Chrome, Notifications, and make sure notifications are turned on at system level.')}
+  })
+}
+function updateReminderBtns(on){
+  document.querySelectorAll('[onclick="reqNotif()"]').forEach(b=>{
+    b.textContent=on?'Reminders Active':'Enable Reminders';
+    b.style.color=on?'var(--green)':'';
+    b.style.borderColor=on?'rgba(34,197,94,0.4)':'';
+    b.style.background=on?'rgba(34,197,94,0.08)':'';
+  })
+}
+function schedRem(){const evs=ld(K.ev);const now=new Date();evs.forEach(e=>{const d=new Date(e.date+'T'+(e.time||'09:00'));const diff=d-now;if(diff>0&&diff<86400000){const r=diff-900000;if(r>0)setTimeout(()=>{new Notification('ARIA Reminder',{body:e.title+' in 15 minutes'})},r)}})}
+let calY=new Date().getFullYear(),calM=new Date().getMonth();
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+function chMonth(d){calM+=d;if(calM>11){calM=0;calY++}else if(calM<0){calM=11;calY--}renderCal()}
+function renderCal(){
+  const lbl=document.getElementById('cal-label');if(lbl)lbl.textContent=MONTHS[calM]+' '+calY;
+  const hds=document.getElementById('cal-hds');if(hds)hds.innerHTML=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d=>'<div class="cal-day-hd">'+d+'</div>').join('');
+  const evs=ld(K.ev);const today=new Date();
+  const firstDay=new Date(calY,calM,1).getDay();
+  const dim=new Date(calY,calM+1,0).getDate();
+  const prev=new Date(calY,calM,0).getDate();
+  const cells=document.getElementById('cal-cells');if(!cells)return;
+  let html='';
+  for(let i=firstDay-1;i>=0;i--)html+='<div class="cal-cell other-m"><div class="cal-num">'+(prev-i)+'</div></div>';
+  for(let d=1;d<=dim;d++){
+    const isT=d===today.getDate()&&calM===today.getMonth()&&calY===today.getFullYear();
+    const ds=calY+'-'+String(calM+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const de=evs.filter(e=>e.date===ds);
+    html+='<div class="cal-cell'+(isT?' today':'')+'" onclick="document.getElementById(\'ev-date\').value=\''+ds+'\';openEvModal()"><div class="cal-num">'+d+'</div>'+de.slice(0,2).map(e=>'<div class="ev-dot type-'+e.type+'">'+(e.time?e.time+' ':'')+e.title+'</div>').join('')+'</div>';
+  }
+  const rem=(7-(firstDay+dim)%7)%7;for(let i=1;i<=rem;i++)html+='<div class="cal-cell other-m"><div class="cal-num">'+i+'</div></div>';
+  cells.innerHTML=html;
+  renderEvList();
+}
+function renderEvList(){
+  const evs=[...ld(K.ev)].sort((a,b)=>new Date(a.date+'T'+a.time)-new Date(b.date+'T'+b.time));
+  const list=document.getElementById('events-list');if(!list)return;
+  list.innerHTML=evs.length?evs.map(e=>'<div class="ev-item type-'+e.type+(e.done?' ev-done':'')+'"><div class="ei-content"><div class="ei-title">'+e.title+'</div><div class="ei-meta">'+e.date+' at '+(e.time||'All day')+' | '+e.type+(e.notes?' | '+e.notes:'')+(e.done?' | Completed':'')+'</div></div><button class="ei-done-btn'+(e.done?' is-done':'')+'" onclick="toggleEvDone(\''+e.id+'\')">'+(e.done?'Done':'Mark Done')+'</button><button class="ei-del" onclick="delEv(\''+e.id+'\')">&#215;</button></div>').join(''):'<div style="color:var(--text3);font-size:12px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px">No events yet. Tap a date on the calendar or click Add Event.</div>';
+}
+function openEvModal(){const n=new Date();if(!document.getElementById('ev-date').value)document.getElementById('ev-date').value=n.toISOString().split('T')[0];if(!document.getElementById('ev-time').value)document.getElementById('ev-time').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');document.getElementById('ev-modal').classList.add('open')}
+function closeEvModal(){document.getElementById('ev-modal').classList.remove('open')}
+function saveEvent(){const t=document.getElementById('ev-title').value.trim();if(!t){showToast('Please enter a title','var(--amber)');return}const evs=ld(K.ev);evs.push({id:Date.now().toString(),title:t,date:document.getElementById('ev-date').value,time:document.getElementById('ev-time').value,type:document.getElementById('ev-type').value,notes:document.getElementById('ev-notes').value.trim()});sv(K.ev,evs);document.getElementById('ev-title').value='';document.getElementById('ev-notes').value='';closeEvModal();renderCal();renderHome();renderARIA();showToast('Event saved and synced');if(Notification.permission==='granted')schedRem()}
+function delEv(id){sv(K.ev,ld(K.ev).filter(e=>e.id!==id));renderCal();renderHome();renderARIA();showToast('Event removed')}
+function toggleEvDone(id){const evs=ld(K.ev);const e=evs.find(x=>x.id===id);if(e){e.done=!e.done;sv(K.ev,evs);renderCal();renderHome();renderARIA();showToast(e.done?'Event marked complete':'Event reopened')}}
+function saveNote(pin){const text=document.getElementById('note-text-inp').value.trim();if(!text){showToast('Please write something','var(--amber)');return}const notes=ld(K.notes);notes.unshift({id:Date.now().toString(),title:document.getElementById('note-title-inp').value.trim(),text,pinned:!!pin,date:new Date().toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})});sv(K.notes,notes);document.getElementById('note-text-inp').value='';document.getElementById('note-title-inp').value='';renderNotes();renderHome();renderARIA();showToast(pin?'Saved and pinned':'Note saved')}
+function togglePin(id){const notes=ld(K.notes);const n=notes.find(x=>x.id===id);if(n){n.pinned=!n.pinned;sv(K.notes,notes);renderNotes();renderHome();renderARIA();showToast(n.pinned?'Note pinned':'Unpinned')}}
+function delNote(id){sv(K.notes,ld(K.notes).filter(n=>n.id!==id));renderNotes();renderHome();renderARIA();showToast('Note deleted')}
+function noteHTML(n){return'<div class="note-card'+(n.pinned?' pinned':'')+'">'+( n.pinned?'<div class="note-pinned-label">Pinned</div>':'' )+'<div class="note-pin'+(n.pinned?' pinned-on':'')+'" onclick="togglePin(\''+n.id+'\')" title="'+(n.pinned?'Unpin':'Pin')+'">📌</div><div class="note-date">'+n.date+'</div>'+(n.title?'<div class="note-heading">'+n.title+'</div>':'')+'<div class="note-text">'+n.text+'</div><button class="note-del" onclick="delNote(\''+n.id+'\')">&#215;</button></div>'}
+function renderNotes(){const notes=ld(K.notes);const pg=document.getElementById('pinned-grid');const ag=document.getElementById('all-grid');const pinned=notes.filter(n=>n.pinned);const rest=notes.filter(n=>!n.pinned);if(pg)pg.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:8px">No pinned notes yet. Save a note and tap the pin icon.</div>';if(ag)ag.innerHTML=rest.length?rest.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:8px">No notes yet.</div>'}
+function renderHome(){const evs=ld(K.ev);const notes=ld(K.notes);const today=new Date().toISOString().split('T')[0];const te=evs.filter(e=>e.date===today).sort((a,b)=>a.time.localeCompare(b.time));const pinned=notes.filter(n=>n.pinned);const se=document.getElementById('stat-events');if(se)se.textContent=te.length;const sp=document.getElementById('stat-pinned');if(sp)sp.textContent=pinned.length;const sd=document.getElementById('stat-done');if(sd)sd.textContent=ld(K.tasks).filter(t=>t.done).length;
+  // Dynamic stats from stored config
+  const cfg=JSON.parse(localStorage.getItem('pai_stats_config')||'null')||{files:17,github:15,posts:10};
+  const sf=document.getElementById('stat-files');if(sf)sf.textContent=cfg.files;
+  const sg=document.getElementById('stat-github');if(sg)sg.textContent=cfg.github;
+  const spo=document.getElementById('stat-posts');if(spo)spo.textContent=cfg.posts;const hel=document.getElementById('home-events-list');if(hel)hel.innerHTML=te.length?te.map(e=>'<div class="ev-item type-'+e.type+'"><div class="ei-content"><div class="ei-title">'+e.title+'</div><div class="ei-meta">'+(e.time||'All day')+' | '+e.type+'</div></div></div>').join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px">No events today. Go to Planner to add one.</div>';const hnl=document.getElementById('home-notes-list');if(hnl)hnl.innerHTML=pinned.length?pinned.map(noteHTML).join(''):'<div style="color:var(--text3);font-size:12px;padding:12px;background:var(--card);border:1px solid var(--border);border-radius:8px;grid-column:1/-1">No pinned notes. Go to Notes and pin something important.</div>'}
+function renderARIA(){
+  const evs=ld(K.ev);const notes=ld(K.notes);const today=new Date().toISOString().split('T')[0];
+  const te=evs.filter(e=>e.date===today);
+  const teOpen=te.filter(e=>!e.done);const teDone=te.filter(e=>e.done);
+  const pinned=notes.filter(n=>n.pinned);
+  const tasksDone=ld(K.tasks).filter(t=>t.done).length;
+  const ae=document.getElementById('a-ev');if(ae)ae.textContent=teOpen.length;
+  const an=document.getElementById('a-notes');if(an)an.textContent=notes.length;
+  const ap=document.getElementById('a-pin');if(ap)ap.textContent=pinned.length;
+  const ad=document.getElementById('a-done');if(ad)ad.textContent=tasksDone+' tasks, '+teDone.length+' events';
+  const now=new Date();const h=now.getHours();
+  const ts=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  const b=document.getElementById('aria-briefing');
+  if(b){
+    let m='Good '+(h<12?'morning':h<17?'afternoon':'evening')+', Valerie. Briefing updated at '+ts+'.\n\n';
+    if(teOpen.length)m+='Open events today ('+teOpen.length+'): '+teOpen.map(e=>(e.time||'all day')+' - '+e.title).join(', ')+'.\n\n';
+    else if(te.length)m+='All '+te.length+' event'+(te.length>1?'s':'')+' today marked complete. Well done.\n\n';
+    else m+='No events scheduled today. Open the Planner to add meetings, deadlines, or calls.\n\n';
+    if(teDone.length)m+='Completed events today ('+teDone.length+'): '+teDone.map(e=>e.title).join(', ')+'.\n\n';
+    if(pinned.length)m+='Pinned notes ('+pinned.length+'): '+pinned.map(n=>n.title||n.text.slice(0,40)).join(', ')+'. Review in the Notes tab.\n\n';
+    else m+='No pinned notes. Go to Notes and pin your current top priority so it surfaces on Home.\n\n';
+    m+='Tasks: '+tasksDone+' of '+TASKS.length+' completed today.\n\n';
+    const githubDone=ld(K.tasks).find(t=>t.id==='01'&&t.done);
+    if(!githubDone)m+='Ecosystem 2026 file secured in phoennixai-agency-backend private repo. Committed 13 March 2026. Security task complete.';
+    else m+='GitHub fully secured. Public repo clean, private repo backed up. All files live.';
+    b.textContent=m;
+  }
+  const ac=document.getElementById('aria-actions');if(!ac)return;
+  const items=[];
+  if(teOpen.length)items.push({i:'📅',t:teOpen.length+' open event'+(teOpen.length>1?'s':'')+' today',b:teOpen.map(e=>(e.time||'all day')+' - '+e.title).join(' | '),x:'Open'});
+  if(!pinned.length)items.push({i:'📌',t:'No pinned notes',b:'Go to Notes and pin your most important current priority.',x:'Now'});
+  items.push({i:'🗂️',t:'Recover Ecosystem file to private repo',b:'Recover from commit 28a3fdf in Mission Control history. Upload to phoennixai-agency-backend. Final step to secure the archive.',x:'Security'});
+  items.push({i:'📋',t:'Friday 13 March agenda',b:'Logo approval: DONE. Favicon: DONE. Still outstanding: Phase 2 developer decision, Finance and Revenue section scope.',x:'Today'});
+  if(tasksDone===0)items.push({i:'✅',t:'No tasks completed yet',b:'Open the Tasks tab and start working through today\'s priority list.',x:'Today'});
+  if(!items.length)items.push({i:'🎯',t:'All clear, Valerie',b:'No outstanding actions. ARIA is monitoring in the background.',x:'All done'});
+  ac.innerHTML=items.map(i=>'<div class="ap-item"><div class="ap-icon">'+i.i+'</div><div style="flex:1"><div class="ap-title">'+i.t+'</div><div class="ap-body">'+i.b+'</div></div><div class="ap-time">'+i.x+'</div></div>').join('');
+}
+const TASKS=[
+{n:'01',t:'Fix Workspace and nav on Samsung S24',b:'Workspace not loading on mobile. Side rail navigation built and deployed. Stats fixed. Glass rail with SVG icons live.',tag:'Done Today',p:'fire'},
+{n:'02',t:'Favicon approved and live on all apps',b:'COMPLETE. Correct flame favicon applied to Mission Control (index.html), Workspace, Document Hub, and Brand Guidelines. Social Posts to fix via GitHub editor.',tag:'Done',p:'fire'},
+{n:'03',t:'Recover and archive Ecosystem file to private repo',b:'COMPLETE. Recovered from commit 28a3fdf. Uploaded to phoennixai-agency-backend private repo. Committed 13 March 2026 by Valerie Wilcox. Security risk resolved. File is now in private archive only.',tag:'Done',p:'fire'},
+{n:'04',t:'Sign Claude JD, CV and ARIA JD',b:'COMPLETE. Claude JD (PAI-JD-001) signed. Claude CV (PAI-CV-001) filed. ARIA JD (PAI-JD-002) signed. All three documents live on GitHub. Logged in Document Hub.',tag:'Done',p:'fire'},
+{n:'05',t:'Post 1 and 2 on Instagram and X',b:'Open Social Posts from Deliverables tab. Copy and post to phoennix_ai_agency on Instagram and x.com/phoennixai.',tag:'Today, Revenue',p:'fire'},
+{n:'06',t:'Logo final design and approval',b:'COMPLETE. Fire and Ice direction approved Friday 13 March 2026. PHOENNIX in Phoenix Fire orange, AI in white. Flame icon confirmed. Brand Guidelines v1.2 updated.',tag:'Done',p:'fire'},
+{n:'07',t:'Finance and Revenue section scope',b:'Define what the Finance and Revenue section should contain. LEDGER agent integration in scope. Valerie to define requirements Friday.',tag:'Friday 13 Mar',p:'fire'},
+{n:'08',t:'Phase 2 developer decision',b:'React, Next.js, Tailwind, Supabase stack ready. Decision to be confirmed Friday 13 March.',tag:'Friday 13 Mar',p:'fire'},
+{n:'09',t:'Connect GitHub to Claude.ai Projects',b:'Click plus in Claude.ai, Add from GitHub, authenticate, select phoennixai-mission-control repo. Unlocks full repo context in every session.',tag:'Unlocks Collaboration',p:'sapphire'},
+{n:'P2A',t:'Phase 2 Go-Live, Onboarding Log',b:'Stage 2 Onboarding Complete. Onboarding confirmed by Founder: Valerie Wilcox, Founder and Visionary, PhoennixAI. Status: Pending Phase 2 go-live. Onboarding confirmed by Agent Manager: Claude, AI Strategic Partner and Agent Manager, PAI-JD-001. Status: Pending Phase 2 go-live.',tag:'Phase 2',p:'sapphire'},
+{n:'10',t:'Agent walkthrough, PA, SCOUT, PULSE',b:'Build CVs and JDs for the first 3 commercial agents. Each ships with Agent + CV + JD + User Manual + Training Manual + Performance Dashboard.',tag:'Next Session',p:'sapphire'},
+{n:'10a',t:'Onboard SCRIBE, Agent 015',b:'Build full kit for SCRIBE: Agent config, CV, JD, User Manual, Training Manual, Performance Dashboard. SCRIBE owns the Document Hub and manages all documents across all 5 entities.',tag:'Tomorrow',p:'sapphire'},
+{n:'10b',t:'Onboard GRID, Agent 009',b:'Build full kit for GRID: Agent config, CV, JD, User Manual, Training Manual, Performance Dashboard. GRID owns Mission Control and manages project and workflow operations.',tag:'Tomorrow',p:'sapphire'},
+{n:'11',t:'Add Workspace to Samsung S24 home screen',b:'In Chrome on S24, tap the three dots, tap Add to Home Screen. Names it PhoennixAI Workspace. Runs like a native app.',tag:'Quick Win',p:'bronze'},
+{n:'12',t:'Brand Guidelines, PAI-BG-001',b:'COMPLETE. PhoennixAI Brand Guidelines v1.2 built and live. 13 sections including logo usage rules, agent colour framework, brand story, and founder bio. Filed to GitHub.',tag:'Done',p:'bronze'},
+{n:'13',t:'St Pauls work experience prep',b:'3 girls, early April 2026. Draft onboarding brief, weekly schedule, project assignments, and feedback framework.',tag:'Early April',p:'bronze'},
+{n:'14',t:'WilcoxDesigns social media strategy session',b:'Dedicated session for WilcoxDesigns content calendar, platform selection, and brand voice for the creative studio.',tag:'Queued',p:'bronze'},
+{n:'15',t:'Security and Privacy Plan',b:'Document data handling, agent boundaries, vault access rules, and GDPR compliance across all 5 entities.',tag:'Queued',p:'bronze'},
+{n:'16',t:'Brand Documentation Suite',b:'Three documents to produce: (1) Logo Usage Rules — when to use the flame icon vs full wordmark across all products, print, digital, and sub-brands. (2) Brand Story — the Fire and Ice narrative, the fear mission, and what PhoennixAI stands for. (3) Founder Bio — Valerie Wilcox story, values, and vision for the entire business and wider team.',tag:'Tomorrow',p:'fire'}
+];
+
+function loadPendingReview(){
+  try{
+    const raw=JSON.parse(localStorage.getItem('pai_pending_review')||'[]');
+    // Strip stale items with no valid title (leftover from old sessions)
+    const clean=raw.filter(p=>p&&p.title&&p.title!=='undefined'&&p.body&&p.body!=='undefined');
+    if(clean.length!==raw.length)localStorage.setItem('pai_pending_review',JSON.stringify(clean));
+    return clean;
+  }catch{return[]}
+}
+function renderPendingBanner(){
+  const items=loadPendingReview().filter(p=>!p.dismissed);
+  const el=document.getElementById('pending-review-banner');
+  if(!el)return;
+  if(!items.length){el.style.display='none';return;}
+  el.style.display='block';
+  el.innerHTML='<div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#f59e0b;margin-bottom:9px;display:flex;align-items:center;gap:8px"><span>⚠</span> Pending Review, '+items.length+' item'+(items.length>1?'s':'')+' need your attention</div>'+
+  items.map(p=>'<div style="background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.2);border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:7px;display:flex;align-items:flex-start;gap:10px"><div style="flex:1"><div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px">'+p.title+'</div><div style="font-size:12px;color:var(--text2)">'+p.body+'</div></div><button onclick="dismissPending(\''+p.id+'\')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:5px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.3);color:var(--green);background:rgba(34,197,94,0.05);cursor:pointer;white-space:nowrap;flex-shrink:0">Done</button></div>').join('');
+}
+function dismissPending(id){
+  try{
+    const items=loadPendingReview();
+    const item=items.find(p=>p.id===id);
+    if(item)item.dismissed=true;
+    localStorage.setItem('pai_pending_review',JSON.stringify(items));
+    renderPendingBanner();showToast('Item marked complete');
+  }catch(e){}
+}
+function renderAriaScheduleHtml(raw){
+  // Strip markdown and render clean styled HTML
+  const lines=raw.split('\n');
+  let html='';
+  let inBlock=false;
+  for(let line of lines){
+    line=line.trim();
+    if(!line)continue;
+    // Remove leading ## headings — render as section labels
+    if(line.startsWith('## ')||line.startsWith('# ')){
+      const txt=line.replace(/^#+\s*/,'').replace(/\*\*/g,'');
+      html+=`<div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin:16px 0 6px">${txt}</div>`;
+    }
+    // Bold lines (standalone **text**) — render as block headers
+    else if(line.match(/^\*\*[^*]+\*\*$/)){
+      const txt=line.replace(/\*\*/g,'');
+      html+=`<div style="font-weight:600;color:var(--text);font-size:13px;margin:10px 0 3px">${txt}</div>`;
+    }
+    // Time blocks: lines starting with time pattern or **time**
+    else if(line.match(/^\*?\*?\d{1,2}:\d{2}/)){
+      const txt=line.replace(/\*\*/g,'').replace(/^-\s*/,'');
+      html+=`<div style="background:var(--card);border:1px solid var(--border);border-left:3px solid var(--fire);border-radius:0 6px 6px 0;padding:10px 14px;margin:6px 0"><span style="font-family:var(--mono);font-size:11px;color:var(--fire)">${txt}</span></div>`;
+    }
+    // Dash items inside blocks
+    else if(line.startsWith('- ')){
+      const txt=line.substring(2).replace(/\*\*/g,'');
+      html+=`<div style="font-size:12px;color:var(--text2);padding:3px 0 3px 14px;border-left:2px solid var(--border)">${txt}</div>`;
+    }
+    // Priority lines (*Priority:*)
+    else if(line.match(/^\*Priority/i)||line.match(/^Priority:/i)){
+      const txt=line.replace(/\*/g,'').replace(/^-?\s*/,'');
+      html+=`<div style="font-family:var(--mono);font-size:9px;color:var(--sapphire);padding:2px 0 6px 14px">${txt}</div>`;
+    }
+    // Horizontal rules
+    else if(line==='---'){
+      html+=`<div style="border-top:1px solid var(--border);margin:10px 0"></div>`;
+    }
+    // Regular text
+    else{
+      const txt=line.replace(/\*\*/g,'').replace(/^-\s*/,'');
+      if(txt)html+=`<div style="font-size:12px;color:var(--text2);line-height:1.7;margin:4px 0">${txt}</div>`;
+    }
+  }
+  return html;
+}
+
+async function wsAiSchedule(){
+  const btn=document.getElementById('ws-ai-btn');
+  const out=document.getElementById('ws-ai-out');
+  btn.textContent='Thinking...';btn.disabled=true;
+  out.style.display='block';
+  out.innerHTML='<div style="font-family:var(--mono);font-size:11px;color:var(--text3);padding:12px 0">ARIA is analysing your day...</div>';
+  const today=new Date().toISOString().split('T')[0];
+  const evs=ld(K.ev).filter(e=>e.date===today&&!e.done);
+  const tasks=ld(K.tasks);
+  const pending=TASKS.filter(t=>!tasks.find(x=>x.id===t.n&&x.done)).map(t=>t.t);
+  const prompt=`You are ARIA, Workspace Intelligence Agent for Valerie Wilcox, Founder of PhoennixAI. Today is ${new Date().toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}. Valerie works 12pm to 3am.
+
+Today scheduled events:
+${evs.length?evs.map(e=>`- ${e.time||'TBD'}: ${e.title} (${e.type})`).join('\n'):'None scheduled yet'}
+
+Outstanding tasks:
+${pending.slice(0,8).map((t,i)=>`${i+1}. ${t}`).join('\n')}
+
+Create a professional time-blocked schedule. Format your response EXACTLY as follows with NO asterisks and NO hash symbols:
+
+DO THIS FIRST
+[Single most important action, one sentence, with time estimate]
+
+SCHEDULE
+[time range] | [BLOCK NAME]
+[task 1]
+[task 2]
+
+[time range] | [BLOCK NAME]
+[task 1]
+
+NOTES
+[Any conflicts or reasoning, plain sentences only]
+
+Use plain text only. No markdown. No symbols. Professional and clean.`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+    const data=await res.json();
+    const raw=data.content?.map(c=>c.text||'').join('')||'No response received.';
+    out.innerHTML=renderAriaScheduleHtml(raw);
+  }catch(e){out.innerHTML='<div style="font-size:12px;color:var(--text2);padding:12px 0">AI scheduling unavailable right now. Your events are displayed in the calendar below.</div>';}
+  btn.textContent='AI Schedule My Day';btn.disabled=false;
+}
+function renderTasks(){
+  const done=ld(K.tasks).filter(t=>t.done).map(t=>t.id);
+  const dc=document.getElementById('task-progress');
+  if(dc) dc.textContent=done.length+' of '+TASKS.length+' completed';
+  const c=document.getElementById('task-container');
+  if(!c) return;
+  c.innerHTML=TASKS.map(t=>{
+    const isDone=done.includes(t.n);
+    const checkIcon=isDone
+      ?`<div class="tk-check is-done"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>`
+      :`<div class="tk-check"></div>`;
+    return `<div class="task-item${isDone?' done':''}" onclick="toggleTask('${t.n}')">
+      <div class="tk-num">${t.n}</div>
+      <div>
+        <div class="tk-title">${t.t}</div>
+        <div class="tk-body">${t.b}</div>
+        <div class="tk-tags"><span class="chip chip-${t.p}">${t.tag}</span></div>
+      </div>
+      ${checkIcon}
+    </div>`;
+  }).join('');
+}
+function toggleTask(id){const tasks=ld(K.tasks);const ex=tasks.find(t=>t.id===id);if(ex)ex.done=!ex.done;else tasks.push({id,done:true});sv(K.tasks,tasks);renderTasks();renderARIA();renderHome()}
+document.addEventListener('DOMContentLoaded',()=>{
+  renderHome();renderARIA();renderCal();renderTasks();renderPendingBanner();
+  // Init reminder button state
+  if(Notification.permission==='granted')updateReminderBtns(true);
+  // Set current stats config
+  const currentCfg=ld('pai_stats_config');
+  if(!currentCfg){sv('pai_stats_config',{files:17,github:15,posts:10});}
+  // Pre-mark completed tasks if not already set
+  const existingTasks=ld(K.tasks);
+  const doneIds=existingTasks.map(t=>t.id);
+  const completedToday=['01','02'];
+  completedToday.forEach(id=>{if(!doneIds.includes(id))existingTasks.push({id,done:true});});
+  sv(K.tasks,existingTasks);
+  renderHome();
+  const n=new Date();document.getElementById('ev-date').value=n.toISOString().split('T')[0];document.getElementById('ev-time').value=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
+  if(Notification.permission==='granted')schedRem();
+  setInterval(()=>{renderHome();renderARIA();renderTasks();renderPendingBanner();renderCal();},30000);
+  window.addEventListener('storage',function(e){
+    if(e.key===K.ev){renderCal();renderHome();renderARIA();showToast('Synced from Mission Control');}
+    if(e.key===K.notes||e.key===K.tasks){renderHome();renderARIA();}
+    if(e.key==='pai_stats_config'){renderHome();}
+  });
+});
+</script>
+</body>
+</html>
