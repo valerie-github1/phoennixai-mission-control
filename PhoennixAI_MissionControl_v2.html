@@ -58,7 +58,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 .tb-tab.active{color:var(--bronze);border-bottom-color:var(--bronze)}
 .tb-controls{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .tb-date{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3)}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#215CAE;box-shadow:0 0 8px rgba(33,92,174,0.7);animation:pulse 2s infinite;flex-shrink:0}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.3)}}
 
 /* Theme toggle */
@@ -341,6 +341,44 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   .tb-logo{font-size:14px;letter-spacing:1px}
   .wrap{padding:10px 8px}
 }
+
+/* ══ GRID HOME ══ */
+.grid-header{background:linear-gradient(135deg,#060A18,#080e24,#060A18);border:1px solid rgba(33,92,174,0.25);border-radius:12px;padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+.grid-header::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#215CAE,#46ABD7,#215CAE)}
+.grid-header::after{content:'GRID';position:absolute;right:-8px;top:50%;transform:translateY(-50%);font-family:var(--display);font-size:120px;color:rgba(33,92,174,0.05);pointer-events:none;line-height:1}
+.grid-dot{width:8px;height:8px;border-radius:50%;background:#215CAE;box-shadow:0 0 8px #215CAE;display:inline-block;margin-right:8px;animation:grid-pulse 2s infinite}
+@keyframes grid-pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.grid-name{font-family:var(--display);font-size:52px;letter-spacing:4px;color:#fff;line-height:1;margin-bottom:4px}
+.grid-name span{color:#215CAE}
+.grid-role{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#215CAE;margin-bottom:8px}
+.grid-status{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:8px}
+.grid-stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.grid-stat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center;border-top:2px solid #215CAE}
+.grid-stat-num{font-family:var(--display);font-size:28px;letter-spacing:2px;color:#215CAE;line-height:1}
+.grid-stat-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-top:4px}
+.grid-section-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#215CAE;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(33,92,174,0.2)}
+.grid-task-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid var(--border);border-radius:6px;margin-bottom:7px;cursor:pointer;transition:border-color .2s}
+.grid-task-item:hover{border-color:rgba(33,92,174,0.4)}
+.grid-task-item.done{opacity:.45}
+.grid-task-item.done .grid-task-name{text-decoration:line-through}
+.grid-task-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.grid-task-name{font-size:13px;color:var(--text);flex:1}
+.grid-task-tag{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.grid-task-prio{font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:3px}
+.grid-report-box{background:rgba(33,92,174,0.05);border:1px solid rgba(33,92,174,0.2);border-radius:8px;padding:22px 24px;margin-bottom:14px;min-height:220px}
+.grid-report-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#215CAE;margin-bottom:8px}
+.grid-report-body{font-size:13px;color:var(--text2);line-height:1.85}
+.grid-report-body strong{color:var(--text)}
+.grid-agent-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:14px}
+.grid-agent-tile{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:4px}
+.grid-agent-name{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600}
+.grid-agent-role{font-size:11px;color:var(--text3)}
+.grid-agent-status{font-family:var(--mono);font-size:9px;margin-top:4px}
+.grid-retro-box{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+.grid-retro-item{font-size:12px;color:var(--text2);padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px}
+.grid-retro-item:last-child{border-bottom:none}
+.grid-retro-tag{font-family:var(--mono);font-size:9px;padding:2px 8px;border-radius:3px;flex-shrink:0}
+@media(max-width:600px){.grid-stat-row{grid-template-columns:1fr 1fr}.grid-header{padding:20px}}
 </style>
 <rect width='32' height='32' rx='6' fill='%23060A18'/><text y='24' x='4' font-size='22'>🔥</text></svg>">
 </head>
@@ -349,6 +387,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="tb-logo">Phoennix<span>AI</span></div>
+  <div style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:#215CAE;padding:0 12px;border-left:1px solid var(--border);white-space:nowrap">GRID owns this app</div>
   <div class="tb-tabs">
     <div class="tb-tab active" data-page="today" onclick="showPage('today',this)">Today</div>
     <div class="tb-tab" data-page="projects" onclick="showPage('projects',this)">Projects</div>
@@ -357,6 +396,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     <div class="tb-tab" data-page="calendar" onclick="showPage('calendar',this)">Calendar</div>
     <div class="tb-tab" data-page="notes" onclick="showPage('notes',this)">Notes</div>
     <div class="tb-tab" data-page="backlog" onclick="showPage('backlog',this)">Backlog</div>
+    <div class="tb-tab" data-page="grid" onclick="showPage('grid',this)" style="border-bottom-color:#215CAE;color:#215CAE">GRID</div>
   </div>
   <div class="tb-controls">
     <div class="live-dot"></div>
@@ -371,7 +411,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 ══════════════════════════════════ -->
 <div class="page active" id="page-today">
 <div class="wrap">
-  <div class="s-label">Mission Control · Daily Agenda</div>
+  <div class="s-label">Mission Control · Daily Agenda · <span style="color:#215CAE;font-style:normal">Owned and governed by GRID, Agent 009</span></div>
   <div class="p-title">TODAY'S OBJECTIVES</div>
   <div class="p-sub">March 2026, Valerie Wilcox + Claude, in execution order</div>
 
@@ -438,11 +478,11 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="pipeline-item">PA, SCOUT, PULSE agent JDs and CVs</div>
         <div class="pipeline-item">Phase 2 developer hire</div>
         <div class="pipeline-item">Brand Guidelines One-Pager all entities</div>
-        <div class="pipeline-item">St Pauls work experience prep, April</div>
+        <div class="pipeline-item">St Paul's work experience prep, 23 Apr 2026</div>
       </div>
       <div class="notice-box notice-box-alert">
-        <div class="notice-label">Work Experience, St Paul's Academy <span class="tbc-badge">DATE TBC</span></div>
-        <div class="notice-body"><strong>3 girls arriving early April 2026.</strong> Date not yet confirmed. Chase this up. Onboarding brief, schedule, project assignments, and mentor allocation needed. Claude drafts full pack once date is locked.</div>
+        <div class="notice-label">Work Experience, St Paul's Academy <span style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:#22C55E;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.3);padding:2px 8px;border-radius:3px">23 APR 2026 CONFIRMED</span></div>
+        <div class="notice-body"><strong>3 girls arriving 23 April 2026. Date confirmed.</strong> Onboarding brief, weekly schedule, project assignments, and mentor allocation needed. Claude to draft full pack this week. Ensure 23 April is in the calendar planner.</div>
       </div>
       <div class="sidebar-section">
         <div class="ss-title">Session Log</div>
@@ -454,7 +494,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Flame favicon correct on all apps</span><span style="color:var(--green)">Done</span></div>
           <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Workspace and Doc Hub in All Projects</span><span style="color:var(--green)">Done</span></div>
           <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Portfolio updated to 9 products</span><span style="color:var(--green)">Done</span></div>
-          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Ecosystem 2026 secured, 13 Mar 2026</span><span style="color:var(--green)">Complete</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Ecosystem secured. Session 11 active.</span><span style="color:var(--green)">Complete</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>PA, PULSE, RELAY, GRID, LEDGER docs built</span><span style="color:var(--gold)">Sign Tonight</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Social Posts 1 and 2 complete, Day 4 tmr</span><span style="color:var(--green)">Done</span></div>
+          <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>St Pauls confirmed 23 April 2026</span><span style="color:var(--sapphire)">Logged</span></div>
           <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>SCRIBE and GRID onboarding queued</span><span style="color:#f59e0b">Tomorrow</span></div>
           <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Phase 2 developer decision</span><span style="color:#f59e0b">Pending</span></div>
           <div style="font-size:10px;color:var(--text3);display:flex;justify-content:space-between"><span>Finance and Revenue scope</span><span style="color:#f59e0b">Pending</span></div>
@@ -550,6 +593,25 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 <!-- ══════════════════════════════════
      PAGE 3: AGENTS
 ══════════════════════════════════ -->
+<div class="page"
+
+    <div class="ag-card" data-cat="core" style="border-color:rgba(70,130,180,0.3)">
+      <div class="ag-header">
+        <div class="ag-num" style="color:#4682B4;background:rgba(70,130,180,0.1);border-color:rgba(70,130,180,0.3)">016</div>
+        <div class="ag-info">
+          <div class="ag-name" style="color:#4682B4">SAGE</div>
+          <div class="ag-code">Strategic Analytics and Governance Engine</div>
+          <div class="ag-role">SAGE is the analytics and governance intelligence layer of PhoennixAI. She works in permanent division of labour with SCRIBE. SCRIBE holds the truth. SAGE reveals what it means. SAGE produces real-time automated dashboards, charts, graphs, and tables for business stakeholders. She does not just show numbers. She tells you what they mean. That is counsel. And that is very PhoennixAI.</div>
+          <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Replaces a senior BI analyst. SAGE makes business intelligence available in real time without waiting for reports to be manually produced. Strategic decisions are made faster and with more confidence across all 5 entities.</div></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:10px">
+            <span class="chip" style="font-size:8px;color:#4682B4;border-color:rgba(70,130,180,0.3);background:rgba(70,130,180,0.06)">Agent 016</span>
+            <span class="chip" style="font-size:8px;color:#4682B4;border-color:rgba(70,130,180,0.3);background:rgba(70,130,180,0.06)">Internal Intelligence</span>
+            <span class="chip" style="font-size:8px;color:var(--text3);border-color:var(--border)">Steel Blue #4682B4</span>
+            <span class="chip" style="font-size:8px;color:var(--gold);border-color:rgba(255,184,48,0.3)">JD and CV To Build</span>
+          </div>
+        </div>
+      </div>
+    </div>
 <div class="page" id="page-agents">
 <div class="wrap">
   <div class="s-label">The Agent Ecosystem, Full Masterlist</div>
@@ -601,13 +663,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
     <div class="ag-card" data-cat="ops"><div class="ag-bar pr-high"></div>
       <div class="ag-id">AGENT 005, Priority High</div>
-      <div class="ag-name">RELAY</div><div class="ag-code">Client Onboarding Automation Agent</div>
+      <div class="ag-name" style="color:#46ABD7">RELAY</div><div class="ag-code">Client Onboarding Automation Agent, External Beta Owner</div>
       <div class="ag-role">Triggers the moment a new client signs. Sends welcome sequence, collects onboarding information via smart form, creates their workspace in the project management system, schedules the kickoff call, and delivers a branded welcome pack. All without a human touching it.</div>
       <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Eliminates 3 to 5 hours of manual admin per new client. Creates a premium first impression. Scales perfectly: 1 new client or 100, same experience every time.</div></div>
       <div class="ag-tags"><span class="atag at-ops">Operations</span><span class="atag at-ops">Saves 5hrs/client</span></div>
     </div>
 
-    <div class="ag-card" data-cat="finance"><div class="ag-bar pr-high"></div>
+    <div class="ag-card" data-cat="core"><div class="ag-bar pr-high"></div>
       <div class="ag-id">AGENT 006, Priority High</div>
       <div class="ag-name">LEDGER</div><div class="ag-code">Financial Intelligence Agent, Human Sign-Off Required</div>
       <div class="ag-role">Monitors cashflow, revenue, expenses, and invoicing. Surfaces financial health insights in plain language daily. Flags overdue invoices and triggers reminder sequences. Prepares monthly financial summaries for review by a qualified accountant. NEVER executes financial transactions.</div>
@@ -615,7 +677,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="ag-tags"><span class="atag at-finance">Finance</span><span class="atag at-warn">Human Sign-Off</span><span class="atag at-finance">Advisory Only</span></div>
     </div>
 
-    <div class="ag-card" data-cat="ops"><div class="ag-bar pr-medium"></div>
+    <div class="ag-card" data-cat="core"><div class="ag-bar pr-medium"></div>
       <div class="ag-id">AGENT 007, Priority Medium</div>
       <div class="ag-name">ECHO</div><div class="ag-code">Customer Support and FAQ Agent</div>
       <div class="ag-role">Handles inbound enquiries across email, website chat, and social DMs. Answers FAQs, provides service information, qualifies leads, and escalates complex cases to a human. Available 24/7. Trained on all PhoennixAI, Academy, and WilcoxDesigns service information.</div>
@@ -631,9 +693,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="ag-tags"><span class="atag at-edu">Education</span><span class="atag at-edu">Academy Critical</span></div>
     </div>
 
-    <div class="ag-card" data-cat="ops"><div class="ag-bar pr-medium"></div>
+    <div class="ag-card" data-cat="core"><div class="ag-bar pr-medium"></div>
       <div class="ag-id">AGENT 009, Priority Medium</div>
-      <div class="ag-name">GRID</div><div class="ag-code">Project and Workflow Management Agent</div>
+      <div class="ag-name" style="color:#215CAE">GRID</div><div class="ag-code">Project Manager and Business Analyst, Mission Control Owner</div>
       <div class="ag-role">Tracks all active client and internal projects. Sends automated status updates to clients. Flags overdue tasks and blocked dependencies to the team. Generates weekly project health reports for the Founder. Ensures nothing falls through the cracks when the team is under pressure.</div>
       <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Replaces a project coordinator role saving £22,000 to £30,000 per year. Clients feel consistently informed, reducing anxiety-driven check-in calls. Team stays aligned without lengthy status meetings.</div></div>
       <div class="ag-tags"><span class="atag at-ops">Operations</span><span class="atag at-ops">Saves £22-30k/yr</span></div>
@@ -673,7 +735,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
     <div class="ag-card" data-cat="core" style="border-color:rgba(196,154,108,0.25);background:rgba(196,154,108,0.02)"><div class="ag-bar" style="background:linear-gradient(to right,#C49A6C,#E8C99A)"></div>
       <div class="ag-id" style="color:var(--bronze)">CORE AI, Agent 015 — Document Hub</div>
-      <div class="ag-name" style="color:var(--bronze)">SCRIBE</div><div class="ag-code">Document Intelligence and Knowledge Management Agent</div>
+      <div class="ag-name" style="color:var(--bronze)">SCRIBE</div><div class="ag-code">Document Intelligence Agent, Document Hub Owner, Agent 015</div>
       <div class="ag-role">SCRIBE is the intelligence layer behind the Document Hub. Manages all documents across the 5 entities, tracks version history, enforces naming conventions, flags stale content, drafts new documents on request, and ensures the single source of truth is always accurate. SCRIBE knows where every document lives, who last touched it, and what it says. Not a commercial agent. Internal infrastructure only.</div>
       <div class="ag-value"><div class="ag-vl">Value Delivered</div><div class="ag-vt">Eliminates document chaos across a multi-entity business. A founder running 5 entities cannot manually track every document. SCRIBE does it automatically, surfaces what needs updating, and drafts what needs creating. Planned for Phase 2 Claude API deployment alongside ARIA.</div></div>
       <div class="ag-tags"><span class="atag" style="color:var(--bronze);border-color:rgba(196,154,108,0.3)">Planned, Phase 2</span><span class="atag" style="color:var(--bronze);border-color:rgba(196,154,108,0.3)">Document Hub Agent</span><span class="atag" style="color:var(--gold);border-color:rgba(255,184,48,0.2)">Internal Infrastructure</span></div>
@@ -807,8 +869,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="org-node" style="border-color:rgba(196,154,108,0.3);background:rgba(196,154,108,0.04)">
           <div class="on-avatar" style="background:rgba(196,154,108,0.1);border-color:rgba(196,154,108,0.3)">📋</div>
           <div class="on-name" style="color:var(--bronze)">SCRIBE</div>
-          <div class="on-role">Document Intelligence Agent<br>Version Control, Review Triggers, Audit Trail</div>
-          <div class="on-status" style="color:var(--amber)">Planned, Phase 2</div>
+          <div class="on-role">Document Intelligence Agent<br>Document Hub Owner, Agent 015</div>
+          <div class="on-status" style="color:#22C55E">Stage 1 Ready to Sign</div>
+        </div>
+        <div class="org-node" style="border-color:rgba(33,92,174,0.4);background:rgba(33,92,174,0.05)">
+          <div class="on-avatar" style="background:rgba(33,92,174,0.12);border-color:rgba(33,92,174,0.4)">🗂️</div>
+          <div class="on-name" style="color:#215CAE">GRID</div>
+          <div class="on-role">Project Manager and Business Analyst<br>Mission Control Owner, 009</div>
+          <div class="on-status" style="color:#22C55E">Stage 1 Signed, 20 Mar 2026</div>
+        </div>
+        <div class="org-node" style="border-color:rgba(255,184,48,0.3);background:rgba(255,184,48,0.04)">
+          <div class="on-avatar" style="background:rgba(255,184,48,0.1);border-color:rgba(255,184,48,0.3)">📊</div>
+          <div class="on-name" style="color:var(--gold)">LEDGER</div>
+          <div class="on-role">Financial Intelligence Agent<br>Advisory Only, AGI Financial Standard</div>
+          <div class="on-status" style="color:var(--gold);font-size:8px">JD and CV Built</div>
+        </div>
+        <div class="org-node" style="border-color:rgba(70,130,180,0.35);background:rgba(70,130,180,0.05)">
+          <div class="on-avatar" style="background:rgba(70,130,180,0.12);border-color:rgba(70,130,180,0.35)">🔭</div>
+          <div class="on-name" style="color:#4682B4">SAGE</div>
+          <div class="on-role">Strategic Analytics and Governance Engine<br>Agent 016, Steel Blue</div>
+          <div class="on-status" style="color:var(--red);font-size:8px">Planned, Phase 2</div>
         </div>
       </div>
       <div class="org-connector-v"></div>
@@ -841,14 +921,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="on-avatar" style="background:rgba(123,47,255,0.08);font-size:14px">🚀</div>
           <div class="on-name" style="font-size:12px">RELAY</div>
           <div class="on-role" style="font-size:9px">Client Onboarding</div>
-          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
+          <div class="on-status" style="color:var(--gold);font-size:8px">JD and CV Built</div>
         </div>
-        <div class="org-node ai-node" style="min-width:110px">
-          <div class="on-avatar" style="background:rgba(123,47,255,0.08);font-size:14px">📊</div>
-          <div class="on-name" style="font-size:12px">LEDGER</div>
-          <div class="on-role" style="font-size:9px">Finance Intel</div>
-          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
-        </div>
+
         <div class="org-node ai-node" style="min-width:110px">
           <div class="on-avatar" style="background:rgba(123,47,255,0.08);font-size:14px">💬</div>
           <div class="on-name" style="font-size:12px">ECHO</div>
@@ -860,6 +935,36 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="on-name" style="font-size:12px">ENROL</div>
           <div class="on-role" style="font-size:9px">Academy Enrolment</div>
           <div class="on-status" style="color:var(--amber);font-size:8px">Next</div>
+        </div>
+        <div class="org-node ai-node" style="min-width:110px">
+          <div class="on-avatar" style="background:rgba(0,229,255,0.06);font-size:14px">📡</div>
+          <div class="on-name" style="font-size:12px">SIGNAL</div>
+          <div class="on-role" style="font-size:9px">Market Intel</div>
+          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
+        </div>
+        <div class="org-node ai-node" style="min-width:110px">
+          <div class="on-avatar" style="background:rgba(34,197,94,0.06);font-size:14px">🏆</div>
+          <div class="on-name" style="font-size:12px">GRANT</div>
+          <div class="on-role" style="font-size:9px">Funding Scout</div>
+          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
+        </div>
+        <div class="org-node ai-node" style="min-width:110px">
+          <div class="on-avatar" style="background:rgba(255,107,43,0.06);font-size:14px">📧</div>
+          <div class="on-name" style="font-size:12px">FORGE</div>
+          <div class="on-role" style="font-size:9px">Email Marketing</div>
+          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
+        </div>
+        <div class="org-node ai-node" style="min-width:110px">
+          <div class="on-avatar" style="background:rgba(70,171,215,0.06);font-size:14px">🤝</div>
+          <div class="on-name" style="font-size:12px">BRIDGE</div>
+          <div class="on-role" style="font-size:9px">Partnerships</div>
+          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
+        </div>
+        <div class="org-node ai-node" style="min-width:110px;border-color:rgba(239,68,68,0.2)">
+          <div class="on-avatar" style="background:rgba(239,68,68,0.06);font-size:14px">🛡️</div>
+          <div class="on-name" style="font-size:12px;color:#ef4444">GUARDIAN</div>
+          <div class="on-role" style="font-size:9px">Vault Security</div>
+          <div class="on-status" style="color:var(--red);font-size:8px">Planned</div>
         </div>
       </div>
     </div>
@@ -900,7 +1005,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 <div class="wrap">
   <div class="s-label">Smart Calendar, Priority-Based Planning</div>
   <div class="p-title">CALENDAR</div>
-  <div class="p-sub">Synced in real-time with Workspace Planner. Click any date to add an event.</div>
+  <div class="p-sub">Synced in real-time with Workspace Planner. Click any date to add an event. Calendar owned by PA in Phase 2.</div>
 
   <!-- AI SCHEDULE BUTTON -->
   <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap">
@@ -946,15 +1051,52 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="ss-title">Priority Stack, Today</div>
         <div style="font-size:10px;color:var(--text3);margin-bottom:12px;font-family:var(--mono)">Ranked by value, urgency, and strategic impact</div>
         <div class="task-priority" id="priority-stack">
-          <div class="tp-item" style="opacity:0.45;text-decoration:line-through"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Upload files to GitHub</div><div class="tp-meta">Done, Session 5</div></div><span class="tp-value" style="color:#22c55e">Done</span></div>
-          <div class="tp-item" style="opacity:0.45;text-decoration:line-through"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Sign Claude JD and ARIA JD</div><div class="tp-meta">Done, 12 March 2026</div></div><span class="tp-value" style="color:#22c55e">Done</span></div>
-          <div class="tp-item" style="opacity:0.45;text-decoration:line-through"><span class="tp-drag">⠿</span><span class="tp-prio tp-p1"></span><div class="tp-content"><div class="tp-name">Ecosystem doc secured to private repo</div><div class="tp-meta">Done, 13 March 2026</div></div><span class="tp-value" style="color:#22c55e">Done</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p2"></span><div class="tp-content"><div class="tp-name">Post 1 and 2 on Instagram and X</div><div class="tp-meta">Today, Revenue</div></div><span class="tp-value">High</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p2"></span><div class="tp-content"><div class="tp-name">Phase 2 developer decision</div><div class="tp-meta">Thursday 12 Mar</div></div><span class="tp-value">High</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p3"></span><div class="tp-content"><div class="tp-name">Finance section scope</div><div class="tp-meta">Thursday 12 Mar</div></div><span class="tp-value">Medium</span></div>
-          <div class="tp-item" style="opacity:0.45;text-decoration:line-through"><span class="tp-drag">⠿</span><span class="tp-prio tp-p3"></span><div class="tp-content"><div class="tp-name">Logo final design and approval</div><div class="tp-meta">Done, 13 March 2026</div></div><span class="tp-value" style="color:#22c55e">Done</span></div>
-          <div class="tp-item"><span class="tp-drag">⠿</span><span class="tp-prio tp-p4"></span><div class="tp-content"><div class="tp-name">Agent walkthrough, PA, SCOUT, PULSE JDs and CVs</div><div class="tp-meta">Next Session</div></div><span class="tp-value">Queued</span></div>
+          <div style="font-size:9px;color:var(--text3);font-family:var(--mono);letter-spacing:1px;margin-bottom:6px">Auto-generated from Workspace task list via localStorage. GRID will manage this view in Phase 2.</div>
         </div>
+        <script>
+        (function buildPriorityStack(){
+          const saved = JSON.parse(localStorage.getItem('pai_ws_tasks')||'{}');
+          const prioMap = {fire:'tp-p1',sapphire:'tp-p2',bronze:'tp-p3'};
+          const valueMap = {fire:'Critical',sapphire:'High',bronze:'Medium'};
+          const tagDone = ['Done','Done Today'];
+          window.TASKS_MC = [
+            {n:'P2',t:'Phase 2 developer decision — CRITICAL',tag:'This Week',p:'fire'},
+            {n:'07',t:'Finance and Revenue section scope',tag:'Pending',p:'fire'},
+            {n:'B14',t:'RELAY beta onboarding ready before 30 Mar',tag:'27 Mar Deadline',p:'fire'},
+            {n:'10',t:'Build PA JD and CV',tag:'Next',p:'sapphire'},
+            {n:'10b',t:'Build PULSE JD and CV',tag:'Next',p:'sapphire'},
+            {n:'10c',t:'Build SAGE JD and CV',tag:'Next',p:'sapphire'},
+            {n:'P2A',t:'Phase 2 Go-Live Onboarding Log',tag:'Phase 2',p:'sapphire'},
+            {n:'BG',t:'Update brand system: GRID Deep Royal, SAGE Steel Blue',tag:'This Session',p:'bronze'},
+            {n:'13',t:'St Pauls work experience prep',tag:'23 Apr 2026 Confirmed',p:'bronze'},
+            {n:'09',t:'Connect GitHub to Claude.ai Projects',tag:'Queued',p:'bronze'},
+            {n:'01',t:'Fix Workspace and nav',tag:'Done',p:'fire',done:true},
+            {n:'02',t:'Favicon live on all apps',tag:'Done',p:'fire',done:true},
+            {n:'03',t:'Ecosystem file secured',tag:'Done',p:'fire',done:true},
+            {n:'04',t:'Sign Claude JD, CV and ARIA JD',tag:'Done',p:'fire',done:true},
+            {n:'05',t:'Social Posts 1 and 2 live',tag:'Done',p:'fire',done:true},
+            {n:'06',t:'Logo final design and approval',tag:'Done',p:'fire',done:true},
+            {n:'12',t:'Brand Guidelines PAI-BG-001',tag:'Done',p:'bronze',done:true},
+            {n:'10a',t:'GRID JD and CV built, Stage 1 signed',tag:'Done',p:'sapphire',done:true},
+            {n:'10d',t:'SCRIBE JD and CV built',tag:'Done',p:'sapphire',done:true},
+            {n:'10e',t:'LEDGER JD and CV upgraded to AGI standard',tag:'Done',p:'sapphire',done:true},
+            {n:'10f',t:'RELAY JD and CV built',tag:'Done',p:'sapphire',done:true},
+          ];
+          const el = document.getElementById('priority-stack');
+          if(!el) return;
+          const items = el.querySelectorAll('.tp-item:not(:first-child)');
+          items.forEach(i=>i.remove());
+          window.TASKS_MC.forEach(task=>{
+            const isDone = task.done || tagDone.includes(task.tag);
+            const pClass = prioMap[task.p]||'tp-p4';
+            const val = isDone ? '<span class="tp-value" style="color:#22c55e">Done</span>' : '<span class="tp-value">'+valueMap[task.p]+'</span>';
+            const style = isDone ? ' style="opacity:0.45;text-decoration:line-through"' : '';
+            el.insertAdjacentHTML('beforeend',
+              '<div class="tp-item"'+style+'><span class="tp-drag">⠿</span><span class="tp-prio '+pClass+'"></span><div class="tp-content"><div class="tp-name">'+task.t+'</div><div class="tp-meta">'+task.tag+'</div></div>'+val+'</div>'
+            );
+          });
+        })();
+        </script>
       </div>
       <div class="card">
         <div class="ss-title">Upcoming Deadlines</div>
@@ -965,11 +1107,19 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--panel);border-radius:4px;border:1px solid var(--border)">
             <span style="font-size:11px;color:var(--text)">Finance Section Build</span>
-            <span class="chip chip-next" style="font-size:8px">Fri 13 Mar</span>
+            <span class="chip" style="font-size:8px;color:#ef4444;border-color:rgba(239,68,68,0.3);background:rgba(239,68,68,0.06)">Overdue, Schedule Now</span>
           </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--panel);border-radius:4px;border:1px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(255,107,43,0.04);border-radius:4px;border:1px solid rgba(255,107,43,0.2)">
+            <span style="font-size:11px;color:var(--text)">RELAY Beta Onboarding Ready</span>
+            <span class="chip" style="font-size:8px;color:var(--fire);border-color:rgba(255,107,43,0.3);background:rgba(255,107,43,0.06)">27 Mar 2026 Deadline</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(70,171,215,0.04);border-radius:4px;border:1px solid rgba(70,171,215,0.2)">
+            <span style="font-size:11px;color:var(--text)">External Beta Launch</span>
+            <span class="chip" style="font-size:8px;color:var(--sapphire);border-color:rgba(70,171,215,0.3);background:rgba(70,171,215,0.08)">30 Mar 2026</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:rgba(70,171,215,0.04);border-radius:4px;border:1px solid rgba(70,171,215,0.2)">
             <span style="font-size:11px;color:var(--text)">St Paul's Work Experience</span>
-            <span class="chip chip-next" style="font-size:8px">Early Apr</span>
+            <span class="chip" style="font-size:8px;color:#22C55E;border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">23 Apr 2026 Confirmed</span>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;background:var(--panel);border-radius:4px;border:1px solid var(--border)">
             <span style="font-size:11px;color:var(--text)">EduTech Platform Launch</span>
@@ -1037,8 +1187,15 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="note-body"><strong>1. PhoennixAI.com:</strong> Current site does not reflect new direction. Brainstorm with Claude first, then build.<br><br><strong>2. PhoennixAI Academy:</strong> Dedicated site. Benefits-first copy. Enrolment funnel built in.<br><br><strong>3. WilcoxDesigns:</strong> Digital Atelier positioning. Creative Lab as signature product.</div>
     </div>
     <div class="note-card" style="opacity:0.55">
-      <div class="note-label" style="color:var(--bronze)">Complete, Storage and Backup</div>
-      <div class="note-title" style="color:var(--bronze)">DOCUMENT BACKUP STRATEGY</div>
+      <div class="note-label" style="color:var(--bronze)">Version Log, Auto-Updated</div>
+      <div class="note-title" style="color:var(--bronze)">VERSION HISTORY</div>
+      <div class="note-body">
+        <strong>v2.3 — 20 March 2026, Session 11:</strong> GRID home page. Bug fixes. 9 agent documents built. Org chart updated. SAGE added.<br>
+        <strong>v2.2 — 19 March 2026, Session 10:</strong> GRID JD mid-build. LEDGER JD and CV built. changeMonth error fixed.<br>
+        <strong>v2.1 — 18 March 2026, Session 9:</strong> SCRIBE added as Agent 015. Brand system finalised. Agent colour framework.<br>
+        <strong>v2.0 — 17 March 2026, Session 8:</strong> Mission Control v2 launched. Full rebuild. All tabs live.<br>
+        <strong>v1.0 — 13 March 2026, Sessions 1 to 7:</strong> Phase 0 foundation. GitHub Pages live. ARIA deployed. Document Hub live. Ecosystem secured.
+      </div>
       <div class="note-body">Resolved. All files live on GitHub Pages (phoennixai-mission-control public repo). Private backup in phoennixai-agency-backend. Ecosystem doc secured 13 March 2026. 9 files live.</div>
     </div>
     <div class="note-card">
@@ -1047,9 +1204,41 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div class="note-body">Secured to private repo (phoennixai-agency-backend) 13 March 2026. Deleted from public repo. Must be reviewed annually. Version control to be maintained by Claude each session when Valerie informs of updates.<br><br><strong>Status:</strong> Secured. Annual review due March 2027.</div>
     </div>
     <div class="note-card">
-      <div class="note-label" style="color:#00E5FF">Tomorrow, Agent Onboarding</div>
-      <div class="note-title" style="color:#00E5FF">ARIA PHASE 2 SIGNING + SCRIBE AND GRID</div>
-      <div class="note-body">Three agent onboarding tasks scheduled for tomorrow:<br><br><strong>1. ARIA Phase 2 Signing</strong> — Complete Stage 2 onboarding for ARIA (Agent 000). Same session as SCRIBE and GRID.<br><br><strong>2. SCRIBE (Agent 015)</strong> — Build full kit: CV, JD, User Manual, Training Manual, Performance Dashboard. Document Hub agent.<br><br><strong>3. GRID (Agent 009)</strong> — Build full kit: CV, JD, User Manual, Training Manual, Performance Dashboard. Mission Control agent.</div>
+      <div class="note-label" style="color:#215CAE">KPI Tracking, Session 11</div>
+      <div class="note-title" style="color:#215CAE">AGENT BUILD KPIs</div>
+      <div class="note-body">
+        <strong>Agent documents built:</strong> 8 of 32 total required (4 agents x JD + CV = 8 docs). 24 remaining.<br>
+        <strong>Agents with complete kit:</strong> GRID (JD signed, CV done), SCRIBE (JD done, CV done), LEDGER (JD done, CV done), RELAY (JD done, CV done). Stage 1 signatures pending on SCRIBE, LEDGER, RELAY.<br>
+        <strong>Phase 2 readiness:</strong> 0 of 5 criteria met (Supabase, Claude API, React, cross-device sync, developer onboarded).<br>
+        <strong>Beta readiness:</strong> RELAY onboarding must be built and tested before 27 March. External beta opens 30 March.<br>
+        <strong>Next KPI review:</strong> Friday retrospective.
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-label" style="color:var(--fire)">Pending Review, Action Required</div>
+      <div class="note-title" style="color:var(--fire)">PENDING SIGN-OFFS</div>
+      <div class="note-body">
+        <strong>SCRIBE JD (PAI-JD-015)</strong> — Stage 1 signature pending. Sign before next session.<br>
+        <strong>LEDGER JD (PAI-JD-006)</strong> — Stage 1 signature pending. Sign before next session.<br>
+        <strong>RELAY JD (PAI-JD-005)</strong> — Stage 1 signature pending. Sign before next session.<br>
+        <strong>Brand system update</strong> — GRID colour to Deep Royal, SAGE Steel Blue. Update and push.<br>
+        <strong>Phase 2 developer decision</strong> — Required this week. Unlocks everything else.
+      </div>
+    </div>
+    <div class="note-card">
+      <div class="note-label" style="color:var(--gold)">Standing Governance, Weekly</div>
+      <div class="note-title" style="color:var(--gold)">DAILY REPORT AND WEEKLY RETROSPECTIVE</div>
+      <div class="note-body"><strong>Daily Report:</strong> Founder receives a daily operational briefing every morning. Surfaced by ARIA in Workspace and GRID in Mission Control. Covers: top 3 priorities, calendar events, outstanding tasks, financial flags from LEDGER, and any agent alerts.<br><br><strong>Weekly Retrospective:</strong> Chaired by GRID every Monday. All active agents participate. Agenda: what went well, what needs improvement, what is blocked. Output: retrospective report with all actions assigned and logged before the next week begins. No blockers carry forward without a resolution plan.</div>
+    </div>
+    <div class="note-card">
+      <div class="note-label" style="color:#22C55E">Session 11 Complete, 20 March 2026</div>
+      <div class="note-title" style="color:#22C55E">SESSION 11 DELIVERABLES LOG</div>
+      <div class="note-body">
+        <strong>Completed this session:</strong><br><br>
+        GRID JD (PAI-JD-009) built and Stage 1 signed. GRID CV (PAI-CV-009) built. SCRIBE JD (PAI-JD-015) built. SCRIBE CV (PAI-CV-015) built. LEDGER JD (PAI-JD-006) upgraded to AGI Wall Street standard. LEDGER CV (PAI-CV-006) upgraded. RELAY JD (PAI-JD-005) built. RELAY CV (PAI-CV-005) built. Mission Control GRID home page added. Org chart updated with SAGE (016) and all agents. All classList bugs fixed. St Paul's 23 Apr confirmed. Backlog BL-012 to BL-016 added. Ecosystem file secured to private repo.<br><br>
+        <strong>9 files pushed to GitHub.</strong><br><br>
+        <strong>Next session:</strong> PA JD and CV. PULSE JD and CV. SAGE JD and CV. Sign SCRIBE, LEDGER, RELAY JDs. Phase 2 developer decision. RELAY beta ready by 27 March.
+      </div>
     </div>
   </div>
 </div>
@@ -1069,15 +1258,21 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
     </thead>
     <tbody id="backlog-body">
       <tr style="opacity:0.5"><td>BL-001</td><td><div class="bl-title" style="text-decoration:line-through">GitHub Pages Deployment</div><div style="font-size:10px;color:#22c55e">Complete. 9 files live. Sessions 1 to 10.</div></td><td><span class="chip chip-now" style="font-size:8px">Infrastructure</span></td><td><span class="chip" style="font-size:8px;color:#22c55e;border-color:rgba(34,197,94,0.3)">Done</span></td><td>Live on GitHub Pages. Private backup in phoennixai-agency-backend.</td></tr>
-      <tr><td>BL-002</td><td><div class="bl-title">Mobile App (PWA)</div>Convert Mission Control to a Progressive Web App installable on any phone</td><td><span class="chip chip-next" style="font-size:8px">Mobile</span></td><td><span class="chip chip-now" style="font-size:8px">High</span></td><td>PWA approach: no app store needed, works offline, installable on iOS and Android.</td></tr>
-      <tr><td>BL-003</td><td><div class="bl-title">Version Control for Ecosystem Doc</div>Add version numbering, change log, and date-stamped update history to the Ecosystem 2026 document</td><td><span class="chip chip-next" style="font-size:8px">Documents</span></td><td><span class="chip chip-now" style="font-size:8px">High</span></td><td>Annual review minimum. Claude maintains the log when Valerie informs of updates.</td></tr>
+      <tr style="background:rgba(255,107,43,0.03)"><td>BL-002</td><td><div class="bl-title">Mobile App (PWA)</div>Convert Mission Control to a Progressive Web App installable on any phone</td><td><span class="chip chip-next" style="font-size:8px">Mobile</span></td><td><span class="chip chip-now" style="font-size:8px">Tomorrow</span></td><td>PWA approach: no app store needed, works offline, installable on iOS and Android. Scheduled for tomorrow's session.</td></tr>
+      <tr style="background:rgba(255,107,43,0.03)"><td>BL-003</td><td><div class="bl-title">Version Control for Ecosystem Doc</div>Add version numbering, change log, and date-stamped update history to the Ecosystem 2026 document</td><td><span class="chip chip-next" style="font-size:8px">Documents</span></td><td><span class="chip chip-now" style="font-size:8px">Tomorrow</span></td><td>Annual review minimum. Claude maintains the log each session when Valerie informs of updates. Scheduled for tomorrow.</td></tr>
       <tr><td>BL-004</td><td><div class="bl-title">Data Analytics and BI Dashboard</div>Integrate revenue, social media, website traffic, and Academy enrolment analytics into Mission Control</td><td><span class="chip chip-filed" style="font-size:8px">Analytics</span></td><td><span class="chip chip-next" style="font-size:8px">Medium</span></td><td>Connects to Google Analytics, Meta Business Suite, Stripe, and other data sources.</td></tr>
       <tr><td>BL-005</td><td><div class="bl-title">Backend Database, Cross-Device Sync (Phase 2 Priority)</div>Current state: Workspace and Mission Control sync via shared localStorage on the same device and browser. Events, notes, and tasks update in real time between the two apps on the same browser. Architecture is fully designed and ready to migrate. Phase 2 action: Replace localStorage with Supabase PostgreSQL so data persists and syncs across all devices in real time. All localStorage keys (pai_events, pai_notes, pai_ws_tasks) map directly to Supabase table columns. Zero refactoring needed. Plug in and go.</td><td><span class="chip chip-filed" style="font-size:8px">Infrastructure</span></td><td><span class="chip chip-next" style="font-size:8px">Phase 2 Critical</span></td><td>Supabase recommended. Enables cross-device sync, email reminders via ARIA, Claude API briefings, and full ARIA Phase 2 upgrade. ARIA architecture is already designed for this migration.</td></tr>
       <tr><td>BL-006</td><td><div class="bl-title">Motion-Style Auto-Scheduling</div>Full AI-powered calendar that automatically schedules tasks based on deadlines, value, and time available</td><td><span class="chip chip-filed" style="font-size:8px">Calendar</span></td><td><span class="chip chip-next" style="font-size:8px">Medium</span></td><td>Requires integration with Google Calendar API. Claude designs the prioritisation logic.</td></tr>
       <tr><td>BL-007</td><td><div class="bl-title">Super Business OS Integration</div>Integrate Claude, Kimi, social media manager, creative tools, manga and anime generator, gaming studio into one unified AI operating system</td><td><span class="chip chip-filed" style="font-size:8px">AI OS</span></td><td><span class="chip chip-filed" style="font-size:8px">Phase 3</span></td><td>The biggest and most ambitious product in the portfolio. Architecture session needed first.</td></tr>
       <tr><td>BL-008</td><td><div class="bl-title">Prison Reformation Programme Assessment</div>Full strategic and legal assessment of the prisoner reformation programme feasibility</td><td><span class="chip chip-hold" style="font-size:8px">Community</span></td><td><span class="chip chip-hold" style="font-size:8px">Filed</span></td><td>Awaiting application form from Valerie. Not a current priority.</td></tr>
       <tr><td>BL-009</td><td><div class="bl-title">Marketplace App Store Build</div>Platform where all PhoennixAI agents and tools are listed, purchased, and deployed with full kit</td><td><span class="chip chip-filed" style="font-size:8px">Product</span></td><td><span class="chip chip-filed" style="font-size:8px">Phase 4</span></td><td>Built after agents are proven with analytics. Each agent ships with CV, JD, user manual, training manual.</td></tr>
+      <tr><td>BL-011</td><td><div class="bl-title">LEDGER Financial Forecast Dashboard</div>Dedicated financial dashboard for LEDGER: revenue projections, cost tracking, margin analysis, entity-level P&L across all 5 entities, and scenario modelling. Lives in Mission Control. Auto-updates via Supabase in Phase 2.</td><td><span class="chip chip-filed" style="font-size:8px">Finance</span></td><td><span class="chip chip-next" style="font-size:8px">Phase 2</span></td><td>LEDGER owns and maintains this dashboard. Founder receives weekly summary from it.</td></tr>
       <tr><td>BL-010</td><td><div class="bl-title">Investor-Ready Brand Deck</div>Full pitch deck for PhoennixAI covering the entire ecosystem, revenue projections, market opportunity, and founding story</td><td><span class="chip chip-filed" style="font-size:8px">Investment</span></td><td><span class="chip chip-filed" style="font-size:8px">Phase 4</span></td><td>Claude to build once the core products have proof of concept and analytics to support the narrative.</td></tr>
+      <tr style="background:rgba(255,107,43,0.03)"><td>BL-012</td><td><div class="bl-title">Phase 2 Developer Onboarding Pack</div>All technical specs, Supabase schema, localStorage key mappings, React component architecture, and Claude API integration docs ready before first developer starts. GRID owns this deliverable.</td><td><span class="chip chip-now" style="font-size:8px">Infrastructure</span></td><td><span class="chip chip-now" style="font-size:8px">Critical</span></td><td>Must be complete before any external developer is onboarded. GRID produces. Claude reviews.</td></tr>
+      <tr style="background:rgba(255,107,43,0.03)"><td>BL-013</td><td><div class="bl-title">Remaining Agent JDs and CVs</div>PA, PULSE, ATLAS, ECHO, ENROL, SIGNAL, GRANT, FORGE, BRIDGE, GUARDIAN, SAGE — all require JD, CV, User Manual, Training Manual, and Performance Dashboard before Phase 2.</td><td><span class="chip chip-next" style="font-size:8px">Agents</span></td><td><span class="chip chip-now" style="font-size:8px">High</span></td><td>Build in session order. PA and PULSE next. Each ships with AGI intelligence standard prompt.</td></tr>
+      <tr><td>BL-014</td><td><div class="bl-title">RELAY Beta Onboarding Activation</div>RELAY must be configured and tested before 30 March 2026 external beta launch. Welcome sequence, smart form, workspace creation, kickoff scheduling, and welcome pack all need to be built and tested with internal team first.</td><td><span class="chip chip-next" style="font-size:8px">Beta</span></td><td><span class="chip chip-now" style="font-size:8px">Critical</span></td><td>Internal test by 27 March. External beta opens 30 March. RELAY must be live before that date.</td></tr>
+      <tr><td>BL-015</td><td><div class="bl-title">Brand System Update</div>Update brand system document to reflect confirmed GRID colour as Deep Royal #215CAE (not Signal Green). SAGE added as Agent 016 Steel Blue #4682B4. Full agent colour registry updated.</td><td><span class="chip chip-next" style="font-size:8px">Brand</span></td><td><span class="chip chip-next" style="font-size:8px">Medium</span></td><td>Update phoennixai_updated_brand_system.html and push to GitHub.</td></tr>
+      <tr><td>BL-016</td><td><div class="bl-title">Daily Report and Weekly Retro System</div>Build the automated daily founder report (delivered 08:00 every morning by GRID) and weekly retrospective framework. Requires GRID dashboard, delivery log, and task completion tracker. Phase 2 Claude API dependency.</td><td><span class="chip chip-filed" style="font-size:8px">Governance</span></td><td><span class="chip chip-next" style="font-size:8px">Phase 2</span></td><td>Framework to be designed in Phase 0. Automated delivery in Phase 2. Pick up when daily report format is agreed.</td></tr>
     </tbody>
   </table>
 
@@ -1098,6 +1293,157 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 </div>
 
 <!-- BOTTOM NAV (mobile) -->
+
+<!-- ══════════════════════════════════
+     GRID HOME PAGE
+══════════════════════════════════ -->
+<div class="page" id="page-grid">
+<div class="wrap">
+
+  <!-- GRID Header -->
+  <div class="grid-header">
+    <div style="margin-bottom:6px"><span class="grid-dot"></span><span style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:#215CAE;text-transform:uppercase">PAI-JD-009 · Agent 009 · Mission Control Owner</span></div>
+    <div class="grid-name">GR<span>ID</span></div>
+    <div class="grid-role">Project Manager and Business Analyst · Mission Control Owner</div>
+    <div class="grid-status">
+      <span style="color:#22C55E;font-family:var(--mono);font-size:9px;letter-spacing:2px">● ACTIVE, Phase 0</span>
+      <span style="color:var(--border)">|</span>
+      <span style="font-family:var(--mono);font-size:9px;color:var(--text3)">Stage 1 Signed 20 Mar 2026</span>
+      <span style="color:var(--border)">|</span>
+      <span style="font-family:var(--mono);font-size:9px;color:#215CAE">Deep Royal #215CAE</span>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="grid-stat-row">
+    <div class="grid-stat">
+      <div class="grid-stat-num" id="grid-stat-tasks">0</div>
+      <div class="grid-stat-label">Open Tasks</div>
+    </div>
+    <div class="grid-stat">
+      <div class="grid-stat-num" id="grid-stat-done">0</div>
+      <div class="grid-stat-label">Completed</div>
+    </div>
+    <div class="grid-stat">
+      <div class="grid-stat-num">9</div>
+      <div class="grid-stat-label">Products</div>
+    </div>
+    <div class="grid-stat">
+      <div class="grid-stat-num">16</div>
+      <div class="grid-stat-label">Agents</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+
+    <!-- Left column -->
+    <div>
+      <!-- Daily Report -->
+      <div class="grid-section-label">Daily Operational Report</div>
+      <div class="grid-report-box">
+        <div class="grid-report-label">GRID Daily Briefing · <span id="grid-report-date" style="color:var(--text3)"></span></div>
+        <div class="grid-report-body" id="grid-report-body">Loading report...</div>
+      </div>
+
+      <!-- Priority Stack -->
+      <div class="grid-section-label" style="margin-top:18px">Priority Stack</div>
+      <div id="grid-priority-list"></div>
+    </div>
+
+    <!-- Right column -->
+    <div>
+      <!-- Agent Status Board -->
+      <div class="grid-section-label">Agent Status Board</div>
+      <div class="grid-agent-row">
+        <div class="grid-agent-tile" style="border-top:2px solid #00E5FF">
+          <div class="grid-agent-name" style="color:#00E5FF">ARIA</div>
+          <div class="grid-agent-role">Workspace Agent 000</div>
+          <div class="grid-agent-status" style="color:#22C55E">Active, Deployed</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #215CAE">
+          <div class="grid-agent-name" style="color:#215CAE">GRID</div>
+          <div class="grid-agent-role">PM and BA, Agent 009</div>
+          <div class="grid-agent-status" style="color:#22C55E">Active, Stage 1 Signed</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #C49A6C">
+          <div class="grid-agent-name" style="color:#C49A6C">SCRIBE</div>
+          <div class="grid-agent-role">Document Intelligence, 015</div>
+          <div class="grid-agent-status" style="color:#FFB830">JD Built, Sign Pending</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #FFB830">
+          <div class="grid-agent-name" style="color:#FFB830">LEDGER</div>
+          <div class="grid-agent-role">AGI Finance Intel, 006</div>
+          <div class="grid-agent-status" style="color:#FFB830">JD Built, Sign Pending</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #46ABD7">
+          <div class="grid-agent-name" style="color:#46ABD7">RELAY</div>
+          <div class="grid-agent-role">Client Onboarding, 005</div>
+          <div class="grid-agent-status" style="color:#FFB830">JD Built, Sign Pending</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #4682B4">
+          <div class="grid-agent-name" style="color:#4682B4">SAGE</div>
+          <div class="grid-agent-role">Analytics Engine, 016</div>
+          <div class="grid-agent-status" style="color:#ef4444">JD and CV To Build</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #A78BFA">
+          <div class="grid-agent-name" style="color:#A78BFA">PA</div>
+          <div class="grid-agent-role">Personal Productivity, 001</div>
+          <div class="grid-agent-status" style="color:#ef4444">JD and CV To Build</div>
+        </div>
+        <div class="grid-agent-tile" style="border-top:2px solid #A78BFA">
+          <div class="grid-agent-name" style="color:#A78BFA">PULSE</div>
+          <div class="grid-agent-role">Social Media, 003</div>
+          <div class="grid-agent-status" style="color:#ef4444">JD and CV To Build</div>
+        </div>
+      </div>
+
+      <!-- Weekly Retro Log -->
+      <div class="grid-section-label" style="margin-top:18px">Weekly Retrospective Log</div>
+      <div class="grid-retro-box">
+        <div class="grid-retro-item">
+          <span class="grid-retro-tag" style="background:rgba(33,92,174,0.1);color:#215CAE">Week 1</span>
+          <span>GRID JD, CV, SCRIBE JD, CV, LEDGER JD, CV, RELAY JD, CV built. Org chart updated. 9 files pushed to GitHub. Mission Control bug fixed.</span>
+        </div>
+        <div class="grid-retro-item">
+          <span class="grid-retro-tag" style="background:rgba(255,184,48,0.08);color:#FFB830">Next</span>
+          <span>PA JD and CV. PULSE JD and CV. SAGE JD and CV. Phase 2 developer decision. RELAY beta onboarding activation by 27 March.</span>
+        </div>
+        <div class="grid-retro-item">
+          <span class="grid-retro-tag" style="background:rgba(107,114,128,0.1);color:var(--text3)">Schedule</span>
+          <span>Weekly retro every Friday. All agents and human team where available. GRID chairs. What went well, what could be better, what we learned.</span>
+        </div>
+      </div>
+
+      <!-- Upcoming Deadlines -->
+      <div class="grid-section-label" style="margin-top:18px">Upcoming Deadlines</div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(239,68,68,0.04);border-radius:6px;border:1px solid rgba(239,68,68,0.2)">
+          <span style="font-size:12px;color:var(--text)">Phase 2 Developer Decision</span>
+          <span style="font-family:var(--mono);font-size:9px;color:#ef4444;background:rgba(239,68,68,0.08);padding:2px 8px;border-radius:3px">This Week, Critical</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(255,107,43,0.04);border-radius:6px;border:1px solid rgba(255,107,43,0.2)">
+          <span style="font-size:12px;color:var(--text)">RELAY Beta Onboarding Ready</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--fire);background:rgba(255,107,43,0.08);padding:2px 8px;border-radius:3px">27 Mar 2026</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(70,171,215,0.04);border-radius:6px;border:1px solid rgba(70,171,215,0.2)">
+          <span style="font-size:12px;color:var(--text)">External Beta Launch</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--sapphire);background:rgba(70,171,215,0.08);padding:2px 8px;border-radius:3px">30 Mar 2026</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:rgba(34,197,94,0.04);border-radius:6px;border:1px solid rgba(34,197,94,0.2)">
+          <span style="font-size:12px;color:var(--text)">St Paul's Work Experience</span>
+          <span style="font-family:var(--mono);font-size:9px;color:#22C55E;background:rgba(34,197,94,0.08);padding:2px 8px;border-radius:3px">23 Apr 2026 Confirmed</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;background:var(--card);border-radius:6px;border:1px solid var(--border)">
+          <span style="font-size:12px;color:var(--text)">EduTech Platform Launch</span>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text3);background:rgba(255,255,255,0.04);padding:2px 8px;border-radius:3px">Q3 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
 <nav class="bottom-nav" id="bottom-nav">
   <div class="bn-item active" onclick="showPageMobile('today',this)" data-page="today">
     <span class="bn-icon">⚡</span><span class="bn-label">Today</span>
@@ -1120,6 +1466,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   <div class="bn-item" onclick="showPageMobile('backlog',this)" data-page="backlog">
     <span class="bn-icon">📋</span><span class="bn-label">Backlog</span>
   </div>
+  <div class="bn-item" onclick="showPageMobile('grid',this)" data-page="grid" style="color:#215CAE">
+    <span class="bn-icon">🗂️</span><span class="bn-label">GRID</span>
+  </div>
 </nav>
 
 <script>
@@ -1133,22 +1482,21 @@ function toggleTheme() {
 
 // ══ PAGES ══
 function showPage(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tb-tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.bn-item').forEach(t => t.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
+  document.querySelectorAll('.page').forEach(p => { if(p) p.classList.remove('active'); });
+  document.querySelectorAll('.tb-tab').forEach(t => { if(t) t.classList.remove('active'); });
+  document.querySelectorAll('.bn-item').forEach(t => { if(t) t.classList.remove('active'); });
+  const pg = document.getElementById('page-' + id);
+  if(pg) pg.classList.add('active');
   if (el) el.classList.add('active');
   window.scrollTo(0,0);
-  // sync bottom nav
   const bn = document.querySelector('.bn-item[data-page="' + id + '"]');
   if (bn) bn.classList.add('active');
-  // sync top nav
   const tn = document.querySelector('.tb-tab[data-page="' + id + '"]');
   if (tn) tn.classList.add('active');
 }
 function showPageMobile(id, el) {
   showPage(id, null);
-  document.querySelectorAll('.bn-item').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.bn-item').forEach(t => { if(t) t.classList.remove('active'); });
   if (el) el.classList.add('active');
 }
 
@@ -1181,10 +1529,12 @@ function toggleTask(el) {
 
 // ══ ORG CHART ══
 function showOrg(type, btn) {
-  document.querySelectorAll('.org-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById('org-human').style.display = (type === 'human' || type === 'full') ? 'block' : 'none';
-  document.getElementById('org-ai').style.display = (type === 'ai' || type === 'full') ? 'block' : 'none';
+  document.querySelectorAll('.org-btn').forEach(b => { if(b) b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
+  const oh = document.getElementById('org-human');
+  const oa = document.getElementById('org-ai');
+  if(oh) oh.style.display = (type === 'human' || type === 'full') ? 'block' : 'none';
+  if(oa) oa.style.display = (type === 'ai' || type === 'full') ? 'block' : 'none';
 }
 
 function addStaff() {
@@ -1199,10 +1549,10 @@ function addStaff() {
 
 // ══ AGENTS FILTER ══
 function filterA(cat, btn) {
-  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('.fbtn').forEach(b => { if(b) b.classList.remove('active'); });
+  if(btn) btn.classList.add('active');
   document.querySelectorAll('.ag-card').forEach(c => {
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
+    if(c) c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
   });
 }
 
@@ -1214,6 +1564,12 @@ function svEv(ev){try{localStorage.setItem('pai_events',JSON.stringify(ev))}catc
 
 const EV_COLOURS={meeting:'#46ABD7',deadline:'#ef4444',task:'#FFB830',personal:'#7B2FFF',default:'#FF6B2B'};
 
+function changeMonth(dir){
+  calMonth += dir;
+  if(calMonth > 11){calMonth = 0; calYear++;}
+  if(calMonth < 0){calMonth = 11; calYear--;}
+  renderCal();
+}
 function renderCal() {
   const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   document.getElementById('cal-month-title').textContent = months[calMonth] + ' ' + calYear;
@@ -1394,6 +1750,66 @@ function updateDate() {
 }
 updateDate(); setInterval(updateDate, 30000);
 restoreMCTasks();
+
+// GRID HOME
+function buildGRIDPage() {
+  var TASKS_MC = window.TASKS_MC || [];
+  var now = new Date();
+  var dateEl = document.getElementById('grid-report-date');
+  if(dateEl) dateEl.textContent = now.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+  var open = TASKS_MC.filter(function(t){return !t.done;}).length;
+  var done = TASKS_MC.filter(function(t){return t.done;}).length;
+  var statOpen = document.getElementById('grid-stat-tasks');
+  var statDone = document.getElementById('grid-stat-done');
+  if(statOpen) statOpen.textContent = open;
+  if(statDone) statDone.textContent = done;
+
+  var list = document.getElementById('grid-priority-list');
+  if(list) {
+    list.innerHTML = '';
+    var colours = {fire:'#ef4444', sapphire:'#46ABD7', bronze:'#C49A6C'};
+    var shown = TASKS_MC.filter(function(t){return !t.done;}).slice(0, 8);
+    shown.forEach(function(task) {
+      var el = document.createElement('div');
+      el.className = 'grid-task-item';
+      el.innerHTML = '<div class="grid-task-dot" style="background:' + (colours[task.p]||'#666') + '"></div>'
+        + '<div class="grid-task-name">' + task.t + '</div>'
+        + '<div class="grid-task-tag">' + task.tag + '</div>';
+      list.appendChild(el);
+    });
+    // Show done tasks faded
+    TASKS_MC.filter(function(t){return t.done;}).slice(0,3).forEach(function(task) {
+      var el = document.createElement('div');
+      el.className = 'grid-task-item done';
+      el.innerHTML = '<div class="grid-task-dot" style="background:#22C55E"></div>'
+        + '<div class="grid-task-name">' + task.t + '</div>'
+        + '<div class="grid-task-tag" style="color:#22C55E">Done</div>';
+      list.appendChild(el);
+    });
+  }
+
+  var report = document.getElementById('grid-report-body');
+  if(report) {
+    var critical = TASKS_MC.filter(function(t){return !t.done && t.p==='fire';});
+    var high = TASKS_MC.filter(function(t){return !t.done && t.p==='sapphire';});
+    var critText = critical.length > 0 ? critical.slice(0,2).map(function(t){return t.t;}).join(', ') : 'None flagged';
+    var highText = high.length > 0 ? high.slice(0,2).map(function(t){return t.t;}).join(', ') : 'All clear';
+    report.innerHTML = '<strong>Open priorities:</strong> ' + open + ' tasks active, ' + done + ' completed.<br>'
+      + '<strong>Critical this week:</strong> ' + critText + '.<br>'
+      + '<strong>High priority:</strong> ' + highText + '.<br>'
+      + '<strong>Next retro:</strong> Friday. All agents and human team. GRID chairs.<br>'
+      + '<strong>Phase 2 status:</strong> Developer decision required this week. RELAY beta activation deadline 27 March.';
+  }
+}
+
+// Hook into showPage so GRID page builds when opened
+var _origShowPage = showPage;
+showPage = function(id, el) {
+  _origShowPage(id, el);
+  if(id === 'grid') buildGRIDPage();
+};
+
 </script>
 </body>
 </html>
