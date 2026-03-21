@@ -14,7 +14,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:
 .sb{width:240px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;display:flex;flex-direction:column}
 .sb::-webkit-scrollbar{width:3px}.sb::-webkit-scrollbar-thumb{background:var(--border)}
 .sb-logo{padding:20px 20px 14px;border-bottom:1px solid var(--border)}
-.sb-brand{font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--fire)}
+.sb-brand{font-family:var(--display);font-size:16px;letter-spacing:3px;color:#00E5FF}
 .sb-doc{font-family:var(--mono);font-size:7px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-top:2px}
 .sb-nav{padding:12px 0;flex:1}
 .sb-section{font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);padding:10px 20px 4px}
@@ -32,7 +32,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:
 .page-hero{margin-bottom:36px}
 .ph-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:8px}
 .ph-title{font-family:var(--display);font-size:clamp(36px,5vw,56px);letter-spacing:3px;color:#fff;line-height:1;margin-bottom:6px}
-.ph-title span{color:var(--fire)}
+.ph-title span{color:#00E5FF}
 .ph-sub{font-size:14px;color:var(--text2);max-width:600px;line-height:1.7}
 .sl{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;margin-bottom:14px;padding-bottom:7px;border-bottom:1px solid var(--border)}
 .bt{font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:14px}
@@ -97,7 +97,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:
 
 <nav class="sb">
   <div class="sb-logo">
-    <div class="sb-brand">PHOENNIXAI</div>
+    <div class="sb-brand"><span style="color:#00E5FF">PHOENNIX</span><span style="color:#9CA3AF">AI</span></div>
     <div class="sb-doc">User Manual · v1.0 · Live</div>
   </div>
   <div class="sb-nav">
@@ -201,6 +201,20 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:
   <div class="step"><div class="step-num">03</div><div class="step-body"><strong>Go to Document Hub for any document.</strong> Need a job description, a product spec, a session log, a brand guideline? It is in the Document Hub. SCRIBE owns this. If a document is not there, it does not officially exist yet.</div></div>
   <div class="step"><div class="step-num">04</div><div class="step-body"><strong>Never store documents locally on your computer permanently.</strong> Every document that matters lives in the Document Hub or on GitHub. Your Downloads folder is a temporary staging area only. SCRIBE governs the permanent record.</div></div>
   <div class="step"><div class="step-num">05</div><div class="step-body"><strong>All questions about agents go through this manual first.</strong> If you need to know what an agent does, their scope, their KPIs, or their interaction rules, it is in this document. Pull it up, search, find your answer. Only escalate to Claude if the manual does not cover it.</div></div>
+  <div class="sl" style="color:var(--royal);margin-top:28px">GitHub Integration, Connecting Claude to the Repo</div>
+  <div class="info-box">
+    <div class="ib-label" style="color:var(--cyan)">Set This Up Once. 5 Minutes. Free on All Plans.</div>
+    <div class="ib-body"><strong>Once connected, Claude reads every file in the repo directly. No uploading HTML files. No version confusion. Faster sessions, fewer errors. The whole team benefits.</strong></div>
+  </div>
+  <div class="step"><div class="step-num">01</div><div class="step-body"><strong>Open Claude.ai and go to this Project settings.</strong> Look for the plus button or integrations section at the bottom left of the chat interface.</div></div>
+  <div class="step"><div class="step-num">02</div><div class="step-body"><strong>Select Add from GitHub.</strong> Redirects to GitHub to authorise. Read-only permission only. Claude cannot push or commit. Valerie controls all pushes.</div></div>
+  <div class="step"><div class="step-num">03</div><div class="step-body"><strong>Select phoennixai-mission-control only.</strong> Public repo first. Private repos connected separately later with individual authorisation.</div></div>
+  <div class="step"><div class="step-num">04</div><div class="step-body"><strong>Click Sync now after any new push</strong> to ensure Claude sees the latest files. Connection is persistent once set up.</div></div>
+  <div class="step"><div class="step-num">05</div><div class="step-body"><strong>For team members:</strong> Ask Claude to read any file directly. No downloading, no uploading, no version confusion. Always working from the live repo.</div></div>
+  <div class="warn-box" style="margin-top:14px">
+    <div class="ib-label" style="color:var(--fire)">Security Note</div>
+    <div class="ib-body">Read-only access only. Claude cannot modify or push to GitHub. Confidential Ecosystem document remains in private repo only. GUARDIAN monitors access compliance.</div>
+  </div>
   <div class="sl" style="color:var(--fire);margin-top:28px">For Partners and Stakeholders</div>
   <div class="step"><div class="step-num">01</div><div class="step-body"><strong>PhoennixAI operates with an AI agent team.</strong> Each agent has a name, a colour, a job description, KPIs, and a defined scope. They are not software tools. They are colleagues. You will interact with their outputs regularly.</div></div>
   <div class="step"><div class="step-num">02</div><div class="step-body"><strong>SCRIBE is your document contact.</strong> Any question about what documents exist, their version, their status, or their location is answered by SCRIBE via the Document Hub. All documents are version-controlled and date-stamped.</div></div>
@@ -222,7 +236,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:
   <div class="agent-row" style="border-left:3px solid var(--gold)"><div class="ar-dot" style="background:var(--gold);box-shadow:0 0 8px var(--gold)"></div><div style="flex:1"><div class="ar-name" style="color:var(--gold)">LEDGER</div><div class="ar-role">PAI-JD-006 · AGI Financial Intelligence · Agent 006</div><div class="ar-body">Financial intelligence at Goldman Sachs, JPMorgan, Big Four CFO standard. Advisory only. Never executes transactions. Hard limit, non-negotiable, locked at founding. Signed 20 March 2026.</div><div style="margin-top:6px"><span class="chip c-live">Active</span><span class="chip" style="color:var(--gold);border-color:rgba(255,184,48,0.4);background:rgba(255,184,48,0.08)">Ember Gold</span></div></div></div>
   <div class="agent-row" style="border-left:3px solid var(--sapphire)"><div class="ar-dot" style="background:var(--sapphire);box-shadow:0 0 8px var(--sapphire)"></div><div style="flex:1"><div class="ar-name" style="color:var(--sapphire)">RELAY</div><div class="ar-role">PAI-JD-005 · Client Onboarding Automation · Agent 005</div><div class="ar-body">Apple Store experience designer standard. Triggers on new client sign, welcome sequence, workspace creation, kickoff scheduling. External beta owner from 30 March 2026. Signed 20 March 2026.</div><div style="margin-top:6px"><span class="chip c-live">Active</span><span class="chip" style="color:var(--sapphire);border-color:rgba(70,171,215,0.4);background:rgba(70,171,215,0.08)">Sapphire Wing</span></div></div></div>
   <div class="agent-row" style="border-left:3px solid var(--steel)"><div class="ar-dot" style="background:var(--steel);box-shadow:0 0 8px var(--steel)"></div><div style="flex:1"><div class="ar-name" style="color:var(--steel)">SAGE</div><div class="ar-role">PAI-JD-016 · Strategic Analytics and Governance Engine · Agent 016</div><div class="ar-body">Intelligence backbone of PhoennixAI. Real-time dashboards, automated reports, KPI governance, predictive forecasting. SCRIBE holds the truth. SAGE reveals what it means. Partners with SCRIBE. Signed 20 March 2026.</div><div style="margin-top:6px"><span class="chip c-live">Live</span><span class="chip" style="color:var(--steel);border-color:rgba(70,130,180,0.4);background:rgba(70,130,180,0.08)">Steel Blue</span></div></div></div>
-  <div class="agent-row" style="border-left:3px solid var(--violet)"><div class="ar-dot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div><div style="flex:1"><div class="ar-name" style="color:var(--violet)">PA</div><div class="ar-role">PAI-JD-001A · Personal Productivity Assistant · Agent 001 · Priority Critical</div><div class="ar-body">Harvard and FTSE 100 EA standard. Daily morning brief at 08:00. Calendar intelligence, email triage, priority sequencing, focus time protection, goal alignment. Signed 20 March 2026.</div><div style="margin-top:6px"><span class="chip c-live">Active</span><span class="chip" style="color:var(--violet);border-color:rgba(167,139,250,0.4);background:rgba(167,139,250,0.08)">Soft Violet</span></div></div></div>
+  <div class="agent-row" style="border-left:3px solid #F43F5E"><div class="ar-dot" style="background:var(--violet);box-shadow:0 0 8px var(--violet)"></div><div style="flex:1"><div class="ar-name" style="color:#F43F5E">PA</div><div class="ar-role">PAI-JD-001A · Personal Productivity Assistant · Agent 001 · Priority Critical</div><div class="ar-body">Harvard and FTSE 100 EA standard. Daily morning brief at 08:00. Calendar intelligence, email triage, priority sequencing, focus time protection, goal alignment. Signed 20 March 2026.</div><div style="margin-top:6px"><span class="chip c-live">Active</span><span class="chip" style="color:#F43F5E;border-color:rgba(244,63,94,0.4);background:rgba(244,63,94,0.08)">Rose #F43F5E</span></div></div></div>
 </div>
 
 <!-- QUEUE AGENTS -->
@@ -260,7 +274,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:
   <div class="comm-row"><div class="cr-from" style="color:var(--bronze)">SCRIBE</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--steel)">SAGE</div><div class="cr-desc">SCRIBE feeds SAGE with structured data from every document state change. SAGE uses it to update dashboards and generate reports in real time.</div></div>
   <div class="comm-row"><div class="cr-from" style="color:var(--steel)">SAGE</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--royal)">GRID</div><div class="cr-desc">SAGE surfaces performance anomalies back to GRID. When a product falls behind forecast or an agent KPI drops below target, SAGE flags it to GRID for action.</div></div>
   <div class="comm-row"><div class="cr-from" style="color:var(--steel)">SAGE</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--cyan)">ARIA</div><div class="cr-desc">SAGE passes anomaly alerts for the Workspace domain to ARIA. ARIA includes them in the morning briefing so the founder receives one consolidated report.</div></div>
-  <div class="comm-row"><div class="cr-from" style="color:var(--violet)">PA</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--cyan)">ARIA</div><div class="cr-desc">PA and ARIA are distinct but complementary. ARIA watches the whole house. PA gets you dressed and ready to leave it. PA passes the daily plan to ARIA for surfacing in the briefing.</div></div>
+  <div class="comm-row"><div class="cr-from" style="color:#F43F5E">PA</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--cyan)">ARIA</div><div class="cr-desc">PA and ARIA are distinct but complementary. ARIA watches the whole house. PA gets you dressed and ready to leave it. PA passes the daily plan to ARIA for surfacing in the briefing.</div></div>
   <div class="comm-row"><div class="cr-from" style="color:var(--gold)">LEDGER</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--steel)">SAGE</div><div class="cr-desc">LEDGER passes financial advisory outputs to SAGE for visualisation in the financial dashboard. LEDGER never executes. SAGE never handles money. Both observe and advise.</div></div>
   <div class="comm-row"><div class="cr-from" style="color:var(--sapphire)">RELAY</div><div class="cr-arrow">→</div><div class="cr-to" style="color:var(--royal)">GRID</div><div class="cr-desc">RELAY signals to GRID when each new beta tester is onboarded. GRID tracks onboarding completion against the beta milestone. RELAY owns onboarding. GRID owns delivery tracking.</div></div>
   <div class="info-box" style="margin-top:20px">
