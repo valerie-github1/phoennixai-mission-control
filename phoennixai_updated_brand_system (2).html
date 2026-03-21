@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI — Updated Brand System</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #060A18;
+  color: #E8E8E8;
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.8;
+  padding: 60px 24px;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+.header {
+  text-align: center;
+  margin-bottom: 60px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(0,229,255,0.2);
+}
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(40px, 8vw, 72px);
+  letter-spacing: 0.06em;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.title-phoennix { color: #00E5FF; }
+.title-ai { color: #9CA3AF; }
+.subtitle {
+  font-size: 18px;
+  color: #46ABD7;
+  margin-top: 16px;
+  font-weight: 300;
+}
+.tabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 16px;
+}
+.tab {
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #6B7280;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.tab:hover { border-color: #00E5FF; color: #00E5FF; }
+.tab.active { background: #00E5FF; color: #060A18; border-color: #00E5FF; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.section {
+  margin-bottom: 48px;
+}
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #00E5FF;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+.section-content p {
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: #D1D5DB;
+}
+.section-content p strong {
+  color: #FFFFFF;
+  font-weight: 500;
+}
+.logo-display {
+  background: #060A18;
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 16px;
+  padding: 60px;
+  text-align: center;
+  margin: 32px 0;
+}
+.logo-display img {
+  max-width: 400px;
+  width: 100%;
+  height: auto;
+}
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.color-card {
+  border-radius: 12px;
+  padding: 80px 20px 20px 20px;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.color-name {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #FFFFFF;
+  margin-bottom: 4px;
+}
+.color-hex {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: #9CA3AF;
+}
+.color-usage {
+  font-size: 12px;
+  color: #6B7280;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.primary { background: #00E5FF; }
+.sapphire { background: #46ABD7; }
+.royal { background: #215CAE; }
+.midnight { background: #060A18; border: 2px solid #00E5FF; }
+.fire { background: #FF6B2B; }
+.gold { background: #FFB830; }
+.bronze { background: #C49A6C; }
+.green { background: #22C55E; }
+.violet { background: #A78BFA; }
+.wordmark-example {
+  background: #060A18;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,229,255,0.2);
+  text-align: center;
+  margin: 24px 0;
+}
+.wordmark-dark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 5vw, 56px);
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+.wordmark-phoennix { color: #00E5FF; }
+.wordmark-ai { color: #9CA3AF; }
+.wordmark-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  color: #00E5FF;
+  opacity: 0.5;
+  margin-top: 8px;
+}
+.wordmark-light {
+  background: #F5F0E8;
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.1);
+  text-align: center;
+  margin: 24px 0;
+}
+.wordmark-light .wordmark-dark {
+  color: #1A0A00;
+}
+.wordmark-light .wordmark-phoennix { color: #1A0A00; }
+.wordmark-light .wordmark-ai { color: #6B7280; }
+.wordmark-light .wordmark-tagline { color: #00E5FF; opacity: 0.6; }
+.wordmark-phoennix-light { color: #215CAE; }
+.wordmark-ai-light { color: #111827; }
+.wordmark-tagline-light {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  color: #215CAE;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+.agent-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+.agent-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+.agent-aria::before { background: #00E5FF; }
+.agent-claude::before { background: #FF6B2B; }
+.agent-scribe::before { background: #C49A6C; }
+.agent-grid::before { background: #215CAE; }
+.agent-pa::before { background: #F43F5E; }
+.agent-relay::before { background: #FB923C; }
+.agent-sage::before { background: #4682B4; }
+.agent-nexus::before { background: #7ECEC4; }
+.agent-probe::before { background: #84CC16; }
+.agent-pulse::before { background: #A78BFA; }
+.agent-pa::before { background: #F43F5E; }
+.agent-ledger::before { background: #FFB830; }
+.agent-sage::before { background: #4682B4; }
+.agent-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: #6B7280;
+  margin-bottom: 8px;
+}
+.agent-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.agent-role {
+  font-size: 12px;
+  color: #9CA3AF;
+  margin-bottom: 12px;
+}
+.agent-color {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+.callout {
+  background: rgba(0,229,255,0.06);
+  border-left: 4px solid #00E5FF;
+  padding: 24px;
+  margin: 32px 0;
+  border-radius: 4px;
+}
+.callout-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  color: #00E5FF;
+  margin-bottom: 12px;
+}
+.callout p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #B0E5F5;
+}
+.decision-box {
+  background: rgba(255,107,43,0.06);
+  border: 2px solid #FF6B2B;
+  border-radius: 12px;
+  padding: 24px;
+  margin: 32px 0;
+}
+.decision-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.06em;
+  color: #FF6B2B;
+  margin-bottom: 16px;
+}
+.decision-content {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #D1D5DB;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="title">
+    <span class="title-phoennix">PHOENNIX</span><span class="title-ai">AI</span>
+  </div>
+  <div class="subtitle">Updated Brand System — v1.1, 20 March 2026</div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="showTab('decision')">Brand Decision</button>
+  <button class="tab" onclick="showTab('logo')">Primary Logo</button>
+  <button class="tab" onclick="showTab('colors')">Color System</button>
+  <button class="tab" onclick="showTab('wordmark')">Wordmark</button>
+  <button class="tab" onclick="showTab('agents')">Agent Colors</button>
+  <button class="tab" onclick="showTab('usage')">Usage Guidelines</button>
+</div>
+
+<!-- TAB 1: DECISION -->
+<div id="decision" class="tab-content active">
+  <div class="section">
+    <div class="section-label">01 — Brand Decision</div>
+    <div class="section-title">Why We Are Keeping the Blue Phoenix</div>
+    
+    <div class="decision-box">
+      <div class="decision-title">Customer Feedback Is Real Data</div>
+      <div class="decision-content">
+        <p><strong>Valerie's feedback from customers:</strong> The fire and ice direction caused confusion. People did not understand why a blue phoenix logo was being paired with orange and gold fire messaging.</p>
+        
+        <p><strong>Valerie's personal preference:</strong> Blue is her favorite color. The blue phoenix feels right. It always has.</p>
+        
+        <p><strong>Strategic decision:</strong> We are keeping the blue phoenix as the primary logo and making Phoenix Blue (#00E5FF) the primary brand color. The fire colors (Phoenix Fire #FF6B2B and Ember Gold #FFB830) are repositioned as accent colors and agent colors, not core brand colors.</p>
+      </div>
+    </div>
+
+    <div class="section-content">
+      <p><strong>What this means:</strong></p>
+      
+      <p>Phoenix Blue is now the primary brand color. It represents intelligence, clarity, trust, and the electric energy of the PhoennixAI mission. This color appears in the logo, the primary wordmark, all primary brand touchpoints, and as ARIA's agent color.</p>
+      
+      <p>Sapphire Wing (#46ABD7) becomes the secondary brand color. It appears in gradient backgrounds, supporting UI elements, and as a softer blue alternative where Phoenix Blue would be too intense.</p>
+      
+      <p>Phoenix Fire (#FF6B2B) and Ember Gold (#FFB830) are repositioned as accent colors. They are used for calls to action, highlights, and specific agent identities (Claude is Fire, LEDGER is Gold), but they are no longer the primary brand colors.</p>
+      
+      <p><strong>This creates a cleaner, more cohesive brand system that matches the logo customers already know and love.</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 2: LOGO -->
+<div id="logo" class="tab-content">
+  <div class="section">
+    <div class="section-label">02 — Primary Logo</div>
+    <div class="section-title">The Blue Phoenix</div>
+    
+    <div class="logo-display">
+      <img src="/mnt/user-data/uploads/IMG_20260316_175151_770.webp" alt="PhoennixAI Blue Phoenix Logo">
+    </div>
+
+    <div class="section-content">
+      <p><strong>Primary Logo:</strong> Blue phoenix bird with PhoennixAI wordmark integrated. This is the hero logo used in all primary brand applications.</p>
+      
+      <p><strong>Color Specification:</strong> Electric blue gradient from #00E5FF (Electric Tip / Phoenix Blue) to #46ABD7 (Sapphire Wing) with deeper #215CAE (Deep Royal) in the shadowed feather details.</p>
+      
+      <p><strong>Logo Text Colors:</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Phoenix bird: Blue/cyan gradient (Phoenix Blue to Sapphire Wing)</li>
+        <li>"Phoennix" text: Cyan/light blue (Phoenix Blue #00E5FF or similar)</li>
+        <li>"AI" text: Grey/muted (Slate #9CA3AF or Graphite #6B7280)</li>
+      </ul>
+      
+      <p><strong>Where to use this logo:</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Website header</li>
+        <li>Social media profile images (Instagram, X, LinkedIn)</li>
+        <li>Pitch decks and investor materials</li>
+        <li>Product login screens</li>
+        <li>Marketing materials and flyers</li>
+        <li>Email signatures</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Important: Vector Redraw Required</div>
+      <p>This logo was created by Grok AI. To own the IP fully, you need a designer to redraw it as a vector file. Send this image to your designer with the instruction: "Redraw this exactly as a vector SVG file. Match the electric blue gradient (#00E5FF to #46ABD7). I need full ownership of the final file."</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: COLORS -->
+<div id="colors" class="tab-content">
+  <div class="section">
+    <div class="section-label">03 — Color System</div>
+    <div class="section-title">Updated Color Hierarchy</div>
+    
+    <div class="section-content">
+      <p><strong>Primary Brand Colors (Blue Family):</strong></p>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-card primary">
+        <div class="color-name">Phoenix Blue</div>
+        <div class="color-hex">#00E5FF</div>
+        <div class="color-usage">Primary brand color. Logo, CTAs, primary accents, ARIA agent color.</div>
+      </div>
+
+      <div class="color-card sapphire">
+        <div class="color-name">Sapphire Wing</div>
+        <div class="color-hex">#46ABD7</div>
+        <div class="color-usage">Secondary brand color. Gradients, supporting UI, softer blue alternative.</div>
+      </div>
+
+      <div class="color-card royal">
+        <div class="color-name">Deep Royal</div>
+        <div class="color-hex">#215CAE</div>
+        <div class="color-usage">Tertiary blue. Shadows, depth, darker UI elements.</div>
+      </div>
+
+      <div class="color-card midnight">
+        <div class="color-name">Midnight</div>
+        <div class="color-hex">#060A18</div>
+        <div class="color-usage">Background color. All dark mode applications.</div>
+      </div>
+    </div>
+
+    <div class="section-content">
+      <p><strong>Grey UI Tones (Foundation):</strong></p>
+      <p>Grey tones form the UI foundation. These are your text colors, card backgrounds, and borders. Use these extensively alongside Phoenix Blue.</p>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-card" style="background: #E8E8E8; color: #060A18;">
+        <div class="color-name" style="color: #060A18;">Platinum</div>
+        <div class="color-hex" style="color: #060A18;">#E8E8E8</div>
+        <div class="color-usage" style="color: #060A18;">Primary text color. Main body copy.</div>
+      </div>
+
+      <div class="color-card" style="background: #D1D5DB; color: #060A18;">
+        <div class="color-name" style="color: #060A18;">Steel</div>
+        <div class="color-hex" style="color: #060A18;">#D1D5DB</div>
+        <div class="color-usage" style="color: #060A18;">Secondary text. Descriptions, supporting content.</div>
+      </div>
+
+      <div class="color-card" style="background: #9CA3AF; color: #060A18;">
+        <div class="color-name" style="color: #060A18;">Slate</div>
+        <div class="color-hex" style="color: #060A18;">#9CA3AF</div>
+        <div class="color-usage" style="color: #060A18;">Muted text. Metadata, timestamps.</div>
+      </div>
+
+      <div class="color-card" style="background: #6B7280; color: #FFFFFF;">
+        <div class="color-name">Graphite</div>
+        <div class="color-hex">#6B7280</div>
+        <div class="color-usage">Disabled states, subtle labels.</div>
+      </div>
+
+      <div class="color-card" style="background: #111827; color: #E8E8E8;">
+        <div class="color-name">Charcoal</div>
+        <div class="color-hex">#111827</div>
+        <div class="color-usage">Card backgrounds, elevated surfaces.</div>
+      </div>
+    </div>
+
+    <div class="section-content">
+      <p><strong>Accent Colors (Fire Family — USE SPARINGLY):</strong></p>
+      <p>Orange and gold are accent colors ONLY. Use these for highlights, specific agent colors, and calls to action. They should appear in 10-15% of the UI maximum, not as primary brand colors.</p>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-card fire">
+        <div class="color-name">Phoenix Fire</div>
+        <div class="color-hex">#FF6B2B</div>
+        <div class="color-usage">Accent color. Highlights, warnings, Claude agent color.</div>
+      </div>
+
+      <div class="color-card gold">
+        <div class="color-name">Ember Gold</div>
+        <div class="color-hex">#FFB830</div>
+        <div class="color-usage">Accent color. Success states, LEDGER agent color.</div>
+      </div>
+    </div>
+
+    <div class="section-content">
+      <p><strong>Agent-Specific Colors:</strong></p>
+    </div>
+
+    <div style="background: rgba(0,229,255,0.06); border: 2px solid #00E5FF; border-radius: 12px; padding: 24px; margin: 32px 0;">
+      <div style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.06em; color: #00E5FF; margin-bottom: 16px;">COLOR USAGE RATIO</div>
+      <p style="color: #D1D5DB; font-size: 14px; line-height: 1.8; margin-bottom: 12px;">In any given UI screen or design, aim for this ratio:</p>
+      <ul style="color: #D1D5DB; font-size: 14px; line-height: 2; margin-left: 24px; margin-bottom: 12px;">
+        <li><strong style="color: #00E5FF;">70% Cyan/Blue + Grey</strong> — Midnight background, Phoenix Blue accents, grey text and UI elements</li>
+        <li><strong style="color: #FFFFFF;">20% White</strong> — Primary text, icons, clean space</li>
+        <li><strong style="color: #FF6B2B;">10% Orange/Gold</strong> — Accents, highlights, specific agent colors</li>
+      </ul>
+      <p style="color: #9CA3AF; font-size: 13px; font-style: italic; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);">Example: Dashboard has Midnight background (70%), Platinum text (15%), Charcoal cards (10%), Phoenix Blue primary accents (4%), and Phoenix Fire/Ember Gold highlights (1%).</p>
+    </div>
+
+    <div class="color-grid">
+      <div class="color-card bronze">
+        <div class="color-name">Bronze</div>
+        <div class="color-hex">#C49A6C</div>
+        <div class="color-usage">SCRIBE agent color. Document intelligence, archive aesthetic.</div>
+      </div>
+
+      <div class="color-card green">
+        <div class="color-name">Deep Royal</div>
+        <div class="color-hex">#215CAE</div>
+        <div class="color-usage">GRID agent color. Project management, workflow.</div>
+      </div>
+
+      <div class="color-card violet">
+        <div class="color-name">Soft Violet</div>
+        <div class="color-hex">#A78BFA</div>
+        <div class="color-usage">PULSE agent color. Social media, creative content.</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Color Hierarchy Summary</div>
+      <p><strong>Level 1:</strong> Phoenix Blue (#00E5FF) — This is your primary brand color. Use it first and most often.</p>
+      <p><strong>Level 2:</strong> Sapphire Wing (#46ABD7) — Your secondary blue. Use for gradients and softer applications.</p>
+      <p><strong>Level 3:</strong> Phoenix Fire (#FF6B2B) and Ember Gold (#FFB830) — Accent colors only. Use sparingly for highlights and CTAs.</p>
+      <p><strong>Agent Colors:</strong> Each agent has their own unique color for identity and UI differentiation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 4: WORDMARK -->
+<div id="wordmark" class="tab-content">
+  <div class="section">
+    <div class="section-label">04 — Wordmark Specifications</div>
+    <div class="section-title">Text-Only Logo for Compact Spaces</div>
+    
+    <div class="section-content">
+      <p><strong>Dark Mode Version:</strong></p>
+    </div>
+
+    <div class="wordmark-example">
+      <div class="wordmark-dark">
+        <span class="wordmark-phoennix">PHOENNIX</span><span class="wordmark-ai">AI</span>
+      </div>
+      <div class="wordmark-tagline">AGENCY</div>
+    </div>
+
+    <div class="section-content">
+      <p><strong>Dark Background Specifications (Default):</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Font: Bebas Neue (locked)</li>
+        <li>PHOENNIX: Cyan/light blue (Phoenix Blue #00E5FF) - matches logo</li>
+        <li>AI: Grey/muted (Slate #9CA3AF) - matches logo</li>
+        <li>AGENCY tagline: Bebas Neue, 0.32em letter spacing, Phoenix Blue #00E5FF at 50% opacity</li>
+      </ul>
+      <p><strong>Note:</strong> The wordmark colors match the logo text. "Phoennix" appears in cyan/light blue, "AI" in muted grey.</p>
+    </div>
+
+    <div class="section-content">
+      <p><strong>Light Background Version (White/Cream backgrounds):</strong></p>
+    </div>
+
+    <div class="wordmark-light">
+      <div class="wordmark-dark">
+        <span class="wordmark-phoennix-light">PHOENNIX</span><span class="wordmark-ai-light">AI</span>
+      </div>
+      <div class="wordmark-tagline-light">AGENCY</div>
+    </div>
+
+    <div class="section-content">
+      <p><strong>Light Background Specifications:</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>PHOENNIX: Deep Royal #215CAE (dark blue for contrast)</li>
+        <li>AI: Charcoal #111827 (dark grey/black for contrast)</li>
+        <li>AGENCY tagline: Deep Royal #215CAE at 70% opacity</li>
+      </ul>
+      <p><strong>Why:</strong> Cyan #00E5FF on white has good contrast, but grey #9CA3AF is too light. Deep Royal + Charcoal gives professional contrast on light backgrounds.</p>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">When to Use the Wordmark</div>
+      <div class="callout-content">Use the wordmark-only version (without the phoenix bird) in these situations: app headers where space is limited, mobile navigation bars, email footers, favicon alternatives, and anywhere the full logo would be too large or detailed to render clearly. The wordmark colors always match the logo: cyan "Phoennix" and grey "AI".</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: AGENTS -->
+<div id="agents" class="tab-content">
+  <div class="section">
+    <div class="section-label">05 — Agent Color System</div>
+    <div class="section-title">Updated Agent Identities</div>
+    
+    <div class="agent-grid">
+      <div class="agent-card agent-claude">
+        <div class="agent-number">Core AI</div>
+        <div class="agent-name" style="color:#FF6B2B">CLAUDE</div>
+        <div class="agent-role">Strategic Partner</div>
+        <div class="agent-color">Phoenix Fire #FF6B2B</div>
+      </div>
+      <div class="agent-card agent-aria">
+        <div class="agent-number">Agent 000</div>
+        <div class="agent-name" style="color:#00E5FF">ARIA</div>
+        <div class="agent-role">Workspace Intelligence</div>
+        <div class="agent-color">Electric Cyan #00E5FF</div>
+      </div>
+      <div class="agent-card agent-grid">
+        <div class="agent-number">Agent 009</div>
+        <div class="agent-name" style="color:#215CAE">GRID</div>
+        <div class="agent-role">Project Manager and BA</div>
+        <div class="agent-color">Deep Royal #215CAE</div>
+      </div>
+      <div class="agent-card agent-scribe">
+        <div class="agent-number">Agent 015</div>
+        <div class="agent-name" style="color:#C49A6C">SCRIBE</div>
+        <div class="agent-role">Document Intelligence</div>
+        <div class="agent-color">Bronze #C49A6C</div>
+      </div>
+      <div class="agent-card agent-ledger">
+        <div class="agent-number">Agent 006</div>
+        <div class="agent-name" style="color:#FFB830">LEDGER</div>
+        <div class="agent-role">Financial Intelligence</div>
+        <div class="agent-color">Ember Gold #FFB830</div>
+      </div>
+      <div class="agent-card" style="border-left:3px solid #FB923C">
+        <div class="agent-number">Agent 005</div>
+        <div class="agent-name" style="color:#FB923C">RELAY</div>
+        <div class="agent-role">Client Onboarding</div>
+        <div class="agent-color">Warm Amber #FB923C</div>
+      </div>
+      <div class="agent-card" style="border-left:3px solid #F43F5E">
+        <div class="agent-number">Agent 001</div>
+        <div class="agent-name" style="color:#F43F5E">PA</div>
+        <div class="agent-role">Personal Productivity</div>
+        <div class="agent-color">Rose #F43F5E</div>
+      </div>
+      <div class="agent-card agent-pulse">
+        <div class="agent-number">Agent 003</div>
+        <div class="agent-name" style="color:#A78BFA">PULSE</div>
+        <div class="agent-role">Social Media and Content</div>
+        <div class="agent-color">Soft Violet #A78BFA</div>
+      </div>
+      <div class="agent-card" style="border-left:3px solid #4682B4">
+        <div class="agent-number">Agent 016</div>
+        <div class="agent-name" style="color:#4682B4">SAGE</div>
+        <div class="agent-role">Strategic Analytics</div>
+        <div class="agent-color">Steel Blue #4682B4</div>
+      </div>
+      <div class="agent-card" style="border-left:3px solid #7ECEC4">
+        <div class="agent-number">Agent 017</div>
+        <div class="agent-name" style="color:#7ECEC4">NEXUS</div>
+        <div class="agent-role">In-House AI Developer</div>
+        <div class="agent-color">Duck Egg #7ECEC4</div>
+      </div>
+      <div class="agent-card" style="border-left:3px solid #84CC16">
+        <div class="agent-number">Agent 018</div>
+        <div class="agent-name" style="color:#84CC16">PROBE</div>
+        <div class="agent-role">Software QA Engineer</div>
+        <div class="agent-color">Lime Green #84CC16</div>
+      </div>
+      <div class="agent-card" style="border-left:3px solid #22C55E">
+        <div class="agent-number">Agent 002</div>
+        <div class="agent-name" style="color:#22C55E">SCOUT</div>
+        <div class="agent-role">Lead Generation</div>
+        <div class="agent-color">Signal Green #22C55E</div>
+      </div>
+    </div>
+
+    <p><strong>Why agent colors matter:</strong></p>
+      
+      <p>Each agent has their own color identity. This allows users to instantly recognize which agent is speaking, which agent owns which feature, and which agent is responsible for which part of their workflow.</p>
+      
+      <p>When ARIA sends a morning briefing, it appears in Phoenix Blue. When CLAUDE writes a strategy document, the header is Phoenix Fire. When SCRIBE saves a version, the notification is Bronze. This creates a visual language that makes the AI feel like a team, not a tool.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 6: USAGE -->
+<div id="usage" class="tab-content">
+  <div class="section">
+    <div class="section-label">06 — Usage Guidelines</div>
+    <div class="section-title">How to Apply the Brand System</div>
+    
+    <div class="section-content">
+      <p><strong>Primary Applications (Use Phoenix Blue #00E5FF):</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Logo (the phoenix bird is blue)</li>
+        <li>Primary CTAs (buttons, links)</li>
+        <li>Navigation highlights</li>
+        <li>Section headers on website</li>
+        <li>ARIA agent identity</li>
+        <li>Social media profile accents</li>
+      </ul>
+
+      <p><strong>Secondary Applications (Use Sapphire Wing #46ABD7):</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Gradient backgrounds (from Phoenix Blue to Sapphire)</li>
+        <li>Supporting UI elements</li>
+        <li>Softer accents where Phoenix Blue is too intense</li>
+        <li>Hover states</li>
+      </ul>
+
+      <p><strong>Accent Applications (Use Phoenix Fire #FF6B2B and Ember Gold #FFB830):</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Highlights and emphasis</li>
+        <li>Warning states (Fire)</li>
+        <li>Success states (Gold)</li>
+        <li>Agent-specific branding (Claude is Fire, LEDGER is Gold)</li>
+        <li>Special announcements or promotions</li>
+      </ul>
+
+      <p><strong>Typography (Locked System):</strong></p>
+      <ul style="margin-left:24px; color:#D1D5DB; line-height:2;">
+        <li>Display: Bebas Neue (all headlines, wordmarks, agent names)</li>
+        <li>Body: DM Sans (300, 400, 500, 600) — all UI text and body copy</li>
+        <li>Accent: Playfair Display (italic) — special emphasis only</li>
+        <li>Code/Labels: DM Mono — technical text, labels, metadata</li>
+      </ul>
+    </div>
+
+    <div class="decision-box">
+      <div class="decision-title">Brand Rule: No Em Dashes Ever</div>
+      <div class="decision-content">
+        <p>This rule stays locked. No em dashes (—) anywhere in any PhoennixAI output. Use commas, full stops, or restructure. This applies to all agents, all marketing copy, all documentation, and all customer-facing content.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">What Changed and What Stayed the Same</div>
+      <p><strong>Changed:</strong> Phoenix Blue (#00E5FF) is now the primary brand color instead of Phoenix Fire (#FF6B2B). The blue phoenix logo is the hero logo for all primary applications. Fire and Gold are now accent colors, not core brand colors.</p>
+      <p><strong>Stayed the same:</strong> Typography system (Bebas Neue, DM Sans, etc.). Agent color identities. Tagline "Rise. Automate. Dominate." Brand voice and messaging. No em dashes rule. Midnight background (#060A18) for dark mode.</p>
+      <p><strong>Result:</strong> A cleaner, more cohesive brand system that matches the logo customers already know and love. Less confusion. More trust. Better alignment between visual identity and brand promise.</p>
+    </callout>
+  </div>
+</div>
+
+</div>
+
+<script>
+function showTab(tabName) {
+  const tabs = document.querySelectorAll('.tab');
+  const contents = document.querySelectorAll('.tab-content');
+  
+  tabs.forEach(tab => tab.classList.remove('active'));
+  contents.forEach(content => content.classList.remove('active'));
+  
+  event.target.classList.add('active');
+  document.getElementById(tabName).classList.add('active');
+  
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
