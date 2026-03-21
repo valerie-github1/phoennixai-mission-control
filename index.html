@@ -511,7 +511,13 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 <!-- ══════════════════════════════════
      PAGE 2: PROJECTS
 ══════════════════════════════════ -->
-<div class="page" id="page-projects">
+<div class="page" id="page-projects"
+  <div class="project-card" style="border-left:3px solid #7ECEC4">
+    <div class="proj-label">THE DEVHUB · IP #13</div>
+    <div class="proj-title">In-House AI Development and QA Platform</div>
+    <div class="proj-desc">NEXUS (Full Stack Dev, Duck Egg #7ECEC4) and PROBE (Software QA, Lime Green #84CC16) form The DevHub. Claude architects. GRID governs delivery. Valerie approves and ships. No freelancers. No day rates. When it works here, we sell it to every client. Nobody is selling this.</div>
+    <div class="proj-tags"><span class="proj-tag">NEXUS #7ECEC4</span><span class="proj-tag">PROBE #84CC16</span><span class="proj-tag">GRID PM</span><span class="proj-tag" style="color:#FB923C">IP #13</span></div>
+  </div>>
 <div class="wrap">
   <div class="s-label">Active and Filed, Product Portfolio</div>
   <div class="p-title">ALL PROJECTS</div>
@@ -969,6 +975,26 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       </div>
     </div>
   </div>
+  <!-- NEXUS and PROBE - In-House AI Dev Team -->
+  <div class="ag-card" data-cat="core" style="border-color:rgba(126,206,196,0.25);background:rgba(126,206,196,0.02)">
+    <div class="ag-bar" style="background:linear-gradient(to right,#7ECEC4,#22D3EE)"></div>
+    <div class="ag-id" style="color:#7ECEC4">AI DEV TEAM, Agent 017</div>
+    <div class="ag-name" style="color:#7ECEC4">NEXUS</div>
+    <div class="ag-code">In-House AI Full Stack Developer</div>
+    <div class="ag-role">PhoennixAI's permanent in-house AI developer. No freelancer. No day rates. React migration, Supabase wiring, Claude API integration, Vercel deployment. Operates via Cursor under Claude's direction. £20/month. Builds Phase 2. Proves the philosophy.</div>
+    <div class="ag-tags"><span class="ag-tag" style="background:rgba(126,206,196,0.1);color:#7ECEC4">Teal #7ECEC4</span><span class="ag-tag">Phase 2 Critical</span><a href="https://valerie-github1.github.io/phoennixai-mission-control/NEXUS_JobDescription_PhoennixAI.html" target="_blank" class="ag-tag" style="background:rgba(34,197,94,0.1);color:#22C55E;text-decoration:none">JD Live</a></div>
+  </div>
+
+  <div class="ag-card" data-cat="core" style="border-color:rgba(132,204,22,0.25);background:rgba(132,204,22,0.02)">
+    <div class="ag-bar" style="background:linear-gradient(to right,#84CC16,#FCD34D)"></div>
+    <div class="ag-id" style="color:#84CC16">AI DEV TEAM, Agent 018</div>
+    <div class="ag-name" style="color:#84CC16">PROBE</div>
+    <div class="ag-code">In-House AI QA and Testing Agent</div>
+    <div class="ag-role">Tests everything NEXUS builds. Nothing ships broken. Google Senior QA + NHS Quality Manager standard. Full test suite, bug reporting, performance testing, GDPR validation, device testing. PROBE clears before Valerie pushes. Chain: Claude architects, NEXUS builds, PROBE tests, Valerie ships.</div>
+    <div class="ag-tags"><span class="ag-tag" style="background:rgba(132,204,22,0.1);color:#84CC16">Lime Green #84CC16</span><span class="ag-tag">NEXUS Partner</span><a href="https://valerie-github1.github.io/phoennixai-mission-control/PROBE_JobDescription_PhoennixAI.html" target="_blank" class="ag-tag" style="background:rgba(34,197,94,0.1);color:#22C55E;text-decoration:none">JD Live</a></div>
+  </div>
+
+  
 
   <!-- ADD STAFF FORM -->
   <div class="add-staff-form" id="add-staff-form">
@@ -1060,6 +1086,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           const valueMap = {fire:'Critical',sapphire:'High',bronze:'Medium'};
           const tagDone = ['Done','Done Today'];
           window.TASKS_MC = [
+            {n:'SB',t:'[TOMORROW 14:00] Supabase setup session - tables, auth, localStorage migration. Unlocks autonomous agents.',tag:'22 Mar 14:00',p:'fire'},
             {n:'TL',t:'[Phase 2] Traceability Dashboard: dedicated URL, Supabase auto-logging, SAGE analytics automated',tag:'Phase 2',p:'blue'},
             {n:'P2',t:'Phase 2 developer decision — CRITICAL',tag:'This Week',p:'fire'},
             {n:'07',t:'Finance and Revenue section scope',tag:'Pending',p:'fire'},
