@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PhoennixAI Alpha Testing Kit</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='1' x2='0' y2='0'><stop offset='0%25' stop-color='%230091A8'/><stop offset='100%25' stop-color='%2300E5FF'/></linearGradient></defs><path d='M16 2C13 8 8 10 8 16c0 5 3.5 8 8 8s8-3 8-8c0-4-2-7-4-9-1 3-3 5-5 5 1-4 1-8 1-10z' fill='url(%23g)'/></svg>">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Bebas+Neue&family=Dancing+Script:wght@600&family=Great+Vibes&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#060A18;--card:#0C1225;--border:rgba(255,255,255,0.08);--text:#E8E8E8;--text2:#9CA3AF;--text3:#6B7280;--blue:#00E5FF;--fire:#FF6B2B;--gold:#FFB830;--green:#22C55E;--red:#EF4444;--mono:'DM Mono',monospace;--body:'DM Sans',sans-serif}
-.light-mode{--bg:#F8FAFC;--card:#FFFFFF;--border:#E2E8F0;--text:#1E293B;--text2:#64748B;--text3:#94A3B8}
-body{transition:background 0.3s,color 0.3s}
+:root{--bg:#F8FAFC;--card:#FFFFFF;--border:#E2E8F0;--text:#1E293B;--text2:#64748B;--text3:#94A3B8;--blue:#0091A8;--fire:#FF6B2B;--gold:#D97706;--green:#16A34A;--red:#DC2626;--mono:'DM Mono',monospace;--body:'DM Sans',sans-serif}
+.dark{--bg:#060A18;--card:#0C1225;--border:rgba(255,255,255,0.08);--text:#E8E8E8;--text2:#9CA3AF;--text3:#6B7280;--blue:#00E5FF;--gold:#FFB830;--green:#22C55E;--red:#EF4444}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
 .wrap{max-width:800px;margin:0 auto;padding:32px 24px 80px}
@@ -48,6 +47,45 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:
 
 .sig-line{border-top:1px solid var(--text2);width:250px;margin:24px 0 4px;padding-top:4px;font-family:var(--mono);font-size:10px;color:var(--text3)}
 
+
+.theme-btn{
+  background:none;border:1px solid var(--border);border-radius:6px;
+  padding:5px 10px;cursor:pointer;color:var(--text2);
+  font-family:var(--mono);font-size:9px;letter-spacing:1px;
+  display:flex;align-items:center;gap:6px;transition:all 0.2s;
+}
+.theme-btn:hover{border-color:var(--blue);color:var(--blue)}
+
+/* SIGNHUB STYLES */
+.sig-hub{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:24px;margin-top:16px}
+.sig-hub-title{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:16px}
+.sig-input{width:100%;padding:11px 14px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;outline:none;margin-bottom:12px;transition:border-color 0.2s}
+.sig-input:focus{border-color:var(--blue)}
+.sig-fonts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.sig-font-opt{padding:10px 16px;border:2px solid var(--border);border-radius:6px;cursor:pointer;transition:all 0.2s;background:var(--bg)}
+.sig-font-opt:hover{border-color:var(--blue)}
+.sig-font-opt.selected{border-color:var(--blue);background:rgba(0,229,255,0.06)}
+.sig-preview{
+  min-height:60px;border:1px dashed var(--border);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:16px;font-size:28px;color:var(--blue);
+  background:var(--bg);padding:12px;
+}
+.sig-confirm-btn{
+  padding:12px 28px;background:var(--blue);border:none;border-radius:6px;
+  font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;
+  color:#fff;cursor:pointer;transition:all 0.2s;
+}
+.sig-confirm-btn:hover{opacity:0.85}
+.sig-confirm-btn:disabled{opacity:0.4;cursor:not-allowed}
+.sig-confirmed{
+  padding:16px 20px;border:1px solid var(--green);border-radius:8px;
+  background:rgba(34,197,94,0.06);display:none;
+}
+.sig-confirmed.show{display:block}
+.sig-confirmed-name{font-size:24px;color:var(--green);margin-bottom:4px}
+.sig-confirmed-meta{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px}
+
 @media print{body{background:#fff;color:#1F2937;font-size:11px}.card{border:1px solid #E5E7EB;background:#F9FAFB}.nav,.conf{display:none}.part{display:block!important}}
 @media(max-width:768px){.wrap{padding:20px 16px 60px}.nav{gap:4px}.nav a{font-size:8px;padding:4px 8px}}
 </style>
@@ -56,15 +94,17 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:
 <div class="wrap">
 
 <div class="header">
+<div style="display:flex;justify-content:flex-end;margin-bottom:8px">
+  <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">
+    <svg id="iconMoon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="#0091A8" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+    <svg id="iconSun" width="12" height="12" viewBox="0 0 16 16" fill="none" style="display:none"><circle cx="8" cy="8" r="3" stroke="#D97706" stroke-width="1.4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="#D97706" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <span id="themeLabel">Dark</span>
+  </button>
+</div>
 <div class="logo">PHOENNIX<span>AI</span></div>
 <div class="doc-title">Alpha Testing Kit</div>
 <div class="doc-ref">PAI-ALPHA-001 | 24 March 2026</div>
 <div class="conf">Confidential | Internal Use Only</div>
-<button id="themeBtn" onclick="toggleTheme()" style="margin-top:14px;padding:7px 18px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text2);font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s">
-  <svg id="tIconMoon" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:5px"><path d="M10.5 8A5 5 0 0 1 4 1.5a5 5 0 1 0 6.5 6.5z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
-  <svg id="tIconSun" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:5px;display:none"><circle cx="6" cy="6" r="2.5" stroke="#FFB830" stroke-width="1.2"/><path d="M6 1v1.5M6 9.5V11M1 6h1.5M9.5 6H11M2.64 2.64l1.06 1.06M8.3 8.3l1.06 1.06M2.64 9.36l1.06-1.06M8.3 3.7l1.06-1.06" stroke="#FFB830" stroke-width="1.2" stroke-linecap="round"/></svg>
-  <span id="tLabel">Light Mode</span>
-</button>
 </div>
 
 <div class="nav" id="nav"></div>
@@ -80,7 +120,7 @@ body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:
 PhoennixAI Agency ("the Company"), represented by Valerie Wilcox, Founder<br><br>
 <strong>AND:</strong><br>
 The undersigned individual ("the Tester")<br><br>
-<strong>DATE:</strong> _____________ 2026
+<strong>DATE:</strong> <span id="ndaTopDate" style="color:var(--blue);font-family:var(--mono);font-size:13px;letter-spacing:0.05em"></span>
 </div>
 </div>
 
@@ -110,8 +150,7 @@ f) Return or destroy all materials related to the testing programme upon complet
 <div class="card-body">The Tester may:<br><br>
 a) Use the product for the purposes of testing and providing feedback<br>
 b) Report bugs, issues, and suggestions through the designated feedback channel<br>
-c) Discuss their general experience with the Founder directly<br><br>
-<strong>Research Notice:</strong> The Tester agrees that anonymised usage patterns within Mission Control (such as feature interactions, scheduling frequency, and task completion rates) may be collected and analysed for product improvement and academic research purposes. No personally identifiable information will be published without explicit consent.</div>
+c) Discuss their general experience with the Founder directly</div>
 </div>
 
 <div class="card">
@@ -125,47 +164,42 @@ c) Discuss their general experience with the Founder directly<br><br>
 </div>
 
 <div class="card">
-<div class="card-label">7. Signatures</div>
-<div class="card-body">
-<strong>For PhoennixAI:</strong><br>
-<div class="sig-line" style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:var(--blue);padding:8px 0;border-top:1px solid var(--border);margin-top:8px">Valerie Wilcox</div>
-<div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px">Founder · PhoennixAI · 24 March 2026</div>
-</div>
+<div class="card-label">7. Research Disclosure</div>
+<div class="card-body">By participating in this programme, you acknowledge that your anonymised usage patterns within Mission Control (tasks added, completions, schedule generations, and session frequency) may be collected and analysed for product improvement and academic research purposes. No personal data or identifying information will be used or published without your explicit consent. Full research disclosure and formal consent will be provided at the Beta stage.</div>
 </div>
 
-<div class="card" id="sigCard">
-<div class="card-label" style="color:var(--gold)">Sign Here — Tester Signature</div>
-<div id="sigPad" style="display:block">
-  <div style="margin-bottom:14px">
-    <label style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:6px">Your Full Name</label>
-    <input id="sigName" type="text" placeholder="Type your full name..." oninput="previewSig()" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;outline:none">
-  </div>
-  <div style="margin-bottom:14px">
-    <label style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:8px">Choose Signature Style</label>
-    <div style="display:flex;gap:8px;flex-wrap:wrap" id="fontPicker">
-      <div class="sfont-opt active" data-font="'Dancing Script',cursive" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--blue);border-radius:6px;cursor:pointer;font-family:'Dancing Script',cursive;font-size:18px;color:var(--blue);background:rgba(0,229,255,0.06)">Signature</div>
-      <div class="sfont-opt" data-font="'Pinyon Script',cursive" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:'Pinyon Script',cursive;font-size:18px;color:var(--text2)">Signature</div>
-      <div class="sfont-opt" data-font="'Great Vibes',cursive" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:'Great Vibes',cursive;font-size:18px;color:var(--text2)">Signature</div>
-      <div class="sfont-opt" data-font="Georgia,serif" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:Georgia,serif;font-style:italic;font-size:16px;color:var(--text2)">Signature</div>
-    </div>
-  </div>
-  <div style="margin-bottom:18px">
-    <label style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:8px">Preview</label>
-    <div id="sigPreview" style="padding:16px 20px;border:1px solid var(--border);border-radius:6px;min-height:56px;display:flex;align-items:center;background:rgba(0,0,0,0.2)">
-      <span id="sigPreviewText" style="font-family:'Dancing Script',cursive;font-size:28px;color:var(--blue)">Your name will appear here</span>
-    </div>
-  </div>
-  <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
-    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px">DATE: <span id="sigDateDisplay"></span></div>
-  </div>
-  <button onclick="confirmSig()" id="sigBtn" style="padding:11px 28px;background:var(--blue);border:none;border-radius:6px;color:#060A18;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:500">Sign and Accept NDA</button>
+<div class="card">
+<div class="card-label">8. Signatures</div>
+<div class="card-body">
+<strong>For PhoennixAI:</strong><br>
+<div class="sig-line">Valerie Wilcox, Founder</div>
+<div class="sig-line">Date: 24 March 2026</div>
+<br>
+<strong>For the Tester — Sign below using SignHub:</strong>
 </div>
-<div id="sigConfirmed" style="display:none;text-align:center;padding:20px 0">
-  <div style="font-size:28px;margin-bottom:10px">✓</div>
-  <div id="sigFinalDisplay" style="font-size:26px;color:var(--blue);margin-bottom:6px"></div>
-  <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:4px">NDA SIGNED AND ACCEPTED</div>
-  <div id="sigFinalDate" style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px"></div>
-  <div style="margin-top:12px;padding:10px 16px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;font-size:12px;color:#22C55E">Your signature has been recorded. You may now access Mission Control.</div>
+
+<div class="sig-hub">
+  <div class="sig-hub-title">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="margin-right:6px;vertical-align:middle"><path d="M2 9L6 1L10 9" stroke="#00E5FF" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.5 6.5h5" stroke="#00E5FF" stroke-width="1.2" stroke-linecap="round"/></svg>
+    SignHub — Electronic Signature
+  </div>
+  <input type="text" class="sig-input" id="sigName" placeholder="Type your full legal name" oninput="updateSigPreview()">
+  <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:10px;text-transform:uppercase">Choose signature style</div>
+  <div class="sig-fonts" id="sigFonts">
+    <div class="sig-font-opt selected" data-font="Dancing Script" onclick="selectFont(this)" style="font-family:'Dancing Script',cursive;font-size:16px">Signature A</div>
+    <div class="sig-font-opt" data-font="Pinyon Script" onclick="selectFont(this)" style="font-family:'Pinyon Script',cursive;font-size:16px">Signature B</div>
+    <div class="sig-font-opt" data-font="Great Vibes" onclick="selectFont(this)" style="font-family:'Great Vibes',cursive;font-size:16px">Signature C</div>
+    <div class="sig-font-opt" data-font="Homemade Apple" onclick="selectFont(this)" style="font-family:'Homemade Apple',cursive;font-size:14px">Signature D</div>
+  </div>
+  <div class="sig-preview" id="sigPreview">Your signature will appear here</div>
+  <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:14px;letter-spacing:1px">DATE: <span id="sigDate"></span></div>
+  <button class="sig-confirm-btn" id="sigConfirmBtn" onclick="confirmSignature()" disabled>Confirm and Sign NDA</button>
+
+  <div class="sig-confirmed" id="sigConfirmed">
+    <div class="sig-confirmed-name" id="sigConfirmedName"></div>
+    <div class="sig-confirmed-meta">NDA SIGNED · <span id="sigConfirmedDate"></span> · PHOENNIXAI ALPHA PROGRAMME · PAI-ALPHA-001</div>
+    <div style="margin-top:10px;font-size:12px;color:var(--text2)">Your signature has been recorded. You now have access to the Alpha Testing Programme. Welcome to the team.</div>
+  </div>
 </div>
 </div>
 </div>
@@ -308,53 +342,138 @@ This product is in alpha. It is not perfect. Features may change. Data may be re
 <!-- FEEDBACK -->
 <div class="part" id="p5">
 <div class="sh">Feedback Form Questions</div>
-<div class="sub">These are the exact questions in your Formspree feedback form. Submit weekly via your personal feedback link.</div>
+<div class="sub">These 5 questions are your weekly feedback form. Submit via your personal feedback link — opens automatically when you accept your invitation.</div>
 
 <div class="q-card">
 <div class="q-num">Question 1</div>
-<div class="q-text">How easy was it to use? (1 = hard, 5 = effortless)</div>
-<div class="q-type">Rating scale 1–5. This measures ease of use (UX score).</div>
+<div class="q-text">What did you use Mission Control for this week?</div>
+<div class="q-type">Open text. Tell us what tasks, events, or planning you did in the app.</div>
 </div>
 
 <div class="q-card">
 <div class="q-num">Question 2</div>
-<div class="q-text">What was the best part of your experience?</div>
+<div class="q-text">What worked well?</div>
 <div class="q-type">Open text. Features, flows, or moments that felt good or useful.</div>
 </div>
 
 <div class="q-card">
 <div class="q-num">Question 3</div>
-<div class="q-text">What felt confusing, broken, or frustrating?</div>
-<div class="q-type">Open text. Be completely honest. Bugs, unclear labels, things that did not work.</div>
+<div class="q-text">What was confusing or broken?</div>
+<div class="q-type">Open text. Bugs, unclear labels, things that did not work as expected.</div>
 </div>
 
 <div class="q-card">
 <div class="q-num">Question 4</div>
-<div class="q-text">What is the one thing missing that would make this indispensable to you?</div>
-<div class="q-type">Open text. The one feature that would make you never want to leave.</div>
+<div class="q-text">What feature do you wish existed?</div>
+<div class="q-type">Open text. What would make this product essential for your daily life?</div>
 </div>
 
 <div class="q-card">
 <div class="q-num">Question 5</div>
-<div class="q-text">How likely are you to recommend PhoennixAI? (1 = never, 10 = absolutely)</div>
-<div class="q-type">This is your Net Promoter Score. 9–10 = love. 7–8 = good. Below 7 = problems to fix.</div>
-</div>
-
-<div class="q-card">
-<div class="q-num">Question 6</div>
-<div class="q-text">Anything else you want Valerie to know?</div>
-<div class="q-type">Open floor. This is your direct line to the Founder. Say whatever you need to say.</div>
+<div class="q-text">How likely are you to recommend Mission Control to a friend?</div>
+<div class="q-type">Scale: 1 (not likely) to 10 (extremely likely). This is the Net Promoter Score. 9-10 means love. 7-8 means good. Below 7 means problems to fix.</div>
 </div>
 
 <div class="callout">
-<div class="card-label" style="color:var(--blue)">How to Submit</div>
-<div class="card-body">Your personal feedback link was sent with your invitation. It opens a dedicated PhoennixAI feedback page. Submit once per week. All responses go directly to Valerie. Your name is pre-filled.</div>
+<div class="card-label" style="color:var(--blue)">How to submit</div>
+<div class="card-body">Your personal feedback form opens automatically when you click "Leave Your Feedback" inside your invitation. You can also access it directly at:<br><br>
+<strong style="color:var(--blue)">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_AlphaFeedback.html?name=YourName</strong><br><br>
+Valerie receives your responses directly by email the moment you submit.</div>
 </div>
 </div>
 
 </div>
 
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Pinyon+Script&family=Great+Vibes&family=Homemade+Apple&display=swap" rel="stylesheet">
 <script>
+// THEME
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('iconMoon').style.display = isDark ? 'none' : 'block';
+  document.getElementById('iconSun').style.display = isDark ? 'block' : 'none';
+  document.getElementById('themeLabel').textContent = isDark ? 'Light' : 'Dark';
+  // update sig font colours in dark
+  document.getElementById('sigPreview').style.color = isDark ? '#00E5FF' : '#0091A8';
+  localStorage.setItem('kit_theme', isDark ? 'dark' : 'light');
+}
+window.addEventListener('DOMContentLoaded',()=>{
+  // Start light, check saved
+  const saved = localStorage.getItem('kit_theme');
+  if(saved === 'dark'){
+    document.body.classList.add('dark');
+    document.getElementById('iconMoon').style.display = 'none';
+    document.getElementById('iconSun').style.display = 'block';
+    document.getElementById('themeLabel').textContent = 'Light';
+  }
+  // Set date
+  const now = new Date();
+  const ds = now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  if(document.getElementById('ndaTopDate')) document.getElementById('ndaTopDate').textContent = ds;
+  if(document.getElementById('sigDate')) document.getElementById('sigDate').textContent = ds;
+  if(document.getElementById('sigConfirmedDate')) document.getElementById('sigConfirmedDate').textContent = ds.toUpperCase();
+});
+
+// SIGNHUB
+let selectedFont = 'Dancing Script';
+function selectFont(el){
+  document.querySelectorAll('.sig-font-opt').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedFont = el.dataset.font;
+  updateSigPreview();
+}
+function updateSigPreview(){
+  const name = document.getElementById('sigName').value.trim();
+  const prev = document.getElementById('sigPreview');
+  const btn = document.getElementById('sigConfirmBtn');
+  if(name){
+    prev.style.fontFamily = "'" + selectedFont + "', cursive";
+    prev.style.fontSize = selectedFont === 'Homemade Apple' ? '22px' : '30px';
+    prev.textContent = name;
+    btn.disabled = false;
+  } else {
+    prev.style.fontFamily = 'inherit';
+    prev.style.fontSize = '14px';
+    prev.textContent = 'Your signature will appear here';
+    btn.disabled = true;
+  }
+}
+function confirmSignature(){
+  const name = document.getElementById('sigName').value.trim();
+  if(!name) return;
+  const now = new Date();
+  const ds = now.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  if(document.getElementById('ndaTopDate')) document.getElementById('ndaTopDate').textContent = ds;
+  document.getElementById('sigConfirmedName').style.fontFamily = "'" + selectedFont + "', cursive";
+  document.getElementById('sigConfirmedName').textContent = name;
+  document.getElementById('sigConfirmedDate').textContent = ds.toUpperCase();
+  document.getElementById('sigConfirmed').classList.add('show');
+  document.getElementById('sigConfirmBtn').style.display = 'none';
+  document.getElementById('sigName').disabled = true;
+  document.querySelectorAll('.sig-font-opt').forEach(x=>x.style.pointerEvents='none');
+  // Save to localStorage
+  localStorage.setItem('nda_signed', JSON.stringify({name, date:ds, font:selectedFont}));
+}
+// Restore signature if already signed
+window.addEventListener('DOMContentLoaded',()=>{
+  const saved = localStorage.getItem('nda_signed');
+  if(saved){
+    try{
+      const s = JSON.parse(saved);
+      document.getElementById('sigName').value = s.name;
+      document.getElementById('sigName').disabled = true;
+      selectedFont = s.font;
+      updateSigPreview();
+      document.getElementById('sigConfirmedName').style.fontFamily = "'" + s.font + "', cursive";
+      document.getElementById('sigConfirmedName').textContent = s.name;
+      document.getElementById('sigConfirmedDate').textContent = s.date.toUpperCase();
+      document.getElementById('sigConfirmed').classList.add('show');
+      document.getElementById('sigConfirmBtn').style.display = 'none';
+      document.querySelectorAll('.sig-font-opt').forEach(x=>x.style.pointerEvents='none');
+    }catch(e){}
+  }
+});
+
 const parts=[
 {id:'p1',label:'NDA'},
 {id:'p2',label:'Onboarding'},
@@ -375,72 +494,6 @@ a.classList.add('active');
 };
 nav.appendChild(a);
 });
-
-// THEME TOGGLE
-function toggleTheme(){
-  document.body.classList.toggle('light-mode');
-  const isLight = document.body.classList.contains('light-mode');
-  document.getElementById('tIconMoon').style.display = isLight ? 'none' : 'inline';
-  document.getElementById('tIconSun').style.display = isLight ? 'inline' : 'none';
-  document.getElementById('tLabel').textContent = isLight ? 'Dark Mode' : 'Light Mode';
-  localStorage.setItem('kit_theme', isLight ? 'light' : 'dark');
-}
-if(localStorage.getItem('kit_theme') === 'light'){
-  document.body.classList.add('light-mode');
-  document.getElementById('tIconMoon').style.display = 'none';
-  document.getElementById('tIconSun').style.display = 'inline';
-  document.getElementById('tLabel').textContent = 'Dark Mode';
-}
-
-// SIGNHUB
-let selectedFont = "'Dancing Script',cursive";
-const today = new Date();
-const dateStr = today.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
-const el = document.getElementById('sigDateDisplay');
-if(el) el.textContent = dateStr;
-
-function previewSig(){
-  const name = document.getElementById('sigName').value || 'Your name will appear here';
-  const prev = document.getElementById('sigPreviewText');
-  if(prev){ prev.textContent = name; prev.style.fontFamily = selectedFont; }
-}
-
-function selectFont(el){
-  document.querySelectorAll('.sfont-opt').forEach(o=>{
-    o.style.borderColor='var(--border)';o.style.color='var(--text2)';o.style.background='transparent';
-  });
-  el.style.borderColor='var(--blue)';el.style.color='var(--blue)';el.style.background='rgba(0,229,255,0.06)';
-  selectedFont = el.dataset.font;
-  previewSig();
-}
-
-function confirmSig(){
-  const name = document.getElementById('sigName').value.trim();
-  if(!name){ alert('Please enter your full name to sign.'); return; }
-  document.getElementById('sigPad').style.display = 'none';
-  const confirmed = document.getElementById('sigConfirmed');
-  confirmed.style.display = 'block';
-  const finalSig = document.getElementById('sigFinalDisplay');
-  finalSig.textContent = name;
-  finalSig.style.fontFamily = selectedFont;
-  document.getElementById('sigFinalDate').textContent = 'Signed: ' + dateStr;
-  localStorage.setItem('kit_signed', JSON.stringify({name, date: dateStr, font: selectedFont}));
-}
-
-// Restore signature if already signed
-const saved = JSON.parse(localStorage.getItem('kit_signed') || 'null');
-if(saved){
-  const pad = document.getElementById('sigPad');
-  const confirmed = document.getElementById('sigConfirmed');
-  if(pad) pad.style.display = 'none';
-  if(confirmed){
-    confirmed.style.display = 'block';
-    const fd = document.getElementById('sigFinalDisplay');
-    if(fd){ fd.textContent = saved.name; fd.style.fontFamily = saved.font; }
-    const fdate = document.getElementById('sigFinalDate');
-    if(fdate) fdate.textContent = 'Signed: ' + saved.date;
-  }
-}
 </script>
 </body>
 </html>
