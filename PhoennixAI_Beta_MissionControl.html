@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PhoennixAI Mission Control</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='1' x2='0' y2='0'><stop offset='0%25' stop-color='%230091A8'/><stop offset='100%25' stop-color='%2300E5FF'/></linearGradient></defs><path d='M16 2C13 8 8 10 8 16c0 5 3.5 8 8 8s8-3 8-8c0-4-2-7-4-9-1 3-3 5-5 5 1-4 1-8 1-10z' fill='url(%23g)'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFFFFF;--card:#F9FAFB;--card2:#F3F4F6;--border:#E5E7EB;--text:#1F2937;--text2:#6B7280;--text3:#9CA3AF;--blue:#0091A8;--blue-light:#00E5FF;--fire:#FF6B2B;--gold:#FFB830;--green:#22C55E;--red:#EF4444;--royal:#215CAE;--rose:#F43F5E;--violet:#A78BFA;--amber:#FB923C;--bronze:#C49A6C;--mono:'DM Mono',monospace;--body:'DM Sans',sans-serif}
+.dark{--bg:#060A18;--card:#0C1225;--card2:#111832;--border:rgba(255,255,255,0.08);--text:#E8E8E8;--text2:#9CA3AF;--text3:#6B7280;--blue:#00E5FF;--blue-light:#00E5FF}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--bg);color:var(--text);transition:background 0.3s,color 0.3s}
+
+/* TOPBAR */
+.topbar{background:var(--card);border-bottom:1px solid var(--border);padding:0 20px;display:flex;align-items:center;height:52px;position:sticky;top:0;z-index:100}
+.tb-logo{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--blue)}
+.tb-logo span{color:var(--text3)}
+.tb-sep{width:1px;height:20px;background:var(--border);margin:0 12px}
+.tb-title{font-family:var(--mono);font-size:10px;letter-spacing:2px;color:var(--text2);text-transform:uppercase}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.tb-status{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:4px 10px;border-radius:4px;background:rgba(34,197,94,0.1);color:var(--green);border:1px solid rgba(34,197,94,0.2)}
+.theme-btn{width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+
+/* TABS */
+.tabs{display:flex;gap:2px;padding:0 20px;background:var(--card);border-bottom:1px solid var(--border)}
+.tab{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:12px 16px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s}
+.tab:hover{color:var(--text)}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+/* CONTENT */
+.content{max-width:1100px;margin:0 auto;padding:24px 20px 100px}
+.section{display:none;animation:fadeIn 0.3s}.section.active{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin-bottom:12px}
+.card-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--blue);text-transform:uppercase;margin-bottom:6px}
+.card-body{color:var(--text2);font-size:13px;line-height:1.8}
+
+/* WELCOME */
+.welcome{text-align:center;padding:40px 0 32px}
+.welcome-title{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;margin-bottom:4px}
+.welcome-sub{color:var(--text2);font-size:14px;max-width:500px;margin:0 auto}
+
+/* STAT STRIP */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:20px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--blue);border-radius:8px;padding:14px;text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--blue)}
+.stat-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-top:2px}
+
+/* TASK LIST */
+.task-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;transition:all 0.2s}
+.task-item:hover{border-color:var(--blue)}
+.task-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all 0.2s}
+.task-item.done .task-check{background:var(--green);border-color:var(--green)}
+.task-item.done .task-title{text-decoration:line-through;color:var(--text3)}
+.task-title{font-size:13px;font-weight:500;flex:1}
+.task-meta{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.task-priority{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+.p-high{color:var(--red);border:1px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.06)}
+.p-med{color:var(--gold);border:1px solid rgba(255,184,48,0.3);background:rgba(255,184,48,0.06)}
+.p-low{color:var(--blue);border:1px solid rgba(0,145,168,0.3);background:rgba(0,145,168,0.06)}
+
+/* ADD TASK */
+.add-form{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.add-input{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:var(--body);font-size:13px;outline:none}
+.add-input:focus{border-color:var(--blue)}
+.add-select{padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:var(--mono);font-size:10px}
+.add-btn{padding:10px 20px;border:none;border-radius:8px;background:var(--blue);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer}
+
+/* SCHEDULER */
+.sched-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin:20px 0}
+.sched-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px}
+.sched-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px}
+.sched-btn{padding:10px 20px;border:none;border-radius:8px;background:var(--blue);color:#fff;font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all 0.2s}
+.sched-btn:hover{opacity:0.9}
+.sched-config{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.sc-field label{font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:4px}
+.sc-field select{padding:8px 12px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:var(--body);font-size:12px}
+.sched-output{min-height:60px}
+.sched-block{padding:12px 16px;border-radius:8px;margin-bottom:6px;border-left:4px solid var(--blue);background:var(--card2)}
+.sched-block .sb-time{font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:1px}
+.sched-block .sb-task{font-size:13px;font-weight:500;margin:4px 0}
+.sched-block .sb-agent{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.sched-block.critical{border-left-color:var(--red)}
+.sched-block.medium{border-left-color:var(--gold)}
+.sched-block.break{border-left-color:var(--green);background:rgba(34,197,94,0.04)}
+
+/* AGENTS */
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:16px 0}
+.agent-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;border-top:3px solid var(--blue)}
+.agent-dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:8px}
+.agent-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;display:inline}
+.agent-role{font-size:12px;color:var(--text2);margin-top:4px}
+
+/* CALENDAR */
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:16px 0}
+.cal-header{font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-align:center;padding:8px;text-transform:uppercase}
+.cal-day{background:var(--card);border:1px solid var(--border);border-radius:6px;padding:8px;min-height:60px;font-size:12px}
+.cal-day.today{border-color:var(--blue);background:rgba(0,145,168,0.04)}
+.cal-num{font-weight:600;font-size:13px;margin-bottom:4px}
+.cal-event{font-family:var(--mono);font-size:8px;padding:2px 6px;border-radius:3px;background:var(--blue);color:#fff;margin-top:2px;display:block;text-overflow:ellipsis;overflow:hidden;white-space:nowrap}
+
+/* EVENT FORM */
+.event-form{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;margin:16px 0}
+.ef-row{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ef-row .add-input{min-width:150px}
+
+/* NOTES */
+.note-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--blue);border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:10px}
+.note-time{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.note-text{font-size:13px;margin-top:4px}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:48px 20px;color:var(--text3)}
+.empty-icon{font-size:48px;margin-bottom:12px;opacity:0.3}
+.empty-text{font-size:14px;margin-bottom:4px}
+.empty-sub{font-size:12px}
+
+/* MOBILE NAV */
+.mobile-nav{display:none;position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:8px 0;z-index:100}
+.mobile-nav-inner{display:flex;justify-content:space-around}
+.mn-item{text-align:center;padding:6px 0;cursor:pointer;color:var(--text3);font-size:9px;font-family:var(--mono);letter-spacing:1px;text-transform:uppercase}
+.mn-item.active{color:var(--blue)}
+.mn-icon{font-size:18px;display:block;margin-bottom:2px}
+
+@media(max-width:768px){
+.tabs{display:none}
+.mobile-nav{display:block}
+.content{padding:20px 16px 80px}
+.welcome-title{font-size:24px}
+.stats{grid-template-columns:repeat(3,1fr)}
+.agent-grid{grid-template-columns:1fr}
+.cal-grid{font-size:10px}
+.cal-day{min-height:40px;padding:4px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+<div class="tb-logo">PHOENNIX<span>AI</span></div>
+<div class="tb-sep"></div>
+<div class="tb-title">Mission Control</div>
+<div class="tb-right">
+<div class="tb-status" id="dbStatus">Connected</div>
+<button class="theme-btn" onclick="toggleTheme()" id="themeBtn" title="Toggle theme">
+  <svg id="iconMoon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M13.5 10.5A6 6 0 0 1 5.5 2.5a6 6 0 1 0 8 8z" stroke="#00E5FF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  </svg>
+  <svg id="iconSun" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none">
+    <circle cx="8" cy="8" r="3" stroke="#FFB830" stroke-width="1.4"/>
+    <path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.05 3.05l1.41 1.41M11.54 11.54l1.41 1.41M3.05 12.95l1.41-1.41M11.54 4.46l1.41-1.41" stroke="#FFB830" stroke-width="1.4" stroke-linecap="round"/>
+  </svg>
+</button>
+</div>
+</div>
+
+<div class="tabs" id="tabBar">
+<div class="tab active" onclick="showTab('today')">Today</div>
+<div class="tab" onclick="showTab('tasks')">Tasks</div>
+<div class="tab" onclick="showTab('schedule')">Schedule</div>
+<div class="tab" onclick="showTab('calendar')">Calendar</div>
+<div class="tab" onclick="showTab('agents')">Your AI Team</div>
+<div class="tab" onclick="showTab('notes')">Notes</div>
+</div>
+
+<div class="content">
+
+<!-- TODAY -->
+<div class="section active" id="sec-today">
+<div class="welcome">
+<div class="welcome-title">Good Morning</div>
+<div class="welcome-sub">Your AI team is ready. Add your tasks, schedule your day, and let PA and ARIA handle the rest.</div>
+</div>
+
+<div class="stats">
+<div class="stat"><div class="stat-num" id="taskCount">0</div><div class="stat-label">Active Tasks</div></div>
+<div class="stat" style="border-top-color:var(--green)"><div class="stat-num" style="color:var(--green)" id="doneCount">0</div><div class="stat-label">Completed</div></div>
+<div class="stat" style="border-top-color:var(--gold)"><div class="stat-num" style="color:var(--gold)" id="eventCount">0</div><div class="stat-label">Events Today</div></div>
+<div class="stat" style="border-top-color:var(--rose)"><div class="stat-num" style="color:var(--rose)" id="noteCount">0</div><div class="stat-label">Notes</div></div>
+</div>
+
+<div class="card">
+<div class="card-label">How Mission Control Works</div>
+<div class="card-body">
+<strong>Tasks:</strong> Add your to-dos. Set priority. Check them off when done.<br>
+<strong>Schedule:</strong> PA analyses your tasks by value and urgency. ARIA builds your day around your energy and calendar. Click "Generate Schedule" and your day is planned.<br>
+<strong>Calendar:</strong> Add meetings, deadlines, and appointments. The scheduler works around your events.<br>
+<strong>Your AI Team:</strong> Meet the agents working for you. Each one has a name, a colour, and a specific job.<br>
+<strong>Notes:</strong> Capture quick thoughts, flags, and reminders.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Quick Add Task</div>
+<div class="add-form">
+<input type="text" class="add-input" id="quickTask" placeholder="What needs doing today?" onkeypress="if(event.key==='Enter')addTask()">
+<select class="add-select" id="quickPriority">
+<option value="high">High</option>
+<option value="medium" selected>Medium</option>
+<option value="low">Low</option>
+</select>
+<button class="add-btn" onclick="addTask()">Add</button>
+</div>
+<div id="todayTasks"></div>
+</div>
+</div>
+
+<!-- TASKS -->
+<div class="section" id="sec-tasks">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+<div>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px">All Tasks</div>
+<div style="color:var(--text2);font-size:13px">Add, prioritise, and complete your work</div>
+</div>
+</div>
+
+<div class="add-form">
+<input type="text" class="add-input" id="taskInput" placeholder="Add a new task..." onkeypress="if(event.key==='Enter')addTask('taskInput')">
+<select class="add-select" id="taskPriority">
+<option value="high">High</option>
+<option value="medium" selected>Medium</option>
+<option value="low">Low</option>
+</select>
+<button class="add-btn" onclick="addTask('taskInput')">Add Task</button>
+</div>
+
+<div id="taskList"></div>
+<div class="empty" id="taskEmpty">
+<div class="empty-icon">&#9776;</div>
+<div class="empty-text">No tasks yet</div>
+<div class="empty-sub">Add your first task above to get started</div>
+</div>
+</div>
+
+<!-- SCHEDULE -->
+<div class="section" id="sec-schedule">
+<div class="sched-wrap">
+<div class="sched-header">
+<div>
+<div class="sched-title">Schedule My Day</div>
+<div style="font-size:12px;color:var(--text2)">PA analyses your tasks. ARIA builds your time blocks.</div>
+</div>
+<button class="sched-btn" onclick="generateSchedule()" id="schedBtn">Generate Schedule</button>
+</div>
+<div class="sched-config">
+<div class="sc-field">
+<label>Start Time</label>
+<select id="schedStart">
+<option value="6">06:00</option>
+<option value="7">07:00</option>
+<option value="8">08:00</option>
+<option value="9" selected>09:00</option>
+<option value="10">10:00</option>
+<option value="11">11:00</option>
+<option value="12">12:00</option>
+</select>
+</div>
+<div class="sc-field">
+<label>End Time</label>
+<select id="schedEnd">
+<option value="17" selected>17:00</option>
+<option value="18">18:00</option>
+<option value="19">19:00</option>
+<option value="20">20:00</option>
+<option value="21">21:00</option>
+<option value="22">22:00</option>
+<option value="23">23:00</option>
+</select>
+</div>
+<div class="sc-field">
+<label>Energy Pattern</label>
+<select id="schedEnergy">
+<option value="start" selected>Peak in morning</option>
+<option value="mid">Peak mid-day</option>
+<option value="night">Peak evening</option>
+</select>
+</div>
+</div>
+<div class="sched-output" id="schedOutput">
+<div class="empty">
+<div class="empty-icon">&#128197;</div>
+<div class="empty-text">Add some tasks first, then generate your schedule</div>
+<div class="empty-sub">PA will sequence them by priority. ARIA will build your time blocks.</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- CALENDAR -->
+<div class="section" id="sec-calendar">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:4px">Calendar</div>
+<div style="color:var(--text2);font-size:13px;margin-bottom:20px">Your events, meetings, and deadlines</div>
+
+<div class="event-form">
+<div class="card-label">Add Event</div>
+<div class="ef-row">
+<input type="text" class="add-input" id="eventTitle" placeholder="Event title">
+<input type="date" class="add-input" id="eventDate" style="min-width:150px">
+<input type="time" class="add-input" id="eventTime" style="min-width:120px">
+</div>
+<div class="ef-row">
+<select class="add-select" id="eventType" style="flex:1;min-width:120px">
+<option value="meeting">Meeting</option>
+<option value="deadline">Deadline</option>
+<option value="task">Task</option>
+<option value="personal">Personal</option>
+</select>
+<select class="add-select" id="eventPriority" style="flex:1;min-width:120px">
+<option value="high">High Priority</option>
+<option value="medium" selected>Medium Priority</option>
+<option value="low">Low Priority</option>
+</select>
+<button class="add-btn" onclick="addEvent()">Save Event</button>
+</div>
+</div>
+
+<div id="calendarGrid"></div>
+<div style="margin-top:20px">
+<div class="card-label">Upcoming Events</div>
+<div id="eventList"></div>
+<div class="empty" id="eventEmpty">
+<div class="empty-icon">&#128198;</div>
+<div class="empty-text">No events yet</div>
+<div class="empty-sub">Add your first event above</div>
+</div>
+</div>
+</div>
+
+<!-- AGENTS -->
+<div class="section" id="sec-agents">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:4px">Your AI Team</div>
+<div style="color:var(--text2);font-size:13px;margin-bottom:20px">These agents work together to run your business. Each has a specific role and expertise.</div>
+
+<div class="agent-grid">
+<div class="agent-card" style="border-top-color:#00E5FF">
+<div><span class="agent-dot" style="background:#00E5FF"></span><div class="agent-name">ARIA</div></div>
+<div class="agent-role">Your second brain. Morning briefings, daily intelligence, decision support. ARIA watches the whole house so you do not have to.</div>
+</div>
+<div class="agent-card" style="border-top-color:#F43F5E">
+<div><span class="agent-dot" style="background:#F43F5E"></span><div class="agent-name">PA</div></div>
+<div class="agent-role">Your productivity partner. Sequences your tasks by value, urgency, and deadline. Builds your daily schedule. Protects your focus time.</div>
+</div>
+<div class="agent-card" style="border-top-color:#215CAE">
+<div><span class="agent-dot" style="background:#215CAE"></span><div class="agent-name">GRID</div></div>
+<div class="agent-role">Your project manager. Tracks delivery across all your projects. Flags blockers. Runs the weekly retrospective. Nothing falls through the cracks.</div>
+</div>
+<div class="agent-card" style="border-top-color:#FFB830">
+<div><span class="agent-dot" style="background:#FFB830"></span><div class="agent-name">LEDGER</div></div>
+<div class="agent-role">Your financial advisor. Monitors cashflow, flags overdue invoices, surfaces revenue insights. Advisory only, never executes transactions.</div>
+</div>
+<div class="agent-card" style="border-top-color:#C49A6C">
+<div><span class="agent-dot" style="background:#C49A6C"></span><div class="agent-name">SCRIBE</div></div>
+<div class="agent-role">Your document keeper. Every document versioned, filed, and findable. Single source of truth. SCRIBE never forgets.</div>
+</div>
+<div class="agent-card" style="border-top-color:#A78BFA">
+<div><span class="agent-dot" style="background:#A78BFA"></span><div class="agent-name">PULSE</div></div>
+<div class="agent-role">Your social media manager. Plans content, generates posts, schedules across platforms, monitors engagement. Consistency on autopilot.</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:20px">
+<div class="card-label">How Agent Teams Work</div>
+<div class="card-body">Each agent has a name, a colour, and a defined role. They are not tools. They are team members. PA plans your day. ARIA briefs you. GRID tracks your projects. LEDGER watches your finances. SCRIBE manages your documents. PULSE handles your social media. You focus on the work only you can do. They handle the rest.</div>
+</div>
+</div>
+
+<!-- NOTES -->
+<div class="section" id="sec-notes">
+<div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:4px">Notes</div>
+<div style="color:var(--text2);font-size:13px;margin-bottom:20px">Quick thoughts, flags, and reminders</div>
+
+<div class="add-form">
+<input type="text" class="add-input" id="noteInput" placeholder="Capture a thought..." onkeypress="if(event.key==='Enter')addNote()">
+<button class="add-btn" onclick="addNote()">Save Note</button>
+</div>
+
+<div id="noteList"></div>
+<div class="empty" id="noteEmpty">
+<div class="empty-icon">&#128221;</div>
+<div class="empty-text">No notes yet</div>
+<div class="empty-sub">Type a thought above and save it</div>
+</div>
+</div>
+
+</div>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+<div class="mobile-nav-inner">
+<div class="mn-item active" onclick="showTab('today')"><span class="mn-icon">&#127968;</span>Today</div>
+<div class="mn-item" onclick="showTab('tasks')"><span class="mn-icon">&#9745;</span>Tasks</div>
+<div class="mn-item" onclick="showTab('schedule')"><span class="mn-icon">&#128197;</span>Plan</div>
+<div class="mn-item" onclick="showTab('calendar')"><span class="mn-icon">&#128198;</span>Events</div>
+<div class="mn-item" onclick="showTab('agents')"><span class="mn-icon">&#129302;</span>Team</div>
+<div class="mn-item" onclick="showTab('notes')"><span class="mn-icon">&#128221;</span>Notes</div>
+</div>
+</div>
+
+<script>
+// DATA
+let tasks = JSON.parse(localStorage.getItem('mc_tasks') || '[]');
+let events = JSON.parse(localStorage.getItem('mc_events') || '[]');
+let notes = JSON.parse(localStorage.getItem('mc_notes') || '[]');
+
+// THEME
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
+  document.getElementById('iconMoon').style.display = isDark ? 'none' : 'block';
+  document.getElementById('iconSun').style.display = isDark ? 'block' : 'none';
+  localStorage.setItem('mc_theme', isDark ? 'dark' : 'light');
+}
+const savedTheme = localStorage.getItem('mc_theme');
+if(savedTheme === 'dark'){
+  document.body.classList.add('dark');
+  document.getElementById('iconMoon').style.display = 'none';
+  document.getElementById('iconSun').style.display = 'block';
+}
+
+// TABS
+function showTab(id){
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.mn-item').forEach(m => m.classList.remove('active'));
+  const sec = document.getElementById('sec-'+id);
+  if(sec) sec.classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => { if(t.textContent.toLowerCase().includes(id === 'agents' ? 'your' : id)) t.classList.add('active'); });
+  document.querySelectorAll('.mn-item').forEach(m => { if(m.textContent.toLowerCase().includes(id === 'schedule' ? 'plan' : id === 'calendar' ? 'events' : id === 'agents' ? 'team' : id)) m.classList.add('active'); });
+}
+
+// TASKS
+function addTask(inputId){
+  const input = document.getElementById(inputId || 'quickTask');
+  const prioEl = document.getElementById(inputId === 'taskInput' ? 'taskPriority' : 'quickPriority');
+  const text = input.value.trim();
+  if(!text) return;
+  tasks.push({ id: Date.now(), text, priority: prioEl.value, done: false, created: new Date().toISOString() });
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+function toggleTask(id){
+  const t = tasks.find(x => x.id === id);
+  if(t) t.done = !t.done;
+  saveTasks();
+  renderTasks();
+}
+
+function deleteTask(id){
+  tasks = tasks.filter(x => x.id !== id);
+  saveTasks();
+  renderTasks();
+}
+
+function saveTasks(){ localStorage.setItem('mc_tasks', JSON.stringify(tasks)); }
+
+function renderTasks(){
+  const today = document.getElementById('todayTasks');
+  const list = document.getElementById('taskList');
+  const empty = document.getElementById('taskEmpty');
+  const active = tasks.filter(t => !t.done);
+  const done = tasks.filter(t => t.done);
+
+  const renderItem = (t) => `
+    <div class="task-item ${t.done?'done':''}" onclick="toggleTask(${t.id})">
+      <div class="task-check"></div>
+      <div class="task-title">${t.text}</div>
+      <span class="task-priority p-${t.priority}">${t.priority}</span>
+      <span style="font-size:16px;cursor:pointer;color:var(--text3)" onclick="event.stopPropagation();deleteTask(${t.id})">&#10005;</span>
+    </div>`;
+
+  if(today) today.innerHTML = tasks.slice(0,5).map(renderItem).join('');
+  if(list) list.innerHTML = [...active, ...done].map(renderItem).join('');
+  if(empty) empty.style.display = tasks.length ? 'none' : 'block';
+
+  document.getElementById('taskCount').textContent = active.length;
+  document.getElementById('doneCount').textContent = done.length;
+}
+
+// EVENTS
+function addEvent(){
+  const title = document.getElementById('eventTitle').value.trim();
+  const date = document.getElementById('eventDate').value;
+  const time = document.getElementById('eventTime').value;
+  const type = document.getElementById('eventType').value;
+  if(!title || !date) return;
+  events.push({ id: Date.now(), title, date, time, type });
+  document.getElementById('eventTitle').value = '';
+  saveEvents();
+  renderEvents();
+  renderCalendar();
+}
+
+function saveEvents(){ localStorage.setItem('mc_events', JSON.stringify(events)); }
+
+function renderEvents(){
+  const list = document.getElementById('eventList');
+  const empty = document.getElementById('eventEmpty');
+  const sorted = [...events].sort((a,b) => a.date.localeCompare(b.date));
+  list.innerHTML = sorted.map(e => `
+    <div class="note-card">
+      <div class="note-time">${new Date(e.date).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})} ${e.time||''} | ${e.type}</div>
+      <div class="note-text">${e.title}</div>
+    </div>`).join('');
+  empty.style.display = events.length ? 'none' : 'block';
+  document.getElementById('eventCount').textContent = events.filter(e => e.date === new Date().toISOString().split('T')[0]).length;
+}
+
+function renderCalendar(){
+  const grid = document.getElementById('calendarGrid');
+  if(!grid) return;
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const today = now.getDate();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month+1, 0).getDate();
+  const monthName = now.toLocaleDateString('en-GB',{month:'long',year:'numeric'});
+
+  let html = `<div style="font-weight:600;font-size:14px;margin-bottom:8px;grid-column:span 7;text-align:center">${monthName}</div>`;
+  ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => html += `<div class="cal-header">${d}</div>`);
+  for(let i=0;i<firstDay;i++) html += '<div></div>';
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday = d === today;
+    const dayEvents = events.filter(e => e.date === dateStr);
+    html += `<div class="cal-day ${isToday?'today':''}"><div class="cal-num">${d}</div>`;
+    dayEvents.forEach(e => html += `<div class="cal-event">${e.title}</div>`);
+    html += '</div>';
+  }
+  grid.innerHTML = html;
+}
+
+// NOTES
+function addNote(){
+  const input = document.getElementById('noteInput');
+  const text = input.value.trim();
+  if(!text) return;
+  notes.push({ id: Date.now(), text, time: new Date().toISOString() });
+  input.value = '';
+  saveNotes();
+  renderNotes();
+}
+
+function saveNotes(){ localStorage.setItem('mc_notes', JSON.stringify(notes)); }
+
+function renderNotes(){
+  const list = document.getElementById('noteList');
+  const empty = document.getElementById('noteEmpty');
+  list.innerHTML = notes.map(n => `
+    <div class="note-card">
+      <div class="note-time">${new Date(n.time).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+      <div class="note-text">${n.text}</div>
+    </div>`).reverse().join('');
+  empty.style.display = notes.length ? 'none' : 'block';
+  document.getElementById('noteCount').textContent = notes.length;
+}
+
+// SCHEDULER
+async function generateSchedule(){
+  const btn = document.getElementById('schedBtn');
+  const output = document.getElementById('schedOutput');
+  const activeTasks = tasks.filter(t => !t.done);
+  if(activeTasks.length === 0){
+    output.innerHTML = '<div class="empty"><div class="empty-text">Add some tasks first</div><div class="empty-sub">PA needs tasks to build your schedule</div></div>';
+    return;
+  }
+  btn.textContent = 'PA is analysing...';
+  btn.disabled = true;
+  await new Promise(r => setTimeout(r, 800));
+  btn.textContent = 'ARIA is scheduling...';
+  await new Promise(r => setTimeout(r, 800));
+
+  const startH = parseInt(document.getElementById('schedStart').value);
+  const endH = parseInt(document.getElementById('schedEnd').value);
+  const energy = document.getElementById('schedEnergy').value;
+
+  // Sort tasks by priority
+  const priorityOrder = {high:0, medium:1, low:2};
+  const sorted = [...activeTasks].sort((a,b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
+  if(energy === 'night') sorted.reverse();
+
+  const totalHours = endH > startH ? endH - startH : (24 - startH) + endH;
+  const slotMinutes = Math.floor((totalHours * 60) / (sorted.length + Math.floor(sorted.length / 3)));
+
+  let html = '';
+  let currentH = startH;
+  let currentM = 0;
+  let tasksDone = 0;
+
+  // Morning briefing
+  html += `<div class="sched-block" style="border-left-color:var(--blue)">
+    <div class="sb-time">${String(currentH%24).padStart(2,'0')}:${String(currentM).padStart(2,'0')}</div>
+    <div class="sb-task">ARIA Morning Briefing</div>
+    <div class="sb-agent">ARIA reviews your day. ${sorted.length} tasks, ${events.filter(e=>e.date===new Date().toISOString().split('T')[0]).length} events.</div>
+  </div>`;
+  currentM += 15;
+  if(currentM >= 60){ currentH++; currentM -= 60; }
+
+  sorted.forEach((t, i) => {
+    const blockClass = t.priority === 'high' ? 'critical' : t.priority === 'medium' ? 'medium' : '';
+    const agents = t.priority === 'high' ? 'PA: Strategic priority. Do this first.' : t.priority === 'medium' ? 'PA: Important but not urgent.' : 'PA: Low priority. Fit around higher items.';
+    html += `<div class="sched-block ${blockClass}">
+      <div class="sb-time">${String(currentH%24).padStart(2,'0')}:${String(currentM).padStart(2,'0')}</div>
+      <div class="sb-task">${t.text}</div>
+      <div class="sb-agent">${agents}</div>
+    </div>`;
+    currentM += slotMinutes;
+    while(currentM >= 60){ currentH++; currentM -= 60; }
+    tasksDone++;
+    if(tasksDone % 3 === 0 && i < sorted.length - 1){
+      html += `<div class="sched-block break">
+        <div class="sb-time">${String(currentH%24).padStart(2,'0')}:${String(currentM).padStart(2,'0')}</div>
+        <div class="sb-task">Break</div>
+        <div class="sb-agent">ARIA: Step away. Recharge. You will work better after a pause.</div>
+      </div>`;
+      currentM += 15;
+      if(currentM >= 60){ currentH++; currentM -= 60; }
+    }
+  });
+
+  // End of day
+  html += `<div class="sched-block" style="border-left-color:var(--green)">
+    <div class="sb-time">${String(Math.min(currentH%24+1,endH%24)).padStart(2,'0')}:00</div>
+    <div class="sb-task">End of Day Review</div>
+    <div class="sb-agent">GRID: Review what was completed. Flag what carries to tomorrow.</div>
+  </div>`;
+
+  output.innerHTML = html;
+  btn.textContent = 'Regenerate';
+  btn.disabled = false;
+}
+
+// INIT
+renderTasks();
+renderEvents();
+renderCalendar();
+renderNotes();
+
+// Set today's date as default for event form
+const todayStr = new Date().toISOString().split('T')[0];
+const dateInput = document.getElementById('eventDate');
+if(dateInput) dateInput.value = todayStr;
+</script>
+</body>
+</html>
