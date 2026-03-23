@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PhoennixAI Alpha Testing Kit</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><defs><linearGradient id='g' x1='0' y1='1' x2='0' y2='0'><stop offset='0%25' stop-color='%230091A8'/><stop offset='100%25' stop-color='%2300E5FF'/></linearGradient></defs><path d='M16 2C13 8 8 10 8 16c0 5 3.5 8 8 8s8-3 8-8c0-4-2-7-4-9-1 3-3 5-5 5 1-4 1-8 1-10z' fill='url(%23g)'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Bebas+Neue&family=Dancing+Script:wght@600&family=Great+Vibes&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060A18;--card:#0C1225;--border:rgba(255,255,255,0.08);--text:#E8E8E8;--text2:#9CA3AF;--text3:#6B7280;--blue:#00E5FF;--fire:#FF6B2B;--gold:#FFB830;--green:#22C55E;--red:#EF4444;--mono:'DM Mono',monospace;--body:'DM Sans',sans-serif}
+.light-mode{--bg:#F8FAFC;--card:#FFFFFF;--border:#E2E8F0;--text:#1E293B;--text2:#64748B;--text3:#94A3B8}
+body{transition:background 0.3s,color 0.3s}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+.wrap{max-width:800px;margin:0 auto;padding:32px 24px 80px}
+.header{text-align:center;padding:32px 0 24px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:4px;color:var(--blue)}
+.logo span{color:var(--text3)}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin:8px 0}
+.doc-ref{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:2px}
+.conf{font-family:var(--mono);font-size:8px;color:var(--red);letter-spacing:3px;margin-top:8px;text-transform:uppercase}
+
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:24px;position:sticky;top:0;z-index:100;background:var(--bg);padding:10px 0;border-bottom:1px solid var(--border)}
+.nav a{font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border:1px solid var(--border);border-radius:4px;color:var(--text2);cursor:pointer;transition:all 0.2s;text-decoration:none}
+.nav a:hover,.nav a.active{color:var(--blue);border-color:var(--blue);background:rgba(0,229,255,0.06)}
+
+.part{display:none}.part.active{display:block;animation:fadeIn 0.3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.sh{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;margin-bottom:6px}
+.sub{color:var(--text2);font-size:13px;margin-bottom:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:12px}
+.card-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--blue);text-transform:uppercase;margin-bottom:6px}
+.card-body{color:var(--text2);font-size:13px;line-height:1.8}
+.card-body strong{color:var(--text)}
+.callout{border-left:3px solid var(--blue);background:rgba(0,229,255,0.04);padding:16px 20px;border-radius:0 8px 8px 0;margin:16px 0}
+.callout.warn{border-color:var(--red);background:rgba(239,68,68,0.04)}
+
+.check-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.check-box{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:2px;cursor:pointer}
+.check-box.checked{background:var(--green);border-color:var(--green)}
+.check-text{font-size:13px;color:var(--text2)}
+.check-text strong{color:var(--text)}
+
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px 20px;margin-bottom:10px}
+.q-num{font-family:var(--mono);font-size:10px;color:var(--blue);letter-spacing:1px;margin-bottom:4px}
+.q-text{font-size:14px;font-weight:500;margin-bottom:4px}
+.q-type{font-family:var(--mono);font-size:9px;color:var(--text3)}
+
+.sig-line{border-top:1px solid var(--text2);width:250px;margin:24px 0 4px;padding-top:4px;font-family:var(--mono);font-size:10px;color:var(--text3)}
+
+@media print{body{background:#fff;color:#1F2937;font-size:11px}.card{border:1px solid #E5E7EB;background:#F9FAFB}.nav,.conf{display:none}.part{display:block!important}}
+@media(max-width:768px){.wrap{padding:20px 16px 60px}.nav{gap:4px}.nav a{font-size:8px;padding:4px 8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+<div class="logo">PHOENNIX<span>AI</span></div>
+<div class="doc-title">Alpha Testing Kit</div>
+<div class="doc-ref">PAI-ALPHA-001 | 24 March 2026</div>
+<div class="conf">Confidential | Internal Use Only</div>
+<button id="themeBtn" onclick="toggleTheme()" style="margin-top:14px;padding:7px 18px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text2);font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.2s">
+  <svg id="tIconMoon" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:5px"><path d="M10.5 8A5 5 0 0 1 4 1.5a5 5 0 1 0 6.5 6.5z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+  <svg id="tIconSun" width="12" height="12" viewBox="0 0 12 12" fill="none" style="vertical-align:middle;margin-right:5px;display:none"><circle cx="6" cy="6" r="2.5" stroke="#FFB830" stroke-width="1.2"/><path d="M6 1v1.5M6 9.5V11M1 6h1.5M9.5 6H11M2.64 2.64l1.06 1.06M8.3 8.3l1.06 1.06M2.64 9.36l1.06-1.06M8.3 3.7l1.06-1.06" stroke="#FFB830" stroke-width="1.2" stroke-linecap="round"/></svg>
+  <span id="tLabel">Light Mode</span>
+</button>
+</div>
+
+<div class="nav" id="nav"></div>
+
+<!-- NDA -->
+<div class="part active" id="p1">
+<div class="sh">Non-Disclosure Agreement</div>
+<div class="sub">Must be agreed to before access is granted.</div>
+
+<div class="card">
+<div class="card-body">
+<strong>BETWEEN:</strong><br>
+PhoennixAI Agency ("the Company"), represented by Valerie Wilcox, Founder<br><br>
+<strong>AND:</strong><br>
+The undersigned individual ("the Tester")<br><br>
+<strong>DATE:</strong> _____________ 2026
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">1. Confidential Information</div>
+<div class="card-body">The Tester acknowledges that during the Alpha Testing Programme they will have access to confidential information belonging to PhoennixAI. This includes but is not limited to: the product design, user interface, features, functionality, agent names, agent architecture, colour systems, scheduling algorithms, and any other proprietary information encountered during testing.</div>
+</div>
+
+<div class="card">
+<div class="card-label">2. Obligations</div>
+<div class="card-body">The Tester agrees to:<br><br>
+a) Keep all information about the product strictly confidential<br>
+b) Not share screenshots, screen recordings, or descriptions of the product with any third party<br>
+c) Not share the product URL with anyone outside the testing programme<br>
+d) Not reproduce, copy, or create derivative works based on any part of the product<br>
+e) Not discuss features, agent names, or product concepts publicly (including social media)<br>
+f) Return or destroy all materials related to the testing programme upon completion or termination</div>
+</div>
+
+<div class="card">
+<div class="card-label">3. Duration</div>
+<div class="card-body">This agreement remains in effect for a period of 2 years from the date of signing. The confidentiality obligations survive the end of the testing programme.</div>
+</div>
+
+<div class="card">
+<div class="card-label">4. Permitted Use</div>
+<div class="card-body">The Tester may:<br><br>
+a) Use the product for the purposes of testing and providing feedback<br>
+b) Report bugs, issues, and suggestions through the designated feedback channel<br>
+c) Discuss their general experience with the Founder directly<br><br>
+<strong>Research Notice:</strong> The Tester agrees that anonymised usage patterns within Mission Control (such as feature interactions, scheduling frequency, and task completion rates) may be collected and analysed for product improvement and academic research purposes. No personally identifiable information will be published without explicit consent.</div>
+</div>
+
+<div class="card">
+<div class="card-label">5. Intellectual Property</div>
+<div class="card-body">All intellectual property within the product, including but not limited to agent names, the Agent as a Hire model, the Compatible AI philosophy, the Agent Colour Identity System, and all software code, remains the sole property of Valerie Wilcox and PhoennixAI. Testing does not grant any ownership, license, or rights to the Tester.</div>
+</div>
+
+<div class="card">
+<div class="card-label">6. Breach</div>
+<div class="card-body">Any breach of this agreement may result in immediate termination of access to the testing programme and may expose the Tester to legal liability for damages arising from the breach.</div>
+</div>
+
+<div class="card">
+<div class="card-label">7. Signatures</div>
+<div class="card-body">
+<strong>For PhoennixAI:</strong><br>
+<div class="sig-line" style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:22px;color:var(--blue);padding:8px 0;border-top:1px solid var(--border);margin-top:8px">Valerie Wilcox</div>
+<div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px">Founder · PhoennixAI · 24 March 2026</div>
+</div>
+</div>
+
+<div class="card" id="sigCard">
+<div class="card-label" style="color:var(--gold)">Sign Here — Tester Signature</div>
+<div id="sigPad" style="display:block">
+  <div style="margin-bottom:14px">
+    <label style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:6px">Your Full Name</label>
+    <input id="sigName" type="text" placeholder="Type your full name..." oninput="previewSig()" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;outline:none">
+  </div>
+  <div style="margin-bottom:14px">
+    <label style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:8px">Choose Signature Style</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" id="fontPicker">
+      <div class="sfont-opt active" data-font="'Dancing Script',cursive" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--blue);border-radius:6px;cursor:pointer;font-family:'Dancing Script',cursive;font-size:18px;color:var(--blue);background:rgba(0,229,255,0.06)">Signature</div>
+      <div class="sfont-opt" data-font="'Pinyon Script',cursive" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:'Pinyon Script',cursive;font-size:18px;color:var(--text2)">Signature</div>
+      <div class="sfont-opt" data-font="'Great Vibes',cursive" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:'Great Vibes',cursive;font-size:18px;color:var(--text2)">Signature</div>
+      <div class="sfont-opt" data-font="Georgia,serif" onclick="selectFont(this)" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:Georgia,serif;font-style:italic;font-size:16px;color:var(--text2)">Signature</div>
+    </div>
+  </div>
+  <div style="margin-bottom:18px">
+    <label style="font-family:var(--mono);font-size:9px;letter-spacing:1px;color:var(--text3);text-transform:uppercase;display:block;margin-bottom:8px">Preview</label>
+    <div id="sigPreview" style="padding:16px 20px;border:1px solid var(--border);border-radius:6px;min-height:56px;display:flex;align-items:center;background:rgba(0,0,0,0.2)">
+      <span id="sigPreviewText" style="font-family:'Dancing Script',cursive;font-size:28px;color:var(--blue)">Your name will appear here</span>
+    </div>
+  </div>
+  <div style="display:flex;gap:10px;align-items:center;margin-bottom:12px">
+    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px">DATE: <span id="sigDateDisplay"></span></div>
+  </div>
+  <button onclick="confirmSig()" id="sigBtn" style="padding:11px 28px;background:var(--blue);border:none;border-radius:6px;color:#060A18;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-weight:500">Sign and Accept NDA</button>
+</div>
+<div id="sigConfirmed" style="display:none;text-align:center;padding:20px 0">
+  <div style="font-size:28px;margin-bottom:10px">✓</div>
+  <div id="sigFinalDisplay" style="font-size:26px;color:var(--blue);margin-bottom:6px"></div>
+  <div style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px;margin-bottom:4px">NDA SIGNED AND ACCEPTED</div>
+  <div id="sigFinalDate" style="font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1px"></div>
+  <div style="margin-top:12px;padding:10px 16px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:6px;font-size:12px;color:#22C55E">Your signature has been recorded. You may now access Mission Control.</div>
+</div>
+</div>
+</div>
+
+<!-- ONBOARDING -->
+<div class="part" id="p2">
+<div class="sh">Alpha Tester Onboarding Pack</div>
+<div class="sub">Everything you need to get started.</div>
+
+<div class="card">
+<div class="card-label">Welcome</div>
+<div class="card-body">You have been selected as one of 4 people to alpha test PhoennixAI Mission Control before it opens to the public. Your feedback will directly shape the product. Thank you for being part of this.</div>
+</div>
+
+<div class="card">
+<div class="card-label">What is Mission Control?</div>
+<div class="card-body">Mission Control is an AI-powered command centre for your business or daily life. It has AI agents that help you plan your day, manage tasks, track events, and stay organised. Think of it as your personal operations hub with a team of AI colleagues working alongside you.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Your AI Team</div>
+<div class="card-body">
+<strong style="color:#00E5FF">ARIA</strong> is your second brain. She watches everything and keeps you informed.<br>
+<strong style="color:#F43F5E">PA</strong> is your productivity partner. She plans your day by priority and urgency.<br>
+<strong style="color:#215CAE">GRID</strong> is your project manager. He tracks delivery and flags blockers.<br>
+<strong style="color:#FFB830">LEDGER</strong> is your financial advisor. He monitors your money (advisory only).<br>
+<strong style="color:#C49A6C">SCRIBE</strong> is your document keeper. She files and versions everything.<br>
+<strong style="color:#A78BFA">PULSE</strong> is your social media manager. She handles content and scheduling.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">How to Access</div>
+<div class="card-body">
+<strong>URL:</strong> You will receive your personal link on 24 March 2026.<br>
+<strong>Device:</strong> Works on any device with a web browser. Desktop, laptop, phone, tablet.<br>
+<strong>Best experience:</strong> Chrome on desktop or Chrome on Android (Samsung).<br>
+<strong>Save to home screen:</strong> On your phone, open the URL in Chrome, tap the three dots menu, tap "Add to Home Screen." It becomes an app icon.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Programme Details</div>
+<div class="card-body">
+<strong>Duration:</strong> 14 days (24 March to 6 April 2026)<br>
+<strong>Testers:</strong> 4 people total<br>
+<strong>Your job:</strong> Use the product in your daily life and tell us what works, what breaks, and what you wish it did<br>
+<strong>Feedback:</strong> Submit via the Google Form link (provided separately)<br>
+<strong>Support:</strong> Message Valerie directly with any questions or issues
+</div>
+</div>
+
+<div class="callout">
+<div class="card-label" style="color:var(--blue)">Important Reminders</div>
+<div class="card-body">
+This product is in alpha. It is not perfect. Features may change. Data may be reset. Your honest feedback is more valuable than politeness. Tell us what is broken. Tell us what is confusing. Tell us what is brilliant. All of it helps.
+</div>
+</div>
+</div>
+
+<!-- TESTING CHECKLIST -->
+<div class="part" id="p3">
+<div class="sh">Testing Checklist</div>
+<div class="sub">Follow this checklist over your 14-day testing period. Click to check off completed items.</div>
+
+<div class="card">
+<div class="card-label">Day 1: Setup and First Impressions</div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Open the app</strong> on your laptop and phone. Does it load?</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Add 5 tasks</strong> with different priorities (high, medium, low)</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Add 3 calendar events</strong> (a meeting, a deadline, a personal event)</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Generate a daily schedule</strong> using the Schedule tab</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Switch between light and dark mode</strong> (moon icon, top right)</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Save a note</strong> in the Notes tab</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Visit the Your AI Team tab</strong> and read about each agent</div></div>
+</div>
+
+<div class="card">
+<div class="card-label">Days 2 to 7: Daily Use</div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Use Mission Control as your daily planner</strong> every morning</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Add real tasks</strong> every day (homework, meetings, errands, work items)</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Generate a new schedule</strong> each morning</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Mark tasks as done</strong> when you complete them</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Add real calendar events</strong> as they come up</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Use Notes</strong> to capture quick thoughts during the day</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Try it on a different device</strong> (phone if you started on laptop, or vice versa)</div></div>
+</div>
+
+<div class="card">
+<div class="card-label">Days 8 to 14: Stress Test and Final Feedback</div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Add 20+ tasks</strong> at once. Does the schedule still work?</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Add events past midnight.</strong> Does the calendar handle it?</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Clear your browser data.</strong> What happens to your tasks?</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Try on slow wifi.</strong> Does it still work?</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Submit your final feedback</strong> via the Google Form</div></div>
+<div class="check-item" onclick="this.querySelector('.check-box').classList.toggle('checked')"><div class="check-box"></div><div class="check-text"><strong>Tell Valerie your honest verdict:</strong> Would you use this daily? Would you pay for it?</div></div>
+</div>
+</div>
+
+<!-- TERMS -->
+<div class="part" id="p4">
+<div class="sh">Terms of Service: Alpha Testing</div>
+<div class="sub">By using PhoennixAI Mission Control during the alpha testing period, you agree to the following terms.</div>
+
+<div class="card">
+<div class="card-label">1. Beta Status</div>
+<div class="card-body">PhoennixAI Mission Control is in alpha testing (Phase 0). The product is functional but not finished. Features may change, be added, or be removed without notice. Data may be reset during the testing period.</div>
+</div>
+
+<div class="card">
+<div class="card-label">2. Data Storage</div>
+<div class="card-body">Your data (tasks, events, notes, schedules) is stored in your browser's local storage. This means your data stays on your device. PhoennixAI does not currently collect, store, or process your personal data on any server. In future versions, cross-device sync will use encrypted database storage.</div>
+</div>
+
+<div class="card">
+<div class="card-label">3. No Warranty</div>
+<div class="card-body">The product is provided "as is" without warranty of any kind. PhoennixAI is not liable for any loss of data, productivity, or business arising from use of the product during the alpha testing period.</div>
+</div>
+
+<div class="card">
+<div class="card-label">4. Feedback and IP</div>
+<div class="card-body">By submitting feedback, you grant PhoennixAI permission to use your anonymised feedback in product development. Your name will not be publicly associated with any feedback without your explicit consent. All product features, agent names, and concepts remain the intellectual property of PhoennixAI.</div>
+</div>
+
+<div class="card">
+<div class="card-label">5. Confidentiality</div>
+<div class="card-body">The alpha testing programme is confidential. You agree not to share screenshots, URLs, feature descriptions, or agent details with anyone outside the programme. This obligation is governed by the NDA signed before access was granted.</div>
+</div>
+
+<div class="card">
+<div class="card-label">6. Termination</div>
+<div class="card-body">PhoennixAI may terminate your access to the alpha programme at any time. You may withdraw from the programme at any time by notifying Valerie Wilcox directly.</div>
+</div>
+
+<div class="card">
+<div class="card-label">7. Governing Law</div>
+<div class="card-body">This agreement is governed by the laws of England and Wales.</div>
+</div>
+</div>
+
+<!-- FEEDBACK -->
+<div class="part" id="p5">
+<div class="sh">Feedback Form Questions</div>
+<div class="sub">These are the exact questions in your Formspree feedback form. Submit weekly via your personal feedback link.</div>
+
+<div class="q-card">
+<div class="q-num">Question 1</div>
+<div class="q-text">How easy was it to use? (1 = hard, 5 = effortless)</div>
+<div class="q-type">Rating scale 1–5. This measures ease of use (UX score).</div>
+</div>
+
+<div class="q-card">
+<div class="q-num">Question 2</div>
+<div class="q-text">What was the best part of your experience?</div>
+<div class="q-type">Open text. Features, flows, or moments that felt good or useful.</div>
+</div>
+
+<div class="q-card">
+<div class="q-num">Question 3</div>
+<div class="q-text">What felt confusing, broken, or frustrating?</div>
+<div class="q-type">Open text. Be completely honest. Bugs, unclear labels, things that did not work.</div>
+</div>
+
+<div class="q-card">
+<div class="q-num">Question 4</div>
+<div class="q-text">What is the one thing missing that would make this indispensable to you?</div>
+<div class="q-type">Open text. The one feature that would make you never want to leave.</div>
+</div>
+
+<div class="q-card">
+<div class="q-num">Question 5</div>
+<div class="q-text">How likely are you to recommend PhoennixAI? (1 = never, 10 = absolutely)</div>
+<div class="q-type">This is your Net Promoter Score. 9–10 = love. 7–8 = good. Below 7 = problems to fix.</div>
+</div>
+
+<div class="q-card">
+<div class="q-num">Question 6</div>
+<div class="q-text">Anything else you want Valerie to know?</div>
+<div class="q-type">Open floor. This is your direct line to the Founder. Say whatever you need to say.</div>
+</div>
+
+<div class="callout">
+<div class="card-label" style="color:var(--blue)">How to Submit</div>
+<div class="card-body">Your personal feedback link was sent with your invitation. It opens a dedicated PhoennixAI feedback page. Submit once per week. All responses go directly to Valerie. Your name is pre-filled.</div>
+</div>
+</div>
+
+</div>
+
+<script>
+const parts=[
+{id:'p1',label:'NDA'},
+{id:'p2',label:'Onboarding'},
+{id:'p3',label:'Checklist'},
+{id:'p4',label:'Terms'},
+{id:'p5',label:'Feedback'}
+];
+const nav=document.getElementById('nav');
+parts.forEach((p,i)=>{
+const a=document.createElement('a');
+a.textContent=p.label;
+a.className=i===0?'active':'';
+a.onclick=()=>{
+document.querySelectorAll('.part').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.nav a').forEach(t=>t.classList.remove('active'));
+document.getElementById(p.id).classList.add('active');
+a.classList.add('active');
+};
+nav.appendChild(a);
+});
+
+// THEME TOGGLE
+function toggleTheme(){
+  document.body.classList.toggle('light-mode');
+  const isLight = document.body.classList.contains('light-mode');
+  document.getElementById('tIconMoon').style.display = isLight ? 'none' : 'inline';
+  document.getElementById('tIconSun').style.display = isLight ? 'inline' : 'none';
+  document.getElementById('tLabel').textContent = isLight ? 'Dark Mode' : 'Light Mode';
+  localStorage.setItem('kit_theme', isLight ? 'light' : 'dark');
+}
+if(localStorage.getItem('kit_theme') === 'light'){
+  document.body.classList.add('light-mode');
+  document.getElementById('tIconMoon').style.display = 'none';
+  document.getElementById('tIconSun').style.display = 'inline';
+  document.getElementById('tLabel').textContent = 'Dark Mode';
+}
+
+// SIGNHUB
+let selectedFont = "'Dancing Script',cursive";
+const today = new Date();
+const dateStr = today.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+const el = document.getElementById('sigDateDisplay');
+if(el) el.textContent = dateStr;
+
+function previewSig(){
+  const name = document.getElementById('sigName').value || 'Your name will appear here';
+  const prev = document.getElementById('sigPreviewText');
+  if(prev){ prev.textContent = name; prev.style.fontFamily = selectedFont; }
+}
+
+function selectFont(el){
+  document.querySelectorAll('.sfont-opt').forEach(o=>{
+    o.style.borderColor='var(--border)';o.style.color='var(--text2)';o.style.background='transparent';
+  });
+  el.style.borderColor='var(--blue)';el.style.color='var(--blue)';el.style.background='rgba(0,229,255,0.06)';
+  selectedFont = el.dataset.font;
+  previewSig();
+}
+
+function confirmSig(){
+  const name = document.getElementById('sigName').value.trim();
+  if(!name){ alert('Please enter your full name to sign.'); return; }
+  document.getElementById('sigPad').style.display = 'none';
+  const confirmed = document.getElementById('sigConfirmed');
+  confirmed.style.display = 'block';
+  const finalSig = document.getElementById('sigFinalDisplay');
+  finalSig.textContent = name;
+  finalSig.style.fontFamily = selectedFont;
+  document.getElementById('sigFinalDate').textContent = 'Signed: ' + dateStr;
+  localStorage.setItem('kit_signed', JSON.stringify({name, date: dateStr, font: selectedFont}));
+}
+
+// Restore signature if already signed
+const saved = JSON.parse(localStorage.getItem('kit_signed') || 'null');
+if(saved){
+  const pad = document.getElementById('sigPad');
+  const confirmed = document.getElementById('sigConfirmed');
+  if(pad) pad.style.display = 'none';
+  if(confirmed){
+    confirmed.style.display = 'block';
+    const fd = document.getElementById('sigFinalDisplay');
+    if(fd){ fd.textContent = saved.name; fd.style.fontFamily = saved.font; }
+    const fdate = document.getElementById('sigFinalDate');
+    if(fdate) fdate.textContent = 'Signed: ' + saved.date;
+  }
+}
+</script>
+</body>
+</html>

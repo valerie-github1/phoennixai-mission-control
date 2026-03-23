@@ -548,13 +548,22 @@ function addNote(){
 
 function saveNotes(){ localStorage.setItem('mc_notes', JSON.stringify(notes)); }
 
+function deleteNote(id){
+  notes = notes.filter(n => n.id !== id);
+  saveNotes();
+  renderNotes();
+}
+
 function renderNotes(){
   const list = document.getElementById('noteList');
   const empty = document.getElementById('noteEmpty');
   list.innerHTML = notes.map(n => `
-    <div class="note-card">
-      <div class="note-time">${new Date(n.time).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
-      <div class="note-text">${n.text}</div>
+    <div class="note-card" style="display:flex;align-items:flex-start;gap:12px">
+      <div style="flex:1">
+        <div class="note-time">${new Date(n.time).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})}</div>
+        <div class="note-text">${n.text}</div>
+      </div>
+      <span onclick="deleteNote(${n.id})" title="Delete note" style="color:var(--text3);cursor:pointer;font-size:16px;padding:2px 4px;transition:color 0.2s;flex-shrink:0" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--text3)'">&#10005;</span>
     </div>`).reverse().join('');
   empty.style.display = notes.length ? 'none' : 'block';
   document.getElementById('noteCount').textContent = notes.length;
