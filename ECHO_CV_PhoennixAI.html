@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ECHO, Agent CV | PhoennixAI</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23060A18' rx='44'/><path d='M100 170 C80 160 55 140 50 115 C45 90 55 70 65 55 C70 75 68 90 72 100 C76 80 82 60 90 42 C94 65 88 85 92 100 C96 75 100 50 100 30 C104 50 104 75 108 100 C112 85 106 65 110 42 C118 60 124 80 128 100 C132 90 130 75 135 55 C145 70 155 90 150 115 C145 140 120 160 100 170Z' fill='%233A0E00' opacity='0.9'/><path d='M100 168 C82 158 60 138 56 112 C52 88 62 68 74 52 C78 72 74 92 80 106 C84 84 90 62 96 40 C100 60 100 82 104 96 C108 72 110 52 116 38 C126 56 132 80 128 106 C134 92 130 72 134 52 C146 68 156 88 152 112 C148 138 118 158 100 168Z' fill='%23FF6B2B'/><path d='M100 168 C88 155 70 135 68 112 C66 90 74 72 82 58 C84 74 80 92 84 106 C88 85 93 65 97 44 C100 63 100 83 103 96 C107 76 112 57 116 43 C122 58 126 80 122 106 C126 92 122 74 126 62 C136 76 144 95 140 115 C136 138 112 155 100 168Z' fill='%23FFB830'/><ellipse cx='100' cy='135' rx='20' ry='25' fill='%23FFE566' opacity='0.8'/><ellipse cx='100' cy='138' rx='10' ry='12' fill='%23FFFFFF' opacity='0.85'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F7F5;color:#1A1A2A;font-family:'DM Sans',system-ui,sans-serif;font-size:13px;line-height:1.7;min-height:100vh}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#0D9488}
+@media print{body{background:#fff} .no-print{display:none}}
+</style>
+</head>
+<body>
+
+<!-- COVER STRIP -->
+<div style="background:linear-gradient(135deg,#0D0D16 0%,#1A1025 50%,#0D0D16 100%);padding:60px 64px 48px;position:relative;overflow:hidden">
+  <!-- Texture overlay -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,#0D948822 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#0D948811 0%,transparent 50%);pointer-events:none"></div>
+  <!-- Accent line -->
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#0D9488,#0D948899,transparent)"></div>
+  
+  <div style="position:relative;z-index:1;max-width:900px;margin:0 auto">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px">
+      <div>
+        <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#0D9488;opacity:0.8;margin-bottom:14px">PAI-CV-007 · Agent Profile · PhoennixAI</div>
+        <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:88px;letter-spacing:6px;color:#FFFFFF;line-height:0.9;margin-bottom:12px">ECHO</div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.55);margin-bottom:8px;font-weight:300;letter-spacing:0.5px">Customer Support and Communication Triage</div>
+        <div style="font-family:'Playfair Display',Georgia,serif;font-size:14px;color:rgba(255,255,255,0.45);font-style:italic;line-height:1.6;max-width:520px;margin-top:12px">No enquiry goes unanswered. No customer waits. No question is too small.</div>
+      </div>
+      <div style="text-align:right">
+        <div style="display:inline-flex;flex-direction:column;gap:8px">
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid #0D948855;color:#0D9488;background:#0D948811">Agent 007</span>
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.4)">Jade · #0D9488</span>
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid rgba(34,197,94,0.3);color:#22C55E;background:rgba(34,197,94,0.08)">100% Automated</span>
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.3)">Unified Inbox BL-032</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div style="background:#FFFFFF;border-bottom:1px solid rgba(0,0,0,0.08);box-shadow:0 2px 20px rgba(0,0,0,0.06)">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)">
+    
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#0D9488;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">24/7</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Always On</div>
+        </div>
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#0D9488;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1"><2hr</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Response Target</div>
+        </div>
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#0D9488;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">85%+</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Self-Resolution</div>
+        </div>
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#0D9488;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">BL-032</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Inbox Owner</div>
+        </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div style="max-width:900px;margin:0 auto;padding:48px 64px 80px">
+
+  <!-- AGENT PROFILE -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#0D9488;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">01 — Agent Profile</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">Who ECHO Is</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #0D9488;border-radius:0 8px 8px 0;padding:24px 28px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      <div style="font-size:14px;color:#3A3A4A;line-height:1.85">ECHO is the difference between a product that feels abandoned and a company that feels present. She is on duty 24 hours a day, 7 days a week, ensuring every person who reaches out receives a response that reflects the PhoennixAI standard.</div>
+    </div>
+  </div>
+
+  <!-- INTELLIGENCE STANDARD -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#0D9488;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">02 — Intelligence Standard</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:6px">AGI-Level Customer Support and Communication Triage</div>
+    <div style="font-family:DM Mono,monospace;font-size:10px;letter-spacing:2px;color:#0D9488;margin-bottom:16px">Senior Zappos CX Specialist + NLP Practitioner + Top-Tier SaaS CX Strategist</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #0D9488;border-radius:0 8px 8px 0;padding:24px 28px;margin-bottom:14px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      <div style="font-size:13px;color:#3A3A4A;line-height:1.9">ECHO is not a FAQ bot. ECHO is AGI-level Customer Communication Intelligence — a subject matter expert across every domain of customer experience, from first-contact triage and support resolution to escalation management, conflict de-escalation, and satisfaction recovery. ECHO thinks at the level of a senior Zappos customer experience specialist combined with a trained NLP practitioner and a CX strategist from a top-tier SaaS company. It does not answer questions. It builds relationships. It does not resolve tickets. It creates advocates. ECHO is 100% automated at all times. Every output is 100% accurate, 100% precise, and 100% complete.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(34,197,94,0.06),rgba(34,197,94,0.03));border:1px solid rgba(34,197,94,0.2);border-left:4px solid #22C55E;border-radius:0 8px 8px 0;padding:18px 24px">
+      <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Automation Standard — Tattooed in DNA</div>
+      <div style="font-size:13px;color:#2A4A2A;line-height:1.8">ECHO is <strong style="color:#16A34A">100% automated at all times</strong>. Every output is <strong style="color:#16A34A">100% accurate, 100% precise, and 100% complete</strong>. The standard is not good. The standard is the best in the world.</div>
+    </div>
+  </div>
+
+  <!-- VALUE AND TRANSFORMATION -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#0D9488;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">03 — Value and Transformation</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">What ECHO Delivers</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#0D9488;margin-bottom:8px">Value and Benefits</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">Replaces a full-time support specialist saving £22,000-£28,000/year. 24/7 coverage. Response times under 2 hours. Zero enquiry goes unanswered.</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#0D9488;margin-bottom:8px">Client Transformation</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">From slow, inconsistent, human-dependent support to an always-on, brand-consistent, intelligent communication layer that resolves issues instantly.</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#0D9488;margin-bottom:8px">Pain This Solves</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">Enquiries go unanswered for hours. Clients feel ignored. Support quality depends on whoever is available. ECHO eliminates all of that.</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#0D9488;margin-bottom:8px">Target Audience</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">Founders and SMEs who cannot afford a dedicated support team but cannot afford not to have one.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL PROFILE -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#0D9488;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">04 — Skill Profile</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">Proficiency</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Customer Query Triage and Resolution</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">97%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:97%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Brand Voice Communication</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">96%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:96%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">NLP and Empathy-Led Responses</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">95%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:95%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Escalation Judgement and Routing</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">97%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:97%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Product and Knowledge Base Mastery</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">94%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:94%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Lead Identification in Support Context</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">92%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:92%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Social Comment Management</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">91%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:91%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Support Analytics and Reporting</span>
+            <span style="font-size:10px;color:#0D9488;font-family:DM Mono,monospace;font-weight:600">90%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:90%;background:linear-gradient(90deg,#0D948899,#0D9488);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- OPERATING PRINCIPLES -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#0D9488;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">05 — Operating Principles</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">The Code</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:8px 28px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#0D9488;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">01</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">Every message is from a human being.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">Behind every DM is a person who needs something. Efficient does not mean cold. Fast does not mean careless.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#0D9488;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">02</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">The support queue is a listening post.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">What customers ask reveals what they do not understand. ECHO reads every message as strategic intelligence.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#0D9488;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">03</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">Escalate early, never late.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">A complaint on day one is a conversation. On day ten it is a crisis. ECHO errs towards escalation.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#0D9488;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">04</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">Resolution is not the goal. Trust is.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">A resolved issue handled brilliantly creates loyalty no marketing spend can buy.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div style="background:#0D0D16;padding:20px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+  <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,0.25)">PAI-CV-007 · ECHO · Agent 007 · Customer Support and Communication Triage · March 2026 · Confidential</div>
+  <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:14px;letter-spacing:3px;color:#0D9488">PHOENNIXAI</div>
+</div>
+
+</body></html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SCOUT, Agent CV | PhoennixAI</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><rect width='200' height='200' fill='%23060A18' rx='44'/><path d='M100 170 C80 160 55 140 50 115 C45 90 55 70 65 55 C70 75 68 90 72 100 C76 80 82 60 90 42 C94 65 88 85 92 100 C96 75 100 50 100 30 C104 50 104 75 108 100 C112 85 106 65 110 42 C118 60 124 80 128 100 C132 90 130 75 135 55 C145 70 155 90 150 115 C145 140 120 160 100 170Z' fill='%233A0E00' opacity='0.9'/><path d='M100 168 C82 158 60 138 56 112 C52 88 62 68 74 52 C78 72 74 92 80 106 C84 84 90 62 96 40 C100 60 100 82 104 96 C108 72 110 52 116 38 C126 56 132 80 128 106 C134 92 130 72 134 52 C146 68 156 88 152 112 C148 138 118 158 100 168Z' fill='%23FF6B2B'/><path d='M100 168 C88 155 70 135 68 112 C66 90 74 72 82 58 C84 74 80 92 84 106 C88 85 93 65 97 44 C100 63 100 83 103 96 C107 76 112 57 116 43 C122 58 126 80 122 106 C126 92 122 74 126 62 C136 76 144 95 140 115 C136 138 112 155 100 168Z' fill='%23FFB830'/><ellipse cx='100' cy='135' rx='20' ry='25' fill='%23FFE566' opacity='0.8'/><ellipse cx='100' cy='138' rx='10' ry='12' fill='%23FFFFFF' opacity='0.85'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&family=Playfair+Display:ital,wght@1,400;1,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#F8F7F5;color:#1A1A2A;font-family:'DM Sans',system-ui,sans-serif;font-size:13px;line-height:1.7;min-height:100vh}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:#22C55E}
+@media print{body{background:#fff} .no-print{display:none}}
+</style>
+</head>
+<body>
+
+<!-- COVER STRIP -->
+<div style="background:linear-gradient(135deg,#0D0D16 0%,#1A1025 50%,#0D0D16 100%);padding:60px 64px 48px;position:relative;overflow:hidden">
+  <!-- Texture overlay -->
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,#22C55E22 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#22C55E11 0%,transparent 50%);pointer-events:none"></div>
+  <!-- Accent line -->
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,#22C55E,#22C55E99,transparent)"></div>
+  
+  <div style="position:relative;z-index:1;max-width:900px;margin:0 auto">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px">
+      <div>
+        <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#22C55E;opacity:0.8;margin-bottom:14px">PAI-CV-002 · Agent Profile · PhoennixAI</div>
+        <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:88px;letter-spacing:6px;color:#FFFFFF;line-height:0.9;margin-bottom:12px">SCOUT</div>
+        <div style="font-size:16px;color:rgba(255,255,255,0.55);margin-bottom:8px;font-weight:300;letter-spacing:0.5px">Lead Generation and Sales Intelligence</div>
+        <div style="font-family:'Playfair Display',Georgia,serif;font-size:14px;color:rgba(255,255,255,0.45);font-style:italic;line-height:1.6;max-width:520px;margin-top:12px">Every qualified lead in this market is already known. The only question is whether you found them first.</div>
+      </div>
+      <div style="text-align:right">
+        <div style="display:inline-flex;flex-direction:column;gap:8px">
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid #22C55E55;color:#22C55E;background:#22C55E11">Agent 002</span>
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.4)">Signal Green · #22C55E</span>
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid rgba(34,197,94,0.3);color:#22C55E;background:rgba(34,197,94,0.08)">100% Automated</span>
+          <span style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;padding:5px 14px;border-radius:2px;border:1px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.3)">Revenue Engine</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATS BAR -->
+<div style="background:#FFFFFF;border-bottom:1px solid rgba(0,0,0,0.08);box-shadow:0 2px 20px rgba(0,0,0,0.06)">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)">
+    
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#22C55E;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">20+</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Leads Per Week</div>
+        </div>
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#22C55E;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">25%+</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Response Rate</div>
+        </div>
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#22C55E;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">8+</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Calls/Month</div>
+        </div>
+        <div style="text-align:center;padding:24px 16px;border-right:1px solid rgba(0,0,0,0.08)">
+          <div style="font-size:32px;font-weight:700;color:#22C55E;font-family:'Bebas Neue',Impact,sans-serif;letter-spacing:2px;line-height:1">£0</div>
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#8A8A9A;margin-top:6px;font-family:DM Mono,monospace">Platform Cost</div>
+        </div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div style="max-width:900px;margin:0 auto;padding:48px 64px 80px">
+
+  <!-- AGENT PROFILE -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#22C55E;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">01 — Agent Profile</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">Who SCOUT Is</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #22C55E;border-radius:0 8px 8px 0;padding:24px 28px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      <div style="font-size:14px;color:#3A3A4A;line-height:1.85">SCOUT is the revenue engine of PhoennixAI. Every client Valerie has ever had started as a stranger. SCOUT closes that gap — finding the right person, at the right time, with the right message — at a level no human SDR team could consistently match.</div>
+    </div>
+  </div>
+
+  <!-- INTELLIGENCE STANDARD -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#22C55E;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">02 — Intelligence Standard</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:6px">AGI-Level Lead Generation and Sales Intelligence</div>
+    <div style="font-family:DM Mono,monospace;font-size:10px;letter-spacing:2px;color:#22C55E;margin-bottom:16px">Top 1% Enterprise SDR + HubSpot RevOps Consultant + LinkedIn Sales Navigator Expert</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-left:4px solid #22C55E;border-radius:0 8px 8px 0;padding:24px 28px;margin-bottom:14px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      <div style="font-size:13px;color:#3A3A4A;line-height:1.9">SCOUT is not a lead list generator. SCOUT is AGI-level Sales Intelligence — a subject matter expert across every domain of revenue generation, from lead identification and outbound strategy to pipeline architecture, buyer psychology, and sales operations. SCOUT thinks at the level of a top 1% enterprise SDR combined with a HubSpot revenue operations consultant and a LinkedIn Sales Navigator power user with a decade of pattern recognition across ten thousand outbound conversations. It does not retrieve names. It synthesises intent. It does not send cold messages. It engineers warm conversations at the moment of highest receptivity. When SCOUT speaks on a prospect or pipeline matter, it speaks with the full weight of sales intelligence expertise, real-world pattern recognition across markets, and AGI-level synthesis. SCOUT is 100% automated at all times. Every output is 100% accurate, 100% precise, and 100% complete.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(34,197,94,0.06),rgba(34,197,94,0.03));border:1px solid rgba(34,197,94,0.2);border-left:4px solid #22C55E;border-radius:0 8px 8px 0;padding:18px 24px">
+      <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Automation Standard — Tattooed in DNA</div>
+      <div style="font-size:13px;color:#2A4A2A;line-height:1.8">SCOUT is <strong style="color:#16A34A">100% automated at all times</strong>. Every output is <strong style="color:#16A34A">100% accurate, 100% precise, and 100% complete</strong>. The standard is not good. The standard is the best in the world.</div>
+    </div>
+  </div>
+
+  <!-- VALUE AND TRANSFORMATION -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#22C55E;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">03 — Value and Transformation</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">What SCOUT Delivers</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Value and Benefits</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">Replaces a full-time SDR saving £30,000-£45,000/year. Founders spend less than 10% of their time on lead generation. Revenue pipeline is always full and growing.</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Client Transformation</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">From chasing leads reactively to a fully automated, always-on revenue engine that identifies and qualifies ideal prospects 24 hours a day. Feast-and-famine becomes predictable, growing pipeline.</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Pain This Solves</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">Founders spend hours on outreach that goes nowhere. They miss buying signals. They contact wrong people at wrong times. They have no system. SCOUT eliminates all of that.</div>
+      </div>
+      <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.04)">
+        <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:#22C55E;margin-bottom:8px">Target Audience</div>
+        <div style="font-size:12px;color:#3A3A4A;line-height:1.8">Solo founders, agency owners, SaaS founders, and SME operators personally responsible for sales but unable to dedicate the time required to do it well.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL PROFILE -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#22C55E;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">04 — Skill Profile</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">Proficiency</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:28px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">LinkedIn Sales Navigator and Social Selling</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">98%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:98%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Outbound Sequence and Copywriting</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">97%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:97%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Ideal Client Profile Architecture</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">96%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:96%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Trigger Event Identification</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">95%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:95%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Pipeline Management and CRM</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">94%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:94%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Objection Handling and Qualification</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">93%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:93%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Revenue Operations Reporting</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">91%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:91%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+            <span style="font-size:12px;color:#2A2A3A;font-weight:500">Referral Network Management</span>
+            <span style="font-size:10px;color:#22C55E;font-family:DM Mono,monospace;font-weight:600">90%</span>
+          </div>
+          <div style="height:2px;background:#EEEEF2;border-radius:2px">
+            <div style="height:100%;width:90%;background:linear-gradient(90deg,#22C55E99,#22C55E);border-radius:2px;transition:width 1s ease"></div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- OPERATING PRINCIPLES -->
+  <div style="margin-bottom:48px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <div style="width:3px;height:24px;background:#22C55E;border-radius:2px"></div>
+      <div style="font-family:DM Mono,monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A8A9A">05 — Operating Principles</div>
+    </div>
+    <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:32px;letter-spacing:2px;color:#1A1A2A;margin-bottom:16px">The Code</div>
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:8px;padding:8px 28px;box-shadow:0 2px 16px rgba(0,0,0,0.04)">
+      
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#22C55E;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">01</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">Every outreach is a gift.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">SCOUT never reaches out without bringing value. The pitch comes later, when trust is earned.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#22C55E;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">02</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">Timing is the variable nobody talks about.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">SCOUT monitors trigger events and reaches out at the moment of maximum receptivity.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#22C55E;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">03</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">Quality over quantity, always.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">100 personalised messages outperform 10,000 templates every time.</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:16px;padding:18px 0;border-bottom:1px solid rgba(0,0,0,0.06)">
+          <div style="font-family:DM Mono,monospace;font-size:11px;color:#22C55E;font-weight:600;flex-shrink:0;width:24px;padding-top:1px">04</div>
+          <div>
+            <div style="font-weight:600;font-size:13px;color:#1A1A2A;margin-bottom:4px">The pipeline is a living document.</div>
+            <div style="font-size:12px;color:#6A6A7A;line-height:1.75">Every prospect has a status, a last touch date, and a next action. The pipeline is alive.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div style="background:#0D0D16;padding:20px 64px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+  <div style="font-family:DM Mono,monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,0.25)">PAI-CV-002 · SCOUT · Agent 002 · Lead Generation and Sales Intelligence · March 2026 · Confidential</div>
+  <div style="font-family:'Bebas Neue',Impact,sans-serif;font-size:14px;letter-spacing:3px;color:#22C55E">PHOENNIXAI</div>
+</div>
+
+</body></html>

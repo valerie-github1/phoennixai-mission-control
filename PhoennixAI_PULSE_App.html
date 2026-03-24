@@ -220,6 +220,7 @@ const LOGO_FULL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCAQABA
   <div class="sb-item" onclick="showSec('analytics',this)"><span class="sb-icon">📈</span>Analytics</div>
   <div class="sb-item" onclick="showSec('leads',this)"><span class="sb-icon">🎯</span>Lead Intel</div>
   <div class="sb-item" onclick="showSec('moodboard',this)"><span class="sb-icon">🎨</span>Mood Board</div>
+  <div class="sb-item" onclick="showSec('whiteboard',this)"><span class="sb-icon">🖊️</span>Whiteboard</div>
   <div class="sb-item" onclick="showSec('strategy',this)"><span class="sb-icon">🧠</span>Strategy</div>
 
   <div class="sb-label">Agent</div>
@@ -529,6 +530,54 @@ const LOGO_FULL = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAgAAAQABAAD/wAARCAQABA
     <textarea class="form-textarea" id="creative-notes" placeholder="Describe the aesthetic direction: colours, mood, typography style, tone, target emotion..." style="min-height:80px"></textarea>
     <button class="btn btn-copy" style="margin-top:10px" onclick="saveCreativeNotes()">Save Creative Brief</button>
   </div>
+</div>
+
+
+<!-- ── WHITEBOARD ── -->
+<div id="sec-whiteboard">
+  <div class="page-header">
+    <div class="page-eyebrow">PULSE · Collaborative Intelligence</div>
+    <div class="page-title">Whiteboard</div>
+    <div class="page-sub">Real-time collaborative canvas. Brainstorm campaigns, map workflows, lay out content stories. Draw, add sticky notes, and organise ideas visually.</div>
+  </div>
+  <div style="background:rgba(167,139,250,0.06);border:1px solid rgba(167,139,250,0.2);border-radius:8px;padding:14px;margin-bottom:16px;font-size:13px;color:var(--text2)">
+    <span style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--pulse);display:block;margin-bottom:4px">COLLABORATIVE CANVAS</span>
+    Use this to layout content campaigns visually, map conversion funnels, plan agent workflows, or storyboard social media sequences. Designed for PULSE, UI/UX Designer, and Graphic Designer collaboration.
+  </div>
+  <!-- Toolbar -->
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--border);border-radius:8px;padding:10px 14px">
+    <div style="font-family:var(--mono);font-size:7px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-right:4px">TOOL</div>
+    <button id="wb-tool-select" class="wb-tool active" onclick="setWbTool('select',this)" title="Select">↖</button>
+    <button id="wb-tool-pen" class="wb-tool" onclick="setWbTool('pen',this)" title="Draw">✏️</button>
+    <button id="wb-tool-sticky" class="wb-tool" onclick="setWbTool('sticky',this)" title="Sticky Note">📝</button>
+    <button id="wb-tool-text" class="wb-tool" onclick="setWbTool('text',this)" title="Text">T</button>
+    <button id="wb-tool-arrow" class="wb-tool" onclick="setWbTool('arrow',this)" title="Arrow">→</button>
+    <div style="width:1px;height:24px;background:var(--border);margin:0 4px"></div>
+    <div style="font-family:var(--mono);font-size:7px;letter-spacing:2px;color:var(--text3)">COLOUR</div>
+    <button class="wb-col" onclick="setWbCol('#A78BFA')" style="background:#A78BFA" title="Pulse Violet"></button>
+    <button class="wb-col" onclick="setWbCol('#00E5FF')" style="background:#00E5FF" title="Cyan"></button>
+    <button class="wb-col" onclick="setWbCol('#FFB830')" style="background:#FFB830" title="Gold"></button>
+    <button class="wb-col" onclick="setWbCol('#22C55E')" style="background:#22C55E" title="Green"></button>
+    <button class="wb-col" onclick="setWbCol('#EF4444')" style="background:#EF4444" title="Red"></button>
+    <button class="wb-col" onclick="setWbCol('rgba(255,255,255,0.85)')" style="background:rgba(255,255,255,0.85);border-color:var(--border2)" title="White"></button>
+    <div style="width:1px;height:24px;background:var(--border);margin:0 4px"></div>
+    <div style="font-family:var(--mono);font-size:7px;letter-spacing:2px;color:var(--text3)">SIZE</div>
+    <select id="wb-size" onchange="wbState.lineWidth=parseInt(this.value)" style="background:var(--bg);border:1px solid var(--border2);border-radius:3px;padding:3px 6px;color:var(--text);font-size:11px;outline:none">
+      <option value="2">Thin</option>
+      <option value="4" selected>Medium</option>
+      <option value="8">Thick</option>
+    </select>
+    <div style="margin-left:auto;display:flex;gap:6px">
+      <button class="btn btn-expand" onclick="clearWb()" style="font-size:7px">Clear</button>
+      <button class="btn btn-copy" onclick="saveWb()" style="font-size:7px">Save PNG</button>
+    </div>
+  </div>
+  <!-- Canvas -->
+  <div style="position:relative;border:1px solid var(--border2);border-radius:8px;overflow:hidden;background:#0A0A12;cursor:crosshair" id="wb-container">
+    <canvas id="wb-canvas" width="1200" height="700" style="display:block;width:100%;touch-action:none"></canvas>
+    <div id="wb-stickies" style="position:absolute;inset:0;pointer-events:none"></div>
+  </div>
+  <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:8px;text-align:center">Canvas · Click and drag to draw · Sticky Note tool places editable notes · Arrow tool draws connectors</div>
 </div>
 
 </div><!-- end main -->
@@ -1007,12 +1056,179 @@ function saveCreativeNotes(){
   showToast('Creative brief saved to PULSE');
 }
 
+// ── WHITEBOARD ──
+var wbState={tool:'select',colour:'#A78BFA',lineWidth:4,drawing:false,lastX:0,lastY:0};
+var wbHistory=[];
+
+function getWbCanvas(){return document.getElementById('wb-canvas');}
+function getWbCtx(){var c=getWbCanvas();return c?c.getContext('2d'):null;}
+
+function setWbTool(t,btn){
+  wbState.tool=t;
+  document.querySelectorAll('.wb-tool').forEach(function(b){b.classList.remove('active');});
+  if(btn) btn.classList.add('active');
+  var c=getWbCanvas();
+  if(c) c.style.cursor=t==='select'?'default':t==='sticky'?'cell':t==='text'?'text':'crosshair';
+}
+
+function setWbCol(col){
+  wbState.colour=col;
+  document.querySelectorAll('.wb-col').forEach(function(b){b.style.borderColor='transparent';});
+  event.target.style.borderColor='rgba(255,255,255,0.8)';
+}
+
+function wbGetPos(e,canvas){
+  var rect=canvas.getBoundingClientRect();
+  var scaleX=canvas.width/rect.width;
+  var scaleY=canvas.height/rect.height;
+  var clientX=e.touches?e.touches[0].clientX:e.clientX;
+  var clientY=e.touches?e.touches[0].clientY:e.clientY;
+  return{x:(clientX-rect.left)*scaleX,y:(clientY-rect.top)*scaleY};
+}
+
+function initWhiteboard(){
+  var canvas=getWbCanvas();
+  if(!canvas||canvas._wbInit) return;
+  canvas._wbInit=true;
+  var ctx=getWbCtx();
+  ctx.fillStyle='#0A0A12';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  
+  // Load saved state
+  try{
+    var saved=localStorage.getItem('pai_wb_state');
+    if(saved){var img=new Image();img.onload=function(){ctx.drawImage(img,0,0);};img.src=saved;}
+  }catch(e){}
+
+  function startDraw(e){
+    e.preventDefault();
+    if(wbState.tool==='sticky'){addSticky(e);return;}
+    if(wbState.tool==='text'){addText(e);return;}
+    wbState.drawing=true;
+    var pos=wbGetPos(e,canvas);
+    wbState.lastX=pos.x;wbState.lastY=pos.y;
+    ctx.beginPath();ctx.moveTo(pos.x,pos.y);
+  }
+  function doDraw(e){
+    if(!wbState.drawing) return;
+    e.preventDefault();
+    var pos=wbGetPos(e,canvas);
+    ctx.strokeStyle=wbState.colour;
+    ctx.lineWidth=wbState.lineWidth;
+    ctx.lineCap='round';ctx.lineJoin='round';
+    if(wbState.tool==='pen'){
+      ctx.lineTo(pos.x,pos.y);ctx.stroke();
+    } else if(wbState.tool==='arrow'){
+      // Draw arrow preview
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      try{var img=new Image();img.src=wbHistory[wbHistory.length-1]||'';ctx.drawImage(img,0,0);}catch(ex){}
+      ctx.beginPath();ctx.moveTo(wbState.lastX,wbState.lastY);ctx.lineTo(pos.x,pos.y);ctx.stroke();
+      // Arrowhead
+      var angle=Math.atan2(pos.y-wbState.lastY,pos.x-wbState.lastX);
+      var sz=12;
+      ctx.beginPath();ctx.moveTo(pos.x,pos.y);
+      ctx.lineTo(pos.x-sz*Math.cos(angle-0.4),pos.y-sz*Math.sin(angle-0.4));
+      ctx.lineTo(pos.x-sz*Math.cos(angle+0.4),pos.y-sz*Math.sin(angle+0.4));
+      ctx.closePath();ctx.fillStyle=wbState.colour;ctx.fill();
+    }
+    wbState.lastX=pos.x;wbState.lastY=pos.y;
+  }
+  function endDraw(e){
+    if(!wbState.drawing) return;
+    wbState.drawing=false;
+    ctx.closePath();
+    try{wbHistory.push(canvas.toDataURL());}catch(ex){}
+    autoSaveWb();
+  }
+
+  canvas.addEventListener('mousedown',startDraw);
+  canvas.addEventListener('mousemove',doDraw);
+  canvas.addEventListener('mouseup',endDraw);
+  canvas.addEventListener('touchstart',startDraw,{passive:false});
+  canvas.addEventListener('touchmove',doDraw,{passive:false});
+  canvas.addEventListener('touchend',endDraw);
+}
+
+function addSticky(e){
+  var canvas=getWbCanvas();
+  var container=document.getElementById('wb-container');
+  if(!container) return;
+  var rect=container.getBoundingClientRect();
+  var x=(e.clientX-rect.left);var y=(e.clientY-rect.top);
+  var sticky=document.createElement('textarea');
+  sticky.className='wb-sticky';
+  sticky.placeholder='Type your note...';
+  sticky.style.left=(x-80)+'px';
+  sticky.style.top=(y-50)+'px';
+  sticky.style.background=wbState.colour;
+  sticky.style.opacity='0.95';
+  sticky.style.pointerEvents='all';
+  sticky.style.cursor='move';
+  
+  var dragging=false,dx=0,dy=0;
+  sticky.addEventListener('mousedown',function(ev){
+    if(ev.target!==sticky) return;
+    dragging=true;dx=ev.clientX-sticky.offsetLeft;dy=ev.clientY-sticky.offsetTop;
+  });
+  document.addEventListener('mousemove',function(ev){
+    if(dragging){sticky.style.left=(ev.clientX-dx)+'px';sticky.style.top=(ev.clientY-dy)+'px';}
+  });
+  document.addEventListener('mouseup',function(){dragging=false;});
+  
+  document.getElementById('wb-stickies').style.pointerEvents='all';
+  document.getElementById('wb-stickies').appendChild(sticky);
+  sticky.focus();
+}
+
+function addText(e){
+  var canvas=getWbCanvas();
+  var ctx=getWbCtx();
+  var pos=wbGetPos(e,canvas);
+  var text=prompt('Enter text:');
+  if(text){
+    ctx.font=(wbState.lineWidth*6)+'px DM Sans,sans-serif';
+    ctx.fillStyle=wbState.colour;
+    ctx.fillText(text,pos.x,pos.y);
+    try{wbHistory.push(canvas.toDataURL());}catch(ex){}
+    autoSaveWb();
+  }
+}
+
+function clearWb(){
+  if(!confirm('Clear the whiteboard?')) return;
+  var canvas=getWbCanvas();
+  var ctx=getWbCtx();
+  ctx.fillStyle='#0A0A12';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  document.getElementById('wb-stickies').innerHTML='';
+  wbHistory=[];
+  try{localStorage.removeItem('pai_wb_state');}catch(e){}
+  showToast('Whiteboard cleared');
+}
+
+function saveWb(){
+  var canvas=getWbCanvas();
+  if(!canvas) return;
+  var link=document.createElement('a');
+  link.download='PhoennixAI_Whiteboard_'+new Date().toISOString().split('T')[0]+'.png';
+  link.href=canvas.toDataURL('image/png');
+  link.click();
+  showToast('Saved as PNG');
+}
+
+function autoSaveWb(){
+  var canvas=getWbCanvas();
+  if(!canvas) return;
+  try{localStorage.setItem('pai_wb_state',canvas.toDataURL());}catch(e){}
+}
+
 // ── OVERRIDE showSec for new sections ──
 var _origShowSec=showSec;
 showSec=function(id,el){
   _origShowSec(id,el);
   if(id==='analytics'){setTimeout(function(){renderCharts();},120);}
   if(id==='leads'){renderIntelLog();}
+  if(id==='whiteboard'){setTimeout(initWhiteboard,100);}
   if(id==='moodboard'){
     renderMoodboard();
     try{var cn=localStorage.getItem('pai_pulse_creative_notes');if(cn&&document.getElementById('creative-notes'))document.getElementById('creative-notes').value=cn;}catch(e){}
