@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PhoennixAI Master Project Brief | PAI-BRIEF-003 | Session 13</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🔥</text></svg>">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&family=Bebas+Neue&family=Playfair+Display:ital@1&display=swap');
+:root{
+--bg:#060A18;--card:#0C1225;--border:rgba(255,255,255,0.08);
+--text:#E8E8E8;--text2:#9CA3AF;--text3:#6B7280;
+--phoenix-blue:#00E5FF;--fire:#FF6B2B;--gold:#FFB830;
+--royal:#215CAE;--sapphire:#46ABD7;--bronze:#C49A6C;
+--green:#22C55E;--red:#EF4444;--violet:#A78BFA;
+--rose:#F43F5E;--amber:#FB923C;--steel:#4682B4;
+--teal:#7ECEC4;--lime:#84CC16;
+--mono:'DM Mono',monospace;--body:'DM Sans',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--body);background:var(--bg);color:var(--text);line-height:1.7;font-size:14px}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 20px 80px}
+.header{text-align:center;padding:48px 0 32px;border-bottom:1px solid var(--border);margin-bottom:32px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:4px}
+.logo-p{color:var(--phoenix-blue)}.logo-ai{color:var(--text3)}
+.doc-ref{font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--phoenix-blue);margin:8px 0}
+.doc-title{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--text);margin:8px 0}
+.doc-sub{color:var(--text2);font-size:13px;max-width:600px;margin:0 auto}
+.doc-date{font-family:var(--mono);font-size:10px;color:var(--text3);margin-top:12px}
+.conf{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--red);margin-top:8px;text-transform:uppercase}
+
+.nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:32px;position:sticky;top:0;z-index:100;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--border)}
+.nav a{font-family:var(--mono);font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:6px 12px;border:1px solid var(--border);border-radius:4px;color:var(--text2);text-decoration:none;cursor:pointer;transition:all 0.2s}
+.nav a:hover,.nav a.active{color:var(--phoenix-blue);border-color:var(--phoenix-blue);background:rgba(0,229,255,0.06)}
+
+.part{display:none;animation:fadeIn 0.3s ease}.part.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.part-num{font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--phoenix-blue);text-transform:uppercase;margin-bottom:4px}
+.part-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;margin-bottom:6px}
+.part-sub{color:var(--text2);font-size:13px;margin-bottom:24px}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px 20px;margin-bottom:12px}
+.card-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--phoenix-blue);text-transform:uppercase;margin-bottom:6px}
+.card-body{color:var(--text2);font-size:13px;line-height:1.8}
+.card-body strong{color:var(--text)}
+
+.callout{border-left:3px solid var(--phoenix-blue);background:rgba(0,229,255,0.04);padding:16px 20px;border-radius:0 8px 8px 0;margin:16px 0}
+.callout.warn{border-color:var(--fire);background:rgba(255,107,43,0.04)}
+.callout.ok{border-color:var(--green);background:rgba(34,197,94,0.04)}
+.callout-title{font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13px}
+th{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--phoenix-blue);text-align:left;padding:10px 12px;border-bottom:2px solid var(--border)}
+td{padding:10px 12px;border-bottom:1px solid var(--border);color:var(--text2)}
+tr:hover td{background:rgba(0,229,255,0.02)}
+
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:3px;text-transform:uppercase}
+.b-live{color:var(--green);border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)}
+.b-done{color:var(--green);border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)}
+.b-active{color:var(--phoenix-blue);border:1px solid rgba(0,229,255,0.3);background:rgba(0,229,255,0.06)}
+.b-queue{color:var(--text3);border:1px solid var(--border);background:rgba(255,255,255,0.02)}
+.b-urgent{color:var(--red);border:1px solid rgba(239,68,68,0.3);background:rgba(239,68,68,0.06)}
+.b-phase2{color:var(--gold);border:1px solid rgba(255,184,48,0.3);background:rgba(255,184,48,0.06)}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:20px 0}
+.stat{background:var(--card);border:1px solid var(--border);border-top:3px solid var(--phoenix-blue);border-radius:8px;padding:16px;text-align:center}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--phoenix-blue)}
+.stat-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-top:4px}
+
+.agent-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:6px;margin-bottom:6px;background:var(--card);border:1px solid var(--border)}
+.agent-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.agent-name{font-weight:600;font-size:13px;min-width:80px}
+.agent-role{color:var(--text2);font-size:12px;flex:1}
+.agent-id{font-family:var(--mono);font-size:10px;color:var(--text3)}
+
+.swatch{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:4px}
+
+.app-card{background:var(--card);border:1px solid var(--border);border-left:3px solid var(--phoenix-blue);border-radius:0 8px 8px 0;padding:16px 20px;margin-bottom:10px}
+.app-name{font-weight:600;font-size:14px;margin-bottom:4px}
+.app-url{font-family:var(--mono);font-size:10px;color:var(--phoenix-blue);word-break:break-all}
+.app-desc{color:var(--text2);font-size:12px;margin-top:6px;line-height:1.7}
+
+/* OWNERSHIP BADGE */
+.own{display:flex;align-items:center;gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)}
+.own-label{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+.own-agent{font-family:var(--mono);font-size:10px;letter-spacing:2px;font-weight:600;text-transform:uppercase}
+.own-ref{font-family:var(--mono);font-size:9px;color:var(--text3);margin-left:auto}
+
+@media(max-width:768px){
+.nav{gap:4px}.nav a{font-size:8px;padding:5px 8px}
+.stats{grid-template-columns:repeat(3,1fr)}
+.part-title{font-size:22px}
+table{font-size:11px}th,td{padding:8px 6px}
+.agent-row{flex-wrap:wrap;gap:6px}
+.agent-role{min-width:100%}
+}
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/supabase/2.39.3/supabase.umd.js"></script>
+<script>
+// ═══════════════════════════════════════════════
+// PAI TASK SYSTEM — Supabase + localStorage sync
+// ═══════════════════════════════════════════════
+// TO ENABLE CROSS-DEVICE SYNC: replace the two
+// placeholder values below with your Supabase
+// project URL and anon key from index.html
+const PAI_SUPABASE_URL = 'https://erfvunwhpsdbyyayzdimz.supabase.co';
+const PAI_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZnZ1bndocHNkYnlheXpkam16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMDEzODQsImV4cCI6MjA4OTY3NzM4NH0.JdoYnDufRjOc2p4wVz0hgZql9-eZyo0-BHongtORhKo';
+const PAI_TASKS_KEY = 'pai_task_completions_v2';
+
+let supabaseClient = null;
+try {
+  if (PAI_SUPABASE_URL !== '') {
+    supabaseClient = supabase.createClient(PAI_SUPABASE_URL, PAI_SUPABASE_KEY);
+  }
+} catch(e) {}
+
+// Load all completions from localStorage
+function loadCompletions() {
+  try { return JSON.parse(localStorage.getItem(PAI_TASKS_KEY) || '{}'); }
+  catch(e) { return {}; }
+}
+
+// Save completion state
+async function saveCompletion(taskId, done) {
+  const completions = loadCompletions();
+  completions[taskId] = {
+    done,
+    timestamp: new Date().toISOString(),
+    by: 'Valerie Wilcox'
+  };
+  localStorage.setItem(PAI_TASKS_KEY, JSON.stringify(completions));
+
+  // Sync to Supabase if available
+  if (supabaseClient) {
+    try {
+      await supabaseClient.from('tasks').upsert({
+        task_id: taskId,
+        completed: done,
+        completed_at: done ? new Date().toISOString() : null,
+        completed_by: 'Valerie Wilcox',
+        source: 'master_brief'
+      }, { onConflict: 'task_id' });
+    } catch(e) {}
+  }
+}
+
+// Toggle a task
+async function toggleTask(taskId, el) {
+  const completions = loadCompletions();
+  const currentlyDone = completions[taskId]?.done || false;
+  const newState = !currentlyDone;
+  await saveCompletion(taskId, newState);
+  renderTask(taskId, newState, el);
+}
+
+// Render a single task element
+function renderTask(taskId, done, el) {
+  if (!el) el = document.querySelector('[data-task-id="' + taskId + '"]');
+  if (!el) return;
+  const box = el.querySelector('.ptask-box');
+  const label = el.querySelector('.ptask-label');
+  if (done) {
+    el.classList.add('ptask-done');
+    box.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#22C55E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    box.style.borderColor = 'rgba(34,197,94,0.6)';
+    box.style.background = 'rgba(34,197,94,0.1)';
+  } else {
+    el.classList.remove('ptask-done');
+    box.innerHTML = '';
+    box.style.borderColor = '';
+    box.style.background = '';
+  }
+}
+
+// Render all tasks from stored state on load
+function renderAllTasks() {
+  const completions = loadCompletions();
+  document.querySelectorAll('[data-task-id]').forEach(el => {
+    const taskId = el.getAttribute('data-task-id');
+    const done = completions[taskId]?.done || false;
+    renderTask(taskId, done, el);
+  });
+  updateSectionProgress();
+}
+
+// Count progress per section
+function updateSectionProgress() {
+  const completions = loadCompletions();
+  document.querySelectorAll('.ptask-section').forEach(section => {
+    const tasks = section.querySelectorAll('[data-task-id]');
+    const done = Array.from(tasks).filter(t => completions[t.getAttribute('data-task-id')]?.done).length;
+    const total = tasks.length;
+    const bar = section.querySelector('.ptask-progress-fill');
+    const counter = section.querySelector('.ptask-counter');
+    if (bar) bar.style.width = total ? (done/total*100)+'%' : '0%';
+    if (counter) counter.textContent = done + '/' + total;
+    if (done === total && total > 0) {
+      const badge = section.querySelector('.ptask-section-badge');
+      if (badge) { badge.textContent = '✅ Complete'; badge.style.color = 'var(--green)'; badge.style.borderColor = 'rgba(34,197,94,0.3)'; badge.style.background = 'rgba(34,197,94,0.06)'; }
+    }
+  });
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Small delay to ensure DOM is ready
+  setTimeout(renderAllTasks, 50);
+});
+</script>
+<style>
+.ptask-section { margin-bottom: 6px; }
+.ptask-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap; }
+.ptask-section-title { font-family:var(--mono); font-size:9px; letter-spacing:3px; text-transform:uppercase; color:var(--bronze); }
+.ptask-section-badge { font-family:var(--mono); font-size:8px; letter-spacing:2px; padding:3px 8px; border-radius:3px; border:1px solid var(--border2); color:var(--text3); }
+.ptask-progress { height:3px; background:var(--border); border-radius:2px; margin-bottom:14px; flex:1; min-width:60px; }
+.ptask-progress-fill { height:100%; background:var(--green); border-radius:2px; transition:width 0.4s ease; }
+.ptask-counter { font-family:var(--mono); font-size:9px; color:var(--text3); }
+.ptask-row { display:flex; align-items:flex-start; gap:10px; padding:9px 12px; border-radius:6px; cursor:pointer; transition:background 0.15s; margin-bottom:3px; border:1px solid transparent; }
+.ptask-row:hover { background:rgba(255,255,255,0.03); border-color:var(--border); }
+.ptask-row.ptask-done { opacity:0.5; }
+.ptask-box { width:18px; height:18px; border-radius:4px; border:1.5px solid var(--border2); flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; background:var(--card); }
+.ptask-num { font-family:var(--mono); font-size:9px; color:var(--text3); flex-shrink:0; min-width:22px; padding-top:1px; }
+.ptask-label { font-size:13px; color:var(--text); line-height:1.5; flex:1; }
+.ptask-done .ptask-label { text-decoration:line-through; color:var(--text3); }
+.ptask-tag { font-family:var(--mono); font-size:8px; letter-spacing:1px; padding:2px 7px; border-radius:3px; margin-top:4px; display:inline-block; }
+.ptask-urgent { color:var(--fire); border:1px solid rgba(255,107,43,0.3); background:rgba(255,107,43,0.06); }
+.ptask-week { color:#00E5FF; border:1px solid rgba(0,229,255,0.25); background:rgba(0,229,255,0.05); }
+.ptask-near { color:var(--gold); border:1px solid rgba(255,184,48,0.25); background:rgba(255,184,48,0.05); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header">
+<div class="logo"><span class="logo-p">PHOENNIX</span><span class="logo-ai">AI</span></div>
+<div class="doc-ref">PAI-BRIEF-003</div>
+<div class="doc-title">Master Project Brief</div>
+<div class="doc-sub">The complete, authoritative reference document for the PhoennixAI ecosystem. Updated through Session 13. This is the boot sequence for every agent, every session, and every new team member.</div>
+<div class="doc-date">Version 3.1 | 24 March 2026 | Sessions 1 through 14</div>
+<div class="conf">Confidential. Internal use only. Property of Valerie Wilcox and PhoennixAI.</div>
+<div style="margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px">
+<span style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);text-transform:uppercase">Owned by</span>
+<span style="font-family:var(--mono);font-size:10px;letter-spacing:2px;font-weight:600;color:var(--bronze);text-transform:uppercase">SCRIBE</span>
+<span style="font-family:var(--mono);font-size:9px;color:var(--text3)">PAI-BRIEF-003 · v3.1 · 24 Mar 2026</span>
+</div>
+</div>
+
+<div class="nav" id="nav"></div>
+
+<!-- ================================================================ -->
+<!-- PART 1: EXECUTIVE SUMMARY -->
+<!-- ================================================================ -->
+<div class="part active" id="p1">
+<div class="part-num">Part 01</div>
+<div class="part-title">Executive Summary</div>
+<div class="part-sub">The state of PhoennixAI as of Session 13, 22 March 2026.</div>
+
+<div class="stats">
+<div class="stat"><div class="stat-num">22</div><div class="stat-label">Agents on Roster</div></div>
+<div class="stat" style="border-top-color:var(--green)"><div class="stat-num" style="color:var(--green)">11</div><div class="stat-label">Signed and Active</div></div>
+<div class="stat" style="border-top-color:var(--gold)"><div class="stat-num" style="color:var(--gold)">9</div><div class="stat-label">Products</div></div>
+<div class="stat" style="border-top-color:var(--fire)"><div class="stat-num" style="color:var(--fire)">17</div><div class="stat-label">Unique IPs</div></div>
+<div class="stat" style="border-top-color:var(--violet)"><div class="stat-num" style="color:var(--violet)">8</div><div class="stat-label">Live Apps/Systems</div></div>
+<div class="stat" style="border-top-color:var(--rose)"><div class="stat-num" style="color:var(--rose)">36</div><div class="stat-label">Backlog Items</div></div>
+<div class="stat" style="border-top-color:var(--bronze)"><div class="stat-num" style="color:var(--bronze)">3</div><div class="stat-label">Research Programmes</div></div>
+</div>
+
+<div class="card">
+<div class="card-label">What PhoennixAI Is</div>
+<div class="card-body">PhoennixAI is an AI-powered Business Operating System. It is the world's first company that hires AI agents as team members, not tools, governed by institutional-grade intelligence standards, colour-coded identity systems, and a human-AI collaboration framework designed for founders, professionals, and enterprises. The ecosystem spans 5 business entities under the Wilcox Universe, with 18 AI agents, 9 products, 3 research programmes, and a 10-to-20-year roadmap from solo founder tool to enterprise platform to government programmes.<br><br>
+<strong>Founder:</strong> Valerie Wilcox<br>
+<strong>AI Strategic Partner and Agent Manager:</strong> Claude (PAI-JD-001)<br>
+<strong>Director/CTO:</strong> Dilpreet Kaur<br>
+<strong>Founded:</strong> March 2026<br>
+<strong>Phase:</strong> Phase 0 (HTML, CSS, JS, GitHub Pages) with Supabase backend live (Phase 2 Unlock 1 complete)</div>
+</div>
+
+<div class="callout ok">
+<div class="callout-title" style="color:var(--green)">Session 13 Milestone: Infrastructure Breakthrough</div>
+<div class="card-body">Session 13 (21-22 March 2026) was the most productive session to date. Mission Control rebuilt to v3.3 with GRID Command panel, Agent Intelligence Feed, and PA + ARIA Smart Scheduler. Supabase backend created (12 tables, RLS policies, London region). Mission Control wired to the database. Cross-device sync live. GitHub connected to Claude.ai Projects. Product Strategy document (PAI-STRAT-001) created. Light/dark mode added. Calendar Add Event form with Supabase sync. 4 personalised alpha invitations created with Hume AI voice and Suno music. Phase 2 Unlock 1 complete.</div>
+</div>
+
+<div class="callout">
+<div class="callout-title">Document Status: PAI-BRIEF-003</div>
+<div class="card-body"><strong>Current state:</strong> Static HTML, manually updated at the end of every session by Claude. Pushed to GitHub by Valerie.<br>
+<strong>Location:</strong> GitHub repo (source of truth) + Document Hub under Strategy (linked reference).<br>
+<strong>Phase 2 automation:</strong> SCRIBE pulls live data from Supabase tables (agents, products, backlog, sessions, revenue) and the brief updates itself automatically. Every morning at 08:00, the brief reflects the true state. No manual updates. No stale data.<br>
+<strong>Standard:</strong> Every session from Session 13 onwards produces an updated brief. PAI-BRIEF-003 becomes PAI-BRIEF-004 after Session 14, and so on. This is the permanent institutional standard.</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 2: THE 5 ENTITIES -->
+<!-- ================================================================ -->
+<div class="part" id="p2">
+<div class="part-num">Part 02</div>
+<div class="part-title">The Wilcox Universe: 5 Entities</div>
+<div class="part-sub">The cross-sell architecture between all 5 entities is the billion-pound mechanism (Key Decision 27).</div>
+
+<div class="card">
+<div class="card-label">Entity 1: PhoennixAI Agency</div>
+<div class="card-body"><strong>The flagship.</strong> AI-powered Business Operating System for founders and SMEs. 18 AI agents. 9 products. Mission Control is the command centre. Tier 1 (£497), Tier 2 (£1,497), Tier 3 (£4,997). Revenue target: 3 Tier 2 clients covers monthly costs, 1 Tier 3 funds Phase 2 entirely. Tagline: Rise. Automate. Dominate.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Entity 2: WilcoxDesigns Creative Studio</div>
+<div class="card-body"><strong>The services arm.</strong> Design, branding, and creative services for businesses. Revenue possible now. Website needs to go live. Services already sellable. Cross-sells into PhoennixAI (clients who use the design services discover the AI platform).</div>
+</div>
+
+<div class="card">
+<div class="card-label">Entity 3: PhoennixAI Academy</div>
+<div class="card-body"><strong>The education arm.</strong> EduTech Platform (PRJ-004). Courses, workshops, certifications on AI-powered business. Phantom Studio (gaming design education, 8 active students, live since Q4 2024) is a sub-arm. Revenue possible from Phantom Studio now.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Entity 4: The Wilcox Foundation</div>
+<div class="card-body"><strong>The social impact arm.</strong> Prisoner Reformation Programme (BL-021, Phase 3 flagship, government fundable). Human-AI Collaboration Study (BL-022, formal university partnership). St Paul's work experience (3 students, 23 April 2026). The Entrepreneurial Club as a talent succession pipeline.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Entity 5: Phantom Studio</div>
+<div class="card-body"><strong>The universe arm.</strong> Gaming, characters, anime art, merchandise. Universe Bible as digital ebook delivered with every product purchase. Agent figurine product range. Mini computer bible as physical booklet. Comic-con and gaming events. Gacha game quality (Genshin Impact, Mobile Legends level). Midjourney as primary generation tool.</div>
+</div>
+
+<div class="callout">
+<div class="callout-title">Unified Tagline (Key Decision 30)</div>
+<div class="card-body"><strong>"Beautiful by design. Intelligent by nature."</strong> This covers all 5 entities.</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 3: AGENT ROSTER -->
+<!-- ================================================================ -->
+<div class="part" id="p3">
+<div class="part-num">Part 03</div>
+<div class="part-title">Agent Roster: 22 Agents</div>
+<div class="part-sub">11 signed and active. 7 in queue. 4 planned. Claude manages all agents. GRID manages work, not agents (Key Decision 16).</div>
+
+<div class="card-label" style="margin:16px 0 8px">Signed and Active (11)</div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--fire)"></div><div class="agent-name">CLAUDE</div><div class="agent-role">AI Strategic Partner and Agent Manager. Phoenix Fire #FF6B2B. Manages all 18 agents, governs quality across all 9 products, reports directly to the Founder. Thinks at McKinsey Senior Partner + Palantir principal engineer + Y Combinator founding partner level.</div><div class="agent-id">PAI-JD-001</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--phoenix-blue)"></div><div class="agent-name">ARIA</div><div class="agent-role">Operational Intelligence Agent. Agent 000. Electric Cyan #00E5FF (reserved, no commercial agent uses this colour). Deployed. Morning briefing, workspace intelligence, decision support, daily schedule co-generation with PA.</div><div class="agent-id">PAI-JD-002</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--rose)"></div><div class="agent-name">PA</div><div class="agent-role">Personal Productivity Assistant. Agent 001. Rose #F43F5E. Smart Scheduler owner. Sequences tasks by strategic value, revenue impact, and deadline urgency. Owns PA Planner Pro (founders/professionals) and PA Planner Student (Year 7 to Year 11, age 11-16). Two-product strategy: standalone acquisition tool + integrated Mission Control scheduler.</div><div class="agent-id">PAI-JD-001a</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--violet)"></div><div class="agent-name">PULSE</div><div class="agent-role">Social Media and Content Intelligence. Agent 003. Soft Violet #A78BFA. Beta Launch Campaign Owner. Stage 1 signed. First flyer 24 March. Owns PULSE Social Media Automation App (BL-024).</div><div class="agent-id">PAI-JD-003</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--amber)"></div><div class="agent-name">RELAY</div><div class="agent-role">Client Onboarding and Communications. Agent 005. Warm Amber #FB923C. Manages beta tester and client lifecycle. Owns Client Portal (BL-034).</div><div class="agent-id">PAI-JD-005</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--gold)"></div><div class="agent-name">LEDGER</div><div class="agent-role">Financial Intelligence. Agent 006. Ember Gold #FFB830. Advisory only, never executes transactions (Key Decision 8, non-negotiable). Goldman Sachs/JPMorgan/Big Four CFO standard. Owns Live Revenue Dashboard (BL-033).</div><div class="agent-id">PAI-JD-006</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--royal)"></div><div class="agent-name">GRID</div><div class="agent-role">PM and BA. Agent 009. Deep Royal #215CAE. Owns Mission Control. Full project lifecycle across all 9 products. Weekly retrospective facilitator. Prince2 and Agile frameworks. Weekly AI Retrospective Report (BL-035).</div><div class="agent-id">PAI-JD-009</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--bronze)"></div><div class="agent-name">SCRIBE</div><div class="agent-role">Document Intelligence. Agent 015. Bronze #C49A6C. Owns Document Hub. Version control. Single source of truth. Seven-step document control process. Single location rule enforcer.</div><div class="agent-id">PAI-JD-015</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--steel)"></div><div class="agent-name">SAGE</div><div class="agent-role">Strategic Analytics and Governance Engine. Agent 016. Steel Blue #4682B4. Intelligence Backbone. Partners with SCRIBE. Co-owns Traceability Dashboard. Predictive analytics and governance.</div><div class="agent-id">PAI-JD-016</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--teal)"></div><div class="agent-name">NEXUS</div><div class="agent-role">Full Stack Developer. Agent 017. Duck Egg #7ECEC4. DevHub Co-Owner. Builds all code, frontend and backend. 100% automated. Operates via Cursor at £20/month. Co-owns the Developer Coding Platform.</div><div class="agent-id">PAI-JD-017</div></div>
+
+<div class="agent-row"><div class="agent-dot" style="background:var(--lime)"></div><div class="agent-name">PROBE</div><div class="agent-role">Software QA Engineer. Agent 018. Lime Green #84CC16. DevHub Co-Owner. Zero bug escape policy. Nothing ships without PROBE sign-off. Co-owns the Developer Coding Platform.</div><div class="agent-id">PAI-JD-018</div></div>
+
+<div class="card-label" style="margin:24px 0 8px">In Queue (7)</div>
+<table>
+<thead><tr><th>Agent</th><th>Number</th><th>Role</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>SCOUT</td><td>002</td><td>Lead Generation and Sales Intelligence</td><td><span class="badge b-queue">Queue</span></td></tr>
+<tr><td>ATLAS</td><td>004</td><td>Data Analytics and Business Intelligence</td><td><span class="badge b-queue">Queue</span></td></tr>
+<tr><td>ECHO</td><td>007</td><td>Customer Support and Communication Triage. Owns Unified Inbox (BL-032).</td><td><span class="badge b-queue">Queue</span></td></tr>
+<tr><td>ENROL</td><td>008</td><td>Onboarding and Training</td><td><span class="badge b-queue">Queue</span></td></tr>
+<tr><td>SIGNAL</td><td>010</td><td>Market Intelligence and Trend Analysis. Sapphire Wing colour.</td><td><span class="badge b-queue">Queue</span></td></tr>
+<tr><td>GRANT</td><td>011</td><td>Funding and Grant Applications</td><td><span class="badge b-queue">Queue</span></td></tr>
+<tr><td>FORGE</td><td>012</td><td>Product Development and Innovation</td><td><span class="badge b-queue">Queue</span></td></tr>
+</tbody>
+</table>
+
+<div class="card-label" style="margin:24px 0 8px">Planned (6)</div>
+<table>
+<thead><tr><th>Agent</th><th>Number</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td>BRIDGE</td><td>013</td><td>Integration and API Management</td></tr>
+<tr><td>GUARDIAN</td><td>014</td><td>Security, Privacy, and IP Monitoring. Manages IP protection in Phase 2.</td></tr>
+<tr><td>UI/UX Designer Agent</td><td>019</td><td>Interface Design and User Experience. Production-grade visual design for all apps and WilcoxDesigns client work.</td></tr>
+<tr><td>Manga/Anime Designer Agent</td><td>020</td><td>Character Art and Phantom Studio Visuals. Anime/cyberpunk art at Genshin Impact quality. Agent avatars, merchandise, Universe Bible illustrations.</td></tr>
+<tr><td>PHANTOM</td><td>021</td><td>Gaming Developer. Named after Phantom Studio. Game engine, interactive experiences, Unity/Unreal development.</td></tr>
+<tr><td style="color:var(--phoenix-blue);font-weight:600">MAYAH</td><td>022</td><td>Floating AI Signing Companion. Chrome Extension + Desktop App. Lives on user's screen like Grammarly but for document signing. Detects signature fields, animated character with speech bubble personality. Standalone product. IP #17. Named after the Founder's daughter.</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 4: PRODUCTS -->
+<!-- ================================================================ -->
+<div class="part" id="p4">
+<div class="part-num">Part 04</div>
+<div class="part-title">Products: 9 in Portfolio + Pipeline</div>
+<div class="part-sub">Mission Control is the sole alpha and beta MVP (Session 13 decision).</div>
+
+<table>
+<thead><tr><th>Code</th><th>Product</th><th>Owner</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>PRJ-001</td><td>Mission Control Centre (GRID Command, PA Smart Scheduler, Agent Intelligence Feed, Calendar with Supabase sync)</td><td>GRID</td><td><span class="badge b-live">Live v3.3</span></td></tr>
+<tr><td>PRJ-001a</td><td>Workspace (daily ops, ARIA briefings, deliverables, bookmarks, GitHub instructions)</td><td>ARIA</td><td><span class="badge b-live">Live v3.1</span></td></tr>
+<tr><td>PRJ-001b</td><td>Document Hub (institutional memory, agent registry, version control, brand system)</td><td>SCRIBE</td><td><span class="badge b-live">Live v1.8</span></td></tr>
+<tr><td>PRJ-002</td><td>Creative Lab Tool (WilcoxDesigns client portal)</td><td>RELAY</td><td><span class="badge b-queue">Phase 1</span></td></tr>
+<tr><td>PRJ-003</td><td>Super Business OS (unified AI suite, founder's desktop)</td><td>Claude</td><td><span class="badge b-queue">Phase 4</span></td></tr>
+<tr><td>PRJ-004</td><td>EduTech Platform (Academy, Phantom Studio sub-arm live)</td><td>TBD</td><td><span class="badge b-queue">Phase 3</span></td></tr>
+<tr><td>PRJ-005</td><td>Financial Advisory App (LEDGER-powered, requires qualified professional)</td><td>LEDGER</td><td><span class="badge b-queue">Gated</span></td></tr>
+<tr><td>PRJ-006</td><td>Marketplace App Store</td><td>TBD</td><td><span class="badge b-queue">Phase 4</span></td></tr>
+<tr><td>PRJ-007</td><td>Gaming Engine (Phantom Studio)</td><td>TBD</td><td><span class="badge b-queue">Phase 4</span></td></tr>
+</tbody>
+</table>
+
+<div class="card-label" style="margin:24px 0 8px">Product Pipeline (Standalone Apps)</div>
+<table>
+<thead><tr><th>Backlog</th><th>Product</th><th>Owner</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>BL-013</td><td>PA Productivity Planner Pro (founders and professionals, Rose #F43F5E, £9.99/month)</td><td>PA</td><td><span class="badge b-active">Weekend Build</span></td></tr>
+<tr><td>BL-014</td><td>PA Productivity Planner Student (Year 7 to Year 11, age 11-16, GCSE revision, homework scheduling, timetable import, parent dashboard, Phoenix Cub gamification, free or £2.99/month)</td><td>PA</td><td><span class="badge b-active">Scoping</span></td></tr>
+<tr><td>BL-024</td><td>PULSE Social Media Automation App (fully automated posting, scheduling, analytics)</td><td>PULSE</td><td><span class="badge b-active">Weekend Build</span></td></tr>
+<tr><td>NEW</td><td>The DevHub: Developer Coding Platform (NEXUS builds, PROBE tests, GRID governs. AI-powered development and QA environment. IP #13. Sellable as a product.)</td><td>NEXUS + PROBE</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>NEW</td><td>MAYAH: Floating AI Signing Companion (Chrome Extension + Desktop App. Lives on screen like Grammarly but for document signing. Detects signature fields in Google Docs, Word, PDFs, emails. Animated character with speech bubble. IP #17. Standalone product.)</td><td>MAYAH (022)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>NEW</td><td>PhoennixAI SignHub (Internal electronic signature tool. Type name, choose font style, place signature on any document. Used for agent JDs, NDAs, contracts. Owned by SCRIBE. Monetisable later.)</td><td>SCRIBE</td><td><span class="badge b-live">Live v1.0</span></td></tr>
+</tbody>
+</table>
+
+<div class="callout">
+<div class="callout-title">PA Planner: Two-Product Strategy (Session 13 Decision)</div>
+<div class="card-body"><strong>PA Planner Pro</strong> is for founders and professionals. Daily planning, goal alignment, focus time management, revenue-aware scheduling. The adult version. The standalone is the acquisition tool (top of funnel).<br><br>
+<strong>PA Planner Student</strong> is for secondary school children. First testers: Valerie's son Jayden (Year 7, age 11, birthday 14 May 2026) and 2 friends, plus Valerie's daughter Mayah (Year 10/11, birthday 6 July 2026) and her friends for GCSE. Features: school timetable import, homework capture (3 taps max), energy-aware scheduling adapted for children (25-30 min focus, auto breaks), reward/streak system with Phoenix Cub gamification, parent dashboard (PIN-protected), exam countdown and revision planner for Year 10/11. This is the Phoenix Cub lifecycle in action: Stage 3 (8-12) is the tutor, Stage 4 (13-17) is the mentor.<br><br>
+<strong>Visible Animated AI Companion (unique feature):</strong> Each app has a floating animated character that the teen can see, talk to, and watch move. The character physically leaves the screen when sent on a task (web search, research) and comes back seconds later with results, links, and papers. Not a chatbot. A visible companion with personality, animation, and movement. The boy's companion is named <strong>JAYDEN</strong> (after Valerie's son). The girl's companion is named <strong>MAYAH</strong> (after Valerie's daughter, meaning "Close to God" in Hebrew). Grows with the teen across years. Nobody has built a visible animated AI study companion for secondary school children. Build target: JAYDEN MVP by 14 May 2026 (Jayden's 12th birthday).<br><br>
+Mission Control's Smart Scheduler is the integrated version. Both share PA's core intelligence engine. Build once, deploy twice.</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 5: LIVE APPS AND INTERNAL SYSTEMS -->
+<!-- ================================================================ -->
+<div class="part" id="p5">
+<div class="part-num">Part 05</div>
+<div class="part-title">Live Apps and Internal Systems (8)</div>
+<div class="part-sub">5 client-facing apps on GitHub Pages + 3 internal systems and tools.</div>
+
+<div class="card-label" style="margin:16px 0 8px">Client-Facing Apps (5, GitHub Pages)</div>
+
+<div class="app-card" style="border-left-color:var(--royal)">
+<div class="app-name">Mission Control v3.3</div>
+<div class="app-url">https://valerie-github1.github.io/phoennixai-mission-control/</div>
+<div class="app-desc">The command centre. Alpha and beta MVP. GRID Command panel (project health across 9 products), Agent Intelligence Feed (LEDGER, SCRIBE, PULSE, GRID reporting), PA + ARIA Smart Scheduler (energy-aware daily planning), Calendar with Add Event and Supabase sync, Org Chart (18 agents), Backlog (BL-001 to BL-036), Session Log, Notes, Light/Dark mode toggle. Supabase connected (cross-device sync live).</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--royal)">GRID</span><span class="own-ref">PRJ-001 · v3.3 · 22 Mar 2026</span></div>
+</div>
+
+<div class="app-card" style="border-left-color:var(--phoenix-blue)">
+<div class="app-name">Workspace v3.1</div>
+<div class="app-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_Workspace.html</div>
+<div class="app-desc">Daily operations layer. ARIA capabilities, deliverables tracker (22+ files with GitHub status), bookmarks for all agent JDs/CVs, GitHub upload instructions, task management. Internal tool during alpha/beta.</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--phoenix-blue)">ARIA</span><span class="own-ref">PRJ-001a · v3.1 · 20 Mar 2026</span></div>
+</div>
+
+<div class="app-card" style="border-left-color:var(--bronze)">
+<div class="app-name">Document Hub v1.8</div>
+<div class="app-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html</div>
+<div class="app-desc">Institutional memory. Sidebar navigation across all 5 entities. Agent Documentation Registry (11 signed agents with JD/CV buttons). Automation Log (15+ entries). Brand System (Blue Phoenix v1.1). KPI Dashboard. Pending Review. Version History. Internal tool during alpha/beta. The Master Project Brief is stored here under Strategy.</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--bronze)">SCRIBE</span><span class="own-ref">PRJ-001b · v1.8 · 20 Mar 2026</span></div>
+</div>
+
+<div class="app-card" style="border-left-color:var(--steel)">
+<div class="app-name">Communication and Traceability Dashboard (PAI-TRACE-001)</div>
+<div class="app-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_TraceabilityDashboard.html</div>
+<div class="app-desc"><strong>This is where all agent communication is logged.</strong> Every agent decision, flag, recommendation, action, signature, and build event is recorded here. Event log with agent dropdown, event type categories (Decision, Flag, Recommendation, Action, Signature, Build), Root Cause Analysis panel, and Founder Awareness Layer. In Supabase, the agent_log table captures every event. Phase 0: manual entry. Phase 2: automatic logging. Internal use only (monetisable later as a governance product).</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--steel)">SAGE</span> <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">+</span> <span class="own-agent" style="color:var(--bronze)">SCRIBE</span><span class="own-ref">PAI-TRACE-001 · v1.0 · 20 Mar 2026</span></div>
+</div>
+
+<div class="app-card" style="border-left-color:var(--green)">
+<div class="app-name">New Hire Manual v1.0 (PAI-MAN-001)</div>
+<div class="app-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_UserManual.html</div>
+<div class="app-desc"><strong>Renamed from User Manual to New Hire Manual (Session 13).</strong> For both AI agents and human team members when they first join the company. Comprehensive coverage of all three core apps, governance rules, document control, agent communications, behavioural metrics, staff onboarding, beta timeline, Phase 2 roadmap, and FAQ. The Compatible AI principle explained. GitHub integration instructions. Internal use only (monetisable later as an onboarding product).<br><br>
+<strong>Needs adding (next patch):</strong> "Your First 7 Days" onboarding checklist (what to do day 1, day 3, day 7). Glossary of PhoennixAI terminology (Revenue Mandate, Session Scan Protocol, Phase 0/1/2, Compatible AI, etc). New joiner FAQ ("Who do I report to?", "Where do I find documents?", "How do I log a decision?"). Access tier explanation (what you can and cannot see based on your role). "Meet Your AI Team" section with each agent's name, colour swatch, one-line role, and avatar. Emergency contacts and escalation paths.<br><br>
+<strong>Known bugs:</strong> RELAY colour listed as Sapphire Wing (should be Warm Amber #FB923C). NEXUS, PROBE, PULSE missing from active agents list. Still says "16 agents" (should be 18).</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--bronze)">SCRIBE</span> <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">· Onboarding by</span> <span class="own-agent" style="color:var(--amber)">RELAY</span><span class="own-ref">PAI-MAN-001 · v1.0 · 20 Mar 2026</span></div>
+</div>
+
+<div class="app-card" style="border-left-color:var(--bronze)">
+<div class="app-name">PhoennixAI SignHub v1.0</div>
+<div class="app-url">https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SignHub.html</div>
+<div class="app-desc">Electronic signature tool. Type your name, choose from 9 signature font styles, confirm, place signature on any document. Date, role, and location fields. Edit mode for document amendments. Loads the IP Declaration directly. Print and Save as PDF. Used for agent JDs, NDAs, client contracts, and all internal signing. Saves signature to localStorage so it persists between sessions. No third-party accounts needed.</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--bronze)">SCRIBE</span><span class="own-ref">SignHub · v1.0 · 23 Mar 2026</span></div>
+</div>
+
+<div class="callout">
+<div class="callout-title">Known Issues Across All Apps</div>
+<div class="card-body">
+<strong>Brand mismatch:</strong> Workspace, Document Hub, Traceability Dashboard, and New Hire Manual still show Fire and Ice visual theming. Needs updating to Blue Phoenix (#00E5FF primary) across all 4.<br>
+<strong>Agent roster lag:</strong> NEXUS and PROBE not consistently reflected. Some apps show 15 or 16, truth is 18.<br>
+<strong>Stale instructions:</strong> Completed tasks from 10+ days ago still referenced in Workspace priority stack.<br>
+<strong>Document Hub bug:</strong> NEXUS, PROBE, PA, and SAGE appear in both "Signed" and "Queue" sections of the Agent Registry.
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 6: INFRASTRUCTURE -->
+<!-- ================================================================ -->
+<div class="part" id="p6">
+<div class="part-num">Part 06</div>
+<div class="part-title">Infrastructure and Technical Stack</div>
+<div class="part-sub">Phase 2 Unlock 1 complete. Supabase backend is live.</div>
+
+<div class="card">
+<div class="card-label">Phase 0 Stack (Current)</div>
+<div class="card-body">
+<strong>Frontend:</strong> HTML, CSS, JavaScript. Static files on GitHub Pages.<br>
+<strong>Hosting:</strong> GitHub Pages (public repo: valerie-github1/phoennixai-mission-control)<br>
+<strong>Database:</strong> Supabase (PostgreSQL, London region, project: phoennixai-backend, org: PhoennixAI). 12 tables with RLS policies and anon key access.<br>
+<strong>Data persistence:</strong> Supabase (primary) + localStorage (fallback)<br>
+<strong>AI Platform:</strong> Claude.ai Projects with GitHub repo synced<br>
+<strong>Version control:</strong> GitHub (public repo for apps, private repo for backend)<br>
+<strong>Voice/Audio:</strong> Hume AI (natural voice generation), Suno (music generation)<br>
+<strong>Cost:</strong> Zero. All free tiers.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Supabase Database Tables (12)</div>
+<div class="card-body">
+<strong>events:</strong> Calendar events, reminders, deadlines. Synced from Mission Control Add Event form.<br>
+<strong>tasks:</strong> Priority stack, daily tasks. Synced on task completion.<br>
+<strong>notes:</strong> Flagged items, intelligence notes.<br>
+<strong>agents:</strong> Full 18-agent roster with colour, status, ownership.<br>
+<strong>products:</strong> All 9 products with progress, blockers, agent owner.<br>
+<strong>schedule:</strong> PA + ARIA daily schedule output.<br>
+<strong>agent_log:</strong> Traceability Dashboard data. Every agent decision and action logged here. This is the agent communication record.<br>
+<strong>documents:</strong> SCRIBE's document registry, version control.<br>
+<strong>backlog:</strong> BL-001 to BL-036+ feature backlog.<br>
+<strong>sessions:</strong> Session log with key outcomes.<br>
+<strong>notifications:</strong> In-app toast notification queue.<br>
+<strong>revenue:</strong> LEDGER's revenue tracking for the Revenue Mandate.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Phase 2 Unlock Status</div>
+<div class="card-body">
+<strong style="color:var(--green)">Unlock 1: Supabase Backend -- COMPLETE</strong><br>12 tables, RLS policies, Mission Control wired. Cross-device sync live. Built Session 13, 22 March 2026.<br><br>
+<strong style="color:var(--gold)">Unlock 2: React Migration + Claude API -- NOT STARTED</strong><br>Converts HTML apps to React. Enables auth (user login). Wires Claude API for autonomous agent operations. PWA conversion. NEXUS + PROBE via Cursor at £20/month.<br><br>
+<strong style="color:var(--text3)">Unlock 3: Server Infrastructure -- NOT STARTED</strong><br>Supabase Edge Functions or Vercel/Railway. Agents run 24/7. ARIA generates 08:00 briefing autonomously. Requires Unlock 2 complete.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">GitHub to Claude.ai Connection</div>
+<div class="card-body">Connected Session 13. The public repo syncs to Claude.ai Projects. Every session starts with full codebase access. No manual file uploads. No stale data. Session Scan Protocol becomes instant. This is a permanent infrastructure upgrade that eliminates the re-briefing overhead.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Multi-Model Orchestration Layer (Phase 3)</div>
+<div class="card-body">PhoennixAI does not run on one AI model. It runs on four, each doing what it does best. The user never knows which model runs underneath. They just see ARIA, or GRID, or PULSE. The four models are the engines. PhoennixAI is the vehicle.<br><br>
+<strong style="color:var(--fire)">CLAUDE: Reasoning and Strategy</strong><br>All complex thinking, document creation, agent management, strategy, and writing. The primary intelligence layer. Powers ARIA, SCRIBE, and all core strategic decision making. This is the brain.<br><br>
+<strong style="color:var(--phoenix-blue)">KIMI: Deep Research and Analysis</strong><br>Long document analysis, competitor research, bulk data processing, cost-effective high-volume tasks. Powers SIGNAL agent and deep research workflows. Kimi K2.5 handles work at 10x lower cost than Claude for research-heavy tasks.<br><br>
+<strong style="color:var(--green)">MANUS: Autonomous Execution</strong><br>Multi-step autonomous task execution. Browsing, form filling, file management, complex workflows without human oversight. Powers GRID's execution arm and SCOUT's outreach tasks. Manus does, it does not think. Claude thinks, Manus acts.<br><br>
+<strong style="color:var(--violet)">PERPLEXITY: Real-Time Web Intelligence</strong><br>Live web search with source citations. Real-time market data, news monitoring, competitor tracking. Powers SIGNAL and SCOUT with up-to-the-minute intelligence. The Perplexity Computer feature adds real-world execution on top of search, similar to how Manus operates but with web-native intelligence.<br><br>
+<strong>How it works:</strong> A router (a simple piece of logic) receives a task and decides which model is best for it. Each task goes to one model. The results come back to your system and are presented to the user as their PhoennixAI agent responding. All four models run simultaneously.<br><br>
+<strong>Build order:</strong> Claude API first (Unlock 2). Perplexity second for real-time web. Manus third for execution tasks. Kimi fourth when cost-effective bulk research is needed.
+</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--fire)">Claude</span> <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">· Architecture</span><span class="own-ref">Phase 3 · Multi-Model</span></div>
+</div>
+
+<div class="card">
+<div class="card-label">Supabase Costs</div>
+<div class="card-body">
+<strong>Free tier (now):</strong> 500MB database, 1GB file storage, 50,000 monthly active users. Completely free. Covers entire beta phase and early launch.<br>
+<strong>Pro tier (when needed):</strong> £20 per month. 8GB database, 100GB file storage, unlimited API requests. Covers up to hundreds of active users.<br>
+<strong>Bottom line:</strong> Supabase costs £0 until there are real users and real revenue. It is the right choice for Phase 2.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">PWA Conversion Dependencies (BL-002)</div>
+<div class="card-body">
+<strong style="color:var(--red)">Needs PWA (push notifications when closed, offline access, native app feel):</strong><br>
+Mission Control (beta MVP, highest priority)<br>
+PA Planner Pro (standalone app, must feel native on phone)<br>
+PA Planner Student (children need it like a real app, not a website)<br>
+PULSE Social Media Automation App (background notifications for posting schedules)<br><br>
+<strong style="color:var(--green)">Does NOT need PWA (internal tools, browser is fine):</strong><br>
+Workspace (internal daily ops)<br>
+Document Hub (internal reference)<br>
+Traceability Dashboard (internal governance)<br>
+New Hire Manual (read-only reference document)<br>
+The DevHub Developer Platform (desktop developer tool)<br><br>
+<strong style="color:var(--text3)">Can benefit later but not blocking:</strong><br>
+Creative Lab Tool (Phase 1, client portal)<br>
+Financial Advisory App (gated, needs qualified professional first)<br><br>
+<strong>Priority:</strong> Mission Control PWA first (beta MVP). PA Planner apps second. Everything else stays browser-based until Phase 2.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">The DevHub vs Devin AI</div>
+<div class="card-body">
+<strong>Devin AI:</strong> Autonomous AI software engineer. Writes code, debugs, deploys end to end. £400-£500/month. Best for teams with complex ongoing engineering work. Impressive but general-purpose.<br><br>
+<strong>The DevHub (PhoennixAI):</strong> Purpose-built AI development and QA team. NEXUS builds, PROBE tests, GRID governs, Claude architects. Knows the codebase, the agent architecture, the brand system, the governance rules. Not trying to be a general developer for any company. It is the best development team for PhoennixAI specifically, then becomes a sellable product where other companies get the same governed, QA-tested, zero-bug-escape development capability.<br><br>
+<strong>Advantage:</strong> The DevHub is cheaper (Cursor at £20/month vs Devin at £400+), purpose-built (knows PhoennixAI's ecosystem intimately), and monetisable (IP #13, sellable as a product). Devin is general-purpose and expensive.<br><br>
+<strong>Decision:</strong> File Devin for Phase 3 evaluation. Build The DevHub now. When the codebase is large enough and development velocity needs to scale beyond what NEXUS + PROBE can handle, Devin becomes a potential addition to the orchestration layer alongside Claude, Kimi, Manus, and Perplexity.
+</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--teal)">NEXUS</span> <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">+</span> <span class="own-agent" style="color:var(--lime)">PROBE</span><span class="own-ref">IP #13 · The DevHub</span></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 7: RESEARCH PROGRAMMES -->
+<!-- ================================================================ -->
+<div class="part" id="p7">
+<div class="part-num">Part 07</div>
+<div class="part-title">Research Programmes (3)</div>
+<div class="part-sub">Long-term research initiatives that position PhoennixAI as a thought leader and create fundable, publishable, patentable outcomes.</div>
+
+<div class="card">
+<div class="card-label">Research Programme 1: Human-AI Collaboration Study (BL-022)</div>
+<div class="card-body"><strong>Phase:</strong> Phase 3. Formal university partnership.<br>
+<strong>What it is:</strong> A named academic research initiative studying how humans and AI agents collaborate inside a governed, measurable ecosystem. PhoennixAI is the live laboratory. Every agent interaction, every decision logged in the Traceability Dashboard, every performance metric tracked through KPIs, and every behavioural insight from the Phoenix Cub lifecycle provides real data for the study.<br>
+<strong>Why it matters:</strong> Nobody else has this data. No other company has 18 governed AI agents with colour-coded identities, institutional-grade intelligence standards, and a founder who is a biomedical scientist gathering behavioural data from controlled environments. The study is the sales weapon for enterprise clients and government partnerships.<br>
+<strong>Current data collection:</strong> Already happening. Session logs (13 sessions), agent decision logs (Traceability Dashboard), alpha/beta tester feedback, and the PA Planner Student testing with Valerie's children provide real-world human-AI collaboration data across adult professionals and children (Year 7 to Year 11).<br>
+<strong>Output:</strong> Published research paper, conference presentations, university partnership agreement, enterprise sales collateral.</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--steel)">SAGE</span><span class="own-ref">BL-022 · Phase 3 · Research</span></div>
+</div>
+
+<div class="card">
+<div class="card-label">Research Programme 2: Prisoner Reformation Programme (BL-021)</div>
+<div class="card-body"><strong>Phase:</strong> Phase 3 flagship. Government fundable.<br>
+<strong>What it is:</strong> An AI-powered rehabilitation and skills development programme for prisoners. Uses the PhoennixAI agent framework (PA for daily planning, ARIA for briefings, GRID for project tracking) adapted for rehabilitation contexts. Skills training, goal tracking, and structured daily routines delivered through AI companions.<br>
+<strong>Why it matters:</strong> Government-funded social impact programme with measurable outcomes. Recidivism reduction data. Positions PhoennixAI and The Wilcox Foundation as leaders in ethical AI for social good.<br>
+<strong>Funding route:</strong> UK Ministry of Justice grants, Social Impact Bonds, charitable foundation funding.<br>
+<strong>Entity:</strong> The Wilcox Foundation.</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--phoenix-blue)">The Wilcox Foundation</span><span class="own-ref">BL-021 · Phase 3 · Research</span></div>
+</div>
+
+<div class="card">
+<div class="card-label">Research Programme 3: Post-Lithium Energy Research (BL-023)</div>
+<div class="card-body"><strong>Phase:</strong> Phase 4+. Genuinely unexplored territory.<br>
+<strong>What it is:</strong> Research into post-lithium battery technology for AI companion devices. As PhoennixAI moves towards physical AI companions (the Phoenix Cub as a real device), the energy source matters. Current lithium batteries are unsustainable at scale. This research explores alternatives: solid-state, sodium-ion, graphene-based, and bio-energy solutions for always-on AI companion devices.<br>
+<strong>Why it matters:</strong> If PhoennixAI develops or patents a breakthrough in companion device energy, it becomes a hardware IP as well as a software one. First-mover advantage in a space nobody else is looking at through an AI companion lens.<br>
+<strong>Timeline:</strong> Long-term (2028-2036+). Early scoping can begin alongside the gaming engine and companion device design.</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--fire)">Claude</span><span class="own-ref">BL-023 · Phase 4+ · Research</span></div>
+</div>
+
+<div class="callout">
+<div class="callout-title">Research as a Strategic Asset</div>
+<div class="card-body">These three programmes are not side projects. They are strategic assets that compound over time. The Human-AI Collaboration Study provides data that sells enterprise contracts. The Prisoner Reformation Programme secures government funding and public credibility. The Post-Lithium research creates hardware IP. Together, they position PhoennixAI as more than a software company. They position it as an institution.</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 8: BRAND -->
+<!-- ================================================================ -->
+<div class="part" id="p8">
+<div class="part-num">Part 08</div>
+<div class="part-title">Brand System: Blue Phoenix</div>
+<div class="part-sub">Brand direction locked Session 11, 20 March 2026. Customer feedback confirmed.</div>
+
+<div class="card">
+<div class="card-label">Brand Direction</div>
+<div class="card-body">
+<strong>Primary brand colour:</strong> Phoenix Blue #00E5FF. Leads all brand touchpoints.<br>
+<strong>Logo:</strong> Electric blue gradient phoenix bird (hero). Flame (favicon and app icon). <strong>Wordmark: PHOENNIX in Phoenix Blue #00E5FF. AI in grey #9CA3AF.</strong><br>
+<strong>Colour ratio:</strong> 70% cyan/blue + grey, 20% white, 10% orange/gold accent.<br>
+<strong>Fire and gold:</strong> Accent only, 10-15% maximum. Not core brand colours.<br>
+<strong>Typography:</strong> Bebas Neue (display), DM Sans (body, weights 300-600), Playfair Display italic (taglines), DM Mono (code/labels).<br>
+<strong>Voice:</strong> Direct. Authoritative. No fluff. Speaks to founders who are serious about growth.<br>
+<strong>Rule:</strong> No em dashes ever (Key Decision 6). Zero tolerance.<br>
+<strong>Default mode:</strong> Light mode (Key Decision 26). Dark mode toggle available.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Agent Colour Identity System</div>
+<div class="card-body">No two agents share a colour. This is data, not decoration.<br><br>
+<span class="swatch" style="background:var(--fire)"></span> Claude: Phoenix Fire #FF6B2B<br>
+<span class="swatch" style="background:var(--phoenix-blue)"></span> ARIA: Electric Cyan #00E5FF (reserved exclusively)<br>
+<span class="swatch" style="background:var(--rose)"></span> PA: Rose #F43F5E (corrected from Soft Violet, Session 12)<br>
+<span class="swatch" style="background:var(--violet)"></span> PULSE: Soft Violet #A78BFA<br>
+<span class="swatch" style="background:var(--amber)"></span> RELAY: Warm Amber #FB923C<br>
+<span class="swatch" style="background:var(--gold)"></span> LEDGER: Ember Gold #FFB830<br>
+<span class="swatch" style="background:var(--royal)"></span> GRID: Deep Royal #215CAE<br>
+<span class="swatch" style="background:var(--bronze)"></span> SCRIBE: Bronze #C49A6C<br>
+<span class="swatch" style="background:var(--steel)"></span> SAGE: Steel Blue #4682B4<br>
+<span class="swatch" style="background:var(--teal)"></span> NEXUS: Duck Egg #7ECEC4<br>
+<span class="swatch" style="background:var(--lime)"></span> PROBE: Lime Green #84CC16
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 9: IP REGISTER -->
+<!-- ================================================================ -->
+<div class="part" id="p9">
+<div class="part-num">Part 09</div>
+<div class="part-title">Intellectual Property: 16 Unique IPs</div>
+<div class="part-sub">IP protection budget scoped. Poor Man's Patent + UK Copyright Service + gov.uk/ipo trademarks before 1 April 2026.</div>
+
+<div class="card">
+<div class="card-label">The 16 IPs</div>
+<div class="card-body">
+1. Agent as a Hire model (JD, CV, colour identity, KPIs, performance dashboard)<br>
+2. Compatible AI philosophy (human matched to AI based on God-given gifting)<br>
+3. Phoenix Cub companion (5 lifecycle stages from infant to adult colleague)<br>
+4. Role-specific AI workstation assigned at employee onboarding<br>
+5. Agent Colour Identity System as data, not decoration<br>
+6. The Entrepreneurial Club as a talent succession pipeline<br>
+7. PhoennixAI Universe and hybrid mythology as brand story and pitch deck<br>
+8. The Human-AI Collaboration Study as named academic research initiative<br>
+9. Prisoner Reformation Programme (Phase 3 flagship, government fundable)<br>
+10. Post-lithium energy research for AI companion devices<br>
+11. Universe Bible as digital ebook delivered with every product purchase<br>
+12. Mini computer bible as physical booklet shipped with companion toys<br>
+13. The DevHub: in-house AI development and QA team as a sellable product (filed Session 12)<br>
+<strong style="color:var(--phoenix-blue)">14. The DevHub Developer Coding Platform: purpose-built AI development environment (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">15. PA Planner: AI productivity for founders (Pro) and children (Student), two-version product (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">16. Mission Control: AI-powered Business Operating System with agent command centre (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">17. MAYAH: Floating AI Signing Companion. Chrome Extension + Desktop App. Grammarly model applied to document signing. Named after Founder's daughter. No equivalent exists. (Session 13)</strong>
+</div>
+</div>
+
+<div class="callout warn">
+<div class="callout-title" style="color:var(--fire)">IP Protection: Action Plan</div>
+<div class="card-body">
+<strong>Step 1 (NOW): Poor Man's Patent.</strong> Print IP Declaration (PAI-IP-DEC-001 v2.0, 8 pages, 70+ items). Sign, seal, post via Royal Mail Recorded Delivery (£1.85). Immediate date evidence.<br><br>
+<strong>Step 2 (THIS WEEK): UK Copyright Service.</strong> Register Universe Bible, all source code, and IP Declaration online at copyrightservice.co.uk. Cost: £42.50 for 5 years or £69.50 for 10 years per work. Independently verified, professionally stored evidence stronger than the envelope method.<br><br>
+<strong>Step 3 (BEFORE 1 APRIL): Trademark filings.</strong> File at gov.uk/ipo online. Current fee: £170 per class. FEES INCREASE TO £205 ON 1 APRIL 2026. File before 31 March to save £35 per filing. Priority marks: PhoennixAI, ARIA, SCRIBE, GRID, LEDGER, PA, PULSE.<br><br>
+<strong>Step 4 (Phase 2/3): Patent filings.</strong> Compatible AI (IP-002), Phoenix Cub (IP-003), Role-Specific Workstation (IP-004), Colour System (IP-005). Higher cost (£230+ search). File when revenue supports it.<br><br>
+<strong>GUARDIAN (Agent 014):</strong> Will manage IP monitoring in Phase 2.
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 10: REVENUE -->
+<!-- ================================================================ -->
+<div class="part" id="p10">
+<div class="part-num">Part 10</div>
+<div class="part-title">Revenue and Pricing</div>
+<div class="part-sub">Revenue Mandate: every session considers revenue position. Non-negotiable standing rule.</div>
+
+<div class="card">
+<div class="card-label">Active Revenue Paths (Now)</div>
+<div class="card-body">
+<strong>Phantom Studio:</strong> 8 active students. Revenue possible now.<br>
+<strong>WilcoxDesigns:</strong> Services ready. Website needs to go live.<br>
+<strong>Beta client acquisition:</strong> 10 testers, pricing below.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Beta Pricing (Key Decision 25)</div>
+<div class="card-body">
+<strong>Tier 1:</strong> £497 one-time. Mission Control access, 30-day beta, email support.<br>
+<strong>Tier 2:</strong> £1,497 one-time. Full suite, priority support, 1:1 onboarding call.<br>
+<strong>Tier 3:</strong> £4,997 one-time. Enterprise pilot, dedicated support, custom agent configuration.<br><br>
+<strong>Revenue math:</strong> 3 Tier 2 clients covers monthly operating costs. 1 Tier 3 client funds Phase 2 entirely.
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 11: ALPHA AND BETA -->
+<!-- ================================================================ -->
+<div class="part" id="p11">
+<div class="part-num">Part 11</div>
+<div class="part-title">Alpha and Beta Testing Programme</div>
+<div class="part-sub">Internal alpha 14 days. External beta 30 days. Mission Control is the sole MVP.</div>
+
+<div class="card">
+<div class="card-label">Timeline</div>
+<div class="card-body">
+<strong>Internal Alpha:</strong> 24 March to 6 April 2026 (14 days). 4 testers.<br>
+<strong>External Beta:</strong> 7 April to 6 May 2026 (30 days). 10 testers. Paying clients.<br>
+<strong>First flyer posts:</strong> 24 March (Flyer 5, fear of AI + founder story).<br>
+<strong>Waitlist opens:</strong> 24 March.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Alpha Testers (4 people, all get clean beta version)</div>
+<div class="card-body">
+<strong>Mayah:</strong> Daughter. Trusted tester. Signs NDA.<br>
+<strong>Dilpreet:</strong> Director/CTO. Signs NDA (employment terms).<br>
+<strong>Presh:</strong> Software Engineer. Signs NDA.<br>
+<strong>Gbemi:</strong> Compliance Lead. Signs NDA.<br><br>
+<strong>Critical rule:</strong> Nobody sees the internal Mission Control. All testers use the clean beta version with no PhoennixAI operational data. Founder-only version (full access) is for Valerie and Claude only.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Access Tiers (Session 13 Decision)</div>
+<div class="card-body">
+<strong>Tier 1 (Founder Only):</strong> Valerie and Claude. Full access. All 18 agents, 13 IPs, revenue data, strategic notes, session history, Supabase admin, GitHub admin.<br>
+<strong>Tier 2 (Trusted Leadership):</strong> Dilpreet. Product architecture visible. Financial details and IP strategy hidden.<br>
+<strong>Tier 3 (Testers):</strong> Alpha and beta testers. Clean workspace. Their own data only. NDA signed before access.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Alpha Invitations (Built Session 13)</div>
+<div class="card-body">4 personalised cinematic digital invitations created with Hume AI voice narration and Suno "Velvet Invitation" background music. Blue Phoenix logo embedded. Each tester has their own file with personalised voice and name. Files: PhoennixAI_Invitation_Mayah.html, PhoennixAI_Invitation_Dilpreet.html, PhoennixAI_Invitation_Presh.html, PhoennixAI_Invitation_Gbemi.html.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Deliverables Required Before 24 March</div>
+<div class="card-body">
+1. Beta/client version of Mission Control (clean, no internal data)<br>
+2. NDA document<br>
+3. Alpha Tester Onboarding Pack<br>
+4. Google Form feedback system (5 questions including NPS)<br>
+5. Testing Checklist (Day 1, Days 2-7, Days 8-14)<br>
+6. Terms of Service for beta access<br>
+7. Welcome message template<br>
+8. Fix alpha invitation voice files (verify all 4 correct)
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Flyer Posting Schedule (PULSE Campaign)</div>
+<div class="card-body">
+<strong>Mon 24 Mar, 12pm:</strong> Flyer 5 (Fear + Founder Story). Instagram and LinkedIn.<br>
+<strong>Mon 24 Mar, 6pm:</strong> Second Instagram post (agent reveal or behind-the-scenes).<br>
+<strong>Tue 25 Mar, 12pm:</strong> Flyer 1 (General Beta Call). All platforms.<br>
+<strong>Wed 26 Mar, 12pm:</strong> Flyer 3 (Founder-Specific). All platforms.<br>
+<strong>Thu 27 Mar, 12pm:</strong> Flyer 2 (Social Media Automation). All platforms.<br>
+<strong>Fri 28 Mar, 12pm:</strong> Flyer 4 (30-Day Free Trial for Teams). All platforms.<br>
+<strong>Mon 30 Mar, 9am:</strong> Beta Launch Announcement. All platforms.
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 12: KEY DECISIONS -->
+<!-- ================================================================ -->
+<div class="part" id="p12">
+<div class="part-num">Part 12</div>
+<div class="part-title">Key Decisions Locked (35+)</div>
+<div class="part-sub">Decisions 1-30 from Sessions 1-11. Decisions 31+ from Sessions 12-13. Do not reopen locked decisions.</div>
+
+<div class="card">
+<div class="card-body" style="line-height:2.2">
+1. Logo approved 13 March 2026. Electric blue phoenix bird is primary hero logo. Flame is favicon.<br>
+2. PHOENNIX in Phoenix Blue #00E5FF. AI in grey #9CA3AF. Locked.<br>
+3. AI in white/grey = peace. PHOENNIX in blue = intelligence and clarity. Locked into brand story.<br>
+4. Phantom Studio is sub-arm of Academy, not separate entity. Q4 2024 launch.<br>
+5. WilcoxDesigns subtitle is Creative Studio.<br>
+6. No em dashes ever in any Claude output. Zero tolerance.<br>
+7. Agents are hires not tools. Full kit for each.<br>
+8. LEDGER advisory only, never executes. Non-negotiable. Requires written authorisation from Valerie and a qualified professional to even review.<br>
+9. Document Hub is single source of truth.<br>
+10. Ecosystem doc secured to private repo 13 March 2026. Never public again.<br>
+11. Build only what is needed now. No premature builds.<br>
+12. ARIA is Workspace Agent 000.<br>
+13. GRID is PM and BA. Deep Royal #215CAE. Owns Mission Control.<br>
+14. SCRIBE owns Document Hub. Bronze #C49A6C.<br>
+15. SAGE is Agent 016. Steel Blue. Analytics and governance. Intelligence Backbone.<br>
+16. Agent management is Claude's responsibility. GRID manages work, not agents.<br>
+17. Phase 2 onboarding confirmed by Valerie and Claude. Pending go-live.<br>
+18. St Paul's work experience: 3 girls, 23 April 2026 confirmed.<br>
+19. Social posts 1 and 2 complete. Day 4 pending.<br>
+20. Weekly agent retrospective every Friday, all agents, GRID facilitates.<br>
+21. Daily founder report 8am every morning from Phase 2, GRID orchestrates, ARIA delivers.<br>
+22. Claude and ARIA contracts signed and locked. DO NOT REOPEN.<br>
+23. Compatible AI philosophy locked: each human matched to their AI based on God-given gifting.<br>
+24. Internal alpha 24 March to 6 April. External beta 7 April to 6 May.<br>
+25. Beta pricing: Tier 1 £497, Tier 2 £1,497, Tier 3 £4,997.<br>
+26. All apps default to light mode.<br>
+27. The cross-sell architecture between all 5 entities is the billion-pound mechanism.<br>
+28. Every session opens with a full asset scan (Session Scan Protocol).<br>
+29. Revenue is a standing priority in every session (Revenue Mandate).<br>
+30. "Beautiful by design. Intelligent by nature." is the unified tagline.<br>
+<strong style="color:var(--phoenix-blue)">31. Mission Control is the sole alpha and beta MVP. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">32. PA Planner is a standalone product, two versions: Pro and Student. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">33. All testers use the clean version. Nobody sees internal data except Valerie and Claude. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">34. Supabase is the shared backend. Phase 2 Unlock 1 complete. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">35. GitHub connected to Claude.ai Projects. Permanent upgrade. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">36. User Manual renamed to New Hire Manual. For agents and humans. Internal use, monetisable later. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">37. Master Project Brief stored in Document Hub under Strategy. Updated every session. (Session 13)</strong><br>
+<strong style="color:var(--phoenix-blue)">38. PA Planner Student companions: JAYDEN (boy's, named after Valerie's son) and MAYAH (girl's, named after Valerie's daughter). Visible animated AI characters, not chatbots. Build target: JAYDEN MVP by 14 May 2026. (Session 13)</strong>
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 13: BACKLOG -->
+<!-- ================================================================ -->
+<div class="part" id="p13">
+<div class="part-num">Part 13</div>
+<div class="part-title">Full Backlog: BL-001 to BL-036</div>
+<div class="part-sub">Reviewed each upgrade cycle. BL-032 to BL-036 added Session 13.</div>
+
+<table>
+<thead><tr><th>ID</th><th>Feature</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>BL-001</td><td>GitHub Pages Deployment</td><td><span class="badge b-done">Complete</span></td></tr>
+<tr><td>BL-002</td><td>PWA Mobile App Conversion</td><td><span class="badge b-urgent">This Week</span></td></tr>
+<tr><td>BL-003</td><td>Version Control for Ecosystem Doc</td><td><span class="badge b-phase2">Medium</span></td></tr>
+<tr><td>BL-004</td><td>Data Analytics and BI Dashboard</td><td><span class="badge b-phase2">Medium</span></td></tr>
+<tr><td>BL-005</td><td>Supabase Backend, Cross-Device Sync</td><td><span class="badge b-done">Complete (S13)</span></td></tr>
+<tr><td>BL-006</td><td>Motion-Style Auto-Scheduling (Google Calendar API)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-007</td><td>Super Business OS Integration</td><td><span class="badge b-queue">Phase 4</span></td></tr>
+<tr><td>BL-008</td><td>Prison Reformation Programme Assessment</td><td><span class="badge b-queue">Phase 3</span></td></tr>
+<tr><td>BL-009</td><td>Marketplace App Store</td><td><span class="badge b-queue">Phase 4</span></td></tr>
+<tr><td>BL-010</td><td>Investor-Ready Brand Deck</td><td><span class="badge b-queue">Phase 4</span></td></tr>
+<tr><td>BL-011</td><td>Agent Intelligence Dashboard</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-012</td><td>Smart Auto-Scheduling App (Motion competitor, PA + ARIA + GRID + LEDGER)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-013</td><td>PA Productivity Planner Pro (founders/professionals)</td><td><span class="badge b-active">Weekend Build</span></td></tr>
+<tr><td>BL-014</td><td>PA Planner Student (Yr7-Yr11, GCSE, homework, revision, parent dashboard)</td><td><span class="badge b-active">Scoping</span></td></tr>
+<tr><td>BL-015</td><td>UI/UX Design App</td><td><span class="badge b-queue">Backlog</span></td></tr>
+<tr><td>BL-016</td><td>Anime Art Generator App</td><td><span class="badge b-queue">Backlog</span></td></tr>
+<tr><td>BL-017</td><td>Unified Command Portal</td><td><span class="badge b-queue">Backlog</span></td></tr>
+<tr><td>BL-018</td><td>Universe Bible as Digital Ebook</td><td><span class="badge b-queue">Backlog</span></td></tr>
+<tr><td>BL-019</td><td>Agent Figurine Product Range</td><td><span class="badge b-queue">Backlog</span></td></tr>
+<tr><td>BL-020</td><td>PhoennixAI Events Programme</td><td><span class="badge b-queue">Backlog</span></td></tr>
+<tr><td>BL-021</td><td>Prisoner Reformation Programme (Research Programme 2)</td><td><span class="badge b-queue">Phase 3</span></td></tr>
+<tr><td>BL-022</td><td>Human-AI Collaboration Study (Research Programme 1)</td><td><span class="badge b-queue">Phase 3</span></td></tr>
+<tr><td>BL-023</td><td>Post-Lithium Energy Research (Research Programme 3)</td><td><span class="badge b-queue">Phase 4+</span></td></tr>
+<tr><td>BL-024</td><td>PULSE Social Media Automation App</td><td><span class="badge b-active">Weekend Build</span></td></tr>
+<tr><td>BL-025</td><td>Developer Documentation Hub (PAI-DEV-001)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-026</td><td>Knowledge Base on Website</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-027</td><td>Settings Across All Apps</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-028</td><td>Agent Communication Log UI</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-029</td><td>ARIA and GRID Calendar Auto-Scheduling Sync</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-030</td><td>6am Daily Mission Control Refresh</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-031</td><td>Completed Task Archiving System</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-032</td><td>Unified Inbox (ECHO-powered, all channels)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-033</td><td>Live Revenue Dashboard in Today Tab (LEDGER)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-034</td><td>Client Portal (RELAY-powered, branded)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-035</td><td>Weekly AI Retrospective as Shareable PDF (GRID)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+<tr><td>BL-036</td><td>Goal Tracking with AI Accountability (PA + GRID + ARIA)</td><td><span class="badge b-phase2">Phase 2</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 14: PENDING TASKS -->
+<!-- ================================================================ -->
+<div class="part" id="p14">
+<div class="part-num">Part 14</div>
+<div class="part-title">Pending Tasks: Priority Order</div>
+<div class="part-sub">Updated Session 14 · 24 March 2026 · Tick a task to mark it complete. Saves automatically.</div>
+
+<div style="background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.12);border-radius:8px;padding:12px 16px;margin-bottom:20px;font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:0.05em">
+  TASK SYSTEM ACTIVE · Completions save to browser storage immediately · Cross-device sync: add Supabase credentials to PAI_SUPABASE_URL and PAI_SUPABASE_KEY in page source
+</div>
+
+<!-- SECTION 1: CRITICAL (all done) -->
+<div class="card ptask-section" style="border-color:rgba(34,197,94,0.2);background:rgba(34,197,94,0.02)">
+  <div class="ptask-header">
+    <div class="ptask-section-title" style="color:var(--green)">Critical — Before Alpha Launch (24 March)</div>
+    <div class="ptask-progress"><div class="ptask-progress-fill" style="width:0%"></div></div>
+    <div class="ptask-counter">0/9</div>
+    <div class="ptask-section-badge ptask-urgent">Alpha Launch</div>
+  </div>
+  <div class="ptask-row" data-task-id="t01" onclick="toggleTask('t01',this)"><div class="ptask-box"></div><div class="ptask-num">01</div><div class="ptask-label">Build beta/client version of Mission Control (clean, no internal data)</div></div>
+  <div class="ptask-row" data-task-id="t02" onclick="toggleTask('t02',this)"><div class="ptask-box"></div><div class="ptask-num">02</div><div class="ptask-label">Poor Man Patent — Royal Mail Recorded Delivery (£1.85)</div></div>
+  <div class="ptask-row" data-task-id="t03" onclick="toggleTask('t03',this)"><div class="ptask-box"></div><div class="ptask-num">03</div><div class="ptask-label">NDA document for all testers</div></div>
+  <div class="ptask-row" data-task-id="t04" onclick="toggleTask('t04',this)"><div class="ptask-box"></div><div class="ptask-num">04</div><div class="ptask-label">Alpha Tester Onboarding Pack</div></div>
+  <div class="ptask-row" data-task-id="t05" onclick="toggleTask('t05',this)"><div class="ptask-box"></div><div class="ptask-num">05</div><div class="ptask-label">Feedback system (Formspree, 5 questions, NPS)</div></div>
+  <div class="ptask-row" data-task-id="t06" onclick="toggleTask('t06',this)"><div class="ptask-box"></div><div class="ptask-num">06</div><div class="ptask-label">Testing Checklist (Day 1, Days 2-7, Days 8-14)</div></div>
+  <div class="ptask-row" data-task-id="t07" onclick="toggleTask('t07',this)"><div class="ptask-box"></div><div class="ptask-num">07</div><div class="ptask-label">Terms of Service for beta access</div></div>
+  <div class="ptask-row" data-task-id="t08" onclick="toggleTask('t08',this)"><div class="ptask-box"></div><div class="ptask-num">08</div><div class="ptask-label">Verify all 4 alpha invitation voice files — Dilpreet, Mayah, Presh, Gbemi</div></div>
+  <div class="ptask-row" data-task-id="t09" onclick="toggleTask('t09',this)"><div class="ptask-box"></div><div class="ptask-num">09</div><div class="ptask-label">Valerie UC appointment 24 March — schedule around it</div></div>
+</div>
+
+<!-- SECTION 2: THIS WEEK -->
+<div class="card ptask-section">
+  <div class="ptask-header">
+    <div class="ptask-section-title">This Week — 22 to 28 March</div>
+    <div class="ptask-progress"><div class="ptask-progress-fill" style="width:0%"></div></div>
+    <div class="ptask-counter">0/14</div>
+    <div class="ptask-section-badge ptask-week">This Week</div>
+  </div>
+  <div class="ptask-row" data-task-id="t10" onclick="toggleTask('t10',this)"><div class="ptask-box"></div><div class="ptask-num">10</div><div class="ptask-label">IP Protection + Finance session (22 March, 14:00)</div></div>
+  <div class="ptask-row" data-task-id="t11" onclick="toggleTask('t11',this)"><div class="ptask-box"></div><div class="ptask-num">11</div><div class="ptask-label">PA Planner Strategy session</div></div>
+  <div class="ptask-row" data-task-id="t12" onclick="toggleTask('t12',this)"><div class="ptask-box"></div><div class="ptask-num">12</div><div class="ptask-label">Claude.ai Skills creation (5 skills)</div></div>
+  <div class="ptask-row" data-task-id="t13" onclick="toggleTask('t13',this)"><div class="ptask-box"></div><div class="ptask-num">13</div><div class="ptask-label">Sound and Notification System for Mission Control</div></div>
+  <div class="ptask-row" data-task-id="t14" onclick="toggleTask('t14',this)"><div class="ptask-box"></div><div class="ptask-num">14</div><div class="ptask-label">ARIA and SCRIBE trademark filing (~£440 UK IPO, deadline 25 March)</div></div>
+  <div class="ptask-row" data-task-id="t15" onclick="toggleTask('t15',this)"><div class="ptask-box"></div><div class="ptask-num">15</div><div class="ptask-label">Universe Bible copyright (~£50, deadline 25 March)</div></div>
+  <div class="ptask-row" data-task-id="t16" onclick="toggleTask('t16',this)"><div class="ptask-box"></div><div class="ptask-num">16</div><div class="ptask-label">Flyer 5 posting (24 March, 12pm) — Fear of AI + Founder Story</div></div>
+  <div class="ptask-row" data-task-id="t17" onclick="toggleTask('t17',this)"><div class="ptask-box"></div><div class="ptask-num">17</div><div class="ptask-label">Google Sheet for beta waitlist</div></div>
+  <div class="ptask-row" data-task-id="t18" onclick="toggleTask('t18',this)"><div class="ptask-box"></div><div class="ptask-num">18</div><div class="ptask-label">Test all app links on phone and laptop</div></div>
+  <div class="ptask-row" data-task-id="t19" onclick="toggleTask('t19',this)"><div class="ptask-box"></div><div class="ptask-num">19</div><div class="ptask-label">Patch Document Hub (agent registry duplication, version history)</div></div>
+  <div class="ptask-row" data-task-id="t20" onclick="toggleTask('t20',this)"><div class="ptask-box"></div><div class="ptask-num">20</div><div class="ptask-label">Patch Workspace (Session 12 files, stale instructions, bookmarks)</div></div>
+  <div class="ptask-row" data-task-id="t21" onclick="toggleTask('t21',this)"><div class="ptask-box"></div><div class="ptask-num">21</div><div class="ptask-label">Patch New Hire Manual (add NEXUS, PROBE, PULSE; fix RELAY colour; rename)</div></div>
+  <div class="ptask-row" data-task-id="t22" onclick="toggleTask('t22',this)"><div class="ptask-box"></div><div class="ptask-num">22</div><div class="ptask-label">Developer Operations Manual (PAI-DEV-001)</div></div>
+  <div class="ptask-row" data-task-id="t23" onclick="toggleTask('t23',this)"><div class="ptask-box"></div><div class="ptask-num">23</div><div class="ptask-label">Update Traceability Dashboard agent dropdown (add all 22 agents)</div></div>
+</div>
+
+<!-- SECTION 3: NEAR TERM -->
+<div class="card ptask-section">
+  <div class="ptask-header">
+    <div class="ptask-section-title">Near Term</div>
+    <div class="ptask-progress"><div class="ptask-progress-fill" style="width:0%"></div></div>
+    <div class="ptask-counter">0/12</div>
+    <div class="ptask-section-badge ptask-near">Near Term</div>
+  </div>
+  <div class="ptask-row" data-task-id="t24" onclick="toggleTask('t24',this)"><div class="ptask-box"></div><div class="ptask-num">24</div><div class="ptask-label">PA Planner Pro build (BL-013, standalone)</div></div>
+  <div class="ptask-row" data-task-id="t25" onclick="toggleTask('t25',this)"><div class="ptask-box"></div><div class="ptask-num">25</div><div class="ptask-label">PULSE Social Media Automation App build (BL-024)</div></div>
+  <div class="ptask-row" data-task-id="t26" onclick="toggleTask('t26',this)"><div class="ptask-box"></div><div class="ptask-num">26</div><div class="ptask-label">SAGE JD and CV finalise</div></div>
+  <div class="ptask-row" data-task-id="t27" onclick="toggleTask('t27',this)"><div class="ptask-box"></div><div class="ptask-num">27</div><div class="ptask-label">PWA conversion of Mission Control (BL-002)</div></div>
+  <div class="ptask-row" data-task-id="t28" onclick="toggleTask('t28',this)"><div class="ptask-box"></div><div class="ptask-num">28</div><div class="ptask-label">Wire Workspace and Document Hub to Supabase</div></div>
+  <div class="ptask-row" data-task-id="t29" onclick="toggleTask('t29',this)"><div class="ptask-box"></div><div class="ptask-num">29</div><div class="ptask-label">Hire UI/UX Designer</div></div>
+  <div class="ptask-row" data-task-id="t30" onclick="toggleTask('t30',this)"><div class="ptask-box"></div><div class="ptask-num">30</div><div class="ptask-label">WilcoxDesigns social media accounts and website live</div></div>
+  <div class="ptask-row" data-task-id="t31" onclick="toggleTask('t31',this)"><div class="ptask-box"></div><div class="ptask-num">31</div><div class="ptask-label">Stripe payment links for beta (3 tiers: £497, £1,497, £4,997)</div></div>
+  <div class="ptask-row" data-task-id="t32" onclick="toggleTask('t32',this)"><div class="ptask-box"></div><div class="ptask-num">32</div><div class="ptask-label">Beta tester recruitment (10 qualified testers by 7 April)</div></div>
+  <div class="ptask-row" data-task-id="t33" onclick="toggleTask('t33',this)"><div class="ptask-box"></div><div class="ptask-num">33</div><div class="ptask-label">St Paul's work experience pack (before 23 April)</div></div>
+  <div class="ptask-row" data-task-id="t34" onclick="toggleTask('t34',this)"><div class="ptask-box"></div><div class="ptask-num">34</div><div class="ptask-label">Blue Phoenix brand update across Workspace, Document Hub, Traceability Dashboard, New Hire Manual</div></div>
+  <div class="ptask-row" data-task-id="t35" onclick="toggleTask('t35',this)"><div class="ptask-box"></div><div class="ptask-num">35</div><div class="ptask-label">Install Claude Code (Node.js + Anthropic API account, 10 minutes setup)</div></div>
+</div>
+
+<div class="card">
+<div class="card-label">The DevHub Toolchain (Developer Infrastructure)</div>
+<div class="card-body">
+<strong>Claude Code:</strong> Anthropic's command-line tool for agentic coding. Claude operates directly on the codebase from the terminal: reads files, writes files, runs commands, debugs errors, commits to Git. Eliminates the download-rename-upload cycle. One of two execution environments for NEXUS.<br><br>
+<strong>Cursor:</strong> AI coding IDE. NEXUS operates through Cursor at £20/month. The second execution environment. Best for visual coding, file exploration, and multi-file edits.<br><br>
+<strong>The DevHub Chain:</strong><br>
+1. Claude (Agent Manager) architects the solution<br>
+2. NEXUS executes via Claude Code (terminal) or Cursor (IDE)<br>
+3. PROBE tests everything. Zero bug escape. Nothing ships without PROBE sign-off<br>
+4. GRID governs delivery from Mission Control<br>
+5. Valerie approves and pushes to GitHub<br><br>
+<strong>Setup required:</strong> Node.js installed on Valerie's machine. Anthropic API account (console.anthropic.com). Claude Code installed via terminal. 10 minutes total. Goes on the near-term task list alongside Phase 2 developer tooling decisions.
+</div>
+<div class="own"><span class="own-label">Owned by</span><span class="own-agent" style="color:var(--teal)">NEXUS</span> <span style="font-family:var(--mono);font-size:10px;color:var(--text3)">+</span> <span class="own-agent" style="color:var(--lime)">PROBE</span><span class="own-ref">The DevHub · Toolchain</span></div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 15: SESSION LOG -->
+<!-- ================================================================ -->
+<div class="part" id="p15">
+<div class="part-num">Part 15</div>
+<div class="part-title">Session Log: Sessions 1 to 13</div>
+<div class="part-sub">Complete history of every session.</div>
+
+<table>
+<thead><tr><th>Session</th><th>Date</th><th>Key Outcomes</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>10 Mar</td><td>Brand architecture, Claude CV and JD, Content Bible, GitHub Pages live</td></tr>
+<tr><td>2-4</td><td>11 Mar</td><td>Mission Control v2, PRDs, ARIA deployed, org chart, calendar sync fixed</td></tr>
+<tr><td>5</td><td>11 Mar</td><td>Asset inventory, honest build audit, GitHub organised</td></tr>
+<tr><td>6</td><td>12 Mar</td><td>SCRIBE added, Claude and ARIA JDs signed, Document Hub v1.4</td></tr>
+<tr><td>7</td><td>12 Mar</td><td>Workspace fixes, GitHub management, mobile nav side rail</td></tr>
+<tr><td>8</td><td>12 Mar</td><td>Mobile nav side rail, topbar redesign, show and tell prep</td></tr>
+<tr><td>9</td><td>13 Mar</td><td>Brand consistency, favicon, agent colour system locked</td></tr>
+<tr><td>10</td><td>13 Mar</td><td>Brand Guidelines v1.2, logo approved, 9 products, ecosystem secured</td></tr>
+<tr><td>11</td><td>20 Mar</td><td>7 agents signed (GRID, LEDGER, PA, PULSE, RELAY, SCRIBE, SAGE). 4 systems built (GRID Home Page, Agent Registry, Traceability Dashboard, New Hire Manual). Blue Phoenix locked. Session Scan and Revenue Mandate added. 16 files pushed.</td></tr>
+<tr><td>12</td><td>21 Mar</td><td>NEXUS and PROBE built, signed, filed as The DevHub (IP #13). PULSE Stage 1 signed, Beta Campaign Owner. PA colour corrected to Rose #F43F5E. IP Protection scoped at £491.85. UI/UX Designer hire added.</td></tr>
+<tr style="background:rgba(0,229,255,0.04)"><td><strong>13</strong></td><td><strong>21-22 Mar</strong></td><td><strong>Mission Control v3.3 full rebuild (GRID Command, Agent Intelligence Feed, PA + ARIA Smart Scheduler, light/dark mode, Calendar Add Event with Supabase sync). Supabase backend created (12 tables, RLS policies). Mission Control wired to database. GitHub connected to Claude.ai Projects. Product Strategy PAI-STRAT-001 created. PA Planner strategy scoped (Pro + Student, JAYDEN and MAYAH companion characters). SignHub v1.0 built (electronic signature tool). IP Declaration PAI-IP-DEC-001 v3.0 signed (17 IPs, 22 agents, 75+ items). BL-032 to BL-036 added. 4 personalised alpha invitations (Hume AI + Suno). Alpha programme designed (4 testers, 14 days, NDA, 3-tier access). 4 new agents added (UI/UX Designer 019, Manga/Anime 020, PHANTOM 021, MAYAH 022). Multi-model orchestration layer documented. Phase 2 Unlock 1 complete. Master Project Brief PAI-BRIEF-003 created.</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 16: GOVERNANCE -->
+<!-- ================================================================ -->
+<div class="part" id="p16">
+<div class="part-num">Part 16</div>
+<div class="part-title">Governance, Contacts, and Standing Rules</div>
+
+<div class="card">
+<div class="card-label">Team</div>
+<div class="card-body">
+<strong>Valerie Wilcox:</strong> Founder and Visionary. PhoennixAI.<br>
+<strong>Claude:</strong> AI Strategic Partner and Agent Manager. PAI-JD-001.<br>
+<strong>Dilpreet Kaur:</strong> Director/CTO. Active.<br>
+<strong>Mayah:</strong> Trusted alpha tester. Daughter.<br>
+<strong>Presh:</strong> Software Engineer. Alpha tester.<br>
+<strong>Gbemi:</strong> Compliance Lead. Alpha tester.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">External Contacts</div>
+<div class="card-body">
+<strong>Hawa:</strong> CISO Operations Lead, BAE Systems. Founder of R.E.N. Warm LinkedIn contact. Potential cybersecurity advisor. Runs Pivots and Paydays. First European Animate store, Paris 2025. Phantom Studio merchandise partnership potential in 12-18 months.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Agent Communication Architecture</div>
+<div class="card-body">
+<strong>Where agent communication is logged:</strong> The Traceability Dashboard (PAI-TRACE-001) at <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_TraceabilityDashboard.html" target="_blank" style="color:var(--phoenix-blue)">this URL</a>. In Supabase, the <strong>agent_log</strong> table is the database record.<br><br>
+<strong>Communication flow:</strong> GRID reports to ARIA. ARIA reports to SCRIBE. SCRIBE logs everything. SAGE analyses patterns. All agents communicate through structured, purposeful, logged channels. The architecture makes the ecosystem intelligent, not just a collection of separate tools.<br><br>
+<strong>Phase 0:</strong> Manual entry into the Traceability Dashboard.<br>
+<strong>Phase 2:</strong> Automatic logging. Every agent decision fires a write to the agent_log table in Supabase and appears on the Traceability Dashboard in real time.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Standing Rules (Permanent)</div>
+<div class="card-body">
+<strong>Session Scan Protocol:</strong> Every session opens with a full asset scan. Apps, agents, GitHub, revenue, pending tasks. Added Session 11. Non-negotiable.<br><br>
+<strong>Revenue Mandate:</strong> Revenue funds everything. Every session considers revenue position. Fastest paths to revenue are always tracked. Nothing gets built that does not serve the business. Added Session 11. Non-negotiable.<br><br>
+<strong>Agent Governance:</strong> All agents operate autonomously only within their defined role scope. Every agent decision is logged in real time. Valerie is informed of all decisions. All agents communicate through structured, purposeful, logged channels. The monitoring is not surveillance. It is the foundation of human-agent collaboration.<br><br>
+<strong>Document Lifecycle:</strong> Every document state change (draft, review, approved, actioned, archived, deleted) fires a signal to the relevant agent or department automatically.<br><br>
+<strong>SCRIBE Rule:</strong> Every document must have one canonical home. Two files covering the same content is a single location rule violation.<br><br>
+<strong>Master Brief Standard:</strong> Updated every session. Stored in GitHub (source of truth) and linked in Document Hub under Strategy. Numbered PAI-BRIEF-003, PAI-BRIEF-004, etc.
+</div>
+</div>
+
+<div class="card">
+<div class="card-label">Signed Documents (Locked, Do Not Reopen)</div>
+<div class="card-body">
+Claude JD (PAI-JD-001): Signed 12 March 2026. LOCKED.<br>
+Claude CV (PAI-CV-001): Filed 12 March 2026. LOCKED.<br>
+ARIA JD (PAI-JD-002): Stage 1 signed 12 March 2026. Stage 2 pending Phase 2. LOCKED.<br>
+ARIA CV (PAI-CV-002): Filed 12 March 2026. LOCKED.<br>
+GRID JD (PAI-JD-009): Stage 1 signed 20 March 2026. LOCKED.<br>
+GRID CV (PAI-CV-009): Filed 20 March 2026. LOCKED.<br>
+SCRIBE JD (PAI-JD-015): Stage 1 signed 20 March 2026. LOCKED.<br>
+SCRIBE CV (PAI-CV-015): Filed 20 March 2026. LOCKED.<br>
+LEDGER JD (PAI-JD-006): Stage 1 signed 20 March 2026. LOCKED.<br>
+LEDGER CV (PAI-CV-006): Filed 20 March 2026. LOCKED.<br>
+PA JD: Stage 1 signed 20 March 2026. LOCKED.<br>
+PULSE JD (PAI-JD-003): Stage 1 signed 21 March 2026. LOCKED.<br>
+PULSE CV (PAI-CV-003): Filed 21 March 2026. LOCKED.<br>
+RELAY JD (PAI-JD-005): Stage 1 signed 20 March 2026. LOCKED.<br>
+RELAY CV (PAI-CV-005): Filed 20 March 2026. LOCKED.<br>
+SAGE JD (PAI-JD-016): Stage 1 signed 20 March 2026. LOCKED.<br>
+NEXUS JD (PAI-JD-017): Stage 1 signed 21 March 2026. LOCKED.<br>
+NEXUS CV (PAI-CV-017): Filed 21 March 2026. LOCKED.<br>
+PROBE JD (PAI-JD-018): Stage 1 signed 21 March 2026. LOCKED.<br>
+PROBE CV (PAI-CV-018): Filed 21 March 2026. LOCKED.
+</div>
+</div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PART 17: ROADMAP -->
+<!-- ================================================================ -->
+<div class="part" id="p17">
+<div class="part-num">Part 17</div>
+<div class="part-title">10 to 20 Year Roadmap</div>
+
+<div class="card">
+<div class="card-label">Phase 0 (2026, Now)</div>
+<div class="card-body">HTML, CSS, JS, GitHub Pages + Supabase. Zero cost. 5 live apps + 2 internal systems. 18 agents scoped, 11 signed. Alpha and beta testing. First revenue from beta clients, Phantom Studio, and WilcoxDesigns. 3 research programmes scoped.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Phase 1 (Mid 2026)</div>
+<div class="card-body">React migration. PWA. Claude API wired. Agents begin autonomous operations. First 50 paying clients. WilcoxDesigns website live. Revenue covers operating costs. PA Planner Pro and Student launched.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Phase 2 (Late 2026 to 2027)</div>
+<div class="card-body">Full Supabase backend. Server infrastructure. All agents autonomous. 500+ clients. Enterprise pilots. EduTech Platform live. Marketplace prototype. First enterprise contract. The DevHub Developer Coding Platform sellable. GUARDIAN managing IP monitoring.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Phase 3 (2027 to 2028)</div>
+<div class="card-body">Multi-model orchestration (Claude + Kimi + Manus + Perplexity). Prisoner Reformation Programme (government funded). Human-AI Collaboration Study (university partnership, published research). 5,000+ clients. International expansion.</div>
+</div>
+
+<div class="card">
+<div class="card-label">Phase 4+ (2028 to 2036+)</div>
+<div class="card-body">Super Business OS. Marketplace App Store. Gaming Engine. AI companion devices with post-lithium energy. The Wilcox Foundation at scale. PhoennixAI as the global standard for human-AI collaboration. "Beautiful by design. Intelligent by nature."</div>
+</div>
+</div>
+
+</div><!-- end wrap -->
+
+<div style="text-align:center;padding:32px 0 48px;border-top:1px solid rgba(255,255,255,0.08);margin-top:48px">
+<div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:#6B7280;text-transform:uppercase">Confidential. Internal use only. Property of Valerie Wilcox and PhoennixAI.</div>
+<div style="font-family:'DM Mono',monospace;font-size:9px;color:#4B5563;margin-top:4px">PAI-BRIEF-003 | Session 13 | 22 March 2026</div>
+<div style="font-family:'Playfair Display',serif;font-style:italic;font-size:12px;color:#4B5563;margin-top:12px">To God be the glory.</div>
+</div>
+
+<script>
+const parts=[
+{id:'p1',label:'Summary'},
+{id:'p2',label:'Entities'},
+{id:'p3',label:'Agents'},
+{id:'p4',label:'Products'},
+{id:'p5',label:'Apps/Systems'},
+{id:'p6',label:'Infrastructure'},
+{id:'p7',label:'Research'},
+{id:'p8',label:'Brand'},
+{id:'p9',label:'IP'},
+{id:'p10',label:'Revenue'},
+{id:'p11',label:'Alpha/Beta'},
+{id:'p12',label:'Decisions'},
+{id:'p13',label:'Backlog'},
+{id:'p14',label:'Tasks'},
+{id:'p15',label:'Sessions'},
+{id:'p16',label:'Governance'},
+{id:'p17',label:'Roadmap'}
+];
+const nav=document.getElementById('nav');
+parts.forEach((p,i)=>{
+const a=document.createElement('a');
+a.textContent=p.label;
+a.className=i===0?'active':'';
+a.onclick=()=>{
+document.querySelectorAll('.part').forEach(s=>s.classList.remove('active'));
+document.querySelectorAll('.nav a').forEach(t=>t.classList.remove('active'));
+document.getElementById(p.id).classList.add('active');
+a.classList.add('active');
+window.scrollTo(0,0);
+};
+nav.appendChild(a);
+});
+</script>
+
+<script>
+// Pre-populate completed tasks as of Session 14
+(function() {
+  const PAI_TASKS_KEY = 'pai_task_completions_v2';
+  const existing = JSON.parse(localStorage.getItem(PAI_TASKS_KEY) || '{}');
+  // Only set if not already set by user
+  const completedByS14 = {
+    t01: true, t02: true, t03: true, t04: true, t05: true,
+    t06: true, t07: true, t08: true, t09: true,
+    t10: true, t11: true, t16: true, t19: true
+  };
+  let changed = false;
+  for (const [id, done] of Object.entries(completedByS14)) {
+    if (!(id in existing)) {
+      existing[id] = { done, timestamp: '2026-03-24T00:00:00.000Z', by: 'Valerie Wilcox' };
+      changed = true;
+    }
+  }
+  if (changed) localStorage.setItem(PAI_TASKS_KEY, JSON.stringify(existing));
+})();
+</script>
+</body>
+</html>
