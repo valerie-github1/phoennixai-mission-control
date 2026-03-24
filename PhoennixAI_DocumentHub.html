@@ -10,7 +10,7 @@
 <style>
 :root[data-theme="dark"]{--bg:#050507;--surface:#0E0E12;--panel:#141418;--card:#1C1C22;--border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--text:rgba(255,255,255,0.85);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--topbar:rgba(5,5,7,0.96);--fire:#E8622A}
 :root[data-theme="light"]{--bg:#F2EFE9;--surface:#FFFFFF;--panel:#F8F5F0;--card:#FFFFFF;--border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.15);--text:#1A1A1A;--text2:#5A5A5A;--text3:#AAAAAA;--topbar:rgba(255,255,255,0.96)}
-:root{--phoenix-blue:#00E5FF;--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
+:root{--bronze:#C49A6C;--fire:#FF6B2B;--gold:#FFB830;--sapphire:#46ABD7;--teal:#0D9488;--violet:#7B2FFF;--green:#22c55e;--red:#ef4444;--amber:#f59e0b;--serif:'Playfair Display',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;--mono:'DM Mono',monospace;--display:'Bebas Neue',Impact,sans-serif}
 .pin-btn{width:56px;height:56px;border-radius:8px;border:1px solid var(--border2);background:var(--card);color:var(--text);font-family:var(--mono);font-size:18px;cursor:pointer;transition:all 0.15s}
 .pin-btn:hover{border-color:rgba(255,107,43,0.4);background:rgba(255,107,43,0.06);color:var(--fire)}
 .pin-btn:active{transform:scale(0.94)}
@@ -26,7 +26,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 /* TOPBAR */
 .topbar{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--topbar);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 20px;gap:16px}
 .tb-logo{font-family:var(--display);font-size:18px;letter-spacing:3px;color:#00E5FF;flex-shrink:0}
-.tb-logo span{color:#9CA3AF;margin-left:-3px}
+.tb-logo span{color:var(--bronze);margin-left:-3px}
 .tb-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);flex:1}
 .tb-controls{display:flex;align-items:center;gap:10px;flex-shrink:0}
 .tb-badge{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--bronze);border:1px solid rgba(196,154,108,0.25);padding:3px 8px;border-radius:2px}
@@ -199,10 +199,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
 <!-- TOPBAR -->
 <div class="topbar">
-  <div class="tb-logo"><span style="color:#00E5FF">PHOENNIX</span><span style="color:#9CA3AF;margin-left:-2px">AI</span></div>
+  <div class="tb-logo">Phoennix<span>AI</span></div>
   <div class="tb-title">Document Management System, Single Source of Truth</div>
   <div class="tb-controls">
-    <span class="tb-badge">v1.8, 20 Mar 2026</span>
+    <span class="tb-badge">v2.0, 24 Mar 2026</span>
     <span id="theme-icon" style="font-size:14px">🌙</span>
     <div class="theme-toggle" onclick="toggleTheme()"></div>
   </div>
@@ -307,10 +307,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dh-title">PHOENNIXAI AGENCY</div>
             <div class="dh-sub">All operational, strategic, and product documents for the agency</div>
             <div class="dh-meta">
-              <div class="dh-meta-item"><strong>Last reviewed:</strong> 12 Mar 2026</div>
+              <div class="dh-meta-item"><strong>Last reviewed:</strong> 24 Mar 2026</div>
               <div class="dh-meta-item"><strong>Owner:</strong> Valerie Wilcox</div>
               <div class="dh-meta-item"><strong>Director / CTO:</strong> Dilpreet Kaur</div>
-              <div class="dh-meta-item"><strong>Documents:</strong> 12 live</div>
+              <div class="dh-meta-item"><strong>Documents:</strong> 38 live</div>
               <div class="dh-meta-item"><strong>Next review:</strong> Q2 2026</div>
             </div>
           </div>
@@ -329,9 +329,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="doc-card">
             <div class="dc-status-bar" style="background:var(--fire)"></div>
             <div class="dc-type">Operations, App</div>
-            <div class="dc-title">Mission Control App v2</div>
-            <div class="dc-desc">Full operational hub. Task management, org chart, agent directory, calendar, notes, backlog. Live on GitHub Pages.</div>
-            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 12 Mar 2026</span></div>
+            <div class="dc-title">Mission Control App v3.3</div>
+            <div class="dc-desc">Full operational hub. Task management, org chart, GRID home page, Supabase backend live, agent directory, calendar, notes, backlog. Owned by GRID (Agent 009).</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px"><a href="https://valerie-github1.github.io/phoennixai-mission-control/" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open App</a><span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span></div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v3.3, 22 Mar 2026</span></div>
           </div>
           <div class="doc-card" onclick="showSection('products')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:var(--gold)"></div>
@@ -347,7 +348,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-title">PhoennixAI Brand System</div>
             <div class="dc-desc" style="line-height:1.9">
               <strong style="color:var(--text)">Colour Palette (Tier 3):</strong> Midnight #060A18, Phoenix Fire #FF6B2B, Ember Gold #FFB830, Sapphire Wing #46ABD7, Electric Tip #00E5FF, Deep Royal #215CAE.<br>
-              <strong style="color:var(--text)">Concept:</strong> Fire and Ice. Orange/gold at the core, electric blue at the wingtips.<br>
+              <strong style="color:var(--text)">Concept:</strong> Blue Phoenix. Electric cyan primary (#00E5FF). Fire and gold as accent only (10-15% max).<br>
               <strong style="color:var(--text)">Typography:</strong> Bebas Neue (display), DM Sans (body), DM Mono (code).<br>
               <strong style="color:var(--text)">Tagline:</strong> Rise. Automate. Dominate.
             </div>
@@ -358,7 +359,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-type">Brand, Identity</div>
             <div class="dc-title">PhoennixAI Content Bible</div>
             <div class="dc-desc">7 Laws of Copy, Features vs Benefits Decoder, social posts, email sequences, landing page copy. Agency brand voice.</div>
-            <div class="dc-footer"><span class="chip chip-review">Needs Expansion</span><span class="dc-ver">v1.8, 20 Mar 2026</span></div>
+            <div class="dc-footer"><span class="chip chip-review">Needs Expansion</span><span class="dc-ver">v1.0, Mar 2026</span></div>
           </div>
           <div class="doc-card">
             <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--sapphire))"></div>
@@ -367,14 +368,14 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-desc">10 posts for Instagram, X, and LinkedIn. Copy, Midjourney prompts, hashtags. Posts 1 and 2 scheduled today. Full social media marketing centre to be built and housed here.</div>
             <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
               <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SocialPosts_Week1.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,171,215,0.25);color:var(--sapphire);background:rgba(70,171,215,0.05);text-decoration:none">Open Document</a>
-              <span style="font-family:var(--mono);font-size:7px;letter-spacing:1px;color:var(--green)">Live on GitHub</span>
+              <span style="font-family:var(--mono);font-size:7px;letter-spacing:1px;color:#f59e0b">Needs GitHub upload first</span>
             </div>
             <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
           <div class="doc-card" onclick="showSection('agents')" style="cursor:pointer">
             <div class="dc-status-bar" style="background:var(--violet)"></div>
             <div class="dc-type">AI, Agents</div>
-            <div onclick="showSection('agents')" class="dc-title">Agent Masterlist, 15 Agents <span style="font-family:var(--mono);font-size:8px;color:var(--violet)">→ Agents</span></div>
+            <div onclick="showSection('agents')" class="dc-title">Agent Masterlist, 22 Agents <span style="font-family:var(--mono);font-size:8px;color:var(--violet)">→ Agents</span></div>
             <div class="dc-desc">Full directory of all 13 agents. Role, codename, value delivered, category, build priority, and monetisation model.</div>
             <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0, 11 Mar 2026</span></div>
           </div>
@@ -418,11 +419,118 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             </div>
             <div class="dc-footer"><span class="chip chip-live">Complete, Filed</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
-          <div class="doc-card" style="border-style:dashed;opacity:0.5">
-            <div class="dc-type">Finance, Revenue</div>
-            <div class="dc-title">Finance and Revenue Section</div>
-            <div class="dc-desc">Scope to be defined by Valerie. Finance intelligence, cashflow, revenue targets. Build session scheduled Thursday 12 March 2026.</div>
-            <div class="dc-footer"><span class="chip chip-draft">Thursday 12 Mar</span></div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#FFB830"></div>
+            <div class="dc-type">Finance, Beta Pricing</div>
+            <div class="dc-title">Beta Pricing Model — 3 Tiers</div>
+            <div class="dc-desc">Tier 1 £497 (30-day beta, email support). Tier 2 £1,497 (full suite, 1:1 onboarding). Tier 3 £4,997 (enterprise, custom agents). 3 Tier 2 clients covers monthly costs. 1 Tier 3 funds Phase 2 entirely.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Locked</span><span class="dc-ver">Key Decision 25</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#00E5FF"></div>
+            <div class="dc-type">Strategy, Master Brief</div>
+            <div class="dc-title">Master Project Brief PAI-BRIEF-003</div>
+            <div class="dc-desc">22 agents, 17 IPs, 9 products, 36 backlog items. Updated through Session 13. Boot sequence for every agent and session.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_MasterProjectBrief_Session13.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;background:rgba(0,229,255,0.05);text-decoration:none">Open Brief</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Current</span><span class="dc-ver">v3.0, 22 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#4682B4"></div>
+            <div class="dc-type">Governance, Traceability</div>
+            <div class="dc-title">Traceability Dashboard PAI-TRACE-001</div>
+            <div class="dc-desc">Full audit trail across all agents, decisions, documents, and versions. SAGE owns analytics. SCRIBE owns governance. Every action logged. Phase 2: Supabase automation live.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_TraceabilityDashboard.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,130,180,0.35);color:#4682B4;background:rgba(70,130,180,0.06);text-decoration:none">Open Dashboard</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">PAI-TRACE-001, 20 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#C49A6C"></div>
+            <div class="dc-type">Operations, Knowledge Base</div>
+            <div class="dc-title">User Manual PAI-MAN-001</div>
+            <div class="dc-desc">Full operational manual for all PhoennixAI apps and agents. Navigation, features, agent interactions, governance rules, behavioural metrics, beta guide, and FAQ. Owned by SCRIBE (Agent 015).</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_UserManual.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(196,154,108,0.3);color:var(--bronze);background:rgba(196,154,108,0.06);text-decoration:none">Open Manual</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">PAI-MAN-001, 20 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#4682B4"></div>
+            <div class="dc-type">Product Strategy</div>
+            <div class="dc-title">Product Strategy PAI-STRAT-001</div>
+            <div class="dc-desc">Multi-model orchestration, Claude vs Kimi vs Manus vs Perplexity, Supabase costs, Phase 2 build order. Full product strategy documentation.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/phoennixai_complete_product_strategy.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,130,180,0.35);color:#4682B4;background:rgba(70,130,180,0.06);text-decoration:none">Open Strategy</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">PAI-STRAT-001, 22 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#A78BFA"></div>
+            <div class="dc-type">Alpha Testing, Invitation</div>
+            <div class="dc-title">Alpha Invitation — 4 Testers</div>
+            <div class="dc-desc">Cinematic personalised invitation. Velvet Invitation music, ARIA narration, fireworks on accept. Personalised per tester via URL param. Alpha launch 24 March 2026.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_AlphaInvitation.html?name=Dilpreet" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(167,139,250,0.25);color:#A78BFA;background:rgba(167,139,250,0.05);text-decoration:none">Open Invite</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live, Alpha Launch 24 Mar</span><span class="dc-ver">v4.0, 24 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#FB923C"></div>
+            <div class="dc-type">Alpha Testing, Kit</div>
+            <div class="dc-title">Alpha Testing Kit PAI-ALPHA-001</div>
+            <div class="dc-desc">NDA with SignHub electronic signature, onboarding pack, testing checklist, terms of service. NDA confirmation emails to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dea8bfb2bbacb7bb9eaeb6b1bbb0b0b7a6bfb7f0bdb1b3">[email&#160;protected]</a> on signing.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_AlphaTestingKit.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(251,146,60,0.25);color:#FB923C;background:rgba(251,146,60,0.05);text-decoration:none">Open Kit</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v3.0, 24 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#215CAE"></div>
+            <div class="dc-type">Alpha Testing, Product</div>
+            <div class="dc-title">Beta Mission Control — Tester Version</div>
+            <div class="dc-desc">Clean tester-facing Mission Control. Tasks, schedule, calendar, notes, AI Team tab. Light/dark mode. Mobile responsive. localStorage persistence.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_Beta_MissionControl.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(33,92,174,0.35);color:#215CAE;background:rgba(33,92,174,0.06);text-decoration:none">Open App</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v1.1, 24 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#C49A6C"></div>
+            <div class="dc-type">Alpha Testing, Feedback</div>
+            <div class="dc-title">Alpha Feedback Form — Formspree</div>
+            <div class="dc-desc">Personalised feedback form per tester. 5 questions, NPS score. Routes to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ec9a8d80899e8589ac9c848389828285948d85c28f8381">[email&#160;protected]</a> via Formspree xdawrbgr. Submit at Day 7 and Day 14 only.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_AlphaFeedback.html?name=Dilpreet" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(196,154,108,0.3);color:var(--bronze);background:rgba(196,154,108,0.06);text-decoration:none">Open Form</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v1.0, 24 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#C49A6C"></div>
+            <div class="dc-type">Legal, IP Protection</div>
+            <div class="dc-title">IP Declaration PAI-IP-DEC-001 v3.0</div>
+            <div class="dc-desc">17 IPs, 22 agents, all products declared. SignHub electronic signature. Physical copy posted via Royal Mail Recorded Delivery 24 Mar 2026. Do not open envelope.</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px">
+              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_SignHub.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(196,154,108,0.3);color:var(--bronze);background:rgba(196,154,108,0.06);text-decoration:none">Open SignHub</a>
+              <span style="font-family:var(--mono);font-size:7px;color:var(--green)">Signed and Filed</span>
+            </div>
+            <div class="dc-footer"><span class="chip chip-approved">Signed, 24 Mar 2026</span><span class="dc-ver">v3.0, 24 Mar 2026</span></div>
+          </div>
+          <div class="doc-card">
+            <div class="dc-status-bar" style="background:#FF6B2B"></div>
+            <div class="dc-type">Social Media, Marketing</div>
+            <div class="dc-title">Social Media Pack W01 — Alpha Launch Week</div>
+            <div class="dc-desc">7 posts across Instagram, LinkedIn, and X. 24 to 30 March 2026. Founder story, agent reveal, PULSE automation, beta launch. PULSE owns execution.</div>
+            <div class="dc-footer"><span class="chip chip-live">Ready to Post</span><span class="dc-ver">PAI-PULSE-W01, 24 Mar 2026</span></div>
           </div>
         </div>
 
@@ -431,6 +539,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="ver-table-wrap"><table class="ver-table">
           <thead><tr><th>Version</th><th>Date</th><th>Changed By</th><th>What Changed</th><th>Status</th></tr></thead>
           <tbody>
+            <tr class="ver-current"><td>v2.0</td><td>24 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 14: All 11 agents added to registry. 9 new document cards added (Master Brief, Alpha Invitation, Testing Kit, Beta MC, Feedback Form, IP Declaration, Social Media Pack W01, Product Strategy, Beta Pricing). Version history and automation log updated. KPI dashboard updated.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr><td>v1.9</td><td>22 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 13: Supabase backend live (Phase 2 Unlock 1). GitHub connected to Claude.ai Projects. SignHub v1.0 built. IP Declaration v3.0 signed. 4 alpha invitations created. PA Planner scoped. Beta Mission Control built. Alpha programme designed end-to-end.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr><td>v1.8</td><td>21 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 12: NEXUS and PROBE built and signed as The DevHub (IP-013). PULSE Stage 1 signed as Beta Campaign Owner. PA colour corrected to Rose #F43F5E. IP protection scoped at £491.85. Blue Phoenix brand direction locked. Agent count reaches 22.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr class="ver-current"><td>v1.7</td><td>13 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 10: PhoennixAI Brand Guidelines v1.2 filed (PAI-BG-001). Logo approved 13 March 2026, PHOENNIX orange AI white, flame icon confirmed. Brand System logo card updated. Workspace (PRJ-001a) and Document Hub (PRJ-001b) added to All Projects with monetisation paths. Portfolio updated to 9 products. Flame favicon correct on all apps. Notification redesigned to bottom-right card. SCRIBE and GRID onboarding added to task list. Ecosystem archive confirmed complete.</td><td><span class="chip chip-live">Current</span></td></tr>
             <tr><td>v1.6</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 6 changes: SCRIBE added to org chart alongside ARIA. Claude and ARIA cards added to All Agents board with Core AI filter. WilcoxDesigns sidebar sub-sections now expand correctly. Automation Log updated to 11 active processes with all Session 5 and 6 entries. UI Components and Status System section added to WilcoxDesigns Brand Guidelines and Brand System. Header action buttons removed, card chips are single source of status. Calendar ARIA output fixed to side panel with Dismiss. Dilpreet Kaur confirmed as PhoennixAI Director.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.5</td><td>12 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>WilcoxDesigns Brand System section added. Brand Guidelines One-Pager (WD-BG-001) complete and filed to GitHub. Mission Control TODAY tab automated. Request Update wired to ARIA alerts. PRJ-003 and PRJ-006 priorities confirmed.</td><td><span class="chip chip-approved">Archived</span></td></tr>
@@ -473,10 +584,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         </div>
 
         <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-val">15<span class="unit"></span></div><div class="kpi-label">Processes Automated</div><div class="kpi-trend">Sessions 1 to 11</div></div>
+          <div class="kpi-card"><div class="kpi-val">15<span class="unit"></span></div><div class="kpi-label">Processes Automated</div><div class="kpi-trend">Sessions 1 to 10</div></div>
           <div class="kpi-card"><div class="kpi-val">~90<span class="unit">hr</span></div><div class="kpi-label">Est. Time Saved per Month</div><div class="kpi-trend">Growing each session</div></div>
           <div class="kpi-card"><div class="kpi-val">£0<span class="unit"></span></div><div class="kpi-label">Tool Cost So Far</div><div class="kpi-trend">GitHub Pages Free</div></div>
-          <div class="kpi-card"><div class="kpi-val">13<span class="unit"></span></div><div class="kpi-label">Agents in Pipeline</div><div class="kpi-trend">When Built</div></div>
+          <div class="kpi-card"><div class="kpi-val">17<span class="unit"></span></div><div class="kpi-label">Unique IPs Filed</div><div class="kpi-trend">Sessions 1 through 13</div></div>
         </div>
 
         <div class="auto-log">
@@ -618,39 +729,32 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
               <div class="al-title-text">PULSE, Social Media Automation Agent</div>
               <div class="al-why">Status: Planned. Will automate the full social media content lifecycle. Replaces a full-time social media manager saving £25,000 to £35,000 per year.</div>
             </div>
-            <div class="al-date">Planned, Q2 2026
-            <div class="al-item">
-              <div class="al-icon">✅</div>
-              <div class="al-content">
-                <div class="al-title-text">Agent Documentation System, Computer-Style Registry</div>
-                <div class="al-meta">Session 11 · 20 Mar 2026</div>
-                <div>All 6 signed agents (Claude, ARIA, GRID, SCRIBE, LEDGER, RELAY) plus 12 queued agents now listed in a compact computer-style registry. One-click JD Live and CV Live buttons for all signed agents. Queue agents auto-display when documents are built. Scales to 19+ agents without redesign.</div>
-              </div>
-            </div>
-            <div class="al-item">
-              <div class="al-icon">✅</div>
-              <div class="al-content">
-                <div class="al-title-text">GRID Home Page, Mission Control</div>
-                <div class="al-meta">Session 11 · 20 Mar 2026</div>
-                <div>GRID now has his own home tab in Mission Control. Daily operational report auto-generates from live task data. Agent status board tracks all 16 agents. Priority stack, weekly retro log, and upcoming deadlines all live. GRID owns and governs Mission Control.</div>
-              </div>
-            </div>
-            <div class="al-item">
-              <div class="al-icon">✅</div>
-              <div class="al-content">
-                <div class="al-title-text">Blue Phoenix Brand Direction Locked</div>
-                <div class="al-meta">Session 11 · 20 Mar 2026</div>
-                <div>Customer feedback confirmed: customers recognise and love the blue phoenix. Fire and gold repositioned as accent colours only (10-15% max). Phoenix Blue #00E5FF is the primary brand colour. All app headers updating to reflect blue phoenix direction.</div>
-              </div>
-            </div>
-            <div class="al-item">
-              <div class="al-icon">✅</div>
-              <div class="al-content">
-                <div class="al-title-text">AGI Intelligence Standards, All 16 Agents</div>
-                <div class="al-meta">Session 11 · 20 Mar 2026</div>
-                <div>Every agent now has an institutional-grade intelligence prompt. Goldman Sachs, McKinsey, GCHQ, Palantir standard across the full roster. Standards documented in each JD under Intelligence Standard section and in the PRD for every product each agent powers.</div>
-              </div>
-            </div></div>
+            <div class="al-date">Planned, Q2 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content"><div class="al-title-text">Supabase Backend — Phase 2 Unlock 1 Complete</div><div class="al-why">12 tables, RLS policies, London region. Mission Control wired to database. Cross-device sync live. Phase 0 to Phase 2 bridge complete.</div></div>
+            <div class="al-date">22 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content"><div class="al-title-text">GitHub Connected to Claude.ai Projects</div><div class="al-why">Public repo syncs to Projects. Every session starts with full codebase access. Session Scan Protocol is now instant. Permanent infrastructure upgrade.</div></div>
+            <div class="al-date">22 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content"><div class="al-title-text">SignHub v1.0 — Electronic Signature System</div><div class="al-why">Type name, choose font, sign. Used for agent JDs, NDAs, IP Declaration. Saves to localStorage. Print-ready. Owned by SCRIBE.</div></div>
+            <div class="al-date">22 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content"><div class="al-title-text">Alpha Testing Programme — Cinematic Invitation System</div><div class="al-why">4 personalised invitations with Velvet Invitation music, ARIA narration, fireworks. NDA with SignHub. Formspree routing to <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c7b1a6aba2b5aea287b7afa8a2a9a9aebfa6aee9a4a8aa">[email&#160;protected]</a>. Alpha launches 24 March 2026.</div></div>
+            <div class="al-date">24 Mar 2026</div>
+          </div>
+          <div class="al-item">
+            <div class="al-icon">✅</div>
+            <div class="al-content"><div class="al-title-text">IP Declaration v3.0 — 17 IPs, 22 Agents Declared</div><div class="al-why">PAI-IP-DEC-001 v3.0 signed via SignHub. Posted via Royal Mail Recorded Delivery 24 Mar 2026. Physical date-stamp evidence secured.</div></div>
+            <div class="al-date">24 Mar 2026</div>
           </div>
         </div>
       </div>
@@ -670,7 +774,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         <div class="kpi-grid">
           <div class="kpi-card"><div class="kpi-val">5<span class="unit"></span></div><div class="kpi-label">Active Business Entities</div><div class="kpi-trend">Stable</div></div>
           <div class="kpi-card"><div class="kpi-val">9<span class="unit"></span></div><div class="kpi-label">Products in Portfolio</div><div class="kpi-trend">2 Phase 0 Live, 7 in Build</div></div>
-          <div class="kpi-card"><div class="kpi-val">15<span class="unit"></span></div><div class="kpi-label">Agents Planned</div><div class="kpi-trend">6 signed and active. 12 in queue.</div></div>
+          <div class="kpi-card"><div class="kpi-val">15<span class="unit"></span></div><div class="kpi-label">Agents Planned</div><div class="kpi-trend">SCRIBE and GRID onboarding tomorrow</div></div>
           <div class="kpi-card"><div class="kpi-val">8<span class="unit"></span></div><div class="kpi-label">Phantom Studio Students</div><div class="kpi-trend">Live since Q4 2024</div></div>
           <div class="kpi-card"><div class="kpi-val">3<span class="unit"></span></div><div class="kpi-label">Work Experience Arrivals</div><div class="kpi-trend">Early April 2026</div></div>
           <div class="kpi-card"><div class="kpi-val">0<span class="unit"></span></div><div class="kpi-label">Documents Lost</div><div class="kpi-trend">GitHub Backup Active</div></div>
@@ -678,8 +782,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
         <div class="section-title">Document Intelligence</div>
         <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-val">17<span class="unit"></span></div><div class="kpi-label">Documents Created</div><div class="kpi-trend">Sessions 1 to 11</div></div>
-          <div class="kpi-card"><div class="kpi-val">9<span class="unit"></span></div><div class="kpi-label">Live on GitHub</div><div class="kpi-trend">Session 11 push complete</div></div>
+          <div class="kpi-card"><div class="kpi-val">17<span class="unit"></span></div><div class="kpi-label">Documents Created</div><div class="kpi-trend">Sessions 1 to 10</div></div>
+          <div class="kpi-card"><div class="kpi-val">9<span class="unit"></span></div><div class="kpi-label">Live on GitHub</div><div class="kpi-trend">Session 10 push complete</div></div>
           <div class="kpi-card"><div class="kpi-val">100<span class="unit">%</span></div><div class="kpi-label">Version Controlled</div><div class="kpi-trend">All Documents</div></div>
           <div class="kpi-card"><div class="kpi-val">0<span class="unit"></span></div><div class="kpi-label">Em Dashes Remaining</div><div class="kpi-trend">All Removed</div></div>
         </div>
@@ -780,32 +884,6 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           </div>
         </div>
         <div class="doc-grid">
-          <div class="doc-card" style="border-left:3px solid #8B5CF6;border-style:dashed">
-            <div class="dc-type" style="color:#8B5CF6">HIRING · AGENDA ITEM</div>
-            <div class="dc-title">Hire a UI/UX Designer</div>
-            <div class="dc-desc">Required for WilcoxDesigns client work, PhoennixAI product polish, and Character Universe visual assets. Works alongside NEXUS and PROBE in The DevHub. Completes the in-house creative and technical team. Add to Session 12 agenda for discussion.</div>
-            <div class="dc-footer"><span class="pd-badge" style="background:rgba(139,92,246,0.1);color:#8B5CF6;border:1px solid rgba(139,92,246,0.3)">Session 12 Agenda</span></div>
-          </div>
-          
-          <div class="pd-card">
-            <div class="pd-type">WEEKEND BUILD · PA</div>
-            <div class="pd-title">PA Productivity Planner App</div>
-            <div class="pd-meta">Rose #F43F5E. Build this weekend. Founders and professionals planner. BL-013. PULSE and PA powered.</div>
-            <div class="pd-footer"><span class="pd-badge pd-badge-pending">This Weekend</span></div>
-          </div>
-          <div class="pd-card">
-            <div class="pd-type">WEEKEND BUILD · PULSE</div>
-            <div class="pd-title">PULSE Social Media Automation App</div>
-            <div class="pd-meta">Fully automated social media pipeline. BL-024. PULSE powered. Manus Phase 3 integration planned.</div>
-            <div class="pd-footer"><span class="pd-badge pd-badge-pending">This Weekend</span></div>
-          </div>
-          <div class="pd-card" style="border-left:3px solid #ef4444">
-            <div class="pd-type" style="color:#ef4444">URGENT DISCUSSION · TOMORROW 14:00</div>
-            <div class="pd-title">IP Protection Strategy</div>
-            <div class="pd-meta">Poor Man Patent tonight or tomorrow morning (£1.85 Royal Mail Recorded). ARIA and SCRIBE trademark filing by 25 March (£440). Universe Bible copyright registration by 25 March (£50). Total £491.85. Discuss at tomorrow 14:00 meeting with Finance and Revenue session.</div>
-            <div class="pd-footer"><span class="pd-badge" style="background:rgba(239,68,68,0.1);color:#ef4444;border:1px solid rgba(239,68,68,0.3)">Urgent, 22 Mar 14:00</span></div>
-          </div>
-          
 
           <div class="doc-card">
             <div class="dc-status-bar" style="background:var(--sapphire)"></div>
@@ -984,9 +1062,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
                 <span style="background:#00E5FF;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#000">Electric #00E5FF</span>
                 <span style="background:#215CAE;padding:4px 9px;border-radius:3px;font-family:var(--mono);font-size:9px;color:#fff">Royal #215CAE</span>
               </div>
-              <strong style="color:var(--text)">Concept:</strong> Blue Phoenix. Electric blue is the primary brand colour. Phoenix Blue #00E5FF leads all brand touchpoints. Fire and gold are accent colours only (10-15% max). Blue Phoenix locked 20 March 2026, confirmed from customer feedback.
-            </div>
-            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.1, 20 Mar 2026</span></div>
+              <strong style="color:var(--text)">Concept:</strong> Blue Phoenix. Electric cyan primary (#00E5FF) leads all brand touchpoints. Fire and gold accent only (10-15% max). Blue Phoenix locked 20 March 2026.</div>
+            <div class="dc-footer"><span class="chip chip-approved">System Locked</span><span class="dc-ver">v1.0, 12 Mar 2026</span></div>
           </div>
           <div class="doc-card">
             <div class="dc-status-bar" style="background:linear-gradient(to right,var(--fire),var(--gold))"></div>
@@ -1026,8 +1103,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <div class="doc-card" style="border-color:rgba(34,197,94,0.2)">
             <div class="dc-status-bar" style="background:linear-gradient(to right,#FF6B2B,#FFB830,#00E5FF)"></div>
             <div class="dc-type">Brand, Logo</div>
-            <div class="dc-title">Logo Direction, Blue Phoenix</div>
-            <div class="dc-desc">Blue Phoenix confirmed as primary brand direction. Electric blue gradient phoenix. PHOENNIX in Phoenix Blue (#00E5FF), AI in grey (#9CA3AF). Customer feedback confirmed: customers recognise the blue phoenix and feel at home with it. Fire and Ice colours repositioned as accent only. Brand Guidelines v1.2 updated. Blue Phoenix locked 20 March 2026.</div>
+            <div class="dc-title">Logo Direction, Fire and Ice</div>
+            <div class="dc-desc">Direction approved Friday 13 March 2026. PHOENNIX in Phoenix Fire orange (#FF6B2B), AI in white. Flame icon confirmed as the phoenix mark. Fire and Ice: orange/gold core transitions to electric blue wingtips. Bebas Neue wordmark lockup. Brand Guidelines v1.2 filed with full logo usage rules in Section 10.</div>
             <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
               <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_BrandGuidelines.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(34,197,94,0.25);color:#22C55E;background:rgba(34,197,94,0.05);text-decoration:none">View Brand Guidelines</a>
             </div>
@@ -1180,8 +1257,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-status-bar" style="background:var(--fire)"></div>
             <div class="dc-type">Product, Priority 1</div>
             <div class="dc-title">PRJ-001: Mission Control App</div>
-            <div class="dc-desc">Full operational hub. Task management, org chart, agent directory, calendar, notes, backlog. Live on GitHub Pages.</div>
-            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v2.1, 12 Mar 2026</span></div>
+            <div class="dc-desc">Full operational hub. Task management, org chart, GRID home page, Supabase backend live, agent directory, calendar, notes, backlog. Owned by GRID (Agent 009).</div>
+            <div style="margin:8px 0 4px;display:flex;align-items:center;gap:8px"><a href="https://valerie-github1.github.io/phoennixai-mission-control/" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open App</a><span style="font-family:var(--mono);font-size:7px;color:var(--green)">Live on GitHub</span></div>
+            <div class="dc-footer"><span class="chip chip-live">Live</span><span class="dc-ver">v3.3, 22 Mar 2026</span></div>
           </div>
           <div class="doc-card" style="border-color:rgba(0,229,255,0.2)">
             <div class="dc-status-bar" style="background:#00E5FF"></div>
@@ -1238,223 +1316,230 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
         </div>
       </div>
       <div id="sec-agents" style="display:none">
-        <div class="doc-header"><div class="dh-left"><div class="dh-title">AGENT DOCUMENTATION</div><div class="dh-sub">CVs, job descriptions, manuals for all 15 agents including Claude and ARIA</div></div></div>
+        <div class="doc-header"><div class="dh-left"><div class="dh-title">AGENT DOCUMENTATION</div><div class="dh-sub">CVs, job descriptions, manuals for all 22 agents including Claude and ARIA</div></div></div>
         <div style="background:rgba(0,229,255,0.04);border:1px solid rgba(0,229,255,0.1);border-radius:8px;padding:14px;margin-bottom:16px;font-size:12px;color:var(--text2);line-height:1.8">Every agent ships with a full hire kit. Documents live here, not in separate files. One-click signing below. Once signed, the action is logged automatically in Version History.</div>
 
         <!-- AGENT MASTERLIST CARD — always first -->
         <div id="agent-masterlist-card" class="doc-card" style="margin-bottom:14px;border-color:rgba(139,92,246,0.25)">
           <div class="dc-status-bar" style="background:var(--violet)"></div>
           <div class="dc-type">AI, Agents Directory</div>
-          <div class="dc-title" id="agent-count-title">Agent Masterlist, 15 Agents</div>
-          <div class="dc-desc">Full directory of all 15 agents including Claude and ARIA. Role, codename, value delivered, category, build priority, and monetisation model. Claude (000), ARIA (000), plus 13 commercial agents PA, SCOUT, PULSE, ATLAS, RELAY, LEDGER, ECHO, ENROL, GRID, SIGNAL, GRANT, FORGE, BRIDGE.</div>
-          <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver" id="agent-count-ver">15 agents total</span></div>
+          <div class="dc-title" id="agent-count-title">Agent Masterlist, 22 Agents</div>
+          <div class="dc-desc">Full directory of all 22 agents including Claude and ARIA. Role, codename, value delivered, category, build priority, and monetisation model. Claude (000), ARIA (000), plus 20 commercial agents across strategy, operations, finance, marketing, development, and QA.</div>
+          <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver" id="agent-count-ver">22 agents total</span></div>
         </div</div>
 
         <!-- CLAUDE -->
-                <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Signed and Active</div>
-        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #FF6B2B;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
-          <span style="font-size:16px;flex-shrink:0">🤖</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#FF6B2B;min-width:100px;flex-shrink:0">CLAUDE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:140px">PAI-JD-001, PAI-CV-001, Strategic AI Partner</div>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#FF6B2B;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#FF6B2B;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:#22C55E;background:rgba(255,255,255,0.02);white-space:nowrap">Stage 1 Signed</span>
+        <div style="background:var(--card);border:1px solid rgba(255,107,43,0.2);border-radius:10px;padding:18px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+            <span style="font-size:20px">🤖</span>
+            <div style="flex:1">
+              <div style="font-family:var(--display);font-size:20px;letter-spacing:2px;color:var(--fire)">CLAUDE</div>
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3)">PAI-JD-001, PAI-CV-001, Strategic AI Partner</div>
+            </div>
+            <span style="font-family:var(--mono);font-size:8px;color:#22C55E">JD Signed, 12 Mar 2026</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,107,43,0.25);color:var(--fire);background:rgba(255,107,43,0.05);text-decoration:none">Open JD <span style="color:var(--green);margin-left:4px">Live</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/Claude_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open CV <span style="color:var(--green);margin-left:4px">Live</span></a>
+            <span style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:#22C55E;background:rgba(34,197,94,0.06)">CV Filed</span>
+            <button onclick="resetSig('claude','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(255,255,255,0.1);color:var(--text3);background:transparent;cursor:pointer;transition:all 0.2s" title="Reset accidental signature">Reset Sig</button>
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #00E5FF;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
-          <span style="font-size:16px;flex-shrink:0">🧠</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#00E5FF;min-width:100px;flex-shrink:0">ARIA</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:140px">PAI-JD-002, PAI-CV-002, Workspace Agent 000</div>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#00E5FF;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#00E5FF;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:#22C55E;background:rgba(255,255,255,0.02);white-space:nowrap">Stage 1 Signed</span>
+
+        <!-- ARIA -->
+        <div style="background:var(--card);border:1px solid rgba(0,229,255,0.2);border-radius:10px;padding:18px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap">
+            <span style="font-size:20px">🧠</span>
+            <div style="flex:1">
+              <div style="font-family:var(--display);font-size:20px;letter-spacing:2px;color:#00E5FF">ARIA</div>
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3)">PAI-JD-002, PAI-CV-002, Workspace Agent 000</div>
+            </div>
+            <span id="sig-status-aria-jd" style="font-family:var(--mono);font-size:8px;color:var(--green)">Stage 1 signed by Valerie Wilcox</span>
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open JD <span style="color:var(--green);margin-left:4px">Live</span></a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/ARIA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(34,197,94,0.25);color:var(--green);background:rgba(34,197,94,0.05);text-decoration:none">Open CV <span style="color:var(--green);margin-left:4px">Live</span></a>
+            <button id="sign-btn-aria-jd" onclick="signDoc('aria','jd')" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:7px 13px;border-radius:4px;border:1px solid rgba(245,158,11,0.3);color:#f59e0b;background:rgba(245,158,11,0.06);cursor:pointer;transition:all 0.2s">Sign JD</button>
           </div>
         </div>
+
+        
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Signed and Active — Sessions 11 and 12</div>
+
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #215CAE;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">🗂️</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#215CAE;min-width:100px;flex-shrink:0">GRID</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:140px">PAI-JD-009, PAI-CV-009, Project Manager and Business Analyst</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#215CAE;min-width:90px;flex-shrink:0">GRID</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-009, PAI-CV-009, Project Manager and Business Analyst</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/GRID_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#215CAE;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/GRID_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#215CAE;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:#22C55E;background:rgba(255,255,255,0.02);white-space:nowrap">Stage 1 Signed</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 20 Mar 2026</span>
+            
           </div>
         </div>
+
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #C49A6C;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">📋</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#C49A6C;min-width:100px;flex-shrink:0">SCRIBE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:140px">PAI-JD-015, PAI-CV-015, Document Intelligence Agent</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#C49A6C;min-width:90px;flex-shrink:0">SCRIBE</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-015, PAI-CV-015, Document Intelligence Agent</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/SCRIBE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#C49A6C;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/SCRIBE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#C49A6C;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:#22C55E;background:rgba(255,255,255,0.02);white-space:nowrap">Stage 1 Signed</span>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(196,154,108,0.4);color:#C49A6C;background:rgba(196,154,108,0.06);white-space:nowrap">Document Hub Owner, LIVE</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 20 Mar 2026</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#00E5FF;background:rgba(255,255,255,0.03);white-space:nowrap">Document Hub Owner, LIVE</span>
           </div>
         </div>
+
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #FFB830;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">📊</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#FFB830;min-width:100px;flex-shrink:0">LEDGER</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:140px">PAI-JD-006, PAI-CV-006, AGI Financial Intelligence, Advisory Only</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#FFB830;min-width:90px;flex-shrink:0">LEDGER</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-006, PAI-CV-006, AGI Financial Intelligence, Advisory Only</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/LEDGER_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#FFB830;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/LEDGER_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#FFB830;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:#22C55E;background:rgba(255,255,255,0.02);white-space:nowrap">Stage 1 Signed</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 20 Mar 2026</span>
+            
           </div>
         </div>
+
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #FB923C;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">🚀</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#FB923C;min-width:100px;flex-shrink:0">RELAY</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:140px">PAI-JD-005, PAI-CV-005, Client Onboarding Automation</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#FB923C;min-width:90px;flex-shrink:0">RELAY</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-005, PAI-CV-005, Client Onboarding Automation</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
             <a href="https://valerie-github1.github.io/phoennixai-mission-control/RELAY_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#FB923C;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/RELAY_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#46ABD7;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:#22C55E;background:rgba(255,255,255,0.02);white-space:nowrap">Stage 1 Signed</span>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/RELAY_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#FB923C;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 20 Mar 2026</span>
+            
           </div>
         </div>
-        <!-- PULSE -->
+
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #A78BFA;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">📣</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#A78BFA;min-width:100px;flex-shrink:0">PULSE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-003, PAI-CV-003, Social Media and Content Intelligence, Beta Launch Owner</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#A78BFA;min-width:90px;flex-shrink:0">PULSE</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-003, PAI-CV-003, Social Media and Content Intelligence</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PULSE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PULSE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.05);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.3);color:#22C55E;background:rgba(34,197,94,0.04);white-space:nowrap">Stage 1 Signed, 21 Mar 2026</span>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.06);white-space:nowrap">Beta Campaign Owner, LIVE</span>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PULSE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#A78BFA;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PULSE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#A78BFA;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 21 Mar 2026</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#A78BFA;background:rgba(255,255,255,0.03);white-space:nowrap">Beta Campaign Owner, LIVE</span>
           </div>
         </div>
 
-
-                <!-- NEXUS -->
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #7ECEC4;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">💻</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#7ECEC4;min-width:100px;flex-shrink:0">NEXUS</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-017, PAI-CV-017, In-House AI Full Stack Developer, The DevHub Co-Owner</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#7ECEC4;min-width:90px;flex-shrink:0">NEXUS</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-017, PAI-CV-017, In-House AI Full Stack Developer</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/NEXUS_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(126,206,196,0.3);color:#7ECEC4;background:rgba(126,206,196,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/NEXUS_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(126,206,196,0.3);color:#7ECEC4;background:rgba(126,206,196,0.05);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.3);color:#22C55E;background:rgba(34,197,94,0.04);white-space:nowrap">Stage 1 Signed, 21 Mar 2026</span>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(126,206,196,0.3);color:#7ECEC4;background:rgba(126,206,196,0.06);white-space:nowrap">DevHub Co-Owner, 100% Automated</span>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/NEXUS_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#7ECEC4;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/NEXUS_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#7ECEC4;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 21 Mar 2026</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#7ECEC4;background:rgba(255,255,255,0.03);white-space:nowrap">DevHub Co-Owner, 100% Automated</span>
           </div>
         </div>
 
-        <!-- PROBE -->
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #84CC16;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">🔬</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#84CC16;min-width:100px;flex-shrink:0">PROBE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-018, PAI-CV-018, Software QA Engineer, The DevHub Co-Owner</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#84CC16;min-width:90px;flex-shrink:0">PROBE</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-018, PAI-CV-018, Software QA Engineer, The DevHub</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PROBE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(132,204,22,0.3);color:#84CC16;background:rgba(132,204,22,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PROBE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(132,204,22,0.3);color:#84CC16;background:rgba(132,204,22,0.05);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.3);color:#22C55E;background:rgba(34,197,94,0.04);white-space:nowrap">Stage 1 Signed, 21 Mar 2026</span>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(132,204,22,0.3);color:#84CC16;background:rgba(132,204,22,0.06);white-space:nowrap">DevHub Co-Owner, Zero Bug Escape</span>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PROBE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#84CC16;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PROBE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#84CC16;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 21 Mar 2026</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#84CC16;background:rgba(255,255,255,0.03);white-space:nowrap">Zero Bug Escape</span>
           </div>
         </div>
 
-        <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Queue — JD and CV To Build</div>
-        <!-- AI DEV TEAM - JDs BUILT -->
-        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #06B6D4;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
-          <span style="font-size:16px;flex-shrink:0">💻</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#06B6D4;min-width:100px;flex-shrink:0">NEXUS</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-017 · AI Dev Team · Software Engineer · Reports to GRID</div>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/NEXUS_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(6,182,212,0.3);color:#06B6D4;background:rgba(6,182,212,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,184,48,0.3);color:#FFB830;background:rgba(255,255,255,0.02);white-space:nowrap">Awaiting Stage 1 Signature</span>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #F59E0B;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
-          <span style="font-size:16px;flex-shrink:0">🔬</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#F59E0B;min-width:100px;flex-shrink:0">PROBE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-018 · AI Dev Team · Tester and QA · Reports to GRID</div>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PROBE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(245,158,11,0.3);color:#F59E0B;background:rgba(245,158,11,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,184,48,0.3);color:#FFB830;background:rgba(255,255,255,0.02);white-space:nowrap">Awaiting Stage 1 Signature</span>
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #A78BFA;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #F43F5E;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">📱</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#A78BFA;min-width:100px;flex-shrink:0">PA</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-001A, PAI-CV-001A, Personal Productivity Assistant, Stage 1 Signed and Filed</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#F43F5E;min-width:90px;flex-shrink:0">PA</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-001A, PAI-CV-001A, Personal Productivity Assistant</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(167,139,250,0.3);color:#A78BFA;background:rgba(167,139,250,0.05);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,184,48,0.3);color:#FFB830;background:rgba(255,255,255,0.02);white-space:nowrap">Awaiting Stage 1 Signature</span>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PA_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#F43F5E;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/PA_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#F43F5E;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 20 Mar 2026</span>
+            
           </div>
         </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">🎯</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">SCOUT</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 002, Lead Generation and Sales</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
 
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">💼</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">ATLAS</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 004, Job Hunting and Application</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">💬</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">ECHO</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 007, Customer Support</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">🎓</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">ENROL</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 008, Academy Enrolment</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">📡</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">SIGNAL</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 010, Competitor and Market Intel</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">🏆</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">GRANT</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 011, Funding and Grant Scout</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">📧</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">FORGE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 012, Email Marketing Automation</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">🤝</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">BRIDGE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 013, Partnership and Outreach</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.1);border-radius:6px;margin-bottom:5px;opacity:0.5;flex-wrap:wrap">
-          <span style="font-size:14px;flex-shrink:0">🛡️</span>
-          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text3);min-width:100px;flex-shrink:0">GUARDIAN</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 014, Founder Vault Security</div>
-          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,0.08);color:var(--text3)">JD and CV To Build</span>
-        </div>
         <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--card);border:1px solid rgba(255,255,255,0.06);border-left:3px solid #4682B4;border-radius:6px;margin-bottom:7px;flex-wrap:wrap">
           <span style="font-size:16px;flex-shrink:0">🔭</span>
-          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#4682B4;min-width:100px;flex-shrink:0">SAGE</div>
-          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">PAI-JD-016, PAI-CV-016, Strategic Analytics and Governance Engine</div>
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:2px;color:#4682B4;min-width:90px;flex-shrink:0">SAGE</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1;min-width:120px">PAI-JD-016, PAI-CV-016, Strategic Analytics and Governance Engine</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/SAGE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(70,130,180,0.3);color:#4682B4;background:rgba(70,130,180,0.05);text-decoration:none;white-space:nowrap">JD Live</a>
-            <a href="https://valerie-github1.github.io/phoennixai-mission-control/SAGE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(70,130,180,0.3);color:#4682B4;background:rgba(70,130,180,0.05);text-decoration:none;white-space:nowrap">CV Live</a>
-            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,184,48,0.3);color:#FFB830;background:rgba(255,255,255,0.02);white-space:nowrap">Awaiting Stage 1 Signature</span>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/SAGE_JobDescription_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#4682B4;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">JD Live</a>
+            <a href="https://valerie-github1.github.io/phoennixai-mission-control/SAGE_CV_PhoennixAI.html" target="_blank" style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#4682B4;background:rgba(255,255,255,0.03);text-decoration:none;white-space:nowrap">CV Live</a>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(34,197,94,0.2);color:#22C55E;background:rgba(34,197,94,0.03);white-space:nowrap">Stage 1 Signed, 20 Mar 2026</span>
+            <span style="font-family:var(--mono);font-size:7px;padding:4px 9px;border-radius:3px;border:1px solid rgba(255,255,255,0.1);color:#4682B4;background:rgba(255,255,255,0.03);white-space:nowrap">Intelligence Backbone, LIVE</span>
           </div>
         </div>
 
+        <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin:20px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border)">Queue — JD and CV To Build</div>
 
-        <!-- AGENTS 001-013 -->
-        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;opacity:0.5;margin-bottom:16px">
-          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:8px">Remaining Agents, In Queue</div>
-          <div style="font-size:12px;color:var(--text2);margin-bottom:8px">PA, SCOUT, PULSE, ATLAS, ECHO, ENROL, SIGNAL, GRANT, FORGE, BRIDGE, SAGE (016). JDs and CVs being built each session. GRID, SCRIBE, LEDGER, RELAY now filed above. Each will appear here with the same Sign and Approve buttons when ready.</div>
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #22C55E;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">🎯</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#22C55E;min-width:90px;flex-shrink:0">SCOUT</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 002 · Lead Generation and Sales</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
         </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #888;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">💼</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#888;min-width:90px;flex-shrink:0">ATLAS</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 004 · Job Hunting and Applications</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #888;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">💬</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#888;min-width:90px;flex-shrink:0">ECHO</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 007 · Customer Support</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #888;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">🎓</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#888;min-width:90px;flex-shrink:0">ENROL</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 008 · Academy Enrolment</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #46ABD7;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">📡</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#46ABD7;min-width:90px;flex-shrink:0">SIGNAL</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 010 · Competitor and Market Intel</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #888;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">🏆</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#888;min-width:90px;flex-shrink:0">GRANT</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 011 · Funding and Grant Scout</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #888;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">📧</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#888;min-width:90px;flex-shrink:0">FORGE</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 012 · Email Marketing Automation</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #888;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">🤝</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#888;min-width:90px;flex-shrink:0">BRIDGE</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 013 · Partnership and Outreach</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--card);border:1px solid var(--border);border-left:3px solid #EF4444;border-radius:6px;margin-bottom:5px;opacity:0.55;flex-wrap:wrap">
+          <span style="font-size:14px;flex-shrink:0">🛡️</span>
+          <div style="font-family:var(--display);font-size:14px;letter-spacing:2px;color:#EF4444;min-width:90px;flex-shrink:0">GUARDIAN</div>
+          <div style="font-family:var(--mono);font-size:7px;color:var(--text3);flex:1">Agent 014 · Founder Vault Security</div>
+          <span style="font-family:var(--mono);font-size:7px;padding:3px 8px;border-radius:3px;border:1px solid var(--border2);color:var(--text3);white-space:nowrap">JD and CV To Build</span>
+        </div>
+
+        
 
         <!-- AUTO VERSION LOG -->
         <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze);margin-bottom:10px">Document Actions Log, Auto-Updated</div>
@@ -1466,30 +1551,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <th style="background:var(--panel);border:1px solid var(--border);padding:8px 11px;text-align:left;font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--bronze)">By</th>
           </tr></thead>
           <tbody id="auto-version-log">
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 02:00</td><td style="font-size:11px;color:var(--text)"><strong>NEXUS JD and CV signed and filed. PAI-JD-017, PAI-CV-017.</strong></td><td style="font-size:11px;color:var(--text2)">NEXUS authorised as In-House AI Full Stack Developer. The DevHub Co-Owner. Duck Egg #7ECEC4. 100% automated. IP #13.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 02:00</td><td style="font-size:11px;color:var(--text)"><strong>PROBE JD and CV signed and filed. PAI-JD-018, PAI-CV-018.</strong></td><td style="font-size:11px;color:var(--text2)">PROBE authorised as Software QA Engineer. The DevHub Co-Owner. Lime Green #84CC16. Zero bug escape. 100% automated. NEXUS partner.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 02:00</td><td style="font-size:11px;color:var(--text)"><strong>Hire UI/UX Designer added to Session 12 agenda</strong></td><td style="font-size:11px;color:var(--text2)">Required for WilcoxDesigns, PhoennixAI product polish, and Character Universe visuals. To be discussed at Session 12 14:00.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 01:45</td><td style="font-size:11px;color:var(--text)"><strong>IP #13 Filed: The DevHub, In-House AI Dev Team</strong></td><td style="font-size:11px;color:var(--text2)">NEXUS (017, Duck Egg #7ECEC4) and PROBE (018, Lime Green #84CC16) JDs built. The DevHub named as the AI development and QA platform. Unique IP: in-house AI dev team as a sellable product. Nobody is selling this.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox, Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 01:20</td><td style="font-size:11px;color:var(--text)"><strong>PULSE JD and CV Stage 1 signed and filed</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-003 and PAI-CV-003 signed by Valerie Wilcox, 21 March 2026. PULSE authorised as Social Media and Content Intelligence Agent. Beta launch campaign owner confirmed.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 01:10</td><td style="font-size:11px;color:var(--text)"><strong>PA JD signed and filed. PA colour corrected to Rose #F43F5E.</strong></td><td style="font-size:11px;color:var(--text2)">PA Stage 1 filed. Colour corrected from Soft Violet to Rose #F43F5E. PA and PULSE now have distinct colours. Agent Colour Identity System updated.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox, Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 01:10</td><td style="font-size:11px;color:var(--text)"><strong>PULSE JD and CV built. PAI-JD-003, PAI-CV-003.</strong></td><td style="font-size:11px;color:var(--text2)">PULSE Social Media and Content Intelligence. Beta launch campaign owner. Flyer schedule 24-30 March documented. Awaiting Stage 1 signature.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">21 Mar 2026, 01:10</td><td style="font-size:11px;color:var(--text)"><strong>IP Discussion logged for 22 March 14:00</strong></td><td style="font-size:11px;color:var(--text2)">Poor Man Patent action tonight/tomorrow. ARIA and SCRIBE trademarks by 25 March. Universe Bible copyright by 25 March. Total £491.85. Discuss at Session 12.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, 00:40</td><td style="font-size:11px;color:var(--text)"><strong>Colour Palette concept updated to Blue Phoenix</strong></td><td style="font-size:11px;color:var(--text2)">Fire and Ice concept text replaced. Blue Phoenix confirmed as primary direction. Phoenix Blue #00E5FF primary. Fire and gold accent only. v1.1.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox, Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, 19:30</td><td style="font-size:11px;color:var(--text)"><strong>PA JD Stage 1 signed and confirmed</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-001A confirmed signed by Valerie Wilcox. PA fully authorised as Personal Productivity Assistant. Priority Critical. Stage 1 locked.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, 19:30</td><td style="font-size:11px;color:var(--text)"><strong>SAGE JD Stage 1 signed and confirmed</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-016 confirmed signed by Valerie Wilcox. SAGE fully authorised as Strategic Analytics and Governance Engine. Intelligence Backbone LIVE.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>Traceability Dashboard filed in Document Hub</strong></td><td style="font-size:11px;color:var(--text2)">PAI-TRACE-001 live. SAGE owns analytics. SCRIBE owns governance. Linked from Document Hub Governance section and Mission Control GRID page. Phase 2: Supabase automation added to task list.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>User Manual v1.0 built. PAI-MAN-001.</strong></td><td style="font-size:11px;color:var(--text2)">Full operational manual live. All apps, all agents, all governance, behavioural metrics, onboarding, beta guide, FAQ. Owned by SCRIBE.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>Agent Briefing PAI-BRIEF-002 filed</strong></td><td style="font-size:11px;color:var(--text2)">ARIA and GRID briefed on SCRIBE and SAGE. Interaction protocols, scope rules, location map. All briefings live in Document Hub.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>SAGE JD signed, Stage 1</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-016 Stage 1 signed by Valerie Wilcox, 20 March 2026. SAGE authorised as Strategic Analytics and Governance Engine.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
             <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">12 Mar 2026, 12:00</td><td style="font-size:12px;font-weight:600;color:var(--text)">ARIA JD + CV</td><td style="font-size:12px;color:var(--text2)">Filed to GitHub. Stage 1 signed by Valerie Wilcox. PAI-JD-002, PAI-CV-002 live.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>PA JD signed, Stage 1</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-001A Stage 1 signed by Valerie Wilcox, 20 March 2026. PA authorised and active.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>SAGE JD signed, Stage 1. SAGE set Live.</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-016 signed. SAGE designated Intelligence Backbone, Live. Analytics layer active alongside SCRIBE.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>PA JD and CV built</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-001A and PAI-CV-001A. Personal Productivity Assistant. Priority Critical. Awaiting Stage 1 signature.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>SAGE JD and CV built</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-016 and PAI-CV-016. Strategic Analytics and Governance Engine. SCRIBE partner. Awaiting Stage 1 signature.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>SCRIBE set to Live</strong></td><td style="font-size:11px;color:var(--text2)">SCRIBE Stage 1 signed and designated Document Hub Owner, Live. Document Hub v1.8 final.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:10px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>GRID JD, CV filed. Stage 1 signed</strong></td><td style="font-size:11px;color:var(--text2)">PAI-JD-009 Stage 1 signed by Valerie Wilcox 20 March 2026. PAI-CV-009 live. GRID at station in Document Hub.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox, Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:10px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>SCRIBE, LEDGER, RELAY JDs and CVs filed</strong></td><td style="font-size:11px;color:var(--text2)">6 agent documents built, filed and Stage 1 signed. SCRIBE, LEDGER, RELAY all signed 20 March 2026.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
-            <tr><td style="font-family:var(--mono);font-size:10px;color:var(--text3)">20 Mar 2026, Session 11</td><td style="font-size:11px;color:var(--text)"><strong>Mission Control v2.3, Brand System v1.1</strong></td><td style="font-size:11px;color:var(--text2)">GRID home page. Org chart 16 agents. GRID Deep Royal #215CAE confirmed. SAGE 016 Steel Blue added. Blue Phoenix locked as primary brand.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox, Claude</td></tr>
             <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">12 Mar 2026, 12:00</td><td style="font-size:12px;font-weight:600;color:var(--text)">Claude JD + CV</td><td style="font-size:12px;color:var(--text2)">Filed to GitHub. Signed by Valerie Wilcox and Claude. PAI-JD-001, PAI-CV-001 live.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
             <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">12 Mar 2026, 12:00</td><td style="font-size:12px;font-weight:600;color:var(--text)">WD Brand Guidelines</td><td style="font-size:12px;color:var(--text2)">WD-BG-001 complete and filed to GitHub. Section 08 UI Components added.</td><td style="font-size:11px;color:var(--text3)">Claude</td></tr>
             <tr><td style="font-family:var(--mono);font-size:9px;color:var(--text3)">11 Mar 2026, 18:37</td><td style="font-size:12px;font-weight:600;color:var(--text)">Claude JD</td><td style="font-size:12px;color:var(--text2)">Signed by Valerie Wilcox. First signature recorded.</td><td style="font-size:11px;color:var(--text3)">Valerie Wilcox</td></tr>
@@ -1524,7 +1586,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
       <div id="sec-legal" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">LEGAL AND COMPLIANCE</div><div class="dh-sub">Contracts, terms, compliance documentation</div></div></div><div style="color:var(--text2);font-size:13px">Legal documents require qualified legal counsel before being filed here. Placeholder section ready for when legal documents are produced.</div></div>
       <div id="sec-versions" style="display:none"><div class="doc-header"><div class="dh-left"><div class="dh-title">FULL VERSION HISTORY</div><div class="dh-sub">All changes across all documents, all entities</div></div></div>
         <div class="ver-table-wrap"><table class="ver-table"><thead><tr><th>Version</th><th>Date</th><th>Entity</th><th>Changed By</th><th>Summary</th></tr></thead><tbody>
-          <tr class="ver-current"><td>v1.7</td><td>13 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Session 10: Brand Guidelines v1.2 (PAI-BG-001) filed. Logo approved. Product count updated to 9. Workspace and Document Hub added as PRJ-001a/b. Correct flame favicon across all apps. SCRIBE and GRID onboarding queued. Ecosystem archive complete.</td></tr>
+          <tr class="ver-current"><td>v2.0</td><td>24 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 14: All 11 agents added to registry. 9 new document cards added (Master Brief, Alpha Invitation, Testing Kit, Beta MC, Feedback Form, IP Declaration, Social Media Pack W01, Product Strategy, Beta Pricing). Version history and automation log updated. KPI dashboard updated.</td><td><span class="chip chip-live">Current</span></td></tr>
+            <tr><td>v1.9</td><td>22 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 13: Supabase backend live (Phase 2 Unlock 1). GitHub connected to Claude.ai Projects. SignHub v1.0 built. IP Declaration v3.0 signed. 4 alpha invitations created. PA Planner scoped. Beta Mission Control built. Alpha programme designed end-to-end.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr><td>v1.8</td><td>21 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 12: NEXUS and PROBE built and signed as The DevHub (IP-013). PULSE Stage 1 signed as Beta Campaign Owner. PA colour corrected to Rose #F43F5E. IP protection scoped at £491.85. Blue Phoenix brand direction locked. Agent count reaches 22.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr class="ver-current"><td>v1.7</td><td>13 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Session 10: Brand Guidelines v1.2 (PAI-BG-001) filed. Logo approved. Product count updated to 9. Workspace and Document Hub added as PRJ-001a/b. Correct flame favicon across all apps. SCRIBE and GRID onboarding queued. Ecosystem archive complete.</td></tr>
           <tr><td>v1.6</td><td>12 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>Session 6: SCRIBE added to org chart. Claude and ARIA on All Agents board. WilcoxDesigns sidebar sub-sections fixed. UI Components system added to Brand Guidelines. ARIA JD and CV Live. Dilpreet Kaur confirmed as PhoennixAI Director. Pending Review cleared. Automation Log 11 active. Agent dashboard scoped for backlog.</td></tr>
           <tr><td>v1.5</td><td>12 Mar 2026</td><td>All</td><td>Valerie, Claude</td><td>WilcoxDesigns Brand System section with colour palette, typography, voice, and UI components. Brand Guidelines One-Pager (WD-BG-001) complete and filed to GitHub. Mission Control TODAY tab automated via localStorage. Request Update wired to ARIA alerts pipeline. PRJ-003 and PRJ-006 priorities confirmed.</td></tr>
           <tr><td>v1.4</td><td>12 Mar 2026</td><td>PhoennixAI</td><td>Valerie, Claude</td><td>Session 5: Claude JD (PAI-JD-001) signed by Valerie and Claude. ARIA JD (PAI-JD-002) Stage 1 signed. Signature localStorage persistence and theme-aware canvas ink. All 4 agent documents filed to GitHub. Governance framework and kingdom culture foundation in all JDs.</td></tr>
@@ -1591,45 +1656,18 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
             <div class="dc-desc">Full inter-agent communication map showing what each agent passed to another, when, and the outcome. Will live in Insights. Requires Supabase backend (BL-005).</div>
             <div class="dc-footer"><span class="chip chip-draft">Phase 2</span></div>
           </div>
-          <div class="doc-card" style="border-left:3px solid #C49A6C">
-            <div class="dc-type" style="color:#C49A6C">Governance · PAI-MAN-001 · SCRIBE Owns</div>
-            <div class="dc-title">PhoennixAI User Manual</div>
-            <div class="dc-desc">Comprehensive operational manual. All three apps, all agents, governance rules, document control, behavioural metrics, onboarding guide, beta timeline, FAQ. For all staff, partners, and stakeholders. If an agent is unavailable, the team reads this and keeps working.</div>
-            <div class="dc-footer" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_UserManual.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(196,154,108,0.35);color:#C49A6C;background:rgba(196,154,108,0.06);text-decoration:none">Open Manual</a>
-              <span style="font-family:var(--mono);font-size:7px;color:#22C55E">Live on GitHub</span>
-              <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">v1.0 · 20 Mar 2026</span>
-            </div>
-          </div>
-          <div class="doc-card" style="border-left:3px solid #4682B4">
-            <div class="dc-type" style="color:#4682B4">Governance · PAI-TRACE-001 · SAGE and SCRIBE Own</div>
-            <div class="dc-title">Communication and Traceability Dashboard</div>
-            <div class="dc-desc">Full traceability log of every agent and human decision, flag, recommendation, and action. Name, date, time, outcome. Root cause analysis panel. Founder alerts layer. 100% traceable. Built like an NHS incident investigation log. SAGE owns analytics. SCRIBE owns governance. Phase 2: fully automated via Supabase.</div>
-            <div class="dc-footer" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
-              <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_TraceabilityDashboard.html" target="_blank" style="font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:3px;border:1px solid rgba(70,130,180,0.35);color:#4682B4;background:rgba(70,130,180,0.06);text-decoration:none">Open Dashboard</a>
-              <span style="font-family:var(--mono);font-size:7px;color:#22C55E">Live on GitHub</span>
-              <span style="font-family:var(--mono);font-size:7px;color:#4682B4">SAGE: Analytics · SCRIBE: Governance</span>
-              <span style="font-family:var(--mono);font-size:7px;color:var(--text3)">v1.0 · 20 Mar 2026</span>
-            </div>
+          <div class="doc-card" style="border-style:dashed;opacity:0.6">
+            <div class="dc-type">Coming in Phase 2</div>
+            <div class="dc-title">Full User Manual Document</div>
+            <div class="dc-desc">Comprehensive knowledge base covering all three apps, all agent interactions, system rules, onboarding guide for new staff and contractors. To be built as a standalone document filed here and on GitHub.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Next Build Session</span></div>
           </div>
         </div>
 
         <div class="section-title" style="margin-top:28px">Agent Colour Identity System</div>
         <div style="background:rgba(196,154,108,0.04);border:1px solid rgba(196,154,108,0.15);border-left:3px solid var(--bronze);border-radius:0 8px 8px 0;padding:16px;margin-bottom:20px">
-          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--bronze);margin-bottom:6px">DESIGN STRATEGY — UPDATED 21 MARCH 2026</div>
-          <div style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px">Every agent has a unique colour identity. Colour enables instant identification in dashboards, charts, and logs. No two agents share a colour. Each colour is clearly distinguishable at small sizes.</div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #FF6B2B"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">CORE AI</div><div style="font-family:var(--display);font-size:15px;color:#FF6B2B">CLAUDE</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Phoenix Fire #FF6B2B</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #00E5FF"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 000</div><div style="font-family:var(--display);font-size:15px;color:#00E5FF">ARIA</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Electric Cyan #00E5FF · Reserved</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #215CAE"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 009</div><div style="font-family:var(--display);font-size:15px;color:#215CAE">GRID</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Deep Royal #215CAE</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #C49A6C"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 015</div><div style="font-family:var(--display);font-size:15px;color:#C49A6C">SCRIBE</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Bronze #C49A6C</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #FFB830"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 006</div><div style="font-family:var(--display);font-size:15px;color:#FFB830">LEDGER</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Ember Gold #FFB830</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #FB923C"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 005</div><div style="font-family:var(--display);font-size:15px;color:#46ABD7">RELAY</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Warm Amber #FB923C</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #F43F5E"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 001</div><div style="font-family:var(--display);font-size:15px;color:#F43F5E">PA</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Rose #F43F5E · New</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #A78BFA"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 003</div><div style="font-family:var(--display);font-size:15px;color:#A78BFA">PULSE</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Soft Violet #A78BFA</div></div>
-            <div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:10px;border-left:3px solid #4682B4"><div style="font-family:var(--mono);font-size:7px;color:var(--text3)">AGENT 016</div><div style="font-family:var(--display);font-size:15px;color:#4682B4">SAGE</div><div style="font-family:var(--mono);font-size:8px;color:var(--text3)">Steel Blue #4682B4</div></div>
-          </div>
-          <div style="font-family:var(--mono);font-size:8px;color:var(--text3);padding-top:8px;border-top:1px solid var(--border)">In-House AI Dev Team: NEXUS #7ECEC4 Duck Egg, PROBE #84CC16 Lime Green. Queue pending: SCOUT #22C55E, ATLAS, ECHO, ENROL, SIGNAL #46ABD7, GRANT, FORGE, BRIDGE, GUARDIAN #EF4444</div>
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:3px;color:var(--bronze);margin-bottom:6px">DESIGN STRATEGY — LOCKED 13 MARCH 2026</div>
+          <div style="font-size:13px;color:var(--text2);line-height:1.8">Every agent in the PhoennixAI ecosystem has a unique colour identity. This is not decorative. Each agent colour enables instant identification in dashboards, charts, graphs, communication logs, and performance reports. When you see a colour, you know immediately which agent or system is active. This is the same principle used by monitoring systems, financial terminals, and air traffic control: colour is data.</div>
         </div>
         <div class="doc-grid">
           <div class="doc-card"><div class="dc-status-bar" style="background:#FF6B2B"></div><div class="dc-type">Core AI — Strategic Partner</div><div class="dc-title" style="color:#FF6B2B">CLAUDE — Phoenix Fire</div><div class="dc-desc"><strong>#FF6B2B / #E8622A dark</strong><br>The builder and strategic mind of the entire operation. Fire orange anchors Claude to the brand core. Appears in system alerts, build outputs, and strategic recommendations. Highest authority colour after the Founder.</div><div class="dc-footer"><span class="chip" style="color:#FF6B2B;border-color:rgba(255,107,43,0.3)">Active</span></div></div>
@@ -1680,7 +1718,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
   <div class="bn-item" onclick="showSection('founder');setMobileActive(this)"><span class="bn-icon">🔒</span><span style="font-family:var(--mono);font-size:7px;letter-spacing:1px">Founder</span></div>
 </nav>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ═══ THEME ═══
 function toggleTheme(){const h=document.documentElement;const d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('theme-icon').textContent=d?'☀️':'🌙'}
 
@@ -1872,18 +1910,22 @@ function showToastDH(msg){
 
 // ═══ INIT ═══
 document.addEventListener('DOMContentLoaded',()=>{
-  renderVersionLog();
-  loadSigStates();
-  // Clear stale signed-JD items from any old localStorage sessions
-  try{
-    const PR_KEY_INIT='pai_pending_review';
-    const pr=JSON.parse(localStorage.getItem(PR_KEY_INIT)||'[]');
-    const clean=pr.filter(p=>p.id!=='pr-001'&&p.id!=='pr-002'&&p.id!=='pr-003');
-    localStorage.setItem(PR_KEY_INIT,JSON.stringify(clean));
-  }catch(e){}
-  initPendingReview();
-  showSection('phoennixai');
-  injectARIANotes();
+  // Restore saved theme
+  try {
+    const t = localStorage.getItem('pai_dh_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    const icon = document.getElementById('theme-icon');
+    if (icon) icon.textContent = t === 'dark' ? '☀️' : '🌙';
+  } catch(e) {}
+
+  // Hide all sections, show default
+  document.querySelectorAll('[id^="sec-"]').forEach(s => s.style.display = 'none');
+  try {
+    const last = localStorage.getItem('pai_dh_section') || 'phoennixai';
+    showSection(last);
+  } catch(e) {
+    showSection('phoennixai');
+  }
 });
 </script>
 </body>
