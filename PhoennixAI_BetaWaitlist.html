@@ -1,516 +1,295 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PhoennixAI — Join the Beta</title>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23060A18' rx='18'/%3E%3Cpath d='M50 80 C38 72 24 60 22 45 C20 32 28 22 36 15 C38 26 36 36 40 44 C44 32 48 20 50 10 C52 20 56 32 60 44 C64 36 62 26 64 15 C72 22 80 32 78 45 C76 60 62 72 50 80Z' fill='url(%23pg)'/%3E%3ClinearGradient id='pg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300E5FF'/%3E%3Cstop offset='100%25' stop-color='%230055AA'/%3E%3C/linearGradient%3E%3C/svg%3E">
+<title>PhoennixAI — Private Beta Access</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2304060F' rx='18'/%3E%3Cpath d='M50 80 C38 72 24 60 22 45 C20 32 28 22 36 15 C38 26 36 36 40 44 C44 32 48 20 50 10 C52 20 56 32 60 44 C64 36 62 26 64 15 C72 22 80 32 78 45 C76 60 62 72 50 80Z' fill='url(%23pg)'/%3E%3ClinearGradient id='pg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%2300E5FF'/%3E%3Cstop offset='100%25' stop-color='%230055AA'/%3E%3C/linearGradient%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:       #060A18;
-  --surface:  #0B1022;
-  --card:     #0F1628;
-  --border:   rgba(0,229,255,0.10);
-  --border2:  rgba(0,229,255,0.20);
-  --cyan:     #00E5FF;
-  --cyan-dim: rgba(0,229,255,0.08);
-  --cyan-mid: rgba(0,229,255,0.15);
-  --gold:     #FFB830;
-  --text:     rgba(255,255,255,0.90);
-  --text2:    rgba(255,255,255,0.55);
-  --text3:    rgba(255,255,255,0.28);
-  --green:    #22C55E;
-  --mono:     'DM Mono', monospace;
-  --sans:     'DM Sans', system-ui, sans-serif;
-  --display:  'Bebas Neue', Impact, sans-serif;
-  --serif:    'Playfair Display', Georgia, serif;
+:root{
+  --ink:#04060F;--ink2:#080C1A;--ink3:#0D1225;
+  --gold:#C9A96E;--gold2:#E8D5A3;--gold3:rgba(201,169,110,0.15);--gold4:rgba(201,169,110,0.06);
+  --cyan:#00E5FF;
+  --text:rgba(255,255,255,0.88);--text2:rgba(255,255,255,0.5);--text3:rgba(255,255,255,0.25);--text4:rgba(255,255,255,0.1);
+  --border:rgba(201,169,110,0.18);
+  --cormorant:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'DM Mono',monospace;
 }
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 14px;
-  line-height: 1.7;
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
 
-/* ── BACKGROUND ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 60% 40% at 20% 10%, rgba(0,229,255,0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(0,85,170,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 30% 30% at 50% 50%, rgba(0,229,255,0.03) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
-}
+/* GRAIN */
+body::before{content:'';position:fixed;inset:-50%;width:200%;height:200%;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.025;pointer-events:none;z-index:1;animation:grain 8s steps(10) infinite}
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-2%,-3%)}20%{transform:translate(3%,1%)}30%{transform:translate(-1%,4%)}40%{transform:translate(4%,-2%)}50%{transform:translate(-3%,2%)}60%{transform:translate(2%,3%)}70%{transform:translate(-4%,-1%)}80%{transform:translate(3%,-4%)}90%{transform:translate(-2%,3%)}}
 
-/* grid overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(0,229,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
-}
+/* AMBIENT */
+.grid-overlay{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(0,229,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,229,255,0.025) 1px,transparent 1px);
+  background-size:52px 52px}
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 60% 50% at 75% 20%,rgba(201,169,110,0.05) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 80%,rgba(0,229,255,0.04) 0%,transparent 50%)}
 
-.wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 48px 24px 80px; }
+/* PAGE GRID */
+.page{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
 
-/* ── TOP BAR ── */
-.topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 64px;
-}
-.tb-logo {
-  font-family: var(--display);
-  font-size: 20px;
-  letter-spacing: 4px;
-}
-.tb-logo span:first-child { color: var(--cyan); }
-.tb-logo span:last-child  { color: rgba(255,255,255,0.4); }
-.tb-badge {
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cyan);
-  border: 1px solid rgba(0,229,255,0.3);
-  background: rgba(0,229,255,0.06);
-  padding: 4px 10px;
-  border-radius: 3px;
-}
+/* LEFT */
+.left::before{content:'';position:absolute;top:-5%;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,229,255,0.25),transparent);
+  animation:scan 7s linear infinite;z-index:3;pointer-events:none}
+.left{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;
+  justify-content:space-between;padding:56px 60px 52px 72px;
+  border-right:1px solid rgba(201,169,110,0.12);overflow:hidden}
+.left::after{content:'';position:absolute;top:0;right:0;width:1px;height:100%;
+  background:linear-gradient(180deg,transparent 0%,var(--gold) 35%,var(--gold) 65%,transparent 100%);opacity:0.12}
 
-/* ── HERO ── */
-.hero { text-align: center; margin-bottom: 56px; }
-.hero-eyebrow {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--cyan);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-.hero-eyebrow::before,
-.hero-eyebrow::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--cyan));
-}
-.hero-eyebrow::after { transform: scaleX(-1); }
+.logo-mark{display:flex;align-items:center;gap:14px;opacity:0;animation:riseUp 0.8s ease 0.1s forwards}
+.logo-line{width:32px;height:1px;background:linear-gradient(90deg,var(--gold),transparent);flex-shrink:0}
+.logo-text{font-family:var(--mono);font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold)}
 
-.hero-title {
-  font-family: var(--display);
-  font-size: clamp(52px, 12vw, 88px);
-  letter-spacing: 4px;
-  line-height: 0.95;
-  margin-bottom: 16px;
-  color: #fff;
-}
-.hero-title .accent { color: var(--cyan); }
+.hero-block{flex:1;display:flex;flex-direction:column;justify-content:center;opacity:0;animation:riseUp 1s ease 0.3s forwards}
 
-.hero-sub {
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 17px;
-  color: var(--text2);
-  margin-bottom: 32px;
-  line-height: 1.6;
-}
+.hero-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:5px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:36px;display:flex;align-items:center;gap:14px}
+.hero-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--gold);flex-shrink:0}
 
-/* ── COUNTDOWN ── */
-.countdown-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 48px;
-}
-.cd-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 18px 10px;
-  min-width: 72px;
-}
-.cd-num {
-  font-family: var(--display);
-  font-size: 38px;
-  color: var(--cyan);
-  line-height: 1;
-  letter-spacing: 2px;
-}
-.cd-label {
-  font-family: var(--mono);
-  font-size: 7px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--text3);
-  margin-top: 4px;
-}
-.cd-sep {
-  font-family: var(--display);
-  font-size: 28px;
-  color: var(--text3);
-  margin-bottom: 16px;
-}
+.hero-title{font-family:var(--cormorant);font-size:clamp(48px,5vw,76px);font-weight:300;
+  line-height:1.06;letter-spacing:-0.3px;color:var(--text);margin-bottom:28px}
+.hero-title em{font-style:italic;color:var(--gold2)}
 
-/* ── AGENT PILLS ── */
-.agents-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  justify-content: center;
-  margin-bottom: 48px;
-}
-.agent-pill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text2);
-  border: 1px solid var(--border);
-  background: var(--cyan-dim);
-  padding: 5px 10px;
-  border-radius: 20px;
-  transition: all 0.2s;
-}
-.agent-pill:hover { border-color: var(--border2); color: var(--text); }
-.ap-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.hero-body{font-family:var(--cormorant);font-size:18px;font-weight:300;font-style:italic;
+  color:var(--text2);line-height:1.8;max-width:360px;margin-bottom:48px}
 
-/* ── FORM CARD ── */
-.form-card {
-  background: var(--card);
-  border: 1px solid var(--border2);
-  border-radius: 16px;
-  padding: 40px 40px 36px;
-  position: relative;
-  overflow: hidden;
-}
-.form-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-}
-.form-title {
-  font-family: var(--display);
-  font-size: 28px;
-  letter-spacing: 3px;
-  color: var(--text);
-  margin-bottom: 6px;
-}
-.form-sub {
-  font-size: 12px;
-  color: var(--text2);
-  margin-bottom: 32px;
-  font-family: var(--mono);
-  letter-spacing: 1px;
-}
+/* COUNTDOWN */
+.countdown{display:flex;align-items:flex-end;gap:0;margin-bottom:48px}
+.cd-unit{display:flex;flex-direction:column;align-items:center;min-width:58px}
+.cd-num{font-family:var(--mono);font-size:44px;font-weight:300;color:var(--gold);line-height:1;letter-spacing:2px}
+.cd-lbl{font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-top:5px}
+.cd-sep{font-family:var(--mono);font-size:22px;color:rgba(0,229,255,0.2);margin:0 4px 8px;line-height:1}
 
-.field { margin-bottom: 20px; }
-.field-label {
-  display: block;
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--cyan);
-  margin-bottom: 8px;
-}
-.field-required { color: var(--gold); margin-left: 2px; }
+/* AGENTS */
+.agents-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.agents-list{display:flex;flex-wrap:wrap;gap:10px 16px}
+.agent-name{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--text3);display:flex;align-items:center;gap:6px;transition:color 0.3s}
+.agent-name:hover{color:#00E5FF}
+.an-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;opacity:0.75}
 
-input[type="text"],
-input[type="email"],
-select,
-textarea {
-  width: 100%;
-  background: rgba(0,229,255,0.04);
-  border: 1px solid rgba(0,229,255,0.15);
-  border-radius: 8px;
-  padding: 12px 14px;
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: 13px;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-  -webkit-appearance: none;
-  appearance: none;
-}
-input:focus, select:focus, textarea:focus {
-  border-color: rgba(0,229,255,0.45);
-  background: rgba(0,229,255,0.07);
-}
-input::placeholder, textarea::placeholder { color: var(--text3); }
-select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300E5FF' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
-select option { background: #0F1628; color: var(--text); }
-textarea { resize: vertical; min-height: 88px; }
+/* LEFT FOOTER */
+.left-footer{opacity:0;animation:riseUp 0.8s ease 0.6s forwards}
+.lf-rule{width:100%;height:1px;background:linear-gradient(90deg,rgba(201,169,110,0.25),transparent);margin-bottom:18px}
+.lf-text{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);line-height:2}
 
-.field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+/* RIGHT */
+.right{padding:56px 72px 56px 60px;display:flex;flex-direction:column;min-height:100vh}
 
-/* tier cards */
-.tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
-.tier-card {
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 14px 12px;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-align: center;
-  background: rgba(0,229,255,0.03);
-  position: relative;
-}
-.tier-card:hover { border-color: var(--border2); background: rgba(0,229,255,0.06); }
-.tier-card.selected {
-  border-color: var(--cyan);
-  background: rgba(0,229,255,0.10);
-  box-shadow: 0 0 20px rgba(0,229,255,0.08);
-}
-.tier-card input { display: none; }
-.tier-num { font-family: var(--display); font-size: 18px; letter-spacing: 2px; color: var(--cyan); }
-.tier-price { font-family: var(--mono); font-size: 11px; color: var(--gold); margin: 2px 0; }
-.tier-name { font-size: 11px; color: var(--text2); }
-.tier-check {
-  position: absolute;
-  top: 8px; right: 8px;
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  border: 1.5px solid var(--border2);
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-}
-.tier-card.selected .tier-check { background: var(--cyan); border-color: var(--cyan); }
-.tier-card.selected .tier-check::after { content: ''; display: block; width: 5px; height: 3px; border-left: 1.5px solid #000; border-bottom: 1.5px solid #000; transform: rotate(-45deg) translate(1px, -1px); }
+.form-header{margin-bottom:44px;opacity:0;animation:riseUp 0.8s ease 0.4s forwards}
+.fh-num{font-family:var(--mono);font-size:9px;font-weight:300;color:var(--text3);letter-spacing:4px;margin-bottom:8px}
+.fh-title{font-family:var(--cormorant);font-size:36px;font-weight:300;color:var(--text);letter-spacing:0.5px;margin-bottom:6px}
+.fh-sub{font-family:var(--cormorant);font-size:15px;font-weight:300;font-style:italic;color:var(--text3)}
+.fh-rule{width:40px;height:1px;background:var(--gold);opacity:0.45;margin-top:16px}
 
-/* submit */
-.submit-btn {
-  width: 100%;
-  padding: 16px;
-  background: linear-gradient(135deg, #00E5FF, #0066CC);
-  border: none;
-  border-radius: 8px;
-  color: #000;
-  font-family: var(--display);
-  font-size: 18px;
-  letter-spacing: 4px;
-  cursor: pointer;
-  transition: all 0.25s;
-  margin-top: 8px;
-  position: relative;
-  overflow: hidden;
-}
-.submit-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-.submit-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 32px rgba(0,229,255,0.3); }
-.submit-btn:hover::after { opacity: 1; }
-.submit-btn:active { transform: translateY(0); }
-.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-.form-note {
-  font-family: var(--mono);
-  font-size: 8px;
-  letter-spacing: 1px;
-  color: var(--text3);
-  text-align: center;
-  margin-top: 14px;
-}
+/* FORM */
+.form-wrap{flex:1;opacity:0;animation:riseUp 0.8s ease 0.5s forwards}
 
-/* ── CONFIRMATION STATE ── */
-#confirm-state {
-  display: none;
-  text-align: center;
-  padding: 48px 24px;
-}
-.confirm-icon {
-  width: 64px; height: 64px;
-  border-radius: 50%;
-  background: rgba(0,229,255,0.1);
-  border: 1px solid rgba(0,229,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 24px;
-  animation: scaleIn 0.4s ease;
-}
-.confirm-icon svg { color: var(--cyan); }
-@keyframes scaleIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.confirm-title { font-family: var(--display); font-size: 36px; letter-spacing: 3px; color: var(--cyan); margin-bottom: 8px; }
-.confirm-sub { color: var(--text2); font-size: 13px; max-width: 340px; margin: 0 auto 24px; line-height: 1.7; }
-.confirm-ref { font-family: var(--mono); font-size: 9px; color: var(--text3); letter-spacing: 2px; }
+.field{margin-bottom:28px}
+.field-label{display:block;font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:10px;opacity:0.75}
+.field-label .req{color:var(--gold2);margin-left:2px;opacity:0.6}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
 
-/* ── WHAT YOU GET ── */
-.perks { margin-top: 56px; }
-.perks-title {
-  font-family: var(--mono);
-  font-size: 9px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  color: var(--text3);
-  text-align: center;
-  margin-bottom: 24px;
-}
-.perks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.perk-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 18px 16px;
-  transition: border-color 0.2s;
-}
-.perk-card:hover { border-color: rgba(0,229,255,0.2); }
-.perk-icon { font-size: 20px; margin-bottom: 8px; }
-.perk-label { font-family: var(--mono); font-size: 9px; letter-spacing: 2px; color: var(--cyan); text-transform: uppercase; margin-bottom: 4px; }
-.perk-text { font-size: 12px; color: var(--text2); line-height: 1.6; }
+input[type="text"],input[type="email"],select,textarea{
+  width:100%;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:8px 0 12px;color:var(--text);font-family:var(--cormorant);font-size:18px;font-weight:300;
+  outline:none;transition:border-color 0.3s;-webkit-appearance:none;appearance:none;
+  letter-spacing:0.3px;border-radius:0}
+input:focus,select:focus,textarea:focus{border-bottom-color:var(--gold)}
+input::placeholder,textarea::placeholder{color:var(--text3);font-style:italic}
+select{cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23C9A96E' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 2px center;padding-right:20px}
+select option{background:#0D1225;color:var(--text);font-family:var(--sans);font-size:14px}
+textarea{resize:none;min-height:60px;line-height:1.6}
 
-/* ── FOOTER ── */
-.page-footer {
-  margin-top: 64px;
-  text-align: center;
-  border-top: 1px solid var(--border);
-  padding-top: 32px;
-}
-.footer-logo { font-family: var(--display); font-size: 16px; letter-spacing: 4px; margin-bottom: 8px; }
-.footer-logo span:first-child { color: var(--cyan); }
-.footer-logo span:last-child { color: var(--text3); }
-.footer-text { font-family: var(--mono); font-size: 8px; letter-spacing: 2px; color: var(--text3); }
+/* TIERS */
+.tier-group{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px}
+.tier-opt{position:relative;cursor:pointer}
+.tier-opt input{display:none}
+.tier-face{border:1px solid rgba(255,255,255,0.08);padding:16px 14px 14px;
+  transition:all 0.25s;text-align:left;position:relative}
+.tier-opt:hover .tier-face{border-color:rgba(201,169,110,0.25)}
+.tier-opt input:checked+.tier-face{border-color:var(--gold);background:var(--gold4)}
+.tier-tag{font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.tier-price{font-family:var(--cormorant);font-size:28px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px}
+.tier-name{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text2)}
+.tier-indicator{position:absolute;top:10px;right:10px;width:10px;height:10px;
+  border-radius:50%;border:1px solid rgba(255,255,255,0.12);transition:all 0.2s}
+.tier-opt input:checked+.tier-face .tier-indicator{background:var(--gold);border-color:var(--gold)}
 
-/* ── ANIMATIONS ── */
-.fade-up { opacity: 0; transform: translateY(20px); animation: fadeUp 0.6s ease forwards; }
-.fade-up:nth-child(1) { animation-delay: 0.1s; }
-.fade-up:nth-child(2) { animation-delay: 0.2s; }
-.fade-up:nth-child(3) { animation-delay: 0.3s; }
-.fade-up:nth-child(4) { animation-delay: 0.4s; }
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+/* SUBMIT */
+.submit-wrap{margin-top:44px;padding-top:28px;border-top:1px solid var(--border)}
+.submit-btn{display:inline-flex;align-items:center;gap:16px;background:transparent;
+  border:1px solid var(--gold);color:var(--gold);font-family:var(--mono);font-size:10px;
+  letter-spacing:4px;text-transform:uppercase;padding:18px 40px;cursor:pointer;
+  transition:all 0.35s;position:relative;overflow:hidden}
+.submit-btn::before{content:'';position:absolute;inset:0;background:var(--gold);
+  transform:translateX(-101%);transition:transform 0.45s cubic-bezier(0.16,1,0.3,1);z-index:0}
+.submit-btn:hover::before{transform:translateX(0)}
+.submit-btn:hover{color:var(--ink)}
+.submit-btn>*{position:relative;z-index:1}
+.submit-btn:disabled{opacity:0.35;cursor:not-allowed}
+.submit-btn:disabled::before{display:none}
+.submit-note{margin-top:16px;font-family:var(--mono);font-size:8px;letter-spacing:1.5px;color:var(--text3);line-height:2.2}
 
-/* ── RESPONSIVE ── */
-@media (max-width: 600px) {
-  .wrap { padding: 32px 16px 60px; }
-  .form-card { padding: 28px 20px 24px; }
-  .field-grid { grid-template-columns: 1fr; gap: 0; }
-  .tier-grid { grid-template-columns: 1fr; }
-  .perks-grid { grid-template-columns: 1fr; }
-  .cd-block { min-width: 60px; padding: 10px 12px 8px; }
-  .cd-num { font-size: 28px; }
-  .topbar { flex-direction: column; gap: 12px; }
+/* CONFIRMATION */
+#confirm-state{display:none;flex-direction:column;justify-content:center;align-items:flex-start;
+  min-height:100vh;padding:64px 72px 64px 64px;position:relative;z-index:2}
+.conf-eyebrow{font-family:var(--mono);font-size:8px;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:32px;display:flex;align-items:center;gap:12px;
+  opacity:0;animation:riseUp 0.8s ease 0.1s forwards}
+.conf-eyebrow::before{content:'';display:block;width:24px;height:1px;background:var(--gold);flex-shrink:0}
+.conf-title{font-family:var(--cormorant);font-size:68px;font-weight:300;line-height:1.02;
+  letter-spacing:-1px;margin-bottom:24px;opacity:0;animation:riseUp 0.8s ease 0.2s forwards}
+.conf-title em{font-style:italic;color:var(--gold2)}
+.conf-rule{width:56px;height:1px;background:var(--gold);opacity:0.4;margin-bottom:28px;
+  opacity:0;animation:riseUp 0.8s ease 0.3s forwards}
+.conf-body{font-family:var(--cormorant);font-size:20px;font-weight:300;font-style:italic;
+  color:var(--text2);max-width:440px;line-height:1.75;margin-bottom:48px;
+  opacity:0;animation:riseUp 0.8s ease 0.4s forwards}
+.conf-actions{display:flex;flex-direction:column;gap:12px;opacity:0;animation:riseUp 0.8s ease 0.5s forwards}
+.conf-primary{display:inline-flex;align-items:center;gap:16px;background:var(--gold);border:none;
+  color:var(--ink);font-family:var(--mono);font-size:9px;letter-spacing:4px;text-transform:uppercase;
+  padding:16px 36px;cursor:pointer;text-decoration:none;transition:background 0.25s}
+.conf-primary:hover{background:var(--gold2)}
+.conf-secondary{display:inline-flex;align-items:center;gap:10px;color:var(--text3);font-family:var(--mono);
+  font-size:8px;letter-spacing:3px;text-transform:uppercase;text-decoration:none;
+  padding:8px 0;transition:color 0.2s}
+.conf-secondary:hover{color:var(--gold)}
+.conf-ref{margin-top:56px;font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);
+  opacity:0;animation:riseUp 0.8s ease 0.7s forwards}
+
+/* ANIMATIONS */
+@keyframes scan{0%{top:-5%}100%{top:105%}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+@keyframes riseUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .page{grid-template-columns:1fr}
+  .left{position:relative;height:auto;padding:48px 28px 40px 32px;border-right:none;border-bottom:1px solid rgba(201,169,110,0.1)}
+  .left::after{display:none}
+  .right{padding:44px 32px 64px}
+  .field-grid{grid-template-columns:1fr;gap:0}
+  .tier-group{grid-template-columns:1fr}
+  .hero-title{font-size:52px}
+  #confirm-state{padding:48px 32px;min-height:auto}
+  .conf-title{font-size:48px}
 }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="ambient"></div>
+<div class="grid-overlay"></div>
 
-  <!-- TOP BAR -->
-  <div class="topbar fade-up">
-    <div class="tb-logo"><span>PHOENNIX</span><span>AI</span></div>
-    <div class="tb-badge">Beta Opens 7 April 2026</div>
-  </div>
+<div class="page" id="main-page">
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-eyebrow fade-up">Private Beta — Limited Access</div>
-    <h1 class="hero-title fade-up">
-      YOUR AI<br>
-      <span class="accent">TEAM</span><br>
-      AWAITS
-    </h1>
-    <p class="hero-sub fade-up">
-      22 AI agents. One command centre.<br>Built for founders who refuse to do everything alone.
-    </p>
+  <!-- LEFT -->
+  <div class="left">
+    <div class="logo-mark">
+      <div class="logo-line"></div>
+      <div class="logo-text">PhoennixAI · Private Beta</div>
+    </div>
 
-    <!-- COUNTDOWN -->
-    <div class="countdown-wrap fade-up">
-      <div class="cd-block">
-        <div class="cd-num" id="cd-days">--</div>
-        <div class="cd-label">Days</div>
+    <div class="hero-block">
+      <div class="hero-eyebrow">Limited Access · 7 April 2026</div>
+      <h1 class="hero-title">
+        Your business<br>
+        deserves <em>more</em><br>
+        than one<br>
+        founder.
+      </h1>
+      <p class="hero-body">
+        22 AI agents. Each with a name, a role, and a colour. Built to run the parts of your business that are running you.
+      </p>
+      <div class="countdown">
+        <div class="cd-unit"><div class="cd-num" id="cd-d">--</div><div class="cd-lbl">Days</div></div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-h">--</div><div class="cd-lbl">Hours</div></div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-m">--</div><div class="cd-lbl">Mins</div></div>
+        <div class="cd-sep">·</div>
+        <div class="cd-unit"><div class="cd-num" id="cd-s">--</div><div class="cd-lbl">Secs</div></div>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-block">
-        <div class="cd-num" id="cd-hours">--</div>
-        <div class="cd-label">Hours</div>
+      <div class="agents-label">The Team — 15 Active</div>
+      <div class="agents-list">
+        <span class="agent-name"><span class="an-dot" style="background:#FF6B2B"></span>Claude</span>
+        <span class="agent-name"><span class="an-dot" style="background:#00E5FF"></span>ARIA</span>
+        <span class="agent-name"><span class="an-dot" style="background:#F43F5E"></span>PA</span>
+        <span class="agent-name"><span class="an-dot" style="background:#215CAE"></span>GRID</span>
+        <span class="agent-name"><span class="an-dot" style="background:#FFB830"></span>LEDGER</span>
+        <span class="agent-name"><span class="an-dot" style="background:#A78BFA"></span>PULSE</span>
+        <span class="agent-name"><span class="an-dot" style="background:#C49A6C"></span>SCRIBE</span>
+        <span class="agent-name"><span class="an-dot" style="background:#FB923C"></span>RELAY</span>
+        <span class="agent-name"><span class="an-dot" style="background:#4682B4"></span>SAGE</span>
+        <span class="agent-name"><span class="an-dot" style="background:#22C55E"></span>SCOUT</span>
+        <span class="agent-name"><span class="an-dot" style="background:#0D9488"></span>ECHO</span>
+        <span class="agent-name"><span class="an-dot" style="background:#46ABD7"></span>SIGNAL</span>
+        <span class="agent-name"><span class="an-dot" style="background:#DC2626"></span>FORGE</span>
+        <span class="agent-name"><span class="an-dot" style="background:#7ECEC4"></span>NEXUS</span>
+        <span class="agent-name"><span class="an-dot" style="background:#84CC16"></span>PROBE</span>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-block">
-        <div class="cd-num" id="cd-mins">--</div>
-        <div class="cd-label">Mins</div>
+    </div>
+
+    <div style="margin-bottom:14px;opacity:0;animation:riseUp 0.8s ease 0.55s forwards">
+      <div style="font-family:var(--mono);font-size:7px;letter-spacing:3px;color:rgba(0,229,255,0.35);margin-bottom:8px">SYSTEM STATUS</div>
+      <div style="display:flex;gap:18px">
+        <span style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:rgba(0,229,255,0.4)">ALPHA ● LIVE</span>
+        <span style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:rgba(201,169,110,0.4)">BETA ○ 7 APR</span>
+        <span style="font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--text3)">SLOTS ◈ 10</span>
       </div>
-      <div class="cd-sep">:</div>
-      <div class="cd-block">
-        <div class="cd-num" id="cd-secs">--</div>
-        <div class="cd-label">Secs</div>
+    </div>
+    <div class="left-footer">
+      <div class="lf-rule"></div>
+      <div class="lf-text">
+        Created to Create. Intelligent by nature.<br>
+        10 founding slots · From £497 · 30-day full access
       </div>
     </div>
   </div>
 
-  <!-- AGENTS ROW -->
-  <div class="agents-row fade-up">
-    <div class="agent-pill"><div class="ap-dot" style="background:#00E5FF"></div>ARIA</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#F43F5E"></div>PA</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#215CAE"></div>GRID</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#FFB830"></div>LEDGER</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#A78BFA"></div>PULSE</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#C49A6C"></div>SCRIBE</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#FB923C"></div>RELAY</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#22C55E"></div>SCOUT</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#0D9488"></div>ECHO</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#46ABD7"></div>SIGNAL</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#DC2626"></div>FORGE</div>
-    <div class="agent-pill"><div class="ap-dot" style="background:#4682B4"></div>SAGE</div>
-    <div class="agent-pill" style="opacity:0.4"><div class="ap-dot" style="background:#555"></div>+10 more</div>
-  </div>
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="form-header">
+      <div class="fh-num">Application</div>
+      <div class="fh-title">Request Access</div>
+      <div class="fh-sub">Every application is reviewed personally by Valerie.</div>
+      <div class="fh-rule"></div>
+    </div>
 
-  <!-- FORM CARD -->
-  <div class="form-card fade-up">
-    <div id="form-state">
-      <div class="form-title">SECURE YOUR SLOT</div>
-      <div class="form-sub">Beta opens 7 April · Limited founding slots · Direct founder access</div>
-
+    <div class="form-wrap">
       <form id="waitlist-form" action="https://formspree.io/f/xdawrbgr" method="POST">
-        <input type="hidden" name="_subject" value="PhoennixAI Beta Waitlist — New Application">
-        <input type="hidden" name="_next" value="">
+        <input type="hidden" name="_subject" value="PhoennixAI Beta — New Application">
 
-        <!-- Name + Email -->
         <div class="field-grid">
           <div class="field">
-            <label class="field-label">Full Name <span class="field-required">*</span></label>
-            <input type="text" name="full_name" placeholder="Valerie Wilcox" required>
+            <label class="field-label">Full Name <span class="req">*</span></label>
+            <input type="text" name="full_name" placeholder="Your name" required>
           </div>
           <div class="field">
-            <label class="field-label">Email <span class="field-required">*</span></label>
+            <label class="field-label">Email <span class="req">*</span></label>
             <input type="email" name="email" placeholder="you@company.com" required>
           </div>
         </div>
 
-        <!-- Business type -->
         <div class="field">
-          <label class="field-label">Business Type / Industry <span class="field-required">*</span></label>
+          <label class="field-label">Business Type <span class="req">*</span></label>
           <select name="business_type" required>
             <option value="" disabled selected>Select your business type</option>
             <option>Solo Founder / Solopreneur</option>
@@ -520,7 +299,7 @@ textarea { resize: vertical; min-height: 88px; }
             <option>Consultant or Freelancer</option>
             <option>Tech Startup</option>
             <option>E-Commerce / Retail</option>
-            <option>Professional Services (Legal, Finance, HR)</option>
+            <option>Professional Services</option>
             <option>Healthcare or Wellness</option>
             <option>Education or Training</option>
             <option>Non-Profit / Social Impact</option>
@@ -528,9 +307,8 @@ textarea { resize: vertical; min-height: 88px; }
           </select>
         </div>
 
-        <!-- How they heard -->
         <div class="field">
-          <label class="field-label">How Did You Hear About PhoennixAI?</label>
+          <label class="field-label">How Did You Find Us?</label>
           <select name="referral_source">
             <option value="" disabled selected>Select a source</option>
             <option>Instagram</option>
@@ -544,172 +322,114 @@ textarea { resize: vertical; min-height: 88px; }
           </select>
         </div>
 
-        <!-- Biggest challenge -->
         <div class="field">
-          <label class="field-label">Your Biggest Business Challenge Right Now</label>
-          <textarea name="biggest_challenge" placeholder="e.g. I spend 3 hours a day on admin tasks that should be automated. I can't keep up with social media while running everything else. I have no visibility on what's actually happening in my business..."></textarea>
+          <label class="field-label">Your Biggest Challenge Right Now</label>
+          <textarea name="biggest_challenge" placeholder="Tell us what is slowing your business down…" rows="3"></textarea>
         </div>
 
-        <!-- Tier interest -->
         <div class="field">
-          <label class="field-label">Which Tier Interests You? <span class="field-required">*</span></label>
-          <div class="tier-grid" id="tier-grid">
-            <label class="tier-card" id="tier-1">
+          <label class="field-label">Investment Level <span class="req">*</span></label>
+          <div class="tier-group">
+            <label class="tier-opt">
               <input type="radio" name="tier_interest" value="Tier 1 — £497" required>
-              <div class="tier-check"></div>
-              <div class="tier-num">T1</div>
-              <div class="tier-price">£497</div>
-              <div class="tier-name">Starter</div>
+              <div class="tier-face">
+                <div class="tier-indicator"></div>
+                <div class="tier-tag">Tier 01</div>
+                <div class="tier-price">£497</div>
+                <div class="tier-name">Starter</div>
+              </div>
             </label>
-            <label class="tier-card" id="tier-2">
+            <label class="tier-opt">
               <input type="radio" name="tier_interest" value="Tier 2 — £1,497">
-              <div class="tier-check"></div>
-              <div class="tier-num">T2</div>
-              <div class="tier-price">£1,497</div>
-              <div class="tier-name">Full Suite</div>
+              <div class="tier-face">
+                <div class="tier-indicator"></div>
+                <div class="tier-tag">Tier 02</div>
+                <div class="tier-price">£1,497</div>
+                <div class="tier-name">Full Suite</div>
+              </div>
             </label>
-            <label class="tier-card" id="tier-3">
+            <label class="tier-opt">
               <input type="radio" name="tier_interest" value="Tier 3 — £4,997">
-              <div class="tier-check"></div>
-              <div class="tier-num">T3</div>
-              <div class="tier-price">£4,997</div>
-              <div class="tier-name">Enterprise</div>
+              <div class="tier-face">
+                <div class="tier-indicator"></div>
+                <div class="tier-tag">Tier 03</div>
+                <div class="tier-price">£4,997</div>
+                <div class="tier-name">Enterprise</div>
+              </div>
             </label>
           </div>
         </div>
 
-        <button type="submit" class="submit-btn" id="submit-btn">JOIN THE BETA</button>
-        <div class="form-note">No payment now. We will contact you before 7 April with your onboarding details. Your data is used only for beta communications.</div>
+        <div class="submit-wrap">
+          <button type="submit" class="submit-btn" id="submit-btn">
+            <span>Request Access</span>
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 5h14M10 1l4 4-4 4"/></svg>
+          </button>
+          <div class="submit-note">
+            No payment today. Every application is reviewed personally.<br>
+            You will hear from Valerie directly before 7 April 2026.
+          </div>
+        </div>
       </form>
     </div>
-
-    <!-- CONFIRMATION -->
-    <div id="confirm-state">
-      <div class="confirm-icon">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="confirm-title">YOU ARE IN</div>
-      <p class="confirm-sub">Your beta application has been received. Valerie will review and confirm your slot before 7 April 2026. Check your inbox for a confirmation email.</p>
-      <div class="confirm-ref">PAI-BETA-2026 · Application Received · <span id="confirm-time"></span></div>
-      <div style="margin-top:24px">
-        <a href="https://cal.com/phoennixai/beta-discovery" target="_blank" style="display:inline-block;background:linear-gradient(135deg,#00E5FF,#0066CC);color:#000;font-family:'Bebas Neue',Impact,sans-serif;font-size:16px;letter-spacing:3px;padding:14px 32px;border-radius:8px;text-decoration:none;margin-top:4px">BOOK YOUR ONBOARDING CALL</a>
-        <div style="font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.3);letter-spacing:2px;margin-top:10px">BETA DISCOVERY CALL · GOOGLE CALENDAR · FREE</div>
-      <div style="margin-top:14px;font-family:'DM Mono',monospace;font-size:8px;color:rgba(255,255,255,0.25);letter-spacing:2px">ALREADY A BETA CLIENT? BOOK YOUR ONBOARDING BELOW</div>
-      <a href="https://cal.com/phoennixai/onboarding" target="_blank" style="display:inline-block;margin-top:8px;border:1px solid rgba(0,229,255,0.25);color:#00E5FF;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;padding:8px 20px;border-radius:6px;text-decoration:none">45 MIN FULL ONBOARDING · https://cal.com/phoennixai/onboarding</a>
-      </div>
-    </div>
   </div>
+</div>
 
-  <!-- PERKS -->
-  <div class="perks">
-    <div class="perks-title">What You Get as a Founding Beta Member</div>
-    <div class="perks-grid">
-      <div class="perk-card">
-        <div class="perk-icon">🤖</div>
-        <div class="perk-label">Full AI Team Access</div>
-        <div class="perk-text">ARIA, PA, GRID, LEDGER, SCRIBE, PULSE, RELAY, SCOUT and more. Your own AI-powered Business Operating System.</div>
-      </div>
-      <div class="perk-card">
-        <div class="perk-icon">📞</div>
-        <div class="perk-label">Direct Founder Access</div>
-        <div class="perk-text">You are not a ticket number. Founding beta members have direct access to Valerie. Your feedback shapes the product.</div>
-      </div>
-      <div class="perk-card">
-        <div class="perk-icon">🔒</div>
-        <div class="perk-label">Founding Slot Pricing</div>
-        <div class="perk-text">Beta pricing is locked for life for founding members. The price goes up at launch. Your founding rate never does.</div>
-      </div>
-      <div class="perk-card">
-        <div class="perk-icon">⚡</div>
-        <div class="perk-label">30-Day Full Access</div>
-        <div class="perk-text">30 days of complete access. Full onboarding included. This is not a watered-down trial — it is the complete platform.</div>
-      </div>
-    </div>
+<!-- CONFIRMATION -->
+<div id="confirm-state">
+  <div class="conf-eyebrow">Application Received</div>
+  <div class="conf-title">You are<br><em>exactly</em><br>who we<br>built this for.</div>
+  <div class="conf-rule"></div>
+  <p class="conf-body">Your application is with Valerie. Expect a personal message before 7 April 2026. In the meantime, book your discovery call — 20 minutes to see exactly what your AI team looks like inside your business.</p>
+  <div class="conf-actions">
+    <a href="https://cal.com/phoennixai/beta-discovery" target="_blank" class="conf-primary">
+      Book Your Discovery Call
+      <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 4h12M8 1l3 3-3 3"/></svg>
+    </a>
+    <a href="https://cal.com/phoennixai/onboarding" target="_blank" class="conf-secondary">
+      Already a client? Book your onboarding →
+    </a>
   </div>
-
-  <!-- FOOTER -->
-  <div class="page-footer">
-    <div class="footer-logo"><span>PHOENNIX</span><span>AI</span></div>
-    <div class="footer-text">Beautiful by design. Intelligent by nature. · Beta opens 7 April 2026 · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c1b7a0ada4b3a8a481b1a9aea4afafa8b9a0a8efa2aeac">[email&#160;protected]</a></div>
-  </div>
-
+  <div class="conf-ref">PAI-BETA-2026 · Received <span id="conf-time"></span> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c6b0a7aaa3b4afa386b6aea9a3a8a8afbea7afe8a5a9ab">[email&#160;protected]</a></div>
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── COUNTDOWN ──
-function updateCountdown(){
+function tick(){
   var target=new Date('2026-04-07T00:00:00+01:00').getTime();
   var now=Date.now();
-  var diff=target-now;
-  if(diff<=0){
-    document.getElementById('cd-days').textContent='00';
-    document.getElementById('cd-hours').textContent='00';
-    document.getElementById('cd-mins').textContent='00';
-    document.getElementById('cd-secs').textContent='00';
-    return;
-  }
-  var d=Math.floor(diff/86400000);
-  var h=Math.floor((diff%86400000)/3600000);
-  var m=Math.floor((diff%3600000)/60000);
-  var s=Math.floor((diff%60000)/1000);
-  document.getElementById('cd-days').textContent=String(d).padStart(2,'0');
-  document.getElementById('cd-hours').textContent=String(h).padStart(2,'0');
-  document.getElementById('cd-mins').textContent=String(m).padStart(2,'0');
-  document.getElementById('cd-secs').textContent=String(s).padStart(2,'0');
+  var t=target-now;
+  var ed=document.getElementById('cd-d');
+  var eh=document.getElementById('cd-h');
+  var em=document.getElementById('cd-m');
+  var es=document.getElementById('cd-s');
+  if(t<=0){if(ed)ed.textContent='00';if(eh)eh.textContent='00';if(em)em.textContent='00';if(es)es.textContent='00';return;}
+  if(ed)ed.textContent=String(Math.floor(t/86400000)).padStart(2,'0');
+  if(eh)eh.textContent=String(Math.floor((t%86400000)/3600000)).padStart(2,'0');
+  if(em)em.textContent=String(Math.floor((t%3600000)/60000)).padStart(2,'0');
+  if(es)es.textContent=String(Math.floor((t%60000)/1000)).padStart(2,'0');
 }
-updateCountdown();
-setInterval(updateCountdown,1000);
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',function(){tick();window.setInterval(tick,1000);});
+}else{
+  tick();
+  window.setInterval(tick,1000);
+}
 
-// ── TIER CARD SELECTION ──
-document.querySelectorAll('.tier-card input[type="radio"]').forEach(function(radio){
-  radio.addEventListener('change',function(){
-    document.querySelectorAll('.tier-card').forEach(function(c){ c.classList.remove('selected'); });
-    if(this.checked) this.closest('.tier-card').classList.add('selected');
-  });
-});
-
-// ── FORM SUBMISSION ──
-var form=document.getElementById('waitlist-form');
-form.addEventListener('submit',function(e){
+document.getElementById('waitlist-form').addEventListener('submit',function(e){
   e.preventDefault();
   var btn=document.getElementById('submit-btn');
   btn.disabled=true;
-  btn.textContent='SUBMITTING...';
-
-  var data=new FormData(form);
-
-  fetch(form.action,{
-    method:'POST',
-    body:data,
-    headers:{Accept:'application/json'}
-  })
-  .then(function(r){
-    if(r.ok){
-      showConfirm();
-    } else {
-      btn.disabled=false;
-      btn.textContent='JOIN THE BETA';
-      alert('Submission failed. Please email valerie@phoennixai.com directly.');
-    }
-  })
-  .catch(function(){
-    // On network error still show confirm — data captured client-side
-    showConfirm();
-  });
+  btn.querySelector('span').textContent='Sending…';
+  try{
+    var arr=JSON.parse(localStorage.getItem('pai_waitlist')||'[]');
+    arr.push({name:this.full_name.value,email:this.email.value,ts:new Date().toISOString()});
+    localStorage.setItem('pai_waitlist',JSON.stringify(arr));
+  }catch(x){}
+  fetch(this.action,{method:'POST',body:new FormData(this),headers:{Accept:'application/json'}})
+  .then(function(){showConfirm()}).catch(function(){showConfirm()});
 });
 
 function showConfirm(){
-  document.getElementById('form-state').style.display='none';
+  document.getElementById('main-page').style.display='none';
   var cs=document.getElementById('confirm-state');
-  cs.style.display='block';
-  var now=new Date();
-  document.getElementById('confirm-time').textContent=
-    now.getDate()+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][now.getMonth()]+' '+now.getFullYear()+' '+String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-}
-
-// ── SAVE TO LOCALSTORAGE AS BACKUP ──
-form.addEventListener('submit',function(){
-  try{
-    var e=form.querySelector('[name="email"]').value;
-    var n=form.querySelector('[name="full_name"]').value;
-    var entries
+  cs.style.display='fle
