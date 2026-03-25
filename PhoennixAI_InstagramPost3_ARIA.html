@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI — Instagram Post 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Bebas+Neue&family=DM+Mono:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;display:flex;flex-direction:column;align-items:center;padding:40px 20px;gap:32px;font-family:'DM Sans',sans-serif}
+
+/* ── POST — 1080x1350 (3:4) ── */
+.post{
+  width:540px;height:675px;
+  background:#04060F;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+
+/* grid */
+.post::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(0,229,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.03) 1px,transparent 1px);
+  background-size:40px 40px;z-index:0
+}
+
+/* ambient glow */
+.post::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 80% 20%,rgba(0,229,255,0.07) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 20% 85%,rgba(201,169,110,0.05) 0%,transparent 50%);
+  z-index:0
+}
+
+.inner{position:relative;z-index:1;width:100%;height:100%;padding:38px 40px 32px;display:flex;flex-direction:column;justify-content:space-between}
+
+/* top */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:4px}
+.logo span:first-child{color:#00E5FF}
+.logo span:last-child{color:rgba(255,255,255,0.3)}
+.live-badge{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(255,255,255,0.3)}
+.live-dot{width:5px;height:5px;border-radius:50%;background:#00E5FF;box-shadow:0 0 6px rgba(0,229,255,0.6);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+/* agent card */
+.agent-card{
+  background:rgba(0,229,255,0.04);
+  border:1px solid rgba(0,229,255,0.15);
+  border-radius:2px;
+  padding:28px 28px 24px;
+  position:relative;
+  flex:1;
+  display:flex;flex-direction:column;justify-content:space-between;
+  margin-bottom:24px;
+}
+.agent-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,#00E5FF,transparent)
+}
+
+/* agent id */
+.agent-id-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.agent-id{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(0,229,255,0.5)}
+.agent-status{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;color:rgba(0,229,255,0.5)}
+.status-dot{width:5px;height:5px;border-radius:50%;background:#00E5FF}
+
+/* agent name */
+.agent-name{font-family:'Bebas Neue',sans-serif;font-size:72px;letter-spacing:6px;color:#fff;line-height:0.9;margin-bottom:6px}
+.agent-designation{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:#00E5FF;text-transform:uppercase;margin-bottom:20px}
+
+/* divider */
+.divider{width:100%;height:1px;background:linear-gradient(90deg,rgba(0,229,255,0.2),transparent);margin-bottom:20px}
+
+/* specs */
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.spec-item{}
+.spec-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:3px;color:rgba(255,255,255,0.3);text-transform:uppercase;margin-bottom:4px}
+.spec-value{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.7)}
+
+/* capability bar */
+.cap-label{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:3px;color:rgba(255,255,255,0.3);margin-bottom:8px;text-transform:uppercase}
+.cap-bars{display:flex;flex-direction:column;gap:6px}
+.cap-row{display:flex;align-items:center;gap:10px}
+.cap-name{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;color:rgba(255,255,255,0.45);min-width:80px}
+.cap-track{flex:1;height:2px;background:rgba(255,255,255,0.06);border-radius:1px;overflow:hidden}
+.cap-fill{height:100%;background:linear-gradient(90deg,#00E5FF,rgba(0,229,255,0.3));border-radius:1px}
+
+/* teaser bottom */
+.teaser-block{text-align:center}
+.teaser-eyebrow{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:4px;color:rgba(255,255,255,0.25);margin-bottom:8px;text-transform:uppercase}
+.teaser-headline{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;font-style:italic;color:rgba(255,255,255,0.75);line-height:1.4;margin-bottom:10px}
+.teaser-cta{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:#00E5FF}
+
+/* corner marks — techy detail */
+.corner{position:absolute;width:12px;height:12px;}
+.corner.tl{top:38px;left:40px;border-top:1px solid rgba(0,229,255,0.2);border-left:1px solid rgba(0,229,255,0.2)}
+.corner.tr{top:38px;right:40px;border-top:1px solid rgba(0,229,255,0.2);border-right:1px solid rgba(0,229,255,0.2)}
+.corner.bl{bottom:32px;left:40px;border-bottom:1px solid rgba(0,229,255,0.2);border-left:1px solid rgba(0,229,255,0.2)}
+.corner.br{bottom:32px;right:40px;border-bottom:1px solid rgba(0,229,255,0.2);border-right:1px solid rgba(0,229,255,0.2)}
+
+/* ── CAPTION ── */
+.caption-panel{width:540px;background:#0A0E1A;border:1px solid rgba(0,229,255,0.1);border-radius:10px;padding:28px}
+.cap-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;color:rgba(0,229,255,0.5);text-transform:uppercase;margin-bottom:14px}
+.cap-body{font-family:'DM Sans',sans-serif;font-size:13px;color:rgba(255,255,255,0.7);line-height:1.85;white-space:pre-line}
+.hashtags{color:rgba(0,229,255,0.4);font-size:12px;display:block;margin-top:12px;line-height:1.8}
+.copy-btn{margin-top:16px;background:transparent;border:1px solid rgba(0,229,255,0.2);border-radius:4px;padding:8px 18px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:#00E5FF;cursor:pointer;transition:all 0.2s;text-transform:uppercase}
+.copy-btn:hover{background:rgba(0,229,255,0.08)}
+.copy-btn.done{color:#22C55E;border-color:rgba(34,197,94,0.3)}
+
+.instructions{width:540px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);text-align:center;line-height:2;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- POST VISUAL -->
+<div class="post">
+  <div class="inner">
+
+    <div>
+      <div class="topbar">
+        <div class="logo"><span>PHOENNIX</span><span>AI</span></div>
+        <div class="live-badge"><div class="live-dot"></div>AGENT PROFILE</div>
+      </div>
+
+      <div class="agent-card">
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+
+        <div>
+          <div class="agent-id-row">
+            <div class="agent-id">PAI-JD-000 · AGENT 000</div>
+            <div class="agent-status"><div class="status-dot"></div>DEPLOYED</div>
+          </div>
+
+          <div class="agent-name">ARIA</div>
+          <div class="agent-designation">Operational Intelligence Agent</div>
+
+          <div class="divider"></div>
+
+          <div class="specs">
+            <div class="spec-item">
+              <div class="spec-label">Colour</div>
+              <div class="spec-value">Electric Cyan #00E5FF</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Status</div>
+              <div class="spec-value">Live · Session 1</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Owns</div>
+              <div class="spec-value">Workspace App</div>
+            </div>
+            <div class="spec-item">
+              <div class="spec-label">Reports to</div>
+              <div class="spec-value">Valerie Wilcox</div>
+            </div>
+          </div>
+
+          <div class="cap-label">Intelligence Capabilities</div>
+          <div class="cap-bars">
+            <div class="cap-row">
+              <div class="cap-name">Morning Brief</div>
+              <div class="cap-track"><div class="cap-fill" style="width:98%"></div></div>
+            </div>
+            <div class="cap-row">
+              <div class="cap-name">Decision Support</div>
+              <div class="cap-track"><div class="cap-fill" style="width:95%"></div></div>
+            </div>
+            <div class="cap-row">
+              <div class="cap-name">Calendar Intel</div>
+              <div class="cap-track"><div class="cap-fill" style="width:92%"></div></div>
+            </div>
+            <div class="cap-row">
+              <div class="cap-name">Daily Schedule</div>
+              <div class="cap-track"><div class="cap-fill" style="width:96%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="teaser-block">
+        <div class="teaser-eyebrow">Private Beta · 7 April 2026</div>
+        <div class="teaser-headline">Something is coming Monday.<br>10 spots. Are you ready?</div>
+        <div class="teaser-cta">Link in bio to apply →</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CAPTION -->
+<div class="caption-panel">
+  <div class="cap-lbl">Instagram Caption — Post 3 · 6pm today</div>
+  <div class="cap-body" id="cap">Meet ARIA.
+
+She is Agent 000.
+
+Every morning, before you open your laptop, ARIA has already briefed you on what matters today.
+
+Your calendar.
+Your priorities.
+Your decisions.
+Your blindspots.
+
+She does not wait to be asked.
+She just works.
+
+ARIA is one of 22 AI agents inside PhoennixAI.
+
+Something is coming Monday.
+10 founding slots.
+Full AI team access.
+Built for founders who are tired of doing everything alone.
+
+Link in bio to apply. Beta opens 7 April.
+
+🔵 Tag a founder who needs a team.
+<span class="hashtags">#PhoennixAI #AIAgents #ARIA #FounderLife #BusinessOS #AITeam #SmallBusiness #Founders #Automation #RiseAutomateDominate #BetaLaunch #StartupLife</span></div>
+  <button class="copy-btn" id="copy-btn" onclick="copyCaption()">Copy Caption</button>
+</div>
+
+<div class="instructions">
+  Screenshot the post above · 3:4 ratio · post at 6pm<br>
+  First line stops the scroll · tag a founder in comments
+</div>
+
+<script>
+function copyCaption(){
+  var text=document.getElementById('cap').innerText;
+  navigator.clipboard.writeText(text).then(function(){
+    var btn=document.getElementById('copy-btn');
+    btn.textContent='Copied!';btn.classList.add('done');
+    setTimeout(function(){btn.textContent='Copy Caption';btn.classList.remove('done');},2000);
+  }).catch(function(){alert('Select the caption text manually and copy.');});
+}
+</script>
+</body>
+</html>
