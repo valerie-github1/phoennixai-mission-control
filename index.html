@@ -1614,11 +1614,11 @@ body::before {
       <div class="stat-lbl">Unique IPs<br>Filed</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num" style="color:var(--gold);">5</div>
+      <div class="stat-num" style="color:var(--gold);">10</div>
       <div class="stat-lbl">Apps Live<br>on GitHub</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num" style="color:var(--violet);">9</div>
+      <div class="stat-num" style="color:var(--violet);" id="stat-beta-days">13</div>
       <div class="stat-lbl">Days to<br>Beta Launch</div>
     </div>
   </div>
@@ -1626,7 +1626,7 @@ body::before {
   <!-- GRID DAILY REPORT -->
   <div class="section">
     <div class="section-label">GRID Daily Report</div>
-    <div class="section-title">Mission Control, 21 March 2026</div>
+    <div class="section-title">Mission Control, 25 March 2026</div>
     <div class="section-sub">Alpha live 24 Mar — 4 testers active. Beta opens 7 April. Revenue mandate active. 15 agents signed.</div>
 
     <div class="callout">
@@ -1712,7 +1712,7 @@ body::before {
         <div class="af-pip" style="background:var(--bronze);box-shadow:0 0 6px var(--bronze);"></div>
         <div class="af-content">
           <div class="af-agent" style="color:var(--bronze);">SCRIBE · Documents</div>
-          <div class="af-msg"><strong>8 files pending GitHub push.</strong> Document Hub v1.8 has agent registry duplication bug. User Manual needs NEXUS, PROBE, PULSE added. Brand Guidelines v1.2 needs Blue Phoenix update.</div>
+          <div class="af-msg"><strong>Session 14/15 push complete.</strong> Document Hub v2.2 live. User Manual v1.2 live. Traceability Dashboard v1.1 live. Workspace v3.2 live. All 15 agents registered. Blue Phoenix brand applied. Next: Mission Control v3.3 content patch.</div>
         </div>
       </div>
       <div class="af-card">
@@ -1908,7 +1908,7 @@ body::before {
         <strong>Alpha:</strong> 24 March to 6 April 2026. 4 testers active. Feedback via Formspree.<br>
         <strong>First Flyer Posts:</strong> 24 March 2026 ✅ Live on Instagram and LinkedIn<br>
         <strong>External Beta Opens:</strong> 7 April 2026. Up to 10 testers. Stripe payment links active. RELAY onboards.<br>
-        <strong>Waitlist:</strong> Tally.so or Typeform, 3 fields only<br>
+        <strong>Waitlist:</strong> <a href="https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_BetaWaitlist.html" target="_blank" style="color:var(--phoenix-blue)">PhoennixAI Beta Waitlist</a> — live on GitHub, 6 fields, Formspree wired<br>
         <strong>Pricing:</strong> Tier 1 £497 (30-day access), Tier 2 £1,497 (full onboarding), Tier 3 £4,997 (enterprise)
       </div>
     </div>
@@ -2029,7 +2029,7 @@ body::before {
 
   <!-- SIGNED AND ACTIVE -->
   <div class="section">
-    <div class="section-label">Signed and Active (11)</div>
+    <div class="section-label">Signed and Active (15)</div>
     <div class="agent-grid">
 
       <div class="agent-row">
@@ -3472,5 +3472,15 @@ setTimeout(() => loadEventsFromSupabase(), 1500);
 loadSchedule();
 </script>
 
+
+<script>
+(function(){
+  var el=document.getElementById('stat-beta-days');
+  if(!el) return;
+  var beta=new Date('2026-04-07T00:00:00+01:00');
+  var diff=Math.ceil((beta-Date.now())/86400000);
+  el.textContent=diff>0?diff:'0';
+})();
+</script>
 </body>
 </html>
