@@ -53,7 +53,9 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
 .toc-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;text-decoration:none;color:var(--text2);font-size:13px;transition:all 0.15s}
 .toc-item:hover{background:var(--pulse-dim);color:var(--text)}
-.toc-num{font-family:var(--mono);font-size:9px;color:var(--pulse);min-width:22px}
+.toc-item.active{background:rgba(167,139,250,0.15);color:#fff;border-left:2px solid var(--pulse);padding-left:8px}
+.toc-item.active .toc-num{color:var(--pulse);opacity:1}
+.toc-num{font-family:var(--mono);font-size:9px;color:var(--pulse);min-width:22px;opacity:0.6}
 
 /* SECTIONS */
 .doc-section{margin-bottom:64px;scroll-margin-top:32px}
@@ -90,11 +92,13 @@ p strong{color:var(--text)}
 .callout.warn{background:rgba(255,184,48,0.05);border:1px solid rgba(255,184,48,0.2)}
 .callout.tip{background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.2)}
 .callout.pulse{background:var(--pulse-dim);border:1px solid var(--border2)}
+.callout.danger{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2)}
 .cl-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
 .callout.info .cl-label{color:var(--cyan)}
 .callout.warn .cl-label{color:var(--gold)}
 .callout.tip .cl-label{color:var(--green)}
 .callout.pulse .cl-label{color:var(--pulse)}
+.callout.danger .cl-label{color:var(--red)}
 .callout p{margin:0;max-width:none}
 
 /* WORKFLOW */
@@ -113,6 +117,7 @@ p strong{color:var(--text)}
 .manual-table th{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);padding:8px 12px;border-bottom:1px solid var(--border);text-align:left}
 .manual-table td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text2);vertical-align:top}
 .manual-table tr:last-child td{border-bottom:none}
+.manual-table tr:hover td{background:rgba(167,139,250,0.03)}
 
 /* PHASE COMPARISON */
 .phase-compare{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
@@ -125,40 +130,72 @@ p strong{color:var(--text)}
 .phase-item::before{content:'✓';color:var(--green);font-size:11px;margin-top:2px;flex-shrink:0}
 .phase-col.p2 .phase-item::before{content:'⏳';color:var(--gold)}
 
+/* ── NEW: PLATFORM CARDS ── */
+.platform-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px}
+.platform-card{border-radius:10px;padding:20px}
+.platform-card.insta{background:linear-gradient(135deg,rgba(131,58,180,0.12),rgba(253,29,29,0.08));border:1px solid rgba(131,58,180,0.2)}
+.platform-card.li{background:rgba(0,119,181,0.08);border:1px solid rgba(0,119,181,0.2)}
+.platform-card.x{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08)}
+.platform-emoji{font-size:26px;margin-bottom:10px}
+.platform-name{font-family:var(--display);font-size:20px;letter-spacing:2px;margin-bottom:10px;color:#fff}
+.platform-rule{font-size:11.5px;color:var(--text2);line-height:1.7}
+.platform-rule li{list-style:none;padding:3px 0;display:flex;gap:7px;align-items:flex-start}
+.platform-rule li::before{content:'→';color:var(--pulse);font-size:10px;margin-top:3px;flex-shrink:0}
+
+/* ── NEW: PILLAR CARDS ── */
+.pillar-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.pillar-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px}
+.pillar-icon{font-size:24px;margin-bottom:10px}
+.pillar-name{font-family:var(--display);font-size:18px;letter-spacing:2px;color:var(--pulse);margin-bottom:6px}
+.pillar-desc{font-size:12px;color:var(--text2);line-height:1.65}
+
+/* ── NEW: CTA RULE ── */
+.cta-rule{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.25);border-radius:10px;padding:20px 22px;margin-bottom:20px;display:flex;gap:14px;align-items:flex-start}
+.cta-rule-icon{font-size:20px;flex-shrink:0}
+.cta-rule-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--red);text-transform:uppercase;margin-bottom:6px}
+.cta-rule-text{font-size:13px;color:var(--text2);line-height:1.7}
+.cta-rule-text strong{color:var(--text)}
+
+/* ── NEW: PEAK TIMES TABLE ── */
+.peak-times{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:12px}
+.peak-times th{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);padding:8px 12px;border-bottom:1px solid var(--border);text-align:left}
+.peak-times td{padding:10px 12px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--text2)}
+.peak-times tr:last-child td{border-bottom:none}
+.time-badge{font-family:var(--mono);font-size:10px;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);color:var(--pulse);padding:2px 8px;border-radius:4px;display:inline-block;margin:1px}
+
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-top:80px}
 .ft-logo{font-family:var(--display);font-size:14px;letter-spacing:4px}
 .ft-logo span:first-child{color:var(--cyan)}
 .ft-logo span:last-child{color:var(--text3)}
 .ft-ref{font-family:var(--mono);font-size:8px;color:var(--text3);letter-spacing:1px}
+.ft-tagline{font-family:var(--mono);font-size:8px;color:var(--pulse);letter-spacing:2px;opacity:0.5;width:100%;margin-top:8px;text-align:center}
 
 @media(max-width:640px){
   .wrap{padding:32px 16px 80px}
   .toc-grid{grid-template-columns:1fr}
   .tab-grid{grid-template-columns:1fr}
   .phase-compare{grid-template-columns:1fr}
+  .platform-grid{grid-template-columns:1fr}
+  .pillar-grid{grid-template-columns:1fr}
   .sec-num{font-size:40px}
   .doc-title{font-size:48px}
 }
 
 /* SCROLL TO TOP */
 #back-to-top{
-  position:fixed;
-  bottom:32px;right:32px;
-  width:44px;height:44px;
-  background:var(--pulse-dim);
-  border:1px solid var(--border2);
-  border-radius:50%;
+  position:fixed;bottom:32px;right:32px;width:44px;height:44px;
+  background:linear-gradient(135deg,#7C3AED,#A78BFA);
+  border:none;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;
-  opacity:0;visibility:hidden;
-  transition:opacity 0.25s, visibility 0.25s, transform 0.25s, background 0.2s;
-  z-index:999;
-  transform:translateY(8px);
+  cursor:pointer;opacity:0;visibility:hidden;
+  transition:opacity 0.25s,visibility 0.25s,transform 0.25s,background 0.2s;
+  z-index:999;transform:translateY(8px);
+  box-shadow:0 4px 20px rgba(124,58,237,0.5);
 }
 #back-to-top.visible{opacity:1;visibility:visible;transform:translateY(0)}
-#back-to-top:hover{background:rgba(167,139,250,0.18);border-color:var(--pulse)}
-#back-to-top svg{color:var(--pulse)}
+#back-to-top:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(124,58,237,0.7)}
+#back-to-top svg{color:#fff}
 </style>
 </head>
 <body>
@@ -167,7 +204,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="tb-logo"><span>PHOENNIX</span><span>AI</span></div>
-  <div class="tb-doc">PAI-MAN-002 · PULSE User Manual · v1.0</div>
+  <div class="tb-doc">PAI-MAN-002 · PULSE User Manual · v1.1</div>
 </div>
 
 <!-- HERO -->
@@ -180,7 +217,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
     <span class="meta-chip">BL-024 Complete</span>
     <span class="meta-chip">Agent 003 · Soft Violet #A78BFA</span>
     <span class="meta-chip phase">Phase 2: Auto-posting via API</span>
-    <span class="meta-chip">PAI-MAN-002 · v1.0 · 25 Mar 2026</span>
+    <span class="meta-chip">PAI-MAN-002 · v1.1 · 25 Mar 2026</span>
   </div>
 </div>
 
@@ -207,8 +244,11 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
     <a class="toc-item" href="#s8"><span class="toc-num">08</span>Phase 0 vs Phase 2</a>
     <a class="toc-item" href="#s9"><span class="toc-num">09</span>Troubleshooting</a>
     <a class="toc-item" href="#s10"><span class="toc-num">10</span>PULSE agent profile</a>
+    <a class="toc-item" href="#s11"><span class="toc-num">11</span>Platform rules and best times</a>
+    <a class="toc-item" href="#s12"><span class="toc-num">12</span>Content pillars and voice</a>
   </div>
 </div>
+
 
 <!-- ── SECTION 1 ── -->
 <div class="doc-section" id="s1">
@@ -219,14 +259,11 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">HOW TO OPEN PULSE</div>
     </div>
   </div>
-
   <p>PULSE lives on GitHub Pages. Open it in any browser on desktop or mobile. No login required. No account needed. All your data saves automatically to your browser's local storage and syncs to Supabase when connected.</p>
-
   <div class="callout info">
     <div class="cl-label">Live URL</div>
     <p><strong>https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_PULSE_App.html</strong><br>Add this to your phone home screen for instant access. On iPhone: tap the share icon and choose "Add to Home Screen." On Android: tap the browser menu and choose "Add to Home Screen."</p>
   </div>
-
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
@@ -252,6 +289,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
   </div>
 </div>
 
+
 <!-- ── SECTION 2 ── -->
 <div class="doc-section" id="s2">
   <div class="sec-header">
@@ -261,7 +299,6 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">THE 10 TABS EXPLAINED</div>
     </div>
   </div>
-
   <div class="tab-grid">
     <div class="tab-card">
       <div class="tab-icon">📊</div>
@@ -284,7 +321,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
     <div class="tab-card">
       <div class="tab-icon">➕</div>
       <div class="tab-name">COMPOSE</div>
-      <div class="tab-desc">Write a new post. Fill in title, date, time, platforms, caption, and hashtags. Save to Queue. The post appears in All Posts and Schedule immediately.</div>
+      <div class="tab-desc">Write a new post. Fill in title, date, time, platform selection, caption, and hashtags. Save to Queue. The post appears in All Posts and Schedule immediately.</div>
       <span class="tab-status status-live">Live</span>
     </div>
     <div class="tab-card">
@@ -326,6 +363,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
   </div>
 </div>
 
+
 <!-- ── SECTION 3 ── -->
 <div class="doc-section" id="s3">
   <div class="sec-header">
@@ -335,9 +373,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">YOUR POSTING WORKFLOW</div>
     </div>
   </div>
-
   <p>This is how you use PULSE every day in Phase 0. The whole process takes 10 minutes once you are set up.</p>
-
   <div class="workflow">
     <div class="wf-step">
       <div class="wf-left"><div class="wf-dot"></div><div class="wf-line"></div></div>
@@ -382,12 +418,12 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       </div>
     </div>
   </div>
-
   <div class="callout tip">
     <div class="cl-label">Time Saving Tip</div>
     <p>Do all your copying and status updates in one session every morning. Check today's post, copy the caption, post it, then mark yesterday's post as Posted and log its engagement. 10 minutes total. That is your daily PULSE routine in Phase 0.</p>
   </div>
 </div>
+
 
 <!-- ── SECTION 4 ── -->
 <div class="doc-section" id="s4">
@@ -398,9 +434,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">ADDING AND MANAGING POSTS</div>
     </div>
   </div>
-
   <p>Your Week 01 posts are pre-loaded. Once they are all posted, here is how to add new content for Week 02 and beyond.</p>
-
   <div class="steps">
     <div class="step">
       <div class="step-num">1</div>
@@ -431,12 +465,12 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       </div>
     </div>
   </div>
-
   <div class="callout warn">
     <div class="cl-label">Data Storage Note</div>
     <p>Your posts save to your browser's localStorage and to Supabase. If you clear your browser data or switch browsers, the posts reload from Supabase. On a new device, the Supabase sync means your data follows you. Always use the same browser for consistency in Phase 0.</p>
   </div>
 </div>
+
 
 <!-- ── SECTION 5 ── -->
 <div class="doc-section" id="s5">
@@ -447,9 +481,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">USING ANALYTICS</div>
     </div>
   </div>
-
   <p>The Analytics tab shows four views. In Phase 0, all data is entered manually. In Phase 2, it pulls live from the platform APIs.</p>
-
   <table class="manual-table">
     <thead><tr><th>Chart</th><th>What it shows</th><th>How to update</th></tr></thead>
     <tbody>
@@ -459,12 +491,12 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <tr><td><strong>Engagement Tracker</strong></td><td>Table of all posts with editable Reach, Likes, Clicks fields</td><td>Enter numbers manually after posting. Saves automatically.</td></tr>
     </tbody>
   </table>
-
   <div class="callout pulse">
     <div class="cl-label">Phase 2 — What Automation Unlocks</div>
     <p>When PULSE connects to Instagram Graph API, LinkedIn API, and X API, the engagement tracker fills itself. Reach, impressions, likes, comments, saves, link clicks, follower growth — all live. SAGE reads this data and generates weekly performance reports automatically. You will see what content works, what time gets the most reach, and which platform drives the most beta signups.</p>
   </div>
 </div>
+
 
 <!-- ── SECTION 6 ── -->
 <div class="doc-section" id="s6">
@@ -475,18 +507,15 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">MARKET INSIGHTS AND TRADING TOOLS</div>
     </div>
   </div>
-
   <p>These two tabs are the business intelligence layer of PULSE. They do not have anything to do with posting — they inform your content strategy and business positioning.</p>
-
   <p><strong>Market Insights</strong> shows you what is trending in your market (AI for SMEs, founder content, automation tools), what pain your audience is expressing, and how PhoennixAI stacks up against competitors. Log new intelligence signals as you spot them — a comment, a DM, something you read, a trend you noticed. Save with urgency level. SIGNAL feeds this in Phase 2.</p>
-
   <p><strong>Trading Tools</strong> is macro context for business decisions. AI sector performance, SaaS valuation multiples, UK SME technology spending trends. It is not a trading platform. The name reflects SIGNAL's mandate to monitor market movements as inputs to business strategy. The disclaimer is permanent: this is not financial advice, and LEDGER is the financial agent with a hard advisory-only boundary.</p>
-
   <div class="callout warn">
     <div class="cl-label">Important</div>
     <p>LEDGER is the only agent authorised to give financial intelligence. Trading Tools in PULSE is market context, not trading recommendations. No investment or financial decisions should be made from this data without qualified professional advice.</p>
   </div>
 </div>
+
 
 <!-- ── SECTION 7 ── -->
 <div class="doc-section" id="s7">
@@ -497,11 +526,8 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">MOOD BOARD AND WHITEBOARD</div>
     </div>
   </div>
-
   <p><strong>Mood Board:</strong> Tap any empty cell to upload an image. Screenshots from Pinterest, brand campaigns you admire, colour palettes, typography references, competitor content that caught your eye. Add a creative direction note at the bottom and hit Save Creative Brief. This is the visual brief that PULSE, the UI/UX Designer, and the Graphic Designer agent work from when they create content.</p>
-
-  <p><strong>Whiteboard:</strong> A Figma-style canvas for thinking on screen. Five tools:</p>
-
+  <p><strong>Whiteboard:</strong> A canvas for thinking on screen. Five tools:</p>
   <table class="manual-table">
     <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
     <tbody>
@@ -512,9 +538,9 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <tr><td>→ Arrow</td><td>Click and drag to draw a directional arrow between elements</td></tr>
     </tbody>
   </table>
-
   <p>Use Save PNG to download the board as an image. Use Clear to reset the canvas. Your board state saves automatically between sessions.</p>
 </div>
+
 
 <!-- ── SECTION 8 ── -->
 <div class="doc-section" id="s8">
@@ -525,9 +551,7 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">PHASE 0 VS PHASE 2</div>
     </div>
   </div>
-
   <p>This is the most important section for understanding what PULSE is today versus what you are selling to clients.</p>
-
   <div class="phase-compare">
     <div class="phase-col">
       <div class="phase-col-label">Phase 0 — Now (Manual)</div>
@@ -552,12 +576,12 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="phase-item">Runs 24/7 without any human input</div>
     </div>
   </div>
-
   <div class="callout info">
     <div class="cl-label">What this means for your pitch</div>
     <p>When you sell PhoennixAI beta access, clients get Phase 0 PULSE — a professional tool that saves hours per week. When Phase 2 launches, it becomes fully autonomous. Founding beta clients get this upgrade automatically. <strong>Their founding price never goes up.</strong> That is part of the value proposition. You are selling them in at the bottom of a rocket.</p>
   </div>
 </div>
+
 
 <!-- ── SECTION 9 ── -->
 <div class="doc-section" id="s9">
@@ -568,7 +592,6 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">TROUBLESHOOTING</div>
     </div>
   </div>
-
   <table class="manual-table">
     <thead><tr><th>Issue</th><th>Cause</th><th>Fix</th></tr></thead>
     <tbody>
@@ -580,12 +603,12 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <tr><td>App looks broken on mobile</td><td>Viewport issue</td><td>Use the bottom tab bar on mobile. The sidebar collapses. If something looks wrong, rotate to landscape or try in Chrome.</td></tr>
     </tbody>
   </table>
-
   <div class="callout tip">
     <div class="cl-label">Direct Support</div>
     <p>PULSE is owned by Agent 003. For bugs or feature requests, contact Valerie directly or log a flag in the Traceability Dashboard. Claude reviews all flags at the start of each session.</p>
   </div>
 </div>
+
 
 <!-- ── SECTION 10 ── -->
 <div class="doc-section" id="s10">
@@ -596,12 +619,10 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <div class="sec-title">PULSE — AGENT 003</div>
     </div>
   </div>
-
   <div class="callout pulse">
     <div class="cl-label">Intelligence Standard</div>
     <p>PULSE is not a social media scheduler. PULSE is AGI-level Social Media, Marketing, and Design Intelligence — a subject matter expert across every domain of digital marketing, from content strategy and brand storytelling to conversion funnel architecture, audience psychology, and predictive market intelligence. PULSE thinks at the level of a Wieden+Kennedy Creative Director combined with a McKinsey digital strategy principal. The standard is not good. The standard is the best in the world.</p>
   </div>
-
   <table class="manual-table">
     <thead><tr><th>Attribute</th><th>Value</th></tr></thead>
     <tbody>
@@ -613,30 +634,215 @@ footer{border-top:1px solid var(--border);padding-top:28px;display:flex;justify-
       <tr><td>Stage 1 Signed</td><td>21 March 2026</td></tr>
       <tr><td>Role</td><td>Social Media and Content Intelligence</td></tr>
       <tr><td>Beta Campaign Owner</td><td>Yes — owns all Week 01 social execution</td></tr>
-      <tr><td>Agent Partners</td><td>SIGNAL (market intelligence), LEDGER (ad spend ROI), UI/UX Designer (visual production), FORGE (email follow-up)</td></tr>
+      <tr><td>Agent Partners</td><td>SIGNAL (market intelligence), LEDGER (ad spend ROI), UI/UX Designer (visual production), FORGE (email follow-up), SAGE (weekly performance reports)</td></tr>
       <tr><td>Phase 2 Unlock</td><td>Instagram Graph API, LinkedIn API, X API connection</td></tr>
       <tr><td>Value to Client</td><td>Replaces full-time social media manager (£25k–£35k/yr) + graphic designer (£28k–£40k/yr). Total saving up to £120k/year.</td></tr>
     </tbody>
   </table>
 </div>
 
+
+<!-- ══════════════════════════════════════
+     SECTION 11 — NEW: PLATFORM RULES
+═══════════════════════════════════════ -->
+<div class="doc-section" id="s11">
+  <div class="sec-header">
+    <div class="sec-num">11</div>
+    <div class="sec-title-wrap">
+      <div class="sec-eyebrow">Platform Intelligence</div>
+      <div class="sec-title">PLATFORM RULES AND BEST TIMES</div>
+    </div>
+  </div>
+
+  <p>Each platform has a different algorithm, culture, and audience expectation. PULSE applies specific rules to each one. So should you when posting manually in Phase 0.</p>
+
+  <div class="platform-grid">
+    <div class="platform-card insta">
+      <div class="platform-emoji">📸</div>
+      <div class="platform-name">INSTAGRAM</div>
+      <ul class="platform-rule">
+        <li>Long captions perform well — do not truncate</li>
+        <li>Hashtags go at the very end, never mid-caption</li>
+        <li>Link in bio only — never in the caption</li>
+        <li>Reels boost reach significantly over static posts</li>
+        <li>Stories every day keeps your audience warm</li>
+        <li>First line is your hook — make it stop the scroll</li>
+      </ul>
+    </div>
+    <div class="platform-card li">
+      <div class="platform-emoji">💼</div>
+      <div class="platform-name">LINKEDIN</div>
+      <ul class="platform-rule">
+        <li>First line is everything — must be a hook</li>
+        <li>No hashtags mid-text, ever</li>
+        <li>3 to 5 hashtags maximum, at the very end</li>
+        <li>Founder posts outperform company page posts</li>
+        <li>Short paragraphs — one idea per paragraph</li>
+        <li>Personal experience outperforms opinion</li>
+      </ul>
+    </div>
+    <div class="platform-card x">
+      <div class="platform-emoji">✖️</div>
+      <div class="platform-name">X (TWITTER)</div>
+      <ul class="platform-rule">
+        <li>Under 280 characters for maximum reach</li>
+        <li>No hashtag spam — one or two maximum</li>
+        <li>Threads work well for longer content</li>
+        <li>Engage in replies to grow organically</li>
+        <li>Repost your best posts 12 hours later</li>
+        <li>Hooks must be provocative or counterintuitive</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>Best times to post (UK timezone). These are starting benchmarks — use your Analytics data over time to find your specific audience's peak hours.</p>
+
+  <table class="peak-times">
+    <thead><tr><th>Platform</th><th>Best Days</th><th>Peak Times (UK)</th><th>Avoid</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>Instagram</strong></td>
+        <td>Tuesday, Wednesday, Friday</td>
+        <td>
+          <span class="time-badge">09:00–11:00</span>
+          <span class="time-badge">18:00–20:00</span>
+        </td>
+        <td>Saturday morning, Sunday all day</td>
+      </tr>
+      <tr>
+        <td><strong>LinkedIn</strong></td>
+        <td>Tuesday, Wednesday, Thursday</td>
+        <td>
+          <span class="time-badge">08:00–10:00</span>
+          <span class="time-badge">12:00–13:00</span>
+        </td>
+        <td>Weekends, Friday afternoon</td>
+      </tr>
+      <tr>
+        <td><strong>X (Twitter)</strong></td>
+        <td>Monday to Thursday</td>
+        <td>
+          <span class="time-badge">09:00–10:00</span>
+          <span class="time-badge">19:00–21:00</span>
+        </td>
+        <td>Sunday, late night</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout danger">
+    <div class="cl-label">One CTA Rule — Non-Negotiable</div>
+    <p>Every post must have exactly <strong>one call to action</strong>. Either link in bio OR direct DM — never both in the same post. Two CTAs split attention and cut your conversion rate. PULSE enforces this in every caption it generates. You must enforce it in every edit you make.</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════
+     SECTION 12 — NEW: CONTENT PILLARS
+═══════════════════════════════════════ -->
+<div class="doc-section" id="s12">
+  <div class="sec-header">
+    <div class="sec-num">12</div>
+    <div class="sec-title-wrap">
+      <div class="sec-eyebrow">Strategy</div>
+      <div class="sec-title">CONTENT PILLARS AND VOICE</div>
+    </div>
+  </div>
+
+  <p>PULSE organises all content around four pillars. Every post belongs to one of them. Understanding these helps you use the Strategy tab correctly and write posts that fit the overall plan when adding your own content via Compose.</p>
+
+  <div class="pillar-grid">
+    <div class="pillar-card">
+      <div class="pillar-icon">📖</div>
+      <div class="pillar-name">FOUNDER STORY</div>
+      <div class="pillar-desc">Personal journey, building in public, the reality of running a company with AI. 17 years in the NHS. What led here. What this actually looks like day to day. <strong>Builds trust and connection.</strong> This is the pillar that turns followers into believers.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🎓</div>
+      <div class="pillar-name">EDUCATION</div>
+      <div class="pillar-desc">What AI agents are, what they cost, what they replace, how they work. Demystify AI for the business owner who is scared of it. <strong>Positions PhoennixAI as the authority.</strong> Every educational post is a lead capture in disguise.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🚀</div>
+      <div class="pillar-name">PRODUCT REVEAL</div>
+      <div class="pillar-desc">Show Mission Control. Show the agents. Screen recordings, screenshots, behind the scenes. <strong>Proof over claims.</strong> Real product demos build more trust than any marketing copy. Show it working, not just describe it.</div>
+    </div>
+    <div class="pillar-card">
+      <div class="pillar-icon">🌍</div>
+      <div class="pillar-name">MISSION</div>
+      <div class="pillar-desc">Kingdom mandate, girls in tech, prison reformation, community impact. The bigger reason behind the company. <strong>Builds brand purpose and loyalty.</strong> This pillar attracts the audience that stays for years, not just the launch.</div>
+    </div>
+  </div>
+
+  <div class="callout pulse">
+    <div class="cl-label">Voice Guide</div>
+    <p><strong>Direct. Confident. Personal.</strong> Valerie speaks as the founder who built this herself. Every caption sounds like a real person, not a brand. No corporate language. No jargon. No passive voice. No "we are excited to announce." Just clear, honest communication from someone who has been where the audience is and found a way through.</p>
+  </div>
+
+  <table class="manual-table">
+    <thead><tr><th>Use this</th><th>Not this</th></tr></thead>
+    <tbody>
+      <tr><td>"I built a company with 22 AI agents in 14 days"</td><td>"AI can help your business grow"</td></tr>
+      <tr><td>"I spent 17 years watching teams burn out"</td><td>"Our founder has extensive NHS experience"</td></tr>
+      <tr><td>"DM me the word BRAVE"</td><td>"Please feel free to reach out for more information"</td></tr>
+      <tr><td>"This is what AI actually looks like"</td><td>"We leverage cutting-edge artificial intelligence solutions"</td></tr>
+      <tr><td>"The waitlist is open. 10 spots."</td><td>"Limited availability — don't miss this opportunity!"</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout tip">
+    <div class="cl-label">Weekly Balance Rule</div>
+    <p>A strong week uses all four pillars — not the same pillar seven times. Aim for roughly: 2 Founder Story, 2 Education, 2 Product Reveal, 1 Mission. PULSE follows this ratio automatically. When you add your own posts, keep the balance in mind.</p>
+  </div>
+</div>
+
+
 <!-- FOOTER -->
 <footer>
   <div class="ft-logo"><span>PHOENNIX</span><span>AI</span></div>
-  <div class="ft-ref">PAI-MAN-002 · PULSE User Manual · v1.0 · 25 Mar 2026 · Owned by SCRIBE · Confidential</div>
+  <div class="ft-ref">PAI-MAN-002 · PULSE User Manual · v1.1 · 25 Mar 2026 · Owned by SCRIBE</div>
+  <div class="ft-tagline">Created to Create. Intelligent by nature.</div>
 </footer>
 
-</div>
+</div><!-- /wrap -->
 
 <!-- BACK TO TOP -->
 <button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
+
 <script>
-var btn=document.getElementById('back-to-top');
-window.addEventListener('scroll',function(){
-  btn.classList.toggle('visible',window.scrollY>300);
-},{passive:true});
+// ── Back to top ──
+var btn = document.getElementById('back-to-top');
+window.addEventListener('scroll', function(){
+  btn.classList.toggle('visible', window.scrollY > 300);
+}, {passive: true});
+
+// ── Active TOC on scroll ──
+var sections = document.querySelectorAll('.doc-section[id]');
+var tocLinks = document.querySelectorAll('.toc-item[href^="#"]');
+
+var observer = new IntersectionObserver(function(entries){
+  entries.forEach(function(entry){
+    if(entry.isIntersecting){
+      var id = entry.target.getAttribute('id');
+      tocLinks.forEach(function(link){
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { rootMargin: '-15% 0px -75% 0px', threshold: 0 });
+
+sections.forEach(function(s){ observer.observe(s); });
+
+// ── Smooth scroll on click ──
+tocLinks.forEach(function(link){
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    var target = document.querySelector(link.getAttribute('href'));
+    if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+});
 </script>
 </body>
 </html>
