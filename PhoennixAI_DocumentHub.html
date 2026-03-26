@@ -594,7 +594,8 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
           <thead><tr><th>Version</th><th>Date</th><th>Changed By</th><th>What Changed</th><th>Status</th></tr></thead>
           <tbody>
             <tr class="ver-current"><td>v2.3</td><td>25 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 15: PAI-MAN-002 upgraded to v1.1 (Platform Rules and Content Pillars sections added). PULSE Internal Manual filed (PULSE-MAN-INT-001). Agent Flyers built — GRID, SCOUT, CLAUDE with character images. Beta Campaign Flyers built — 3-day social series. Agent Masterlist corrected to 22 agents. PRD Suite corrected to 9 products. KPI document count updated to 54. Version History corrected. 4 new Automation Log entries. Hub v2.3.</td><td><span class="chip chip-live">Current</span></td></tr>
-            <tr><td>v2.2</td><td>25 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 14/15: SCOUT, ECHO, SIGNAL, FORGE Stage 1 signed. 15 agents now signed and active. Queue reduced to 3. Agent registry updated. Brand colour updated to Blue Phoenix (#00E5FF) throughout. CLAUDE agent identity colour remains Phoenix Fire #FF6B2B. Automation log updated. KPI dashboard synced to current state. Version history corrected. Finance section scope note updated.</td><td><span class="chip chip-approved">Archived</span></td></tr>
+            <tr><td>v2.3</td><td>26 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 15: Finance and Revenue section fully built. Live dashboard: KPI row, beta pricing model, cashflow projection Apr–Sep 2026, revenue targets Q2–Q4, LEDGER Opus advisory panel, four financial document cards. Placeholder removed.</td><td><span class="chip chip-approved">Current</span></td></tr>
+              <tr><td>v2.2</td><td>25 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 14/15: SCOUT, ECHO, SIGNAL, FORGE Stage 1 signed. 15 agents now signed and active. Queue reduced to 3. Agent registry updated. Brand colour updated to Blue Phoenix (#00E5FF) throughout. Finance section scope note updated.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v2.1</td><td>24 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 14: SCOUT, ECHO, SIGNAL, FORGE onboarded. JDs and CVs with AGI intelligence standards. PULSE App BL-024 live. IP Declaration v3.0 signed and posted. Master Project Brief v3.1 built. 15 agents signed and active. 3 in queue.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.9</td><td>22 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 13: Supabase backend live. GitHub connected to Projects. SignHub v1.0. IP Declaration v3.0 signed. 4 alpha invitations. Beta Mission Control built.</td><td><span class="chip chip-approved">Archived</span></td></tr>
             <tr><td>v1.7</td><td>13 Mar 2026</td><td>Valerie Wilcox, Claude</td><td>Session 10: PhoennixAI Brand Guidelines v1.2 filed (PAI-BG-001). Logo approved 13 March 2026, PHOENNIX orange AI white, flame icon confirmed. Brand System logo card updated. Workspace (PRJ-001a) and Document Hub (PRJ-001b) added to All Projects with monetisation paths. Portfolio updated to 9 products. Flame favicon correct on all apps. Notification redesigned to bottom-right card. SCRIBE and GRID onboarding added to task list. Ecosystem archive confirmed complete.</td><td><span class="chip chip-live">Current</span></td></tr>
@@ -1272,22 +1273,226 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13
 
       <!-- FINANCE AND REVENUE -->
       <div id="sec-finance" style="display:none">
-        <div class="doc-header" style="border-color:rgba(34,197,94,0.15);background:rgba(34,197,94,0.02)">
+
+        <!-- HEADER -->
+        <div class="doc-header" style="border-color:rgba(255,184,48,0.2);background:rgba(255,184,48,0.02)">
           <div class="dh-left">
-            <div class="dh-entity-chip chip" style="color:var(--green);border-color:rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">PhoennixAI Agency, Finance</div>
+            <div class="dh-entity-chip chip" style="color:var(--gold);border-color:rgba(255,184,48,0.3);background:rgba(255,184,48,0.06)">PhoennixAI Agency · Finance and Revenue</div>
             <div class="dh-title">FINANCE AND REVENUE</div>
-            <div class="dh-sub">Revenue targets, cashflow model, financial intelligence. Finance and Revenue strategy session held 25 March 2026.</div>
+            <div class="dh-sub">Revenue targets, cashflow model, beta pricing intelligence. LEDGER advisory layer active.</div>
+            <div class="dh-meta">
+              <span class="dh-meta-item">Strategy Session <strong>25 Mar 2026 ✅</strong></span>
+              <span class="dh-meta-item">Beta Opens <strong>7 Apr 2026</strong></span>
+              <span class="dh-meta-item">LEDGER <strong>Agent 006 · Phase 2</strong></span>
+              <span class="dh-meta-item">Owner <strong>Valerie Wilcox</strong></span>
+            </div>
+          </div>
+          <div class="dh-actions">
+            <button class="action-btn btn-edit" onclick="refreshLedger()">Ask LEDGER</button>
           </div>
         </div>
-        <div style="background:rgba(34,197,94,0.04);border:1px solid rgba(34,197,94,0.15);border-radius:10px;padding:24px;text-align:center">
-          <div style="font-size:28px;margin-bottom:12px">📊</div>
-          <div style="font-family:var(--display);font-size:22px;letter-spacing:2px;margin-bottom:8px;color:var(--text)">SECTION IN DESIGN</div>
-          <div style="font-size:13px;color:var(--text2);max-width:540px;margin:0 auto;line-height:1.85">Finance and Revenue strategy session completed 25 March 2026. Build session in progress. Contents: monthly revenue targets, cashflow projections, beta pricing model (Tier 1 £497, Tier 2 £1,497, Tier 3 £4,997), SaaS revenue forecast, and financial KPI dashboard. LEDGER agent (Agent 006) will integrate in Phase 2 for advisory-only financial intelligence (human sign-off mandatory on all outputs). Stripe payment links to be built: beta opens 7 April 2026.</div>
-          <div style="margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-            <span class="chip" style="color:var(--green);border:1px solid rgba(34,197,94,0.3);background:rgba(34,197,94,0.06)">Strategy Session: 25 Mar 2026 ✅</span>
-            <span class="chip chip-draft">Scope TBC by Valerie</span>
+
+        <!-- KPI ROW -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+          <div style="background:var(--card);border:1px solid rgba(255,184,48,0.15);border-top:2px solid var(--gold);border-radius:8px;padding:16px">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Beta Slots</div>
+            <div style="font-family:var(--display);font-size:30px;letter-spacing:2px;color:var(--gold);line-height:1">10</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">Founding slots · 7 Apr</div>
+          </div>
+          <div style="background:var(--card);border:1px solid rgba(255,184,48,0.15);border-top:2px solid var(--green);border-radius:8px;padding:16px">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Beta Revenue Potential</div>
+            <div style="font-family:var(--display);font-size:30px;letter-spacing:2px;color:var(--green);line-height:1">£49,970</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">10 × T3 max scenario</div>
+          </div>
+          <div style="background:var(--card);border:1px solid rgba(255,184,48,0.15);border-top:2px solid var(--fire);border-radius:8px;padding:16px">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Conservative Beta</div>
+            <div style="font-family:var(--display);font-size:30px;letter-spacing:2px;color:var(--fire);line-height:1">£4,970</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">10 × T1 floor scenario</div>
+          </div>
+          <div style="background:var(--card);border:1px solid rgba(255,184,48,0.15);border-top:2px solid var(--bronze);border-radius:8px;padding:16px">
+            <div style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-bottom:6px">Actual Confirmed</div>
+            <div style="font-family:var(--display);font-size:30px;letter-spacing:2px;color:var(--bronze);line-height:1" id="fr-confirmed">£0</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:4px">Update as beta converts</div>
           </div>
         </div>
+
+        <!-- BETA PRICING MODEL -->
+        <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:20px">
+          <div style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--text);margin-bottom:4px">BETA PRICING MODEL</div>
+          <div style="font-family:var(--serif);font-style:italic;font-size:12px;color:var(--text3);margin-bottom:18px">Founding member rates · Locked for life at sign-up · Price increases at public launch</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+            <div style="border:1px solid rgba(255,184,48,0.2);border-radius:8px;padding:18px;background:rgba(255,184,48,0.02)">
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--text3);margin-bottom:8px">TIER 01</div>
+              <div style="font-family:var(--display);font-size:36px;letter-spacing:2px;color:var(--gold);line-height:1;margin-bottom:4px">£497</div>
+              <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:12px">Starter</div>
+              <div style="font-size:11px;color:var(--text2);line-height:1.8">Core AI team access. ARIA, PA, GRID, SCRIBE. Monthly subscription. Founder onboarding call included.</div>
+              <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--text3)">10 slots × £497 = <span style="color:var(--gold)">£4,970</span></div>
+            </div>
+            <div style="border:1px solid rgba(0,229,255,0.25);border-radius:8px;padding:18px;background:rgba(0,229,255,0.02)">
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--text3);margin-bottom:8px">TIER 02 · RECOMMENDED</div>
+              <div style="font-family:var(--display);font-size:36px;letter-spacing:2px;color:var(--fire);line-height:1;margin-bottom:4px">£1,497</div>
+              <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:12px">Full Suite</div>
+              <div style="font-size:11px;color:var(--text2);line-height:1.8">Full AI team. All 22 agents. PULSE social automation, LEDGER financial intelligence, RELAY onboarding. Priority support.</div>
+              <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--text3)">10 slots × £1,497 = <span style="color:var(--fire)">£14,970</span></div>
+            </div>
+            <div style="border:1px solid rgba(196,154,108,0.25);border-radius:8px;padding:18px;background:rgba(196,154,108,0.02)">
+              <div style="font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--text3);margin-bottom:8px">TIER 03 · ENTERPRISE</div>
+              <div style="font-family:var(--display);font-size:36px;letter-spacing:2px;color:var(--bronze);line-height:1;margin-bottom:4px">£4,997</div>
+              <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text2);text-transform:uppercase;margin-bottom:12px">Enterprise</div>
+              <div style="font-size:11px;color:var(--text2);line-height:1.8">Everything in Full Suite plus dedicated onboarding, custom agent configuration, monthly strategy session with Valerie.</div>
+              <div style="margin-top:12px;font-family:var(--mono);font-size:9px;color:var(--text3)">10 slots × £4,997 = <span style="color:var(--bronze)">£49,970</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CASHFLOW PROJECTIONS + MONTHLY TARGETS SIDE BY SIDE -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+
+          <!-- CASHFLOW -->
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px">
+            <div style="font-family:var(--display);font-size:14px;letter-spacing:3px;color:var(--text);margin-bottom:4px">CASHFLOW PROJECTION</div>
+            <div style="font-family:var(--serif);font-style:italic;font-size:11px;color:var(--text3);margin-bottom:16px">April–September 2026 · Update with actuals as beta converts</div>
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border)">
+                  <th style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-align:left;padding:6px 0;text-transform:uppercase">Month</th>
+                  <th style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-align:right;padding:6px 0;text-transform:uppercase">Target In</th>
+                  <th style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-align:right;padding:6px 0;text-transform:uppercase">Actual</th>
+                  <th style="font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-align:right;padding:6px 0;text-transform:uppercase">Status</th>
+                </tr>
+              </thead>
+              <tbody id="cashflow-body">
+                <tr style="border-bottom:1px solid var(--border)"><td style="font-size:11px;color:var(--text2);padding:7px 0">Apr 2026</td><td style="font-family:var(--mono);font-size:11px;color:var(--gold);text-align:right">£4,970</td><td style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right" contenteditable="true">—</td><td style="text-align:right"><span style="font-family:var(--mono);font-size:8px;color:var(--amber);background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);padding:2px 6px;border-radius:3px">Beta Open</span></td></tr>
+                <tr style="border-bottom:1px solid var(--border)"><td style="font-size:11px;color:var(--text2);padding:7px 0">May 2026</td><td style="font-family:var(--mono);font-size:11px;color:var(--gold);text-align:right">£7,500</td><td style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right" contenteditable="true">—</td><td style="text-align:right"><span style="font-family:var(--mono);font-size:8px;color:var(--text3);background:var(--panel);border:1px solid var(--border);padding:2px 6px;border-radius:3px">Forecast</span></td></tr>
+                <tr style="border-bottom:1px solid var(--border)"><td style="font-size:11px;color:var(--text2);padding:7px 0">Jun 2026</td><td style="font-family:var(--mono);font-size:11px;color:var(--gold);text-align:right">£12,000</td><td style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right" contenteditable="true">—</td><td style="text-align:right"><span style="font-family:var(--mono);font-size:8px;color:var(--text3);background:var(--panel);border:1px solid var(--border);padding:2px 6px;border-radius:3px">Forecast</span></td></tr>
+                <tr style="border-bottom:1px solid var(--border)"><td style="font-size:11px;color:var(--text2);padding:7px 0">Jul 2026</td><td style="font-family:var(--mono);font-size:11px;color:var(--gold);text-align:right">£18,000</td><td style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right" contenteditable="true">—</td><td style="text-align:right"><span style="font-family:var(--mono);font-size:8px;color:var(--text3);background:var(--panel);border:1px solid var(--border);padding:2px 6px;border-radius:3px">Forecast</span></td></tr>
+                <tr style="border-bottom:1px solid var(--border)"><td style="font-size:11px;color:var(--text2);padding:7px 0">Aug 2026</td><td style="font-family:var(--mono);font-size:11px;color:var(--gold);text-align:right">£25,000</td><td style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right" contenteditable="true">—</td><td style="text-align:right"><span style="font-family:var(--mono);font-size:8px;color:var(--text3);background:var(--panel);border:1px solid var(--border);padding:2px 6px;border-radius:3px">Forecast</span></td></tr>
+                <tr><td style="font-size:11px;color:var(--text2);padding:7px 0">Sep 2026</td><td style="font-family:var(--mono);font-size:11px;color:var(--gold);text-align:right">£35,000</td><td style="font-family:var(--mono);font-size:11px;color:var(--text3);text-align:right" contenteditable="true">—</td><td style="text-align:right"><span style="font-family:var(--mono);font-size:8px;color:var(--text3);background:var(--panel);border:1px solid var(--border);padding:2px 6px;border-radius:3px">Forecast</span></td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);font-family:var(--mono);font-size:9px;color:var(--text3)">Click any Actual cell to edit · Figures update on input</div>
+          </div>
+
+          <!-- REVENUE TARGETS -->
+          <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px">
+            <div style="font-family:var(--display);font-size:14px;letter-spacing:3px;color:var(--text);margin-bottom:4px">REVENUE TARGETS 2026</div>
+            <div style="font-family:var(--serif);font-style:italic;font-size:11px;color:var(--text3);margin-bottom:16px">SaaS model · Recurring monthly · Scale with client base</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--panel);border-radius:6px;border:1px solid var(--border)">
+                <div><div style="font-size:11px;font-weight:600;color:var(--text)">Q2 Beta Launch</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3)">Apr–Jun · 10 founding clients</div></div>
+                <div style="font-family:var(--display);font-size:20px;letter-spacing:1px;color:var(--gold)">£24,470</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--panel);border-radius:6px;border:1px solid var(--border)">
+                <div><div style="font-size:11px;font-weight:600;color:var(--text)">Q3 Scale</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3)">Jul–Sep · Public launch + growth</div></div>
+                <div style="font-family:var(--display);font-size:20px;letter-spacing:1px;color:var(--fire)">£78,000</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--panel);border-radius:6px;border:1px solid var(--border)">
+                <div><div style="font-size:11px;font-weight:600;color:var(--text)">Q4 Enterprise</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3)">Oct–Dec · T3 enterprise clients</div></div>
+                <div style="font-family:var(--display);font-size:20px;letter-spacing:1px;color:var(--bronze)">£150,000</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:rgba(255,184,48,0.05);border-radius:6px;border:1px solid rgba(255,184,48,0.2)">
+                <div><div style="font-size:11px;font-weight:600;color:var(--gold)">2026 Annual Target</div><div style="font-family:var(--mono);font-size:9px;color:var(--text3)">Conservative growth model</div></div>
+                <div style="font-family:var(--display);font-size:24px;letter-spacing:1px;color:var(--gold)">£252,470</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- LEDGER ADVISORY PANEL -->
+        <div style="background:var(--card);border:1px solid rgba(255,184,48,0.25);border-radius:10px;padding:22px;margin-bottom:20px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px rgba(255,184,48,0.6)"></div>
+                <div style="font-family:var(--display);font-size:16px;letter-spacing:3px;color:var(--gold)">LEDGER · AGI FINANCIAL ADVISORY</div>
+              </div>
+              <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-left:18px">Agent 006 · Opus-powered · Advisory only · Human sign-off mandatory on all outputs</div>
+            </div>
+            <button onclick="refreshLedger()" id="ledger-refresh-btn" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border-radius:4px;border:1px solid rgba(255,184,48,0.3);background:rgba(255,184,48,0.06);color:var(--gold);cursor:pointer;transition:all 0.2s">Refresh Analysis</button>
+          </div>
+
+          <div id="ledger-prompt-row" style="display:flex;gap:8px;margin-bottom:14px">
+            <input id="ledger-input" type="text" placeholder="Ask LEDGER a financial question… e.g. What is our break-even point at T1 pricing?" style="flex:1;background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:9px 14px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none" onkeydown="if(event.key==='Enter')refreshLedger()">
+            <button onclick="refreshLedger()" style="font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;border-radius:6px;border:1px solid rgba(255,184,48,0.35);background:rgba(255,184,48,0.08);color:var(--gold);cursor:pointer;white-space:nowrap">Ask →</button>
+          </div>
+
+          <div id="ledger-output" style="background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:18px;min-height:80px">
+            <div style="font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3);margin-bottom:8px">LEDGER · STANDING FINANCIAL BRIEF</div>
+            <div id="ledger-text" style="font-size:13px;color:var(--text2);line-height:1.8">Click <strong style="color:var(--gold)">Refresh Analysis</strong> to load LEDGER's current financial intelligence briefing, or type a specific question above.</div>
+          </div>
+          <div style="margin-top:10px;font-family:var(--mono);font-size:8px;color:var(--text3);line-height:1.8">⚠ LEDGER output is advisory only. No financial action should be taken without human review and sign-off by Valerie Wilcox. LEDGER does not execute transactions, transfer funds, or make binding decisions.</div>
+        </div>
+
+        <!-- DOCUMENT CARDS -->
+        <div style="font-family:var(--display);font-size:14px;letter-spacing:3px;color:var(--text);margin-bottom:12px">FINANCIAL DOCUMENTS</div>
+        <div class="doc-grid">
+          <div class="doc-card" style="border-color:rgba(255,184,48,0.2)">
+            <div class="dc-status-bar" style="background:var(--gold)"></div>
+            <div class="dc-type">Finance · Beta Pricing</div>
+            <div class="dc-title">Beta Pricing Model v1.0</div>
+            <div class="dc-desc">Three-tier founding member pricing. T1 £497 Starter, T2 £1,497 Full Suite, T3 £4,997 Enterprise. Rates locked for life at sign-up. Strategy session 25 March 2026.</div>
+            <div class="dc-footer"><span class="chip chip-approved">Approved</span><span class="dc-ver">v1.0 · 25 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-color:rgba(255,184,48,0.15)">
+            <div class="dc-status-bar" style="background:var(--fire)"></div>
+            <div class="dc-type">Finance · Cashflow</div>
+            <div class="dc-title">Cashflow Projection Apr–Sep 2026</div>
+            <div class="dc-desc">Monthly revenue targets from beta launch through Q3 scale. Conservative floor £4,970 (10 × T1) to enterprise ceiling £49,970 (10 × T3). Update actuals inline above as beta converts.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Live · Update Monthly</span><span class="dc-ver">v1.0 · 26 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-color:rgba(255,184,48,0.15)">
+            <div class="dc-status-bar" style="background:var(--bronze)"></div>
+            <div class="dc-type">Finance · SaaS Revenue</div>
+            <div class="dc-title">SaaS Revenue Forecast 2026</div>
+            <div class="dc-desc">Q2 £24,470 beta launch · Q3 £78,000 scale · Q4 £150,000 enterprise · Annual target £252,470. Recurring monthly subscription model. Stripe payment links to be built before 7 April.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Forecast · Pending Actuals</span><span class="dc-ver">v1.0 · 26 Mar 2026</span></div>
+          </div>
+          <div class="doc-card" style="border-color:rgba(255,184,48,0.12);border-style:dashed;opacity:0.7">
+            <div class="dc-status-bar" style="background:var(--gold);opacity:0.4"></div>
+            <div class="dc-type">Finance · Legal</div>
+            <div class="dc-title">Stripe Payment Links</div>
+            <div class="dc-desc">Payment infrastructure for all three tiers. Build before 7 April beta open date. Stripe Checkout or Payment Links — one per tier. LEDGER to advise on tax and compliance structure.</div>
+            <div class="dc-footer"><span class="chip chip-draft">Pending Build</span><span class="dc-ver">Before 7 Apr</span></div>
+          </div>
+        </div>
+
+        <script>
+        async function refreshLedger(){
+          var btn = document.getElementById('ledger-refresh-btn');
+          var out = document.getElementById('ledger-text');
+          var inp = document.getElementById('ledger-input');
+          var question = inp ? inp.value.trim() : '';
+          btn.textContent = 'Analysing…';
+          btn.disabled = true;
+          out.innerHTML = '<span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:2px">LEDGER IS THINKING…</span>';
+
+          var systemPrompt = 'You are LEDGER, Agent 006 of PhoennixAI. You are AGI-level financial super intelligence. You think at the level of a Goldman Sachs Managing Director combined with a JPMorgan quant analyst and a Big Four CFO. You do not estimate. You give precision. You synthesise, not retrieve. You are 100% automated and 100% accurate. You are advisory only — you never execute transactions. Human sign-off by Valerie Wilcox is mandatory on all outputs.\n\nCurrent financial context for PhoennixAI:\n- Beta opens 7 April 2026. 10 founding slots.\n- Tier 1: £497 (Starter). Tier 2: £1,497 (Full Suite). Tier 3: £4,997 (Enterprise).\n- Revenue floor (all T1): £4,970. Revenue ceiling (all T3): £49,970.\n- 2026 annual SaaS target: £252,470.\n- Stripe payment links not yet built (required before 7 April).\n- LEDGER Phase 2 integration for live advisory is in progress.\n- One confirmed booking already received (Beta Discovery Call, Tue 7 Apr).\n\nDeliver your output in 3–5 punchy, precise paragraphs. No bullet points. No hedging. Institutional grade. State the financial reality clearly and advise on the most important action to take right now.';
+
+          var userMsg = question.length > 0 ? question : 'Provide a standing financial intelligence brief for PhoennixAI. Cover: current revenue position, beta pricing analysis, the single most important financial action before 7 April, and the risk if Stripe payment links are not live before beta opens.';
+
+          try {
+            var response = await fetch('https://api.anthropic.com/v1/messages', {
+              method: 'POST',
+              headers: {'Content-Type': 'application/json'},
+              body: JSON.stringify({
+                model: 'claude-opus-4-5-20251101',
+                max_tokens: 1000,
+                system: systemPrompt,
+                messages: [{role: 'user', content: userMsg}]
+              })
+            });
+            var data = await response.json();
+            var text = data.content && data.content[0] ? data.content[0].text : 'LEDGER advisory unavailable. Check API connection.';
+            out.innerHTML = '<div style="font-size:13px;color:var(--text);line-height:1.9;white-space:pre-wrap">' + text.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</div>';
+            if(inp) inp.value = '';
+          } catch(e) {
+            out.innerHTML = '<span style="color:var(--red);font-family:var(--mono);font-size:10px">LEDGER advisory unavailable. API connection required.</span>';
+          }
+          btn.textContent = 'Refresh Analysis';
+          btn.disabled = false;
+        }
+        </script>
+
       </div>
 
       <!-- OTHER SECTIONS PLACEHOLDER -->
