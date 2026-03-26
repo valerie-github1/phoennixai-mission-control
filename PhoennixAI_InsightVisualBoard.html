@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI — Mission Control</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23060A18'/%3E%3Cg transform='translate(16,16)'%3E%3Cellipse cx='0' cy='3' rx='2.2' ry='3.2' fill='%2300E5FF' opacity='0.9'/%3E%3Cpath d='M0,1 Q-7,-4 -9,-9 Q-5,-6 -2,-4 Q-1,-2 0,-1 Q1,-2 2,-4 Q5,-6 9,-9 Q7,-4 0,1Z' fill='%2300E5FF'/%3E%3Cpath d='M-2,-3 Q-9,-5 -11,-10 Q-7,-8 -4,-5Z' fill='%230099CC' opacity='0.8'/%3E%3Cpath d='M2,-3 Q9,-5 11,-10 Q7,-8 4,-5Z' fill='%230099CC' opacity='0.8'/%3E%3Cpath d='M-1,4 Q-3,8 -2,12 Q0,10 2,12 Q3,8 1,4Z' fill='%2300E5FF' opacity='0.85'/%3E%3C/g%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#04060F;
+  --surface:#07090F;
+  --card:#0C1020;
+  --card2:#101526;
+  --border:rgba(33,92,174,0.18);
+  --border2:rgba(33,92,174,0.35);
+  --text:rgba(255,255,255,0.92);
+  --text2:rgba(255,255,255,0.58);
+  --text3:rgba(255,255,255,0.28);
+  --royal:#215CAE;
+  --royal2:#2E6FC0;
+  --cyan:#00E5FF;
+  --gold:#FFB830;
+  --fire:#FF6B2B;
+  --green:#22C55E;
+  --rose:#F43F5E;
+  --violet:#A78BFA;
+  --bronze:#C49A6C;
+  --amber:#FB923C;
+  --steel:#4682B4;
+  --lime:#84CC16;
+  --teal:#0D9488;
+  --display:'Bebas Neue',Impact,sans-serif;
+  --mono:'DM Mono',monospace;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --serif:'Playfair Display',Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:13px;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(33,92,174,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(33,92,174,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-thumb{background:rgba(33,92,174,0.5)}
+
+.shell{display:flex;height:100vh;overflow:hidden;position:relative;z-index:1}
+.sidebar{width:224px;flex-shrink:0;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto}
+.main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{height:58px;background:rgba(4,6,15,0.97);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 28px;gap:16px;flex-shrink:0;position:sticky;top:0;z-index:100}
+.tb-logo{font-family:var(--display);font-size:19px;letter-spacing:4px;color:var(--cyan);white-space:nowrap}
+.tb-logo span{color:var(--gold)}
+.tb-divider{width:1px;height:22px;background:var(--border2);flex-shrink:0}
+.tb-title{font-family:var(--mono);font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);flex:1}
+.tb-live{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--green)}
+.tb-live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.7);animation:blink 2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.tb-badge{font-family:var(--mono);font-size:8px;letter-spacing:2px;padding:3px 10px;border-radius:2px;border:1px solid;flex-shrink:0}
+.tb-badge-cyan{color:var(--cyan);border-color:rgba(0,229,255,0.25)}
+.tb-badge-gold{color:var(--gold);border-color:rgba(255,184,48,0.25)}
+
+/* SIDEBAR */
+.sb-header{padding:22px 18px 16px;border-bottom:1px solid var(--border)}
+.sb-logo-text{font-family:var(--display);font-size:17px;letter-spacing:3px;color:var(--cyan)}
+.sb-logo-text span{color:var(--gold)}
+.sb-tagline{font-family:var(--mono);font-size:7px;letter-spacing:1.5px;color:var(--text3);margin-top:3px}
+.sb-nav{padding:10px 10px;flex:1}
+.sb-sect{font-family:var(--mono);font-size:7px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);padding:10px 8px 4px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:5px;cursor:pointer;transition:all 0.15s;margin-bottom:2px;color:var(--text2);font-size:12px;font-weight:400;text-decoration:none}
+.sb-item:hover{background:rgba(33,92,174,0.1);color:var(--text)}
+.sb-item.active{background:rgba(33,92,174,0.18);border:1px solid rgba(33,92,174,0.3);color:#7BAEE8}
+.sb-pip{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.sb-footer{padding:14px 18px;border-top:1px solid var(--border)}
+.sb-user{font-size:12px;font-weight:600;color:var(--text)}
+.sb-role{font-family:var(--mono);font-size:8px;letter-spacing:1px;color:var(--text3);margin-top:2px}
+.sb-beta-badge{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:7px;letter-spacing:2px;color:var(--cyan);border:1px solid rgba(0,229,255,0.2);padding:2px 8px;border-radius:2px}
+
+/* CONTENT */
+.content{padding:30px 36px 40px;flex:1}
+.section{display:none}
+.section.active{display:block}
+
+/* PAGE HEADER */
+.ph{margin-bottom:28px}
+.ph-eye{font-family:var(--mono);font-size:8px;letter-spacing:4px;text-transform:uppercase;color:rgba(33,92,174,0.8);margin-bottom:8px}
+.ph-title{font-family:var(--display);font-size:40px;letter-spacing:3px;line-height:1;margin-bottom:6px}
+.ph-sub{font-family:var(--serif);font-style:italic;font-size:14px;color:var(--text2)}
+.ph-rule{width:48px;height:2px;background:var(--royal);margin-top:12px;border-radius:1px}
+
+/* ARIA BRIEF */
+.aria-brief{background:linear-gradient(135deg,rgba(33,92,174,0.12),rgba(0,229,255,0.06));border:1px solid rgba(33,92,174,0.35);border-radius:10px;padding:20px 24px;margin-bottom:24px}
+.aria-header{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.aria-pip{width:9px;height:9px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px rgba(0,229,255,0.6);animation:blink 2s ease-in-out infinite;flex-shrink:0}
+.aria-label{font-family:var(--display);font-size:14px;letter-spacing:3px;color:var(--cyan)}
+.aria-time{font-family:var(--mono);font-size:8px;color:var(--text3);margin-left:auto}
+.aria-list{list-style:none;display:flex;flex-direction:column;gap:0}
+.aria-item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid rgba(33,92,174,0.12)}
+.aria-item:last-child{border-bottom:none}
+.aria-item-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.aria-item-body{flex:1}
+.aria-item-title{font-size:13px;font-weight:500;color:var(--text);line-height:1.5}
+.aria-item-sub{font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:2px}
+.aria-item-tag{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:2px;border:1px solid;flex-shrink:0;align-self:flex-start;margin-top:2px}
+
+/* KPI CARDS */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;position:relative;overflow:hidden;transition:border-color 0.2s}
+.kpi:hover{border-color:var(--border2)}
+.kpi::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0}
+.kpi-cyan::after{background:linear-gradient(90deg,var(--cyan),rgba(0,229,255,0.3))}
+.kpi-gold::after{background:linear-gradient(90deg,var(--gold),rgba(255,184,48,0.3))}
+.kpi-green::after{background:linear-gradient(90deg,var(--green),rgba(34,197,94,0.3))}
+.kpi-fire::after{background:linear-gradient(90deg,var(--fire),rgba(255,107,43,0.3))}
+.kpi-royal::after{background:linear-gradient(90deg,var(--royal),rgba(33,92,174,0.3))}
+.kpi-violet::after{background:linear-gradient(90deg,var(--violet),rgba(167,139,250,0.3))}
+.kpi-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.kpi-num{font-family:var(--display);font-size:38px;letter-spacing:2px;line-height:1;margin-bottom:4px}
+.kpi-sub{font-family:var(--mono);font-size:9px;color:var(--text3);margin-bottom:6px}
+.kpi-delta{font-family:var(--mono);font-size:9px}
+.delta-up{color:var(--green)}
+.delta-dn{color:var(--rose)}
+.delta-neu{color:var(--amber)}
+
+/* TWO / THREE COL */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
+.col-60-40{display:grid;grid-template-columns:3fr 2fr;gap:16px;margin-bottom:16px}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px;margin-bottom:16px}
+.card-label{font-family:var(--mono);font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--text3);margin-bottom:12px}
+.card-title{font-family:var(--display);font-size:16px;letter-spacing:2px;color:var(--text);margin-bottom:8px}
+.card-no-mb{margin-bottom:0}
+
+/* ACTION LIST */
+.action-list{display:flex;flex-direction:column;gap:0}
+.action-item{display:flex;align-items:flex-start;gap:12px;padding:13px 0;border-bottom:1px solid rgba(33,92,174,0.1)}
+.action-item:last-child{border-bottom:none}
+.action-check{width:18px;height:18px;border-radius:4px;border:1px solid rgba(33,92,174,0.4);flex-shrink:0;cursor:pointer;transition:all 0.2s;background:rgba(33,92,174,0.05);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.action-check:hover{border-color:var(--royal2);background:rgba(33,92,174,0.12)}
+.action-check.done{background:var(--royal);border-color:var(--royal);color:white;font-size:11px}
+.action-body{flex:1}
+.action-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px;line-height:1.4}
+.action-meta{font-family:var(--mono);font-size:9px;color:var(--text3);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.action-agent{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:1px 7px;border-radius:2px;border:1px solid}
+.action-tag{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:2px;border:1px solid;flex-shrink:0;align-self:flex-start;margin-top:2px}
+.tag-critical{background:rgba(244,63,94,0.08);border-color:rgba(244,63,94,0.25);color:var(--rose)}
+.tag-high{background:rgba(251,146,60,0.08);border-color:rgba(251,146,60,0.25);color:var(--amber)}
+.tag-normal{background:rgba(33,92,174,0.08);border-color:rgba(33,92,174,0.3);color:#7BAEE8}
+.tag-done{background:rgba(34,197,94,0.08);border-color:rgba(34,197,94,0.2);color:var(--green)}
+
+/* NOTIFICATION */
+.notif{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-radius:8px;margin-bottom:10px;border:1px solid}
+.notif:last-child{margin-bottom:0}
+.notif-red{background:rgba(244,63,94,0.04);border-color:rgba(244,63,94,0.2)}
+.notif-amber{background:rgba(251,146,60,0.04);border-color:rgba(251,146,60,0.2)}
+.notif-green{background:rgba(34,197,94,0.04);border-color:rgba(34,197,94,0.2)}
+.notif-blue{background:rgba(33,92,174,0.06);border-color:rgba(33,92,174,0.25)}
+.notif-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.notif-body{flex:1}
+.notif-title{font-size:12px;font-weight:500;color:var(--text);margin-bottom:3px}
+.notif-sub{font-family:var(--mono);font-size:9px;color:var(--text3);line-height:1.7}
+.notif-time{font-family:var(--mono);font-size:8px;color:var(--text3);flex-shrink:0}
+
+/* TRANSFORMATION SCORE */
+.score-wrap{display:flex;gap:36px;align-items:flex-start}
+.score-ring-area{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:14px}
+.score-ring{position:relative;width:160px;height:160px}
+.score-ring svg{transform:rotate(-90deg)}
+.score-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.score-big{font-family:var(--display);font-size:52px;letter-spacing:2px;color:var(--royal2);line-height:1}
+.score-of{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--text3)}
+.score-label{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);text-align:center}
+.score-meaning{flex:1}
+.score-title{font-family:var(--display);font-size:20px;letter-spacing:3px;color:var(--text);margin-bottom:6px}
+.score-desc{font-size:12px;color:var(--text2);line-height:1.8;margin-bottom:16px}
+.score-milestones{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.score-milestone{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:6px;border:1px solid}
+.ms-active{background:rgba(33,92,174,0.1);border-color:rgba(33,92,174,0.3)}
+.ms-achieved{background:rgba(34,197,94,0.06);border-color:rgba(34,197,94,0.2)}
+.ms-future{background:rgba(255,255,255,0.02);border-color:rgba(255,255,255,0.06)}
+.ms-score{font-family:var(--display);font-size:18px;color:var(--royal2);width:40px;flex-shrink:0}
+.ms-score.achieved{color:var(--green)}
+.ms-score.future{color:var(--text3)}
+.ms-label{font-size:12px;font-weight:500;flex:1}
+.ms-sub{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.ms-badge{font-family:var(--mono);font-size:7px;letter-spacing:1px;padding:2px 7px;border-radius:2px}
+.ms-badge-you{background:rgba(33,92,174,0.2);color:#7BAEE8;border:1px solid rgba(33,92,174,0.3)}
+.ms-badge-done{background:rgba(34,197,94,0.1);color:var(--green);border:1px solid rgba(34,197,94,0.2)}
+
+/* DIMENSION BARS */
+.dim-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.dim-label{font-family:var(--mono);font-size:9px;color:var(--text2);width:150px;flex-shrink:0}
+.dim-track{flex:1;height:6px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden}
+.dim-fill{height:100%;border-radius:3px;transition:width 1.4s cubic-bezier(0.16,1,0.3,1)}
+.dim-val{font-family:var(--mono);font-size:10px;width:36px;text-align:right;flex-shrink:0}
+.dim-trend{font-family:var(--mono);font-size:9px;width:36px;flex-shrink:0;color:var(--green)}
+
+/* MARKET CARDS */
+.market-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.mkt{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px}
+.mkt-name{font-family:var(--mono);font-size:8px;letter-spacing:2px;color:var(--text3);margin-bottom:8px}
+.mkt-val{font-family:var(--display);font-size:24px;letter-spacing:1px;line-height:1;margin-bottom:4px}
+.mkt-change{font-family:var(--mono);font-size:9px}
+.mkt-up{color:var(--green)}
+.mkt-dn{color:var(--rose)}
+.mkt-neu{color:var(--text3)}
+
+/* REVENUE BAR */
+.rev-track{width:100%;height:14px;background:rgba(255,255,255,0.04);border-radius:7px;overflow:hidden;position:relative;margin:10px 0 6px}
+.rev-fill{height:100%;border-radius:7px;background:linear-gradient(90deg,var(--royal),var(--cyan));transition:width 1.6s cubic-bezier(0.16,1,0.3,1)}
+
+/* AGENT CARDS */
+.agent-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px}
+.agent-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;transition:all 0.2s}
+.agent-card:hover{border-color:var(--border2);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.agent-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.agent-pip{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.agent-name{font-family:var(--display);font-size:14px;letter-spacing:2px;flex:1}
+.agent-status-badge{font-family:var(--mono);font-size:7px;letter-spacing:1px;padding:2px 6px;border-radius:2px}
+.s-active{background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);color:var(--green)}
+.s-queue{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);color:var(--text3)}
+.agent-role{font-size:10px;color:var(--text3);line-height:1.5;margin-bottom:6px}
+.agent-metric{font-family:var(--mono);font-size:9px;color:var(--text2)}
+.agent-metric span{color:var(--cyan)}
+
+/* PAIN GRID */
+.pain-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.pain-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;display:flex;gap:12px;align-items:flex-start;transition:border-color 0.2s}
+.pain-card:hover{border-color:var(--border2)}
+.pain-num{font-family:var(--display);font-size:30px;color:rgba(33,92,174,0.25);line-height:1;width:36px;flex-shrink:0}
+.pain-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:3px}
+.pain-desc{font-size:11px;color:var(--text3);line-height:1.6;margin-bottom:6px}
+.pain-solved{font-family:var(--mono);font-size:8px;color:var(--green)}
+
+/* CONNECT */
+.connect-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.connect-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:22px;text-align:center;transition:all 0.2s}
+.connect-card:hover{border-color:var(--border2);transform:translateY(-2px)}
+.connect-icon{font-size:28px;margin-bottom:12px}
+.connect-name{font-family:var(--display);font-size:14px;letter-spacing:2px;color:var(--text);margin-bottom:5px}
+.connect-desc{font-size:11px;color:var(--text3);margin-bottom:16px;line-height:1.65}
+.connect-btn{display:inline-block;font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:4px;cursor:pointer;transition:all 0.2s;border:1px solid rgba(33,92,174,0.35);color:#7BAEE8;background:rgba(33,92,174,0.08)}
+.connect-btn:hover{background:rgba(33,92,174,0.16);border-color:rgba(33,92,174,0.55)}
+.connect-btn.connected{border-color:rgba(34,197,94,0.3);color:var(--green);background:rgba(34,197,94,0.06);cursor:default}
+
+/* SPRINT */
+.sprint-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sprint-title{font-family:var(--display);font-size:18px;letter-spacing:2px;color:#7BAEE8}
+.sprint-track{width:100%;height:8px;background:rgba(33,92,174,0.1);border-radius:4px;overflow:hidden;margin-bottom:8px}
+.sprint-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--royal),var(--royal2))}
+.sprint-stats{display:flex;gap:20px;flex-wrap:wrap}
+.sprint-stat{font-family:var(--mono);font-size:9px;color:var(--text3)}
+.sprint-stat strong{color:var(--text2)}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse}
+thead th{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--text3);text-align:left;padding:8px 12px;border-bottom:1px solid var(--border)}
+tbody td{font-size:12px;color:var(--text2);padding:10px 12px;border-bottom:1px solid rgba(33,92,174,0.06)}
+tbody tr:hover td{background:rgba(33,92,174,0.04)}
+
+/* CHIP */
+.chip{font-family:var(--mono);font-size:8px;letter-spacing:1px;padding:2px 8px;border-radius:3px;border:1px solid;display:inline-block}
+.chip-green{color:var(--green);border-color:rgba(34,197,94,0.25);background:rgba(34,197,94,0.06)}
+.chip-blue{color:#7BAEE8;border-color:rgba(33,92,174,0.3);background:rgba(33,92,174,0.08)}
+.chip-gold{color:var(--gold);border-color:rgba(255,184,48,0.25);background:rgba(255,184,48,0.06)}
+.chip-rose{color:var(--rose);border-color:rgba(244,63,94,0.25);background:rgba(244,63,94,0.06)}
+.chip-amber{color:var(--amber);border-color:rgba(251,146,60,0.25);background:rgba(251,146,60,0.06)}
+.chip-gray{color:var(--text3);border-color:rgba(255,255,255,0.08);background:rgba(255,255,255,0.03)}
+
+/* INNER TABS */
+.inner-tabs{display:flex;gap:0;margin-bottom:22px;border-bottom:1px solid var(--border)}
+.inner-tab{font-family:var(--mono);font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;cursor:pointer;color:var(--text3);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all 0.15s}
+.inner-tab:hover{color:var(--text2)}
+.inner-tab.active{color:#7BAEE8;border-bottom-color:var(--royal)}
+.inner-sect{display:none}
+.inner-sect.active{display:block}
+
+/* CHARTS */
+.chart-wrap{position:relative;width:100%;height:220px}
+.chart-wrap-sm{position:relative;width:100%;height:180px}
+
+/* RESEARCH BADGE */
+.research-badge{background:linear-gradient(135deg,rgba(33,92,174,0.08),rgba(167,139,250,0.05));border:1px solid rgba(167,139,250,0.2);border-radius:10px;padding:28px;text-align:center;margin-bottom:16px}
+.research-badge-title{font-family:var(--display);font-size:22px;letter-spacing:3px;color:var(--violet);margin-bottom:10px}
+.research-badge-sub{font-size:13px;color:var(--text2);max-width:560px;margin:0 auto;line-height:1.9}
+.research-id{font-family:var(--mono);font-size:9px;color:rgba(167,139,250,0.45);margin-top:14px;letter-spacing:2px}
+
+/* BUTTON */
+.btn{font-family:var(--mono);font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:8px 18px;border-radius:4px;cursor:pointer;border:1px solid;transition:all 0.2s}
+.btn-blue{color:#7BAEE8;border-color:rgba(33,92,174,0.35);background:rgba(33,92,174,0.08)}
+.btn-blue:hover{background:rgba(33,92,174,0.16)}
+.btn-gold{color:var(--gold);border-color:rgba(255,184,48,0.3);background:rgba(255,184,48,0.06)}
+.btn-gold:hover{background:rgba(255,184,48,0.12)}
+
+/* VALUE SENTENCE */
+.value-sentence{background:linear-gradient(135deg,rgba(33,92,174,0.08),rgba(0,229,255,0.04));border:1px solid rgba(33,92,174,0.3);border-radius:10px;padding:28px;text-align:center;margin-top:4px}
+
+@media(max-width:960px){
+  .sidebar{display:none}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .two-col,.col-60-40{grid-template-columns:1fr}
+  .three-col{grid-template-columns:1fr 1fr}
+  .market-row{grid-template-columns:1fr 1fr}
+  .pain-grid{grid-template-columns:1fr}
+  .connect-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="sb-header">
+    <div class="sb-logo-text">PHOENNIX<span>AI</span></div>
+    <div class="sb-tagline">Created to Create · Intelligent by nature.</div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-sect">Command</div>
+    <div class="sb-item active" onclick="nav('home',this)"><div class="sb-pip" style="background:var(--cyan)"></div>Home · Today</div>
+    <div class="sb-item" onclick="nav('grid',this)"><div class="sb-pip" style="background:var(--royal2)"></div>GRID · Operations</div>
+    <div class="sb-item" onclick="nav('ledger',this)"><div class="sb-pip" style="background:var(--gold)"></div>LEDGER · Finance</div>
+    <div class="sb-sect">Intelligence</div>
+    <div class="sb-item" onclick="nav('insight',this)"><div class="sb-pip" style="background:var(--violet)"></div>Insight Visual Board</div>
+    <div class="sb-item" onclick="nav('agents',this)"><div class="sb-pip" style="background:var(--green)"></div>Agent Team · 22</div>
+    <div class="sb-sect">Platform</div>
+    <div class="sb-item" onclick="nav('painpoints',this)"><div class="sb-pip" style="background:var(--rose)"></div>Problems We Solve</div>
+    <div class="sb-item" onclick="nav('connect',this)"><div class="sb-pip" style="background:var(--teal)"></div>Connect · Integrations</div>
+  </div>
+  <div class="sb-footer">
+    <div class="sb-user">Valerie Wilcox</div>
+    <div class="sb-role">Founder · PhoennixAI Agency</div>
+    <div class="sb-beta-badge">BETA OPENS 7 APR 2026</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="tb-logo">PHOENNIX<span>AI</span></div>
+    <div class="tb-divider"></div>
+    <div class="tb-title" id="tb-title">Mission Control · Home</div>
+    <div class="tb-live"><div class="tb-live-dot"></div>LIVE</div>
+    <div class="tb-badge tb-badge-cyan" id="tb-date">26 MAR 2026</div>
+    <div class="tb-badge tb-badge-gold">SESSION 15</div>
+  </div>
+
+  <div class="content">
+
+  <!-- ═══════════════════ HOME ═══════════════════ -->
+  <div class="section active" id="sec-home">
+    <div class="ph">
+      <div class="ph-eye">Mission Control · Business OS · PhoennixAI Agency</div>
+      <div class="ph-title">COMMAND CENTRE</div>
+      <div class="ph-sub">The right information, at the right moment, with a clear next action.</div>
+      <div class="ph-rule"></div>
+    </div>
+
+    <!-- ARIA BRIEF — FULL SIZE LIST FORMAT -->
+    <div class="aria-brief">
+      <div class="aria-header">
+        <div class="aria-pip"></div>
+        <div class="aria-label">ARIA · MORNING INTELLIGENCE BRIEF</div>
+        <div class="aria-time" id="aria-time">26 MAR 2026 · LIVE</div>
+      </div>
+      <ul class="aria-list">
+        <li class="aria-item">
+          <div class="aria-item-dot" style="background:var(--rose);box-shadow:0 0 5px rgba(244,63,94,0.5)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">Stripe setup incomplete — conversion funnel is blocked</div>
+            <div class="aria-item-sub">Three payment links not yet live. Beta opens in 12 days. Without Stripe, prospects cannot pay after submitting the waitlist form. Call Stripe support today to resolve the verification issue.</div>
+          </div>
+          <div class="aria-item-tag tag-critical">CRITICAL</div>
+        </li>
+        <li class="aria-item">
+          <div class="aria-item-dot" style="background:var(--green);box-shadow:0 0 5px rgba(34,197,94,0.5)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">First beta booking confirmed — Discovery Call, Tue 7 April, 9:00am</div>
+            <div class="aria-item-sub">Beta Discovery Call booked via cal.com by an external prospect. Valerie Wilcox confirmed as host. Cal.com connected and live. This is your first pipeline entry.</div>
+          </div>
+          <div class="aria-item-tag tag-done">WIN ✓</div>
+        </li>
+        <li class="aria-item">
+          <div class="aria-item-dot" style="background:var(--gold)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">IP envelope in transit via Royal Mail Recorded Delivery</div>
+            <div class="aria-item-sub">Posted approx 23 March 2026. Expected delivery any day. When it arrives — do NOT open. Store safely. The sealed envelope is your date-stamp evidence. Opening it invalidates its legal function.</div>
+          </div>
+          <div class="aria-item-tag tag-high">WATCH</div>
+        </li>
+        <li class="aria-item">
+          <div class="aria-item-dot" style="background:var(--amber)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">Three files ready to push to GitHub — favicon updated</div>
+            <div class="aria-item-sub">PhoennixAI_BetaWaitlist.html · PhoennixAI_Agent_Flyers.html · PhoennixAI_PULSE_Internal_Manual.html. All three now carry the blue phoenix favicon. Push before end of session.</div>
+          </div>
+          <div class="aria-item-tag tag-high">TODAY</div>
+        </li>
+        <li class="aria-item">
+          <div class="aria-item-dot" style="background:var(--steel)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">Mayowa email pending since 22 March — 4 days unanswered</div>
+            <div class="aria-item-sub">mayowa@itana.africa — CEO of Itana. Emailed re Wednesday event. Strategic contact. Every day without a response reduces the probability of a meaningful connection. Respond today.</div>
+          </div>
+          <div class="aria-item-tag tag-high">OVERDUE</div>
+        </li>
+        <li class="aria-item">
+          <div class="aria-item-dot" style="background:var(--royal2)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">Document Hub v2.3 built — Finance and Revenue section live</div>
+            <div class="aria-item-sub">Full Finance and Revenue dashboard built this session including LEDGER advisory panel, cashflow projection table, beta pricing model, and four financial document cards. Ready to push to GitHub.</div>
+          </div>
+          <div class="aria-item-tag tag-done">DONE ✓</div>
+        </li>
+        <li class="aria-item" style="border-bottom:none">
+          <div class="aria-item-dot" style="background:var(--violet)"></div>
+          <div class="aria-item-body">
+            <div class="aria-item-title">Transformation Score — 74/100 · Up 8 points this week</div>
+            <div class="aria-item-sub">Session 15 baseline. Decision velocity 82%, output quality 90%, session productivity 78%. You are operating at exceptional founder-AI collaboration standards. See Insight Visual Board for full breakdown.</div>
+          </div>
+          <div class="aria-item-tag" style="background:rgba(167,139,250,0.08);border-color:rgba(167,139,250,0.25);color:var(--violet)">74/100</div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- KPI ROW -->
+    <div class="kpi-row">
+      <div class="kpi kpi-gold">
+        <div class="kpi-label">Confirmed Revenue</div>
+        <div class="kpi-num" style="color:var(--gold)">£0</div>
+        <div class="kpi-sub">Beta opens 7 Apr</div>
+        <div class="kpi-delta delta-neu">⚡ £49,970 ceiling potential</div>
+      </div>
+      <div class="kpi kpi-royal">
+        <div class="kpi-label">Transformation Score</div>
+        <div class="kpi-num" style="color:#7BAEE8">74</div>
+        <div class="kpi-sub">Out of 100 · Week 15</div>
+        <div class="kpi-delta delta-up">▲ +8 points this week</div>
+      </div>
+      <div class="kpi kpi-green">
+        <div class="kpi-label">AI Value Delivered</div>
+        <div class="kpi-num" style="color:var(--green)">£22.8k</div>
+        <div class="kpi-sub">Equivalent team cost/month</div>
+        <div class="kpi-delta delta-up">▲ 46× ROI at T1 pricing</div>
+      </div>
+      <div class="kpi kpi-fire">
+        <div class="kpi-label">Days to Beta</div>
+        <div class="kpi-num" style="color:var(--amber)" id="days-beta">12</div>
+        <div class="kpi-sub">7 April 2026 · 10 slots</div>
+        <div class="kpi-delta delta-up">▲ 1 booking confirmed</div>
+      </div>
+    </div>
+
+    <!-- ACTIONS + ALERTS -->
+    <div class="two-col">
+      <div class="card">
+        <div class="card-label">GRID · Today's Priority Actions</div>
+        <div class="action-list" id="action-list">
+          <div class="action-item">
+            <div class="action-check" onclick="toggleCheck(this)"></div>
+            <div class="action-body">
+              <div class="action-title">Call Stripe support — complete account verification</div>
+              <div class="action-meta">Blocking 3 payment links · Beta conversion funnel dead without this<span class="action-agent" style="color:var(--gold);border-color:rgba(255,184,48,0.25)">LEDGER</span></div>
+            </div>
+            <div class="action-tag tag-critical">Critical</div>
+          </div>
+          <div class="action-item">
+            <div class="action-check" onclick="toggleCheck(this)"></div>
+            <div class="action-body">
+              <div class="action-title">Push 3 updated files to GitHub (favicon added)</div>
+              <div class="action-meta">BetaWaitlist · AgentFlyers · PULSE Manual<span class="action-agent" style="color:var(--bronze);border-color:rgba(196,154,108,0.25)">SCRIBE</span></div>
+            </div>
+            <div class="action-tag tag-high">Today</div>
+          </div>
+          <div class="action-item">
+            <div class="action-check" onclick="toggleCheck(this)"></div>
+            <div class="action-body">
+              <div class="action-title">Reply to Mayowa — mayowa@itana.africa</div>
+              <div class="action-meta">Pending 4 days · CEO Itana · Strategic contact<span class="action-agent" style="color:#7BAEE8;border-color:rgba(33,92,174,0.3)">RELAY</span></div>
+            </div>
+            <div class="action-tag tag-high">Overdue</div>
+          </div>
+          <div class="action-item">
+            <div class="action-check" onclick="toggleCheck(this)"></div>
+            <div class="action-body">
+              <div class="action-title">Push Document Hub v2.3 to GitHub</div>
+              <div class="action-meta">Finance section built this session · Ready to deploy<span class="action-agent" style="color:var(--bronze);border-color:rgba(196,154,108,0.25)">SCRIBE</span></div>
+            </div>
+            <div class="action-tag tag-normal">Today</div>
+          </div>
+          <div class="action-item">
+            <div class="action-check" onclick="toggleCheck(this)"></div>
+            <div class="action-body">
+              <div class="action-title">Push Insight Visual Board to GitHub</div>
+              <div class="action-meta">Built this session · IP 18 · PhoennixAI_InsightVisualBoard.html<span class="action-agent" style="color:var(--royal2);border-color:rgba(33,92,174,0.3)">GRID</span></div>
+            </div>
+            <div class="action-tag tag-normal">Today</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">ARIA · Live Alerts</div>
+        <div class="notif notif-red">
+          <div class="notif-dot" style="background:var(--rose)"></div>
+          <div class="notif-body">
+            <div class="notif-title">Stripe payment links not live</div>
+            <div class="notif-sub">Beta opens in 12 days. No payment funnel. Prospects cannot pay. This is the only item blocking revenue.</div>
+          </div>
+          <div class="notif-time">CRITICAL</div>
+        </div>
+        <div class="notif notif-green">
+          <div class="notif-dot" style="background:var(--green)"></div>
+          <div class="notif-body">
+            <div class="notif-title">First beta booking confirmed ✓</div>
+            <div class="notif-sub">Beta Discovery Call · Tue 7 Apr · 9:00–9:20am · Cal.com live</div>
+          </div>
+          <div class="notif-time">WIN</div>
+        </div>
+        <div class="notif notif-amber">
+          <div class="notif-dot" style="background:var(--gold)"></div>
+          <div class="notif-body">
+            <div class="notif-title">IP envelope in transit</div>
+            <div class="notif-sub">Royal Mail Recorded Delivery · Do NOT open on arrival · Store sealed</div>
+          </div>
+          <div class="notif-time">WATCH</div>
+        </div>
+        <div class="notif notif-blue">
+          <div class="notif-dot" style="background:var(--royal2)"></div>
+          <div class="notif-body">
+            <div class="notif-title">Session 15 complete · 6 deliverables built</div>
+            <div class="notif-sub">Finance Hub · Insight Board · Favicons × 3 · BetaWaitlist Stripe wired · Stripe 90% done</div>
+          </div>
+          <div class="notif-time">SESSION</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVENUE BAR -->
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <div>
+          <div class="card-label">LEDGER · Beta Revenue Progress · April 2026</div>
+          <div style="font-family:var(--display);font-size:26px;letter-spacing:2px;color:var(--gold)">£0 <span style="font-size:16px;color:var(--text3);letter-spacing:1px">of £4,970 floor target</span></div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-bottom:4px">CEILING SCENARIO</div>
+          <div style="font-family:var(--display);font-size:22px;color:var(--bronze)">£49,970</div>
+        </div>
+      </div>
+      <div class="rev-track"><div class="rev-fill" style="width:0.5%" id="rev-bar"></div></div>
+      <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:4px">
+        <span>£0</span><span>£4,970 floor</span><span>£14,970 mid</span><span>£49,970 ceiling</span>
+      </div>
+    </div>
+
+    <!-- HOME CHART — SESSIONS PRODUCTIVITY -->
+    <div class="card">
+      <div class="card-label">Session Productivity · Sessions 1–15 · Deliverables Per Session</div>
+      <div class="chart-wrap"><canvas id="chart-sessions"></canvas></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ GRID ═══════════════════ -->
+  <div class="section" id="sec-grid">
+    <div class="ph">
+      <div class="ph-eye">Agent 009 · Project Manager and Business Analyst · Deep Royal #215CAE</div>
+      <div class="ph-title" style="color:#7BAEE8">GRID · OPERATIONS</div>
+      <div class="ph-sub">Full project lifecycle across all 9 PhoennixAI products. Sprint planning. Delivery tracking. Nothing falls through the cracks.</div>
+      <div class="ph-rule" style="background:var(--royal)"></div>
+    </div>
+
+    <!-- SPRINT -->
+    <div class="card" style="border-color:rgba(33,92,174,0.3)">
+      <div class="sprint-header">
+        <div>
+          <div class="sprint-title">SPRINT 15 · BETA LAUNCH SPRINT</div>
+          <div style="font-family:var(--mono);font-size:9px;color:var(--text3);margin-top:3px">26 Mar 2026 → 7 Apr 2026 · 12 days remaining</div>
+        </div>
+        <div class="chip chip-blue">Active</div>
+      </div>
+      <div class="sprint-track"><div class="sprint-fill" style="width:2%"></div></div>
+      <div class="sprint-stats">
+        <div class="sprint-stat">Total <strong>18</strong></div>
+        <div class="sprint-stat">Complete <strong>3</strong></div>
+        <div class="sprint-stat">In Progress <strong>8</strong></div>
+        <div class="sprint-stat">Blocked <strong>1</strong></div>
+        <div class="sprint-stat">On Track <strong style="color:var(--green)">Yes</strong></div>
+      </div>
+    </div>
+
+    <!-- PRODUCT TABLE + CHART -->
+    <div class="col-60-40">
+      <div class="card card-no-mb">
+        <div class="card-label">9 Products · Live Status</div>
+        <table>
+          <thead><tr><th>Product</th><th>Status</th><th>Version</th><th>Next Action</th></tr></thead>
+          <tbody>
+            <tr><td>Mission Control</td><td><span class="chip chip-green">Live</span></td><td style="font-family:var(--mono);font-size:10px">v2.3</td><td style="font-size:11px;color:var(--text3)">Insight Board integration</td></tr>
+            <tr><td>ARIA Workspace</td><td><span class="chip chip-green">Live</span></td><td style="font-family:var(--mono);font-size:10px">v3.1</td><td style="font-size:11px;color:var(--text3)">Phase 2 API layer</td></tr>
+            <tr><td>Document Hub</td><td><span class="chip chip-green">Live</span></td><td style="font-family:var(--mono);font-size:10px">v2.3</td><td style="font-size:11px;color:var(--text3)">Push to GitHub ✓ done</td></tr>
+            <tr><td>SignHub</td><td><span class="chip chip-green">Live</span></td><td style="font-family:var(--mono);font-size:10px">v1.0</td><td style="font-size:11px;color:var(--text3)">Beta tester onboarding</td></tr>
+            <tr><td>Beta Waitlist</td><td><span class="chip chip-green">Live</span></td><td style="font-family:var(--mono);font-size:10px">v1.1</td><td style="font-size:11px;color:var(--text3)">Stripe links pending</td></tr>
+            <tr><td>Agent Flyers</td><td><span class="chip chip-green">Live</span></td><td style="font-family:var(--mono);font-size:10px">v1.0</td><td style="font-size:11px;color:var(--text3)">Favicon pushed ✓</td></tr>
+            <tr><td>PULSE App</td><td><span class="chip chip-blue">Alpha</span></td><td style="font-family:var(--mono);font-size:10px">v1.0</td><td style="font-size:11px;color:var(--text3)">Scope session pending</td></tr>
+            <tr><td>Insight Visual Board</td><td><span class="chip chip-amber">Building</span></td><td style="font-family:var(--mono);font-size:10px">v1.0</td><td style="font-size:11px;color:var(--text3)">Session 15 · IP 18</td></tr>
+            <tr><td>PA Planner Student</td><td><span class="chip chip-gray">Planned</span></td><td style="font-family:var(--mono);font-size:10px">—</td><td style="font-size:11px;color:var(--text3)">JAYDEN + MAYAH scope</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card card-no-mb" style="display:flex;flex-direction:column;gap:14px">
+        <div>
+          <div class="card-label">Product Status Split</div>
+          <div style="position:relative;height:160px"><canvas id="chart-products"></canvas></div>
+        </div>
+        <div>
+          <div class="card-label">IP Portfolio · 17 Filed</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+            <div style="background:rgba(33,92,174,0.08);border:1px solid rgba(33,92,174,0.2);border-radius:6px;padding:10px;text-align:center">
+              <div style="font-family:var(--display);font-size:28px;color:#7BAEE8">17</div>
+              <div style="font-family:var(--mono);font-size:7px;color:var(--text3)">FILED</div>
+            </div>
+            <div style="background:rgba(255,184,48,0.06);border:1px solid rgba(255,184,48,0.15);border-radius:6px;padding:10px;text-align:center">
+              <div style="font-family:var(--display);font-size:28px;color:var(--gold)">1</div>
+              <div style="font-family:var(--mono);font-size:7px;color:var(--text3)">TRANSIT</div>
+            </div>
+            <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:6px;padding:10px;text-align:center">
+              <div style="font-family:var(--display);font-size:28px;color:var(--green)">5</div>
+              <div style="font-family:var(--mono);font-size:7px;color:var(--text3)">ENTITIES</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ LEDGER ═══════════════════ -->
+  <div class="section" id="sec-ledger">
+    <div class="ph">
+      <div class="ph-eye">Agent 006 · AGI Financial Intelligence · Goldman/JPMorgan Standard · Advisory Only</div>
+      <div class="ph-title" style="color:var(--gold)">LEDGER · FINANCE</div>
+      <div class="ph-sub">Human sign-off mandatory on all outputs. LEDGER advises. Valerie decides.</div>
+      <div class="ph-rule" style="background:var(--gold)"></div>
+    </div>
+
+    <!-- MARKETS -->
+    <div class="card-label" style="margin-bottom:10px">UK Financial Markets · Live Context</div>
+    <div class="market-row">
+      <div class="mkt"><div class="mkt-name">FTSE 100</div><div class="mkt-val" style="color:var(--text)">8,664</div><div class="mkt-change mkt-up">▲ +0.42%</div></div>
+      <div class="mkt"><div class="mkt-name">GBP / USD</div><div class="mkt-val" style="color:var(--cyan)">1.2943</div><div class="mkt-change mkt-up">▲ +0.18%</div></div>
+      <div class="mkt"><div class="mkt-name">UK CPI Inflation</div><div class="mkt-val" style="color:var(--amber)">3.1%</div><div class="mkt-change mkt-dn">▼ -0.2% Feb</div></div>
+      <div class="mkt"><div class="mkt-name">BoE Base Rate</div><div class="mkt-val" style="color:var(--gold)">4.50%</div><div class="mkt-change mkt-neu">— Unchanged</div></div>
+    </div>
+
+    <!-- KPI + CHART -->
+    <div class="col-60-40">
+      <div class="card card-no-mb">
+        <div class="card-label">Cashflow Projection · Apr–Sep 2026</div>
+        <table>
+          <thead><tr><th>Month</th><th>Target In</th><th>Actual</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Apr 2026</td><td style="font-family:var(--mono);color:var(--gold)">£4,970</td><td style="font-family:var(--mono);color:var(--text3)" contenteditable="true">—</td><td><span class="chip chip-amber">Beta Open</span></td></tr>
+            <tr><td>May 2026</td><td style="font-family:var(--mono);color:var(--gold)">£7,500</td><td style="font-family:var(--mono);color:var(--text3)" contenteditable="true">—</td><td><span class="chip chip-gray">Forecast</span></td></tr>
+            <tr><td>Jun 2026</td><td style="font-family:var(--mono);color:var(--gold)">£12,000</td><td style="font-family:var(--mono);color:var(--text3)" contenteditable="true">—</td><td><span class="chip chip-gray">Forecast</span></td></tr>
+            <tr><td>Jul 2026</td><td style="font-family:var(--mono);color:var(--gold)">£18,000</td><td style="font-family:var(--mono);color:var(--text3)" contenteditable="true">—</td><td><span class="chip chip-gray">Forecast</span></td></tr>
+            <tr><td>Aug 2026</td><td style="font-family:var(--mono);color:var(--gold)">£25,000</td><td style="font-family:var(--mono);color:var(--text3)" contenteditable="true">—</td><td><span class="chip chip-gray">Forecast</span></td></tr>
+            <tr><td>Sep 2026</td><td style="font-family:var(--mono);color:var(--gold)">£35,000</td><td style="font-family:var(--mono);color:var(--text3)" contenteditable="true">—</td><td><span class="chip chip-gray">Forecast</span></td></tr>
+          </tbody>
+        </table>
+        <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:10px">Click any Actual cell to update with real figures as beta converts.</div>
+      </div>
+      <div class="card card-no-mb">
+        <div class="card-label">Revenue Scenario Chart</div>
+        <div class="chart-wrap-sm"><canvas id="chart-revenue"></canvas></div>
+      </div>
+    </div>
+    <div style="margin-top:16px"></div>
+
+    <!-- LEDGER ADVISORY -->
+    <div class="card" style="border-color:rgba(255,184,48,0.2)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <div>
+          <div class="card-label">LEDGER · AGI Financial Advisory · Opus-Powered</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">Advisory only · Human sign-off mandatory · Never executes transactions</div>
+        </div>
+        <button class="btn btn-gold" onclick="runLedger()">Refresh Brief</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <input id="ledger-q" type="text" placeholder="Ask LEDGER a financial question… e.g. What is our break-even point?" style="flex:1;background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:9px 14px;font-family:var(--sans);font-size:12px;color:var(--text);outline:none" onkeydown="if(event.key==='Enter')runLedger()">
+        <button class="btn btn-gold" onclick="runLedger()">Ask →</button>
+      </div>
+      <div id="ledger-out" style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:18px;min-height:90px;font-size:13px;color:var(--text2);line-height:1.9">
+        Click <strong style="color:var(--gold)">Refresh Brief</strong> to activate LEDGER's financial intelligence briefing, or type a specific question above.
+      </div>
+      <div style="margin-top:10px;font-family:var(--mono);font-size:8px;color:var(--text3)">⚠ LEDGER is advisory only. No financial decision should be made without human review and sign-off by Valerie Wilcox.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ INSIGHT BOARD ═══════════════════ -->
+  <div class="section" id="sec-insight">
+    <div class="ph">
+      <div class="ph-eye">Human-AI Collaboration Research · Sessions 1–15 Baseline · IP #18</div>
+      <div class="ph-title" style="color:var(--violet)">INSIGHT VISUAL BOARD</div>
+      <div class="ph-sub">Not features. Not hours. Transformation. What has changed since you started using PhoennixAI?</div>
+      <div class="ph-rule" style="background:var(--violet)"></div>
+    </div>
+
+    <!-- TRANSFORMATION SCORE — MEANINGFUL -->
+    <div class="card" style="border-color:rgba(33,92,174,0.3);margin-bottom:16px">
+      <div class="score-wrap">
+        <div class="score-ring-area">
+          <div class="score-ring">
+            <svg width="160" height="160" viewBox="0 0 160 160">
+              <circle cx="80" cy="80" r="66" fill="none" stroke="rgba(33,92,174,0.1)" stroke-width="10"/>
+              <circle cx="80" cy="80" r="66" fill="none" stroke="rgba(33,92,174,0.08)" stroke-width="10" stroke-dasharray="414" stroke-dashoffset="0"/>
+              <circle cx="80" cy="80" r="66" fill="none" stroke="url(#score-grad)" stroke-width="10" stroke-linecap="round" stroke-dasharray="414" stroke-dashoffset="108" style="transition:stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1)"/>
+              <defs><linearGradient id="score-grad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#215CAE"/><stop offset="100%" stop-color="#00E5FF"/></linearGradient></defs>
+            </svg>
+            <div class="score-overlay">
+              <div class="score-big">74</div>
+              <div class="score-of">/ 100</div>
+            </div>
+          </div>
+          <div class="score-label">TRANSFORMATION<br>SCORE</div>
+        </div>
+
+        <div class="score-meaning">
+          <div class="score-title">WHAT YOUR SCORE MEANS</div>
+          <div class="score-desc">Your score measures how completely your AI team has taken over operational work, freeing you for strategy, leadership, and growth. 100 means full operational autonomy — every task has an agent, every decision has data, revenue grows without founder burnout.</div>
+
+          <div class="score-milestones">
+            <div class="score-milestone ms-achieved">
+              <div class="ms-score achieved">20</div>
+              <div><div class="ms-label">Getting Started</div><div class="ms-sub">AI tools installed. First agents signed. Orientation phase.</div></div>
+              <div class="ms-badge ms-badge-done">Achieved</div>
+            </div>
+            <div class="score-milestone ms-achieved">
+              <div class="ms-score achieved">40</div>
+              <div><div class="ms-label">Building the Team</div><div class="ms-sub">Multiple agents active. First automations running. Clarity increasing.</div></div>
+              <div class="ms-badge ms-badge-done">Achieved</div>
+            </div>
+            <div class="score-milestone ms-achieved">
+              <div class="ms-score achieved">60</div>
+              <div><div class="ms-label">Operational Leverage</div><div class="ms-sub">AI handles most admin. Founder focusing on strategy. Output quality high.</div></div>
+              <div class="ms-badge ms-badge-done">Achieved</div>
+            </div>
+            <div class="score-milestone ms-active">
+              <div class="ms-score">74</div>
+              <div><div class="ms-label">Advanced Autonomy — You are here</div><div class="ms-sub">11 agents active. Decisions AI-supported. Revenue pipeline building.</div></div>
+              <div class="ms-badge ms-badge-you">▶ Session 15</div>
+            </div>
+            <div class="score-milestone ms-future">
+              <div class="ms-score future">85</div>
+              <div><div class="ms-label">Full Operational Autonomy</div><div class="ms-sub">All 22 agents deployed. Founder spends 80% on strategy. Revenue predictable.</div></div>
+              <div class="ms-badge" style="color:var(--text3);border:1px solid rgba(255,255,255,0.08);background:transparent">Phase 2</div>
+            </div>
+            <div class="score-milestone ms-future">
+              <div class="ms-score future">100</div>
+              <div><div class="ms-label">Pioneer Status</div><div class="ms-sub">Autonomous AI company. Research published. University partner. Proof of model.</div></div>
+              <div class="ms-badge" style="color:var(--text3);border:1px solid rgba(255,255,255,0.08);background:transparent">Phase 3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-tabs">
+      <div class="inner-tab active" onclick="innerNav('i-overview',this)">7 Dimensions</div>
+      <div class="inner-tab" onclick="innerNav('i-growth',this)">Growth Dashboard</div>
+      <div class="inner-tab" onclick="innerNav('i-chart',this)">Progress Chart</div>
+      <div class="inner-tab" onclick="innerNav('i-research',this)">Research Contribution</div>
+    </div>
+
+    <div class="inner-sect active" id="i-overview">
+      <div class="two-col">
+        <div class="card card-no-mb">
+          <div class="card-label">Behaviour Dimensions · Sessions 1–15 Baseline</div>
+          <div style="margin-top:4px">
+            <div class="dim-row"><div class="dim-label">Decision Velocity</div><div class="dim-track"><div class="dim-fill" style="width:82%;background:var(--cyan)"></div></div><div class="dim-val" style="color:var(--cyan)">82%</div><div class="dim-trend">▲+14</div></div>
+            <div class="dim-row"><div class="dim-label">Output Quality</div><div class="dim-track"><div class="dim-fill" style="width:90%;background:var(--gold)"></div></div><div class="dim-val" style="color:var(--gold)">90%</div><div class="dim-trend">▲+22</div></div>
+            <div class="dim-row"><div class="dim-label">Session Productivity</div><div class="dim-track"><div class="dim-fill" style="width:78%;background:var(--green)"></div></div><div class="dim-val" style="color:var(--green)">78%</div><div class="dim-trend">▲+31</div></div>
+            <div class="dim-row"><div class="dim-label">Agent Utilisation</div><div class="dim-track"><div class="dim-fill" style="width:65%;background:var(--royal2)"></div></div><div class="dim-val" style="color:var(--royal2)">65%</div><div class="dim-trend">▲+65</div></div>
+            <div class="dim-row"><div class="dim-label">Cognitive Load ↓</div><div class="dim-track"><div class="dim-fill" style="width:72%;background:var(--rose)"></div></div><div class="dim-val" style="color:var(--rose)">72%</div><div class="dim-trend">▲+28</div></div>
+            <div class="dim-row"><div class="dim-label">Revenue Correlation</div><div class="dim-track"><div class="dim-fill" style="width:58%;background:var(--amber)"></div></div><div class="dim-val" style="color:var(--amber)">58%</div><div class="dim-trend">▲+58</div></div>
+            <div class="dim-row"><div class="dim-label">Error Rate ↓</div><div class="dim-track"><div class="dim-fill" style="width:68%;background:var(--steel)"></div></div><div class="dim-val" style="color:var(--steel)">68%</div><div class="dim-trend">▲+19</div></div>
+          </div>
+        </div>
+        <div class="card card-no-mb">
+          <div class="card-label">Dimension Radar · Session 15</div>
+          <div style="position:relative;height:260px"><canvas id="chart-radar"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-sect" id="i-growth">
+      <div class="kpi-row" style="grid-template-columns:repeat(4,1fr)">
+        <div class="kpi kpi-cyan"><div class="kpi-label">Hours Saved</div><div class="kpi-num" style="color:var(--cyan)">340+</div><div class="kpi-sub">Across 15 sessions</div><div class="kpi-delta delta-up">▲ ~22 hrs/session avg</div></div>
+        <div class="kpi kpi-gold"><div class="kpi-label">Tasks Automated</div><div class="kpi-num" style="color:var(--gold)">200+</div><div class="kpi-sub">By AI agents</div><div class="kpi-delta delta-up">▲ Growing weekly</div></div>
+        <div class="kpi kpi-green"><div class="kpi-label">Decisions Supported</div><div class="kpi-num" style="color:var(--green)">85</div><div class="kpi-sub">AI-assisted decisions</div><div class="kpi-delta delta-up">▲ All documented</div></div>
+        <div class="kpi kpi-violet"><div class="kpi-label">Session Goals</div><div class="kpi-num" style="color:var(--violet)">14/15</div><div class="kpi-sub">Targets hit</div><div class="kpi-delta delta-up">▲ 93% completion rate</div></div>
+      </div>
+      <div class="two-col">
+        <div class="card card-no-mb">
+          <div class="card-label">ROI vs Market Cost</div>
+          <div style="display:flex;align-items:center;gap:20px;margin-bottom:14px">
+            <div style="text-align:center;flex:1;padding:16px;background:var(--card2);border-radius:8px;border:1px solid rgba(244,63,94,0.15)">
+              <div style="font-family:var(--display);font-size:32px;color:var(--rose)">£22.8k</div>
+              <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:4px">MARKET COST / MONTH</div>
+            </div>
+            <div style="font-family:var(--display);font-size:22px;color:var(--text3)">VS</div>
+            <div style="text-align:center;flex:1;padding:16px;background:var(--card2);border-radius:8px;border:1px solid rgba(34,197,94,0.15)">
+              <div style="font-family:var(--display);font-size:32px;color:var(--green)">£497</div>
+              <div style="font-family:var(--mono);font-size:8px;color:var(--text3);margin-top:4px">PHOENNIXAI T1 / MONTH</div>
+            </div>
+          </div>
+          <div style="text-align:center;padding:16px;background:rgba(34,197,94,0.05);border:1px solid rgba(34,197,94,0.15);border-radius:8px">
+            <div style="font-family:var(--display);font-size:42px;color:var(--green)">46×</div>
+            <div style="font-family:var(--mono);font-size:9px;color:var(--text3)">RETURN ON INVESTMENT</div>
+          </div>
+        </div>
+        <div class="card card-no-mb">
+          <div class="card-label">Agent Performance · Colour Code</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--fire)">
+              <div style="font-family:var(--display);font-size:14px;color:var(--fire);width:64px">CLAUDE</div>
+              <div style="flex:1;font-size:11px;color:var(--text3)">Strategy · Architecture</div>
+              <div style="font-family:var(--display);font-size:18px;color:var(--text)">15/15</div>
+              <div class="chip chip-green" style="font-size:7px">Active</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--cyan)">
+              <div style="font-family:var(--display);font-size:14px;color:var(--cyan);width:64px">ARIA</div>
+              <div style="flex:1;font-size:11px;color:var(--text3)">Workspace Intel</div>
+              <div style="font-family:var(--display);font-size:18px;color:var(--text)">15/15</div>
+              <div class="chip chip-green" style="font-size:7px">Active</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--violet)">
+              <div style="font-family:var(--display);font-size:14px;color:var(--violet);width:64px">PULSE</div>
+              <div style="flex:1;font-size:11px;color:var(--text3)">Content · Social</div>
+              <div style="font-family:var(--display);font-size:18px;color:var(--text)">8/15</div>
+              <div class="chip chip-amber" style="font-size:7px">Campaign</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--gold)">
+              <div style="font-family:var(--display);font-size:14px;color:var(--gold);width:64px">LEDGER</div>
+              <div style="flex:1;font-size:11px;color:var(--text3)">Finance · Advisory</div>
+              <div style="font-family:var(--display);font-size:18px;color:var(--text)">5/15</div>
+              <div class="chip chip-blue" style="font-size:7px">Phase 2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-sect" id="i-chart">
+      <div class="two-col">
+        <div class="card card-no-mb">
+          <div class="card-label">Transformation Score · Sessions 1–15</div>
+          <div class="chart-wrap"><canvas id="chart-score-progress"></canvas></div>
+        </div>
+        <div class="card card-no-mb">
+          <div class="card-label">7 Dimensions · Session 15 vs Session 1</div>
+          <div class="chart-wrap"><canvas id="chart-compare"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="inner-sect" id="i-research">
+      <div class="research-badge">
+        <div class="research-badge-title">HUMAN-AI COLLABORATION PIONEER</div>
+        <div class="research-badge-sub">Your interaction data is contributing to the world's first longitudinal study of a founder building a company with AI agents. 15 sessions. 16 weeks. Every decision documented, measured, and stored. This will be published. You are not a user. You are the primary researcher and the primary subject simultaneously.</div>
+        <div class="research-id">RESEARCH ID: PAI-HCI-2026-001 · SESSIONS 1–15 · HUMAN FLOURISHING FRAMEWORK · IP PROTECTED</div>
+      </div>
+      <div class="two-col">
+        <div class="card card-no-mb">
+          <div class="card-label">Human Flourishing Framework · Your IP</div>
+          <div style="font-size:12px;color:var(--text2);line-height:1.9;margin-bottom:14px">PhoennixAI is developing the world's first <strong style="color:var(--violet)">Human Flourishing Index</strong> — a proprietary framework measuring whether AI partnership improves human wellbeing, purpose, and life satisfaction over time. Nothing like this exists commercially.</div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;gap:10px;padding:9px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--violet)"><span style="font-size:11px;color:var(--text2);flex:1">Emotional investment tracking</span><span class="chip chip-blue" style="font-size:7px">Phase 2</span></div>
+            <div style="display:flex;gap:10px;padding:9px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--cyan)"><span style="font-size:11px;color:var(--text2);flex:1">Cognitive load reduction measurement</span><span class="chip chip-green" style="font-size:7px">Active</span></div>
+            <div style="display:flex;gap:10px;padding:9px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--green)"><span style="font-size:11px;color:var(--text2);flex:1">Purpose and goal alignment scoring</span><span class="chip chip-green" style="font-size:7px">Active</span></div>
+            <div style="display:flex;gap:10px;padding:9px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--gold)"><span style="font-size:11px;color:var(--text2);flex:1">Economic freedom correlation</span><span class="chip chip-blue" style="font-size:7px">Phase 2</span></div>
+            <div style="display:flex;gap:10px;padding:9px 12px;background:var(--card2);border-radius:6px;border-left:3px solid var(--rose)"><span style="font-size:11px;color:var(--text2);flex:1">Health behaviour and wellbeing indicators</span><span class="chip chip-gray" style="font-size:7px">Phase 3</span></div>
+          </div>
+        </div>
+        <div class="card card-no-mb">
+          <div class="card-label">Study Parameters · Baseline Established</div>
+          <div style="display:flex;flex-direction:column;gap:0">
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px;color:var(--text2)">Study duration</span><span style="font-family:var(--mono);font-size:10px;color:var(--cyan)">16 weeks active</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px;color:var(--text2)">Sessions logged</span><span style="font-family:var(--mono);font-size:10px;color:var(--cyan)">15</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px;color:var(--text2)">Decisions documented</span><span style="font-family:var(--mono);font-size:10px;color:var(--cyan)">85+</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px;color:var(--text2)">Behaviour dimensions</span><span style="font-family:var(--mono);font-size:10px;color:var(--cyan)">7</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)"><span style="font-size:12px;color:var(--text2)">Files built with AI</span><span style="font-family:var(--mono);font-size:10px;color:var(--cyan)">60+</span></div>
+            <div style="display:flex;justify-content:space-between;padding:10px 0"><span style="font-size:12px;color:var(--text2)">University partner</span><span style="font-family:var(--mono);font-size:10px;color:var(--amber)">Phase 3 · TBC</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ AGENTS ═══════════════════ -->
+  <div class="section" id="sec-agents">
+    <div class="ph">
+      <div class="ph-eye">22 Agents · 11 Signed and Active · 11 In Queue</div>
+      <div class="ph-title">YOUR AI TEAM</div>
+      <div class="ph-sub">Not software. Not tools. A team. Each agent has a name, a role, a colour, and an institutional-grade intelligence standard.</div>
+      <div class="ph-rule"></div>
+    </div>
+    <div class="agent-grid">
+      <div class="agent-card" style="border-top:2px solid var(--fire)"><div class="agent-top"><div class="agent-pip" style="background:var(--fire);box-shadow:0 0 6px rgba(255,107,43,0.4)"></div><div class="agent-name" style="color:var(--fire)">CLAUDE</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">AI Strategic Partner and Agent Manager</div><div class="agent-metric">Sessions: <span>15/15</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--cyan)"><div class="agent-top"><div class="agent-pip" style="background:var(--cyan);box-shadow:0 0 6px rgba(0,229,255,0.4)"></div><div class="agent-name" style="color:var(--cyan)">ARIA</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Workspace Intelligence · Second Brain</div><div class="agent-metric">Uptime: <span>24/7</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--royal2)"><div class="agent-top"><div class="agent-pip" style="background:var(--royal2)"></div><div class="agent-name" style="color:#7BAEE8">GRID</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Project Manager · Mission Control Owner</div><div class="agent-metric">Products: <span>9</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--bronze)"><div class="agent-top"><div class="agent-pip" style="background:var(--bronze)"></div><div class="agent-name" style="color:var(--bronze)">SCRIBE</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Document Intelligence · Document Hub Owner</div><div class="agent-metric">Filed: <span>60+ docs</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--gold)"><div class="agent-top"><div class="agent-pip" style="background:var(--gold)"></div><div class="agent-name" style="color:var(--gold)">LEDGER</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">AGI Financial Intelligence · Advisory Only</div><div class="agent-metric">Standard: <span>Goldman/JPMorgan</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--rose)"><div class="agent-top"><div class="agent-pip" style="background:var(--rose)"></div><div class="agent-name" style="color:var(--rose)">PA</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Personal Productivity Assistant</div><div class="agent-metric">Focus: <span>Founder OS</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--violet)"><div class="agent-top"><div class="agent-pip" style="background:var(--violet)"></div><div class="agent-name" style="color:var(--violet)">PULSE</div><div class="agent-status-badge s-active">Beta Owner</div></div><div class="agent-role">Social Media · Content Intelligence</div><div class="agent-metric">Campaign: <span>Live</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--amber)"><div class="agent-top"><div class="agent-pip" style="background:var(--amber)"></div><div class="agent-name" style="color:var(--amber)">RELAY</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Client Onboarding Automation</div><div class="agent-metric">Beta: <span>7 Apr</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--steel)"><div class="agent-top"><div class="agent-pip" style="background:var(--steel)"></div><div class="agent-name" style="color:var(--steel)">SAGE</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Strategic Analytics · Intelligence Backbone</div><div class="agent-metric">Layer: <span>Phase 2</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--teal)"><div class="agent-top"><div class="agent-pip" style="background:var(--teal)"></div><div class="agent-name" style="color:var(--teal)">NEXUS</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Full Stack Developer · DevHub Co-Owner</div><div class="agent-metric">Stack: <span>Cursor</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--lime)"><div class="agent-top"><div class="agent-pip" style="background:var(--lime)"></div><div class="agent-name" style="color:var(--lime)">PROBE</div><div class="agent-status-badge s-active">Active</div></div><div class="agent-role">Software QA · Zero Bug Escape</div><div class="agent-metric">Standard: <span>Zero defect</span></div></div>
+      <div class="agent-card" style="border-top:2px solid var(--green);opacity:0.55"><div class="agent-top"><div class="agent-pip" style="background:var(--green)"></div><div class="agent-name" style="color:var(--green)">SCOUT</div><div class="agent-status-badge s-queue">Queue</div></div><div class="agent-role">Lead Generation · Sales Intelligence</div><div class="agent-metric">Status: <span>In queue</span></div></div>
+    </div>
+    <div style="font-family:var(--mono);font-size:9px;color:var(--text3);text-align:center;margin-top:8px;padding:14px;background:var(--card);border:1px solid var(--border);border-radius:8px">+ 10 more agents in queue · ECHO · SIGNAL · FORGE · ATLAS · ECHO and more · Full team active by Phase 2</div>
+  </div>
+
+  <!-- ═══════════════════ PAIN POINTS ═══════════════════ -->
+  <div class="section" id="sec-painpoints">
+    <div class="ph">
+      <div class="ph-eye">2026 Research · Real Business Owner Pain Points · Every Industry · Every Size</div>
+      <div class="ph-title">PROBLEMS WE SOLVE</div>
+      <div class="ph-sub">Every business owner. Every industry. One platform. Ten problems eliminated in 30 days.</div>
+      <div class="ph-rule"></div>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="pain-num">01</div><div><div class="pain-title">No clarity on what to do first</div><div class="pain-desc">45 minutes of morning paralysis every day. Overwhelmed by tasks with no priority system. The founder is the bottleneck.</div><div class="pain-solved">✓ GRID — daily 3-action stack, every morning, automatic</div></div></div>
+      <div class="pain-card"><div class="pain-num">02</div><div><div class="pain-title">Cannot see their money clearly</div><div class="pain-desc">Cash flow anxiety, bad decisions, missed opportunities. Revenue invisible until month end. No live financial picture.</div><div class="pain-solved">✓ LEDGER — live revenue + financial markets + cashflow projection</div></div></div>
+      <div class="pain-card"><div class="pain-num">03</div><div><div class="pain-title">Wearing too many hats</div><div class="pain-desc">Managing finance, marketing, operations, and support simultaneously. Leads directly to burnout. Growth impossible.</div><div class="pain-solved">✓ 22 agents — each agent owns one function, permanently, 24/7</div></div></div>
+      <div class="pain-card"><div class="pain-num">04</div><div><div class="pain-title">Cannot afford consistent marketing</div><div class="pain-desc">Limited budget, no time, invisible brand. Larger competitors dominate. Social media demands daily presence they cannot sustain.</div><div class="pain-solved">✓ PULSE — daily content in brand voice, zero marginal cost per post</div></div></div>
+      <div class="pain-card"><div class="pain-num">05</div><div><div class="pain-title">Drowning in notifications and admin</div><div class="pain-desc">Email, Slack, requests, interruptions. Constant context switching. Zero deep work. Decisions delayed by noise.</div><div class="pain-solved">✓ ARIA — intelligent filter, only 7 alert types ever reach the founder</div></div></div>
+      <div class="pain-card"><div class="pain-num">06</div><div><div class="pain-title">No consistent lead pipeline</div><div class="pain-desc">Revenue unpredictable. Feast or famine cycle. No automated system to generate, nurture, and convert leads.</div><div class="pain-solved">✓ SCOUT + RELAY — fully automated lead-to-client pipeline</div></div></div>
+      <div class="pain-card"><div class="pain-num">07</div><div><div class="pain-title">Social media burnout</div><div class="pain-desc">Cannot post consistently. Algorithm demands always-on presence. Vanity metrics, low conversion, high effort.</div><div class="pain-solved">✓ PULSE — always on, never tired, built for conversion not likes</div></div></div>
+      <div class="pain-card"><div class="pain-num">08</div><div><div class="pain-title">Cannot afford a full team</div><div class="pain-desc">Stuck at solopreneur ceiling. £80k–£150k/year in salaries to operate at scale. Not viable at early stage.</div><div class="pain-solved">✓ 22 AI agents at £497–£4,997/month · 46× ROI documented</div></div></div>
+      <div class="pain-card"><div class="pain-num">09</div><div><div class="pain-title">Decisions made on gut, not data</div><div class="pain-desc">Wrong turns, wasted spend, missed pivots. No analytics layer to validate strategy before committing resources.</div><div class="pain-solved">✓ SAGE — data analysis and scenario modelling before every decision</div></div></div>
+      <div class="pain-card"><div class="pain-num">10</div><div><div class="pain-title">No proof of growth or progress</div><div class="pain-desc">Imposter syndrome. No investor story. No way to show what the AI team has actually done for the business.</div><div class="pain-solved">✓ Insight Visual Board — transformation score, live, always current</div></div></div>
+    </div>
+    <div class="value-sentence">
+      <div style="font-family:var(--display);font-size:14px;letter-spacing:4px;color:var(--text3);margin-bottom:10px">THE ONE SENTENCE THAT SELLS IT</div>
+      <div style="font-family:var(--serif);font-style:italic;font-size:18px;color:var(--text2);max-width:640px;margin:0 auto;line-height:1.9">"Mission Control gives every business owner a 22-person AI team, a live view of their money, and proof that they are growing — for less than the cost of one part-time employee."</div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════ CONNECT ═══════════════════ -->
+  <div class="section" id="sec-connect">
+    <div class="ph">
+      <div class="ph-eye">Integrations · Connect Your Tools · Phase 2 Full Activation</div>
+      <div class="ph-title">CONNECT</div>
+      <div class="ph-sub">Your business tools feed Mission Control. One screen. One truth. Everything connected.</div>
+      <div class="ph-rule"></div>
+    </div>
+    <div class="connect-grid">
+      <div class="connect-card">
+        <div class="connect-icon">📧</div>
+        <div class="connect-name">GOOGLE WORKSPACE</div>
+        <div class="connect-desc">Gmail, Google Docs, Calendar, and Drive connect to Mission Control. ARIA reads your schedule. SCRIBE files documents to Drive automatically.</div>
+        <div class="connect-btn" onclick="this.textContent='Coming Phase 2';this.classList.add('connected')">Connect Google</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">📄</div>
+        <div class="connect-name">MICROSOFT 365</div>
+        <div class="connect-desc">Word, Excel, Outlook, and OneDrive. SCRIBE writes directly to Word documents. LEDGER exports financial reports to Excel. Full Office integration.</div>
+        <div class="connect-btn" onclick="this.textContent='Coming Phase 2';this.classList.add('connected')">Connect Microsoft</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">💳</div>
+        <div class="connect-name">STRIPE</div>
+        <div class="connect-desc">Live revenue feed to LEDGER dashboard. Payment received alerts via ARIA. Cashflow table updates automatically. Three payment links pending.</div>
+        <div class="connect-btn" onclick="this.textContent='Pending Setup';this.classList.add('connected')">Complete Setup</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">📅</div>
+        <div class="connect-name">CAL.COM</div>
+        <div class="connect-desc">Booking calendar live. RELAY monitors new bookings and triggers the onboarding sequence automatically. First beta booking confirmed 7 Apr.</div>
+        <div class="connect-btn connected">Connected ✓</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">🗄️</div>
+        <div class="connect-name">SUPABASE</div>
+        <div class="connect-desc">Backend database live. Phase 2 sync activates real-time data across all devices. All dashboard figures update live without manual input.</div>
+        <div class="connect-btn connected">Live · Phase 2 ✓</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">🐙</div>
+        <div class="connect-name">GITHUB</div>
+        <div class="connect-desc">60+ files version controlled. SCRIBE tracks changes. NEXUS deploys. Every build logged, recoverable, and auditable. Public repo clean.</div>
+        <div class="connect-btn connected">Connected ✓</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">⌨️</div>
+        <div class="connect-name">CLAUDE CODE</div>
+        <div class="connect-desc">Agentic coding environment. NEXUS and PROBE operate via Claude Code with Cursor at £20/month. Full code execution and deployment capability.</div>
+        <div class="connect-btn connected">Active · DevHub ✓</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">📋</div>
+        <div class="connect-name">DOCUMENT HUB</div>
+        <div class="connect-desc">PhoennixAI's internal Document Management System. Single source of truth. SCRIBE owns. All 60+ files filed, versioned, and searchable. v2.3 live.</div>
+        <div class="connect-btn connected" onclick="window.open('https://valerie-github1.github.io/phoennixai-mission-control/PhoennixAI_DocumentHub.html','_blank')">Open Hub ↗</div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">🔷</div>
+        <div class="connect-name">ANTHROPIC API</div>
+        <div class="connect-desc">Powers LEDGER advisory panel and all AI-assisted features. Claude Sonnet for standard operations. Claude Opus for financial intelligence and research outputs.</div>
+        <div class="connect-btn connected">Active · Opus + Sonnet ✓</div>
+      </div>
+    </div>
+  </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<script>
+// NAV
+var titles={home:'Mission Control · Home · Command Centre',grid:'GRID · Operations · Sprint 15',ledger:'LEDGER · Finance · Advisory Intelligence',insight:'Insight Visual Board · Research · IP #18',agents:'Agent Team · 22 Agents · 11 Active',painpoints:'Problems We Solve · 10 Pain Points Eliminated',connect:'Connect · Integrations · Platform'};
+function nav(id,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.sb-item').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  document.getElementById('tb-title').textContent=titles[id]||id;
+  el.classList.add('active');
+  if(id==='insight') setTimeout(initInsightCharts,100);
+  if(id==='grid') setTimeout(initGridCharts,100);
+  if(id==='ledger') setTimeout(initLedgerChart,100);
+}
+function innerNav(id,el){
+  var p=document.getElementById(id).closest('.section');
+  p.querySelectorAll('.inner-sect').forEach(s=>s.classList.remove('active'));
+  p.querySelectorAll('.inner-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  el.classList.add('active');
+  if(id==='i-chart') setTimeout(initProgressCharts,100);
+}
+
+// DATE
+var now=new Date();
+document.getElementById('tb-date').textContent=now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();
+var beta=new Date('2026-04-07T00:00:00+01:00');
+document.getElementById('days-beta').textContent=Math.max(0,Math.ceil((beta-now)/86400000));
+
+// CHECKBOXES
+function toggleCheck(el){
+  el.classList.toggle('done');
+  el.textContent=el.classList.contains('done')?'✓':'';
+  var row=el.closest('.action-item');
+  if(el.classList.contains('done')){
+    row.style.opacity='0.45';
+    row.querySelector('.action-title').style.textDecoration='line-through';
+  } else {
+    row.style.opacity='1';
+    row.querySelector('.action-title').style.textDecoration='none';
+  }
+}
+
+// CHART DEFAULTS
+Chart.defaults.color='rgba(255,255,255,0.35)';
+Chart.defaults.borderColor='rgba(33,92,174,0.1)';
+Chart.defaults.font.family="'DM Mono', monospace";
+Chart.defaults.font.size=10;
+
+var royal='#215CAE',royal2='#2E6FC0',cyan='#00E5FF',gold='#FFB830',green='#22C55E',violet='#A78BFA',rose='#F43F5E',amber='#FB923C',steel='#4682B4';
+
+// SESSION PRODUCTIVITY CHART
+function initSessionChart(){
+  var ctx=document.getElementById('chart-sessions');
+  if(!ctx||ctx._chart)return;
+  ctx._chart=new Chart(ctx,{type:'bar',data:{labels:['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13','S14','S15'],datasets:[{label:'Deliverables',data:[3,4,5,4,6,5,7,6,8,9,12,10,8,9,11],backgroundColor:'rgba(33,92,174,0.5)',borderColor:royal2,borderWidth:1,borderRadius:4},{label:'Decisions Made',data:[2,3,4,3,5,4,6,5,7,8,9,8,6,7,8],backgroundColor:'rgba(0,229,255,0.15)',borderColor:cyan,borderWidth:1,borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:10,padding:16}}},scales:{x:{grid:{color:'rgba(33,92,174,0.06)'}},y:{grid:{color:'rgba(33,92,174,0.06)'}}}}});
+}
+
+// PRODUCTS DOUGHNUT
+function initGridCharts(){
+  var ctx=document.getElementById('chart-products');
+  if(!ctx||ctx._chart)return;
+  ctx._chart=new Chart(ctx,{type:'doughnut',data:{labels:['Live','Alpha','Building','Planned'],datasets:[{data:[6,1,1,1],backgroundColor:['rgba(34,197,94,0.7)','rgba(33,92,174,0.7)','rgba(251,146,60,0.7)','rgba(255,255,255,0.15)'],borderColor:['rgba(34,197,94,0.9)','rgba(33,92,174,0.9)','rgba(251,146,60,0.9)','rgba(255,255,255,0.2)'],borderWidth:1}]},options:{responsive:true,maintainAspectRatio:false,cutout:'68%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}}}});
+}
+
+// REVENUE SCENARIOS BAR
+function initLedgerChart(){
+  var ctx=document.getElementById('chart-revenue');
+  if(!ctx||ctx._chart)return;
+  ctx._chart=new Chart(ctx,{type:'bar',data:{labels:['Floor\n10×T1','Mid\n10×T2','Ceiling\n10×T3'],datasets:[{label:'Revenue',data:[4970,14970,49970],backgroundColor:['rgba(33,92,174,0.5)','rgba(0,229,255,0.4)','rgba(196,154,108,0.5)'],borderColor:[royal2,cyan,'#C49A6C'],borderWidth:1,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'rgba(33,92,174,0.06)'},ticks:{callback:v=>'£'+v.toLocaleString()}}}}});
+}
+
+// RADAR
+function initInsightCharts(){
+  var ctx=document.getElementById('chart-radar');
+  if(!ctx||ctx._chart)return;
+  ctx._chart=new Chart(ctx,{type:'radar',data:{labels:['Decision Velocity','Output Quality','Session Productivity','Agent Utilisation','Cognitive Load↓','Revenue Correlation','Error Rate↓'],datasets:[{label:'Session 15',data:[82,90,78,65,72,58,68],fill:true,backgroundColor:'rgba(33,92,174,0.15)',borderColor:royal2,pointBackgroundColor:royal2,pointRadius:4},{label:'Session 1 Baseline',data:[20,25,15,5,20,5,20],fill:true,backgroundColor:'rgba(255,184,48,0.06)',borderColor:'rgba(255,184,48,0.4)',pointBackgroundColor:gold,pointRadius:3}]},options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:true,max:100,grid:{color:'rgba(33,92,174,0.12)'},pointLabels:{font:{size:9},color:'rgba(255,255,255,0.45)'},ticks:{display:false}}},plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12}}}}});
+}
+
+// PROGRESS CHARTS
+function initProgressCharts(){
+  var ctx1=document.getElementById('chart-score-progress');
+  if(ctx1&&!ctx1._chart){
+    ctx1._chart=new Chart(ctx1,{type:'line',data:{labels:['S1','S2','S3','S4','S5','S6','S7','S8','S9','S10','S11','S12','S13','S14','S15'],datasets:[{label:'Transformation Score',data:[18,22,27,30,35,38,43,47,52,56,62,65,68,70,74],fill:true,backgroundColor:'rgba(33,92,174,0.12)',borderColor:royal2,pointBackgroundColor:royal2,pointRadius:4,tension:0.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(33,92,174,0.06)'}},y:{min:0,max:100,grid:{color:'rgba(33,92,174,0.06)'},ticks:{callback:v=>v+'/100'}}}}});
+  }
+  var ctx2=document.getElementById('chart-compare');
+  if(ctx2&&!ctx2._chart){
+    ctx2._chart=new Chart(ctx2,{type:'bar',data:{labels:['Decision\nVelocity','Output\nQuality','Session\nProd.','Agent\nUtil.','Cognitive\nLoad','Revenue\nCorr.','Error\nRate'],datasets:[{label:'Session 1',data:[20,25,15,5,20,5,20],backgroundColor:'rgba(255,184,48,0.3)',borderColor:gold,borderWidth:1,borderRadius:3},{label:'Session 15',data:[82,90,78,65,72,58,68],backgroundColor:'rgba(33,92,174,0.5)',borderColor:royal2,borderWidth:1,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top',labels:{boxWidth:10,padding:12}}},scales:{x:{grid:{display:false}},y:{max:100,grid:{color:'rgba(33,92,174,0.06)'}}}}});
+  }
+}
+
+// LEDGER API
+async function runLedger(){
+  var out=document.getElementById('ledger-out');
+  var q=document.getElementById('ledger-q');
+  var question=q?q.value.trim():'';
+  out.innerHTML='<span style="font-family:var(--mono);font-size:10px;color:var(--gold);letter-spacing:2px">LEDGER ANALYSING…</span>';
+  var sys='You are LEDGER, Agent 006 of PhoennixAI. AGI-level financial super intelligence. Goldman Sachs MD + JPMorgan quant + Big Four CFO. Precision only. No estimates. No hedging. Advisory only — never execute. Human sign-off mandatory.\n\nContext: PhoennixAI beta opens 7 April 2026. 10 founding slots. T1 £497, T2 £1,497, T3 £4,997. Annual target £252,470. One booking confirmed. Stripe pending. UK inflation 3.1%. BoE rate 4.50%.\n\nDeliver 3-4 institutional-grade paragraphs. No bullet points. State financial reality clearly. Advise the single most important action.';
+  var user=question||'Provide a standing financial intelligence brief. Cover: current position, the most important financial action before 7 April, and the exact risk if Stripe payment links are not live when beta opens.';
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:sys,messages:[{role:'user',content:user}]})});
+    var d=await r.json();
+    var txt=d.content&&d.content[0]?d.content[0].text:'LEDGER advisory unavailable.';
+    out.innerHTML=txt.split('\n\n').map(p=>'<p style="margin-bottom:12px;font-size:13px;color:var(--text);line-height:1.9">'+p+'</p>').join('');
+    if(q)q.value='';
+  }catch(e){
+    out.innerHTML='<span style="color:var(--rose);font-family:var(--mono);font-size:10px">LEDGER advisory unavailable. API connection required. This feature activates in Phase 2.</span>';
+  }
+}
+
+// INIT HOME CHART ON LOAD
+setTimeout(()=>{
+  initSessionChart();
+  document.querySelectorAll('.dim-fill,.rev-fill').forEach(b=>{var w=b.style.width;b.style.width='0%';setTimeout(()=>{b.style.width=w;},200);});
+},400);
+</script>
+</body>
+</html>
