@@ -30,7 +30,7 @@ body::after{content:'';position:fixed;inset:0;background:radial-gradient(ellipse
 .cd-unit{display:flex;flex-direction:column;align-items:center;min-width:60px}
 .cd-n{font-family:'DM Mono',monospace;font-size:42px;font-weight:400;color:#C9A96E;line-height:1;letter-spacing:2px}
 .cd-l{font-family:'DM Mono',monospace;font-size:7px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-top:5px}
-.cd-sep{font-family:'DM Mono',monospace;font-size:20px;color:rgba(0,229,255,0.18);margin:0 2px 10px;line-height:1}
+.cd-sep{font-family:'DM Mono',monospace;font-size:28px;color:rgba(201,169,110,0.55);margin:0 4px 10px;line-height:1}
 .agents-lbl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.22);margin-bottom:10px}
 .agents{display:flex;flex-wrap:wrap;gap:8px 14px}
 .ag{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.28);display:flex;align-items:center;gap:5px;transition:color 0.25s;cursor:default}
@@ -98,7 +98,7 @@ textarea{resize:none;min-height:56px;line-height:1.65}
     <div class="hero">
       <div class="eyebrow">Limited Access · 7 April 2026</div>
       <h1 class="headline">Your business<br>deserves <em>more</em><br>than one<br>founder.</h1>
-      <p class="subline">22 AI agents. Each with a name, a role, and a colour. Built to run the parts of your business that are running you.</p>
+      <p class="subline">You are testing Mission Control — the command centre at the heart of PhoennixAI's Business Operating System. This is Phase 1. Over the next 12 months, the full BOS expands around it.</p>
       <div class="cd">
         <div class="cd-unit"><div class="cd-n" id="d">--</div><div class="cd-l">Days</div></div>
         <div class="cd-sep">:</div>
@@ -128,7 +128,13 @@ textarea{resize:none;min-height:56px;line-height:1.65}
       </div>
     </div>
     <div class="status-bar">
-      <div class="status-row">
+      <div style="font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:rgba(201,169,110,0.6);margin-bottom:10px">What you are helping us build</div>
+      <div style="font-size:12px;color:rgba(255,255,255,0.38);line-height:2;font-family:'Cormorant Garamond',serif;font-style:italic">
+        Does Mission Control solve your real business problems?<br>
+        Does it meet, exceed, or fall short of your expectations?<br>
+        As a founding beta member, you shape the whole system from the ground up.
+      </div>
+      <div class="status-row" style="margin-top:12px">
         <span class="s-item"><span>●</span> ALPHA LIVE</span>
         <span class="s-item"><span>○</span> BETA 7 APR</span>
         <span class="s-item">◈ 10 SLOTS</span>
@@ -168,14 +174,14 @@ textarea{resize:none;min-height:56px;line-height:1.65}
       <div class="field">
         <label class="fl">Investment Level <span class="r">*</span></label>
         <div class="tiers">
-          <label class="tier"><input type="radio" name="tier_interest" value="Tier 1 — £497" required><div class="tier-face"><div class="t-tag">Tier 01</div><div class="t-price">£497</div><div class="t-name">Starter</div></div></label>
-          <label class="tier"><input type="radio" name="tier_interest" value="Tier 2 — £1,497"><div class="tier-face"><div class="t-tag">Tier 02</div><div class="t-price">£1,497</div><div class="t-name">Full Suite</div></div></label>
-          <label class="tier"><input type="radio" name="tier_interest" value="Tier 3 — £4,997"><div class="tier-face"><div class="t-tag">Tier 03</div><div class="t-price">£4,997</div><div class="t-name">Enterprise</div></div></label>
+          <label class="tier"><input type="radio" name="tier_interest" value="Tier 1 — £497" required><div class="tier-face"><div class="t-tag">Tier 01</div><div class="t-price">£497</div><div class="t-name">Starter</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:8px;line-height:1.6">Core AI team. ARIA, PA, GRID, SCRIBE. 30-day full access. Founder onboarding call.</div></div></label>
+          <label class="tier"><input type="radio" name="tier_interest" value="Tier 2 — £1,497"><div class="tier-face"><div class="t-tag">Tier 02 · Recommended</div><div class="t-price">£1,497</div><div class="t-name">Full Suite</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:8px;line-height:1.6">All 22 agents. PULSE, LEDGER, RELAY, SCOUT included. Priority support. Full BOS access.</div></div></label>
+          <label class="tier"><input type="radio" name="tier_interest" value="Tier 3 — £4,997"><div class="tier-face"><div class="t-tag">Tier 03</div><div class="t-price">£4,997</div><div class="t-name">Enterprise</div><div style="font-size:10px;color:rgba(255,255,255,0.3);margin-top:8px;line-height:1.6">Everything in Full Suite plus custom agent configuration and monthly strategy session with Valerie.</div></div></label>
         </div>
       </div>
       <div class="sub-wrap">
         <button type="submit" class="sub-btn" id="sub-btn"><span>Request Access</span><svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 4h12M8 1l3 3-3 3"/></svg></button>
-        <div class="sub-note">No payment today. Every application is reviewed personally.<br>You will hear from Valerie before 7 April 2026.</div>
+        <div class="sub-note">No payment today. Every application is reviewed personally by Valerie.<br>You are not a guinea pig. You are a co-creator. Your feedback directly shapes the product.<br>Founding rate is locked for life — the price goes up at public launch.</div>
       </div>
     </form>
   </div>
@@ -189,11 +195,11 @@ textarea{resize:none;min-height:56px;line-height:1.65}
     <p class="conf-b">Your application is with Valerie. Expect a personal message before 7 April 2026. Book your discovery call below.</p>
     <a href="https://cal.com/phoennixai/beta-discovery" target="_blank" class="conf-btn">Book Discovery Call <svg width="14" height="8" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M1 4h12M8 1l3 3-3 3"/></svg></a>
     <a href="https://cal.com/phoennixai/onboarding" target="_blank" class="conf-sec">Already a client? Book your onboarding →</a>
-    <div class="conf-ref">PAI-BETA-2026 · <span id="ct"></span> · valerie@phoennixai.com</div>
+    <div class="conf-ref">PAI-BETA-2026 · <span id="ct"></span> · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9ee8fff2fbecf7fbdeeef6f1fbf0f0f7e6fff7b0fdf1f3">[email&#160;protected]</a></div>
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 var BETA = new Date('2026-04-07T00:00:00+01:00').getTime();
 function tick(){
   var t = BETA - Date.now();
@@ -222,9 +228,12 @@ function show(){
   document.getElementById('page').style.display='none';
   var c=document.getElementById('confirm');
   c.style.display='flex';
-  var n=new Date();
-  var mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  document.getElementById('ct').textContent=n.getDate()+' '+mo[n.getMonth()]+' '+n.getFullYear();
+  c.style.flexDirection='column';
+  c.style.alignItems='center';
+  c.style.justifyContent='center';
+  var now = new Date();
+  var el = document.getElementById('ct');
+  if(el) el.textContent = now.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}) + ' ' + now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
 }
 </script>
 </body>
