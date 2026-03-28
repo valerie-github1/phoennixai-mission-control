@@ -1,0 +1,17 @@
+# PhoennixAI .gitignore
+# Secrets
+config.js
+.env
+.env.local
+.env.production
+
+# Phase 2 build artifacts
+node_modules/
+.next/
+dist/
+build/
+.vercel/
+
+# OS files
+.DS_Store
+Thumbs.db
