@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI — Sign In</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='f' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0%25' stop-color='%23FF6B2B'/%3E%3Cstop offset='100%25' stop-color='%2300E5FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 2c-2 4-6 8-6 14 0 6 3 10 6 14 3-4 6-8 6-14 0-6-4-10-6-14z' fill='url(%23f)'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --midnight:#060A18;
+  --surface:#0D1220;
+  --card:#111827;
+  --border:rgba(255,255,255,0.07);
+  --border-light:rgba(255,255,255,0.12);
+  --text:#E8E8E8;
+  --muted:#6B7280;
+  --phoenix-blue:#00E5FF;
+  --phoenix-blue-dim:rgba(0,229,255,0.1);
+  --phoenix-blue-glow:rgba(0,229,255,0.25);
+  --fire:#FF6B2B;
+  --fire-dim:rgba(255,107,43,0.1);
+  --gold:#FFB830;
+  --red:#EF4444;
+  --green:#22C55E;
+}
+
+body {
+  background: var(--midnight);
+  color: var(--text);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background glow */
+body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(0,229,255,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -10%;
+  right: 10%;
+  width: 500px;
+  height: 400px;
+  background: radial-gradient(ellipse, rgba(255,107,43,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Grid dots bg */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+  pointer-events: none;
+}
+
+/* Layout */
+.auth-wrap {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 440px;
+  padding: 24px 16px;
+}
+
+/* Logo */
+.auth-logo {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.logo-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo-flame {
+  width: 36px;
+  height: 36px;
+}
+.logo-wordmark {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 4px;
+  color: var(--fire);
+  line-height: 1;
+}
+.logo-wordmark span { color: #fff; }
+.logo-tagline {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--phoenix-blue);
+  margin-top: 6px;
+  opacity: 0.6;
+}
+
+/* Card */
+.auth-card {
+  background: var(--card);
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 40px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.auth-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--phoenix-blue-glow), transparent);
+}
+
+.auth-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.auth-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+.auth-sub a {
+  color: var(--phoenix-blue);
+  text-decoration: none;
+  font-weight: 500;
+}
+.auth-sub a:hover { text-decoration: underline; }
+
+/* Form */
+.form-group {
+  margin-bottom: 20px;
+}
+.form-label {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.form-input {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input::placeholder { color: var(--muted); opacity: 0.6; }
+.form-input:focus {
+  border-color: var(--phoenix-blue);
+  box-shadow: 0 0 0 3px var(--phoenix-blue-dim);
+}
+.form-input.error {
+  border-color: var(--red);
+  box-shadow: 0 0 0 3px rgba(239,68,68,0.1);
+}
+
+/* Password row */
+.password-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.forgot-link {
+  font-size: 12px;
+  color: var(--phoenix-blue);
+  text-decoration: none;
+  opacity: 0.8;
+}
+.forgot-link:hover { opacity: 1; text-decoration: underline; }
+
+.input-wrap {
+  position: relative;
+}
+.input-wrap .form-input { padding-right: 44px; }
+.toggle-pw {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+.toggle-pw:hover { color: var(--text); }
+
+/* Remember me */
+.remember-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+.custom-check {
+  width: 16px;
+  height: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+.custom-check.checked {
+  background: var(--phoenix-blue);
+  border-color: var(--phoenix-blue);
+}
+.custom-check svg { opacity: 0; transition: opacity 0.15s; }
+.custom-check.checked svg { opacity: 1; }
+.remember-label {
+  font-size: 13px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Submit */
+.btn-signin {
+  width: 100%;
+  background: linear-gradient(135deg, var(--fire) 0%, #E8521A 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 13px 24px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 17px;
+  letter-spacing: 2px;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(255,107,43,0.25);
+  position: relative;
+  overflow: hidden;
+}
+.btn-signin::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background 0.15s;
+}
+.btn-signin:hover { opacity: 0.92; box-shadow: 0 6px 28px rgba(255,107,43,0.35); }
+.btn-signin:active { transform: scale(0.99); }
+.btn-signin:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+.btn-signin.loading::after {
+  background: rgba(0,0,0,0.1);
+}
+
+/* Spinner inside button */
+.spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 0 auto;
+}
+.btn-signin.loading .btn-text { display: none; }
+.btn-signin.loading .spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 28px 0;
+}
+.divider-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.divider-text {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+/* SSO Buttons */
+.sso-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.btn-sso {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.btn-sso:hover {
+  background: rgba(255,255,255,0.04);
+  border-color: rgba(255,255,255,0.18);
+}
+.btn-sso svg { flex-shrink: 0; }
+
+/* Error message */
+.error-msg {
+  display: none;
+  background: rgba(239,68,68,0.08);
+  border: 1px solid rgba(239,68,68,0.2);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #FCA5A5;
+  margin-bottom: 20px;
+  align-items: center;
+  gap: 8px;
+}
+.error-msg.visible { display: flex; }
+
+/* Footer */
+.auth-footer {
+  text-align: center;
+  margin-top: 28px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.auth-footer a {
+  color: var(--muted);
+  text-decoration: none;
+  opacity: 0.7;
+}
+.auth-footer a:hover { opacity: 1; color: var(--text); }
+.auth-footer span { margin: 0 6px; opacity: 0.3; }
+
+/* Status badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.18);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 1px;
+  color: var(--green);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+</style>
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<div class="auth-wrap">
+
+  <!-- Logo -->
+  <div class="auth-logo">
+    <div class="logo-mark">
+      <svg class="logo-flame" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="flameGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#FF6B2B"/>
+            <stop offset="60%" stop-color="#FFB830"/>
+            <stop offset="100%" stop-color="#00E5FF"/>
+          </linearGradient>
+        </defs>
+        <path d="M16 2c-1.5 3.5-5 7.5-5 12.5 0 3 1 5.5 2.5 7.5-0.5-2-0.5-4.5 1-6.5 0.5 2.5 1.5 5 3 7 1.5-2 2.5-4.5 3-7 1.5 2 1.5 4.5 1 6.5C23 19.5 24 17 24 14.5 24 9.5 17.5 5.5 16 2z" fill="url(#flameGrad)"/>
+        <ellipse cx="16" cy="22" rx="4" ry="5" fill="#FFE566" opacity="0.7"/>
+        <ellipse cx="16" cy="23" rx="2" ry="2.5" fill="#fff" opacity="0.8"/>
+      </svg>
+      <div>
+        <div class="logo-wordmark">PHOENNIX<span>AI</span></div>
+        <div class="logo-tagline">Intelligence Platform</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Card -->
+  <div class="auth-card">
+
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:6px; flex-wrap:wrap; gap:10px;">
+      <div>
+        <div class="auth-heading">SIGN IN</div>
+        <div class="auth-sub">New here? <a href="#">Create an account</a></div>
+      </div>
+      <div class="status-badge" style="margin-bottom:0;">
+        <span class="status-dot"></span>
+        All systems live
+      </div>
+    </div>
+
+    <!-- Error banner -->
+    <div class="error-msg" id="errorBanner">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM7.25 4.75h1.5v4.5h-1.5v-4.5zM8 11.5a.875.875 0 110-1.75.875.875 0 010 1.75z" fill="#FCA5A5"/>
+      </svg>
+      <span id="errorText">Invalid credentials. Please try again.</span>
+    </div>
+
+    <form id="loginForm" novalidate>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label class="form-label" for="email">Email Address</label>
+        <input
+          class="form-input"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@phoennixai.com"
+          autocomplete="email"
+          spellcheck="false"
+        >
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <div class="password-row">
+          <label class="form-label" for="password" style="margin-bottom:0;">Password</label>
+          <a href="#" class="forgot-link">Forgot password?</a>
+        </div>
+        <div class="input-wrap">
+          <input
+            class="form-input"
+            type="password"
+            id="password"
+            name="password"
+            placeholder="••••••••••"
+            autocomplete="current-password"
+          >
+          <button type="button" class="toggle-pw" id="togglePw" aria-label="Toggle password visibility">
+            <svg id="eyeIcon" width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M10 4C5.5 4 2 7.5 2 10s3.5 6 8 6 8-3.5 8-6-3.5-6-8-6zm0 10a4 4 0 110-8 4 4 0 010 8zm0-6a2 2 0 100 4 2 2 0 000-4z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Remember me -->
+      <div class="remember-row" id="rememberRow">
+        <div class="custom-check" id="rememberCheck">
+          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+            <path d="M1 4l2.5 2.5L9 1" stroke="#060A18" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="remember-label" id="rememberLabel">Keep me signed in</span>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-signin" id="submitBtn">
+        <span class="btn-text">SIGN IN TO PHOENNIXAI</span>
+        <div class="spinner"></div>
+      </button>
+
+    </form>
+
+    <!-- Divider -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-text">or continue with</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- SSO -->
+    <div class="sso-grid">
+      <a href="#" class="btn-sso">
+        <svg width="16" height="16" viewBox="0 0 24 24">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+        </svg>
+        Google
+      </a>
+      <a href="#" class="btn-sso">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="auth-footer">
+    <a href="#">Privacy Policy</a><span>·</span>
+    <a href="#">Terms of Service</a><span>·</span>
+    <a href="#">Security</a>
+    <br>
+    &copy; 2025 PhoennixAI. All rights reserved.
+  </div>
+
+</div>
+
+<script>
+  // Toggle password visibility
+  const pwInput = document.getElementById('password');
+  const toggleBtn = document.getElementById('togglePw');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  toggleBtn.addEventListener('click', () => {
+    const visible = pwInput.type === 'text';
+    pwInput.type = visible ? 'password' : 'text';
+    eyeIcon.innerHTML = visible
+      ? '<path d="M10 4C5.5 4 2 7.5 2 10s3.5 6 8 6 8-3.5 8-6-3.5-6-8-6zm0 10a4 4 0 110-8 4 4 0 010 8zm0-6a2 2 0 100 4 2 2 0 000-4z"/>'
+      : '<path d="M2 2l16 16M6.5 6.5A6.5 6.5 0 003 10c0 2.5 3.5 6 7 6a6.8 6.8 0 004.5-1.5M9 4.2A7 7 0 0117 10c0 1-.3 2-.8 2.9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" fill="none"/>';
+  });
+
+  // Remember me toggle
+  const check = document.getElementById('rememberCheck');
+  const label = document.getElementById('rememberLabel');
+  let remembered = false;
+  [check, label].forEach(el => {
+    el.addEventListener('click', () => {
+      remembered = !remembered;
+      check.classList.toggle('checked', remembered);
+    });
+  });
+
+  // Form submit
+  const form = document.getElementById('loginForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const errorBanner = document.getElementById('errorBanner');
+  const errorText = document.getElementById('errorText');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBanner.classList.remove('visible');
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    // Basic validation
+    if (!email || !password) {
+      errorText.textContent = 'Please enter your email and password.';
+      errorBanner.classList.add('visible');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      errorText.textContent = 'Please enter a valid email address.';
+      errorBanner.classList.add('visible');
+      document.getElementById('email').classList.add('error');
+      return;
+    }
+
+    // Simulate auth request
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+
+    await new Promise(r => setTimeout(r, 1500));
+
+    submitBtn.classList.remove('loading');
+    submitBtn.disabled = false;
+
+    // Demo: show error for any login (replace with real auth logic)
+    errorText.textContent = 'Invalid credentials. Check your email and password.';
+    errorBanner.classList.add('visible');
+    document.getElementById('password').classList.add('error');
+  });
+
+  // Clear error styling on input
+  ['email','password'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      this.classList.remove('error');
+      errorBanner.classList.remove('visible');
+    });
+  });
+</script>
+</body>
+</html>

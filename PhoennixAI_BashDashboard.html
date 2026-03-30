@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhoennixAI — Bash Dashboard</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='f' x1='0' y1='1' x2='0' y2='0'%3E%3Cstop offset='0%25' stop-color='%23FF6B2B'/%3E%3Cstop offset='100%25' stop-color='%2300E5FF'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M16 2c-2 4-6 8-6 14 0 6 3 10 6 14 3-4 6-8 6-14 0-6-4-10-6-14z' fill='url(%23f)'/%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --midnight:#060A18;
+  --surface:#0D1220;
+  --card:#111827;
+  --border:rgba(255,255,255,0.07);
+  --border-light:rgba(255,255,255,0.12);
+  --text:#E8E8E8;
+  --muted:#6B7280;
+  --dim:#374151;
+  --phoenix-blue:#00E5FF;
+  --phoenix-blue-dim:rgba(0,229,255,0.1);
+  --phoenix-blue-glow:rgba(0,229,255,0.2);
+  --fire:#FF6B2B;
+  --fire-dim:rgba(255,107,43,0.1);
+  --gold:#FFB830;
+  --gold-dim:rgba(255,184,48,0.1);
+  --green:#22C55E;
+  --green-dim:rgba(34,197,94,0.1);
+  --red:#EF4444;
+  --red-dim:rgba(239,68,68,0.1);
+  --violet:#A78BFA;
+  --amber:#FB923C;
+}
+html,body{height:100%;overflow:hidden}
+body{background:var(--midnight);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;font-size:13px;display:flex;flex-direction:column}
+
+/* TOPBAR */
+.topbar{height:48px;background:rgba(13,18,32,0.95);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 16px;gap:16px;flex-shrink:0;backdrop-filter:blur(8px);z-index:100}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.topbar-wordmark{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;color:var(--fire);line-height:1}
+.topbar-wordmark span{color:#fff}
+.topbar-sep{width:1px;height:20px;background:var(--border-light)}
+.topbar-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--phoenix-blue);opacity:0.8}
+.topbar-spacer{flex:1}
+.topbar-stat{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--muted);text-transform:uppercase}
+.topbar-stat-val{color:var(--phoenix-blue);font-weight:500}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.topbar-avatar{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--fire),var(--gold));display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:#fff;letter-spacing:0.5px;cursor:pointer;border:1px solid rgba(255,255,255,0.15);margin-left:8px}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:210px 1fr 288px;flex:1;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{background:var(--surface);border-right:1px solid var(--border);overflow-y:auto;padding:16px 0;display:flex;flex-direction:column}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.sidebar-section{margin-bottom:24px}
+.sidebar-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:0 16px;margin-bottom:6px;opacity:0.6}
+.sidebar-item{display:flex;align-items:center;gap:10px;padding:8px 16px;cursor:pointer;transition:background 0.15s;border-left:2px solid transparent;color:var(--muted);font-size:13px}
+.sidebar-item:hover{background:rgba(255,255,255,0.03);color:var(--text)}
+.sidebar-item.active{background:var(--phoenix-blue-dim);border-left-color:var(--phoenix-blue);color:var(--phoenix-blue)}
+.sidebar-badge{margin-left:auto;font-family:'DM Mono',monospace;font-size:9px;padding:1px 6px;border-radius:10px;font-weight:500;background:var(--phoenix-blue-dim);color:var(--phoenix-blue)}
+.sidebar-badge.red{background:var(--red-dim);color:var(--red)}
+.sidebar-badge.amber{background:rgba(251,146,60,0.12);color:var(--amber)}
+.agent-item{display:flex;align-items:center;gap:10px;padding:7px 16px;cursor:pointer;transition:background 0.15s;color:var(--muted);font-size:12px}
+.agent-item:hover{background:rgba(255,255,255,0.02);color:var(--text)}
+.agent-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.agent-dot.online{background:var(--green)}
+.agent-dot.busy{background:var(--amber)}
+.agent-dot.idle{background:var(--dim)}
+.agent-dot.error{background:var(--red)}
+.agent-role{font-size:10px;color:var(--dim);margin-left:auto;font-family:'DM Mono',monospace}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;overflow:hidden;background:var(--midnight)}
+.stats-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border);flex-shrink:0}
+.stat-card{padding:14px 20px;border-right:1px solid var(--border);position:relative;overflow:hidden}
+.stat-card:last-child{border-right:none}
+.stat-label{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.stat-value{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:#fff;line-height:1}
+.stat-sub{font-size:10px;color:var(--muted);margin-top:3px}
+.stat-delta{font-family:'DM Mono',monospace;font-size:9px;color:var(--green);margin-top:2px}
+.stat-delta.down{color:var(--red)}
+.stat-accent{position:absolute;bottom:0;left:0;right:0;height:2px}
+
+/* TERMINAL */
+.terminal-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.terminal-header{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+.terminal-dots{display:flex;gap:5px}
+.t-dot{width:10px;height:10px;border-radius:50%}
+.t-dot.red{background:#EF4444}
+.t-dot.amber{background:#F59E0B}
+.t-dot.green{background:#22C55E}
+.terminal-path{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);flex:1;text-align:center}
+.terminal-path span{color:var(--phoenix-blue)}
+.terminal-actions{display:flex;gap:8px}
+.t-action{background:none;border:1px solid var(--border-light);border-radius:5px;padding:3px 8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:background 0.15s,color 0.15s}
+.t-action:hover{background:rgba(255,255,255,0.04);color:var(--text)}
+.terminal-body{flex:1;overflow-y:auto;padding:16px;font-family:'DM Mono',monospace;font-size:12px;line-height:1.7;background:#060A18}
+.terminal-body::-webkit-scrollbar{width:4px}
+.terminal-body::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.t-line{display:flex;gap:8px;margin-bottom:1px}
+.t-prompt{flex-shrink:0}
+.t-prompt.system{color:var(--phoenix-blue)}
+.t-prompt.agent{color:var(--violet)}
+.t-prompt.warn{color:var(--gold)}
+.t-prompt.error{color:var(--red)}
+.t-prompt.ok{color:var(--green)}
+.t-prompt.user{color:var(--fire)}
+.t-text{flex:1;word-break:break-all;color:var(--text)}
+.t-text.dim{color:var(--muted)}
+.t-text.blue{color:var(--phoenix-blue)}
+.t-text.green{color:var(--green)}
+.t-text.red{color:var(--red)}
+.t-text.gold{color:var(--gold)}
+.t-text.violet{color:var(--violet)}
+.t-text.amber{color:var(--amber)}
+.t-spacer{height:8px}
+.terminal-input-bar{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--surface);border-top:1px solid var(--border);flex-shrink:0}
+.t-input-prompt{font-family:'DM Mono',monospace;font-size:12px;color:var(--fire);flex-shrink:0}
+.t-input{flex:1;background:none;border:none;outline:none;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);caret-color:var(--phoenix-blue)}
+.t-input::placeholder{color:var(--dim)}
+.t-input-run{background:var(--phoenix-blue-dim);border:1px solid rgba(0,229,255,0.2);border-radius:5px;padding:4px 10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--phoenix-blue);cursor:pointer;transition:background 0.15s;text-transform:uppercase;flex-shrink:0}
+.t-input-run:hover{background:rgba(0,229,255,0.15)}
+
+/* RIGHT PANEL */
+.right-panel{border-left:1px solid var(--border);background:var(--surface);overflow-y:auto;display:flex;flex-direction:column}
+.right-panel::-webkit-scrollbar{width:4px}
+.right-panel::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
+.panel-section{border-bottom:1px solid var(--border);padding:16px}
+.panel-title{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--phoenix-blue);margin-bottom:14px;opacity:0.7;display:flex;align-items:center;gap:8px}
+.panel-title::after{content:'';flex:1;height:1px;background:var(--border)}
+.metric-row{margin-bottom:12px}
+.metric-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px}
+.metric-name{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.metric-val{font-family:'DM Mono',monospace;font-size:11px;color:var(--text);font-weight:500}
+.metric-bar{height:4px;background:var(--border-light);border-radius:2px;overflow:hidden}
+.metric-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.metric-fill.blue{background:var(--phoenix-blue)}
+.metric-fill.fire{background:var(--fire)}
+.metric-fill.gold{background:var(--gold)}
+.metric-fill.green{background:var(--green)}
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)}
+.task-item:last-child{border-bottom:none}
+.task-icon{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;margin-top:1px}
+.task-icon.done{background:var(--green-dim);color:var(--green)}
+.task-icon.run{background:var(--phoenix-blue-dim);color:var(--phoenix-blue)}
+.task-icon.fail{background:var(--red-dim);color:var(--red)}
+.task-icon.queue{background:var(--gold-dim);color:var(--gold)}
+.task-body{flex:1;min-width:0}
+.task-name{font-size:12px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task-meta{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted);margin-top:2px;letter-spacing:0.5px}
+.task-dur{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim);flex-shrink:0;margin-top:3px}
+.log-item{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.03);align-items:flex-start}
+.log-time{font-family:'DM Mono',monospace;font-size:9px;color:var(--dim);flex-shrink:0;margin-top:1px}
+.log-badge{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:1px;padding:1px 5px;border-radius:3px;flex-shrink:0;text-transform:uppercase;margin-top:1px}
+.log-badge.info{background:var(--phoenix-blue-dim);color:var(--phoenix-blue)}
+.log-badge.warn{background:var(--gold-dim);color:var(--gold)}
+.log-badge.error{background:var(--red-dim);color:var(--red)}
+.log-badge.ok{background:var(--green-dim);color:var(--green)}
+.log-text{font-size:11px;color:var(--muted);line-height:1.4}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="topbar-logo" href="#">
+    <svg width="20" height="20" viewBox="0 0 32 32">
+      <defs><linearGradient id="tg" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#FF6B2B"/><stop offset="100%" stop-color="#00E5FF"/></linearGradient></defs>
+      <path d="M16 2c-2 4-6 8-6 14 0 6 3 10 6 14 3-4 6-8 6-14 0-6-4-10-6-14z" fill="url(#tg)"/>
+    </svg>
+    <span class="topbar-wordmark">PHOENNIX<span>AI</span></span>
+  </a>
+  <div class="topbar-sep"></div>
+  <span class="topbar-title">Bash Dashboard</span>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-stat"><span class="status-dot"></span><span>Runtime</span><span class="topbar-stat-val" id="runtimeClock">00:00:00</span></div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-stat"><span>Agents</span><span class="topbar-stat-val">9 Online</span></div>
+  <div class="topbar-sep"></div>
+  <div class="topbar-stat"><span>Env</span><span class="topbar-stat-val">Production</span></div>
+  <div class="topbar-avatar">WX</div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigation</div>
+      <div class="sidebar-item active">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2h5v5H2zm7 0h5v5H9zM2 9h5v5H2zm7 0h5v5H9z"/></svg>
+        Overview
+      </div>
+      <div class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="1" y="3" width="14" height="10" rx="2"/><path d="M4 7l2 2 4-4" stroke-linecap="round"/></svg>
+        Tasks <span class="sidebar-badge">12</span>
+      </div>
+      <div class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3" width="12" height="10"/><path d="M4 6h8M4 9h5" stroke-linecap="round"/></svg>
+        Logs <span class="sidebar-badge amber">3</span>
+      </div>
+      <div class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2" stroke-linecap="round"/></svg>
+        Scheduler
+      </div>
+      <div class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 12l5-5 3 3 4-6" stroke-linecap="round"/></svg>
+        Analytics
+      </div>
+      <div class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1l2 4h4l-3 3 1 4-4-2-4 2 1-4L2 5h4z"/></svg>
+        Pipelines <span class="sidebar-badge red">1</span>
+      </div>
+      <div class="sidebar-item">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2" stroke-linecap="round"/></svg>
+        Settings
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Active Agents</div>
+      <div class="agent-item"><span class="agent-dot online"></span>ARIA<span class="agent-role">Analysis</span></div>
+      <div class="agent-item"><span class="agent-dot online"></span>PULSE<span class="agent-role">Monitor</span></div>
+      <div class="agent-item"><span class="agent-dot busy"></span>FORGE<span class="agent-role">Build</span></div>
+      <div class="agent-item"><span class="agent-dot online"></span>NEXUS<span class="agent-role">Coord</span></div>
+      <div class="agent-item"><span class="agent-dot busy"></span>SCOUT<span class="agent-role">Search</span></div>
+      <div class="agent-item"><span class="agent-dot online"></span>ECHO<span class="agent-role">Comms</span></div>
+      <div class="agent-item"><span class="agent-dot idle"></span>LEDGER<span class="agent-role">Finance</span></div>
+      <div class="agent-item"><span class="agent-dot online"></span>SIGNAL<span class="agent-role">Data</span></div>
+      <div class="agent-item"><span class="agent-dot error"></span>RELAY<span class="agent-role">Bridge</span></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="stats-strip">
+      <div class="stat-card">
+        <div class="stat-label">Commands Run</div>
+        <div class="stat-value">2,847</div>
+        <div class="stat-delta">▲ 142 today</div>
+        <div class="stat-accent" style="background:linear-gradient(90deg,var(--phoenix-blue),transparent)"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Success Rate</div>
+        <div class="stat-value">98.3<span style="font-size:14px;color:var(--muted)">%</span></div>
+        <div class="stat-delta">▲ 0.4% vs last week</div>
+        <div class="stat-accent" style="background:linear-gradient(90deg,var(--green),transparent)"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Avg Latency</div>
+        <div class="stat-value">142<span style="font-size:14px;color:var(--muted)">ms</span></div>
+        <div class="stat-delta down">▼ 18ms vs yesterday</div>
+        <div class="stat-accent" style="background:linear-gradient(90deg,var(--gold),transparent)"></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Sessions</div>
+        <div class="stat-value">7</div>
+        <div class="stat-sub">3 agents · 4 users</div>
+        <div class="stat-accent" style="background:linear-gradient(90deg,var(--fire),transparent)"></div>
+      </div>
+    </div>
+
+    <div class="terminal-wrap">
+      <div class="terminal-header">
+        <div class="terminal-dots">
+          <div class="t-dot red"></div>
+          <div class="t-dot amber"></div>
+          <div class="t-dot green"></div>
+        </div>
+        <div class="terminal-path"><span>~/phoennixai</span> — bash</div>
+        <div class="terminal-actions">
+          <button class="t-action" onclick="clearTerminal()">Clear</button>
+          <button class="t-action" onclick="exportLog()">Export</button>
+          <button class="t-action" id="lockBtn" onclick="toggleLock()">Lock</button>
+        </div>
+      </div>
+
+      <div class="terminal-body" id="termBody">
+        <div class="t-line"><span class="t-prompt system">SYS›</span><span class="t-text blue">PhoennixAI Bash Dashboard v2.1.0 — Production</span></div>
+        <div class="t-line"><span class="t-prompt system">SYS›</span><span class="t-text dim">Cluster: phoenix-prod-01 · Region: eu-west-2 · Nodes: 3/3 healthy</span></div>
+        <div class="t-spacer"></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text green">9 agents initialized and registered.</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text green">Database pool active — 20/20 connections.</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text green">Vector index loaded — 1.4M embeddings cached.</span></div>
+        <div class="t-spacer"></div>
+        <div class="t-line"><span class="t-prompt user">WX ›</span><span class="t-text">agent status</span></div>
+        <div class="t-line"><span class="t-prompt system">SYS›</span><span class="t-text dim">────────────────────────────────────────</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">ARIA    <span class="t-text green">● online</span>   analysis · 0 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">PULSE   <span class="t-text green">● online</span>   monitor  · 0 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">FORGE   <span class="t-text amber">● busy</span>    build    · 2 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">NEXUS   <span class="t-text green">● online</span>   coord    · 0 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">SCOUT   <span class="t-text amber">● busy</span>    search   · 4 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">ECHO    <span class="t-text green">● online</span>   comms    · 0 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">LEDGER  <span class="t-text dim">○ idle</span>     finance  · 0 queued</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text">SIGNAL  <span class="t-text green">● online</span>   data     · 1 queued</span></div>
+        <div class="t-line"><span class="t-prompt warn">WARN›</span><span class="t-text gold">RELAY   <span class="t-text red">● error</span>    bridge   · reconnecting…</span></div>
+        <div class="t-line"><span class="t-prompt system">SYS›</span><span class="t-text dim">────────────────────────────────────────</span></div>
+        <div class="t-spacer"></div>
+        <div class="t-line"><span class="t-prompt user">WX ›</span><span class="t-text">run pipeline data-ingest --source stripe --mode live</span></div>
+        <div class="t-line"><span class="t-prompt system">SYS›</span><span class="t-text dim">Dispatching to SIGNAL agent…</span></div>
+        <div class="t-line"><span class="t-prompt agent">SIG›</span><span class="t-text violet">Pipeline [data-ingest] started · job_id=dgi_29af3c</span></div>
+        <div class="t-line"><span class="t-prompt agent">SIG›</span><span class="t-text dim">  Connecting to Stripe webhook source…</span></div>
+        <div class="t-line"><span class="t-prompt agent">SIG›</span><span class="t-text dim">  Fetching events since 2026-03-30T00:00:00Z…</span></div>
+        <div class="t-line"><span class="t-prompt agent">SIG›</span><span class="t-text green">  ✓ 1,204 events fetched · 0 errors</span></div>
+        <div class="t-line"><span class="t-prompt agent">SIG›</span><span class="t-text dim">  Writing to data warehouse…</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text green">Pipeline complete · 1,204 rows inserted · 142ms avg</span></div>
+        <div class="t-spacer"></div>
+        <div class="t-line"><span class="t-prompt warn">WARN›</span><span class="t-text gold">RELAY lost connection to bridge-eu-02 · reconnect (2/5) failed</span></div>
+        <div class="t-spacer"></div>
+        <div class="t-line"><span class="t-prompt user">WX ›</span><span class="t-text">relay restart --force</span></div>
+        <div class="t-line"><span class="t-prompt system">SYS›</span><span class="t-text dim">Sending SIGTERM to RELAY · waiting for graceful shutdown…</span></div>
+        <div class="t-line"><span class="t-prompt ok">OK ›</span><span class="t-text green">RELAY restarted · PID 4821 · reconnecting to bridge-eu-02…</span></div>
+        <div class="t-spacer"></div>
+        <div id="liveLines"></div>
+      </div>
+
+      <div class="terminal-input-bar">
+        <span class="t-input-prompt">WX ›</span>
+        <input class="t-input" id="termInput" type="text" placeholder="Type a command… (try: help, agent status, metrics, ping)" autocomplete="off" spellcheck="false">
+        <button class="t-input-run" onclick="runCommand()">Run ↵</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="panel-section">
+      <div class="panel-title">System Metrics</div>
+      <div class="metric-row">
+        <div class="metric-top"><span class="metric-name">CPU</span><span class="metric-val" id="cpuVal">34%</span></div>
+        <div class="metric-bar"><div class="metric-fill blue" id="cpuBar" style="width:34%"></div></div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-top"><span class="metric-name">Memory</span><span class="metric-val" id="memVal">61%</span></div>
+        <div class="metric-bar"><div class="metric-fill gold" id="memBar" style="width:61%"></div></div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-top"><span class="metric-name">Disk I/O</span><span class="metric-val" id="diskVal">18%</span></div>
+        <div class="metric-bar"><div class="metric-fill fire" id="diskBar" style="width:18%"></div></div>
+      </div>
+      <div class="metric-row">
+        <div class="metric-top"><span class="metric-name">Network</span><span class="metric-val" id="netVal">47%</span></div>
+        <div class="metric-bar"><div class="metric-fill green" id="netBar" style="width:47%"></div></div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">Recent Tasks</div>
+      <div class="task-item">
+        <div class="task-icon done">✓</div>
+        <div class="task-body"><div class="task-name">data-ingest pipeline</div><div class="task-meta">SIGNAL · stripe · 1,204 rows</div></div>
+        <div class="task-dur">142ms</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon done">✓</div>
+        <div class="task-body"><div class="task-name">scout search UK leads</div><div class="task-meta">SCOUT · 14 sources · 121 leads</div></div>
+        <div class="task-dur">8.4s</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon run">◎</div>
+        <div class="task-body"><div class="task-name">forge build v2.3.1</div><div class="task-meta">FORGE · main branch · running</div></div>
+        <div class="task-dur">–</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon fail">✕</div>
+        <div class="task-body"><div class="task-name">relay bridge reconnect</div><div class="task-meta">RELAY · bridge-eu-02 · timeout</div></div>
+        <div class="task-dur">5s</div>
+      </div>
+      <div class="task-item">
+        <div class="task-icon queue">⋯</div>
+        <div class="task-body"><div class="task-name">ledger reconcile Mar</div><div class="task-meta">LEDGER · scheduled 02:00 UTC</div></div>
+        <div class="task-dur">–</div>
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-title">Event Log</div>
+      <div id="eventLog">
+        <div class="log-item"><span class="log-time">03:41</span><span class="log-badge ok">OK</span><span class="log-text">RELAY restart successful</span></div>
+        <div class="log-item"><span class="log-time">03:40</span><span class="log-badge warn">WARN</span><span class="log-text">RELAY bridge-eu-02 timeout ×2</span></div>
+        <div class="log-item"><span class="log-time">03:39</span><span class="log-badge ok">OK</span><span class="log-text">SIGNAL ingested 1,204 rows</span></div>
+        <div class="log-item"><span class="log-time">03:38</span><span class="log-badge info">INFO</span><span class="log-text">FORGE build v2.3.1 started</span></div>
+        <div class="log-item"><span class="log-time">03:35</span><span class="log-badge info">INFO</span><span class="log-text">Session opened — WX (wilco)</span></div>
+        <div class="log-item"><span class="log-time">03:30</span><span class="log-badge ok">OK</span><span class="log-text">All 9 agents initialized</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Runtime clock
+const startTime = Date.now();
+setInterval(() => {
+  const s = Math.floor((Date.now() - startTime) / 1000);
+  const pad = n => String(n).padStart(2,'0');
+  document.getElementById('runtimeClock').textContent =
+    `${pad(Math.floor(s/3600))}:${pad(Math.floor((s%3600)/60))}:${pad(s%60)}`;
+}, 1000);
+
+// Metrics
+let cpu=34, mem=61, disk=18, net=47;
+function walk(v, mn, mx, step=8) {
+  return Math.min(mx, Math.max(mn, Math.round(v + (Math.random()-.5)*step)));
+}
+setInterval(() => {
+  cpu=walk(cpu,5,90); mem=walk(mem,40,85,4); disk=walk(disk,2,60); net=walk(net,10,80);
+  ['cpu','mem','disk','net'].forEach((k,i) => {
+    const v = [cpu,mem,disk,net][i];
+    document.getElementById(k+'Val').textContent = v+'%';
+    document.getElementById(k+'Bar').style.width = v+'%';
+  });
+}, 2500);
+
+// Scroll
+let locked = false;
+function toggleLock() {
+  locked = !locked;
+  const btn = document.getElementById('lockBtn');
+  btn.textContent = locked ? 'Unlock' : 'Lock';
+  btn.style.color = locked ? 'var(--phoenix-blue)' : '';
+}
+function scrollBottom() {
+  if (!locked) { const b = document.getElementById('termBody'); b.scrollTop = b.scrollHeight; }
+}
+
+// Add line helpers
+function addLine(prompt, pClass, html, tClass='') {
+  const live = document.getElementById('liveLines');
+  const d = document.createElement('div');
+  d.className = 't-line';
+  d.innerHTML = `<span class="t-prompt ${pClass}">${prompt}</span><span class="t-text ${tClass}">${html}</span>`;
+  live.appendChild(d);
+  scrollBottom();
+}
+function addSpacer() {
+  const d = document.createElement('div'); d.className = 't-spacer';
+  document.getElementById('liveLines').appendChild(d);
+}
+function addEvent(type, text) {
+  const log = document.getElementById('eventLog');
+  const now = new Date();
+  const t = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  const d = document.createElement('div'); d.className = 'log-item';
+  d.innerHTML = `<span class="log-time">${t}</span><span class="log-badge ${type}">${type.toUpperCase()}</span><span class="log-text">${text}</span>`;
+  log.prepend(d);
+  if (log.children.length > 20) log.lastElementChild.remove();
+}
+
+function clearTerminal() { document.getElementById('liveLines').innerHTML=''; addLine('SYS›','system','Terminal cleared.','dim'); addSpacer(); }
+
+function exportLog() {
+  const text = [...document.querySelectorAll('.t-line')].map(l=>l.innerText).join('\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text],{type:'text/plain'}));
+  a.download = 'phoennixai_bash_log.txt'; a.click();
+}
+
+// Command handler
+function runCommand() {
+  const input = document.getElementById('termInput');
+  const raw = input.value.trim(); if (!raw) return;
+  input.value = '';
+  addLine('WX ›','user', raw);
+
+  const [base, ...rest] = raw.split(/\s+/);
+  const cmd = base.toLowerCase();
+
+  if (cmd === 'clear') { clearTerminal(); return; }
+
+  if (cmd === 'help') {
+    addLine('SYS›','system','Available commands:','blue');
+    [
+      'agent status          — show all agent states',
+      'agent restart &lt;name&gt;  — restart an agent',
+      'run pipeline &lt;name&gt;   — trigger a pipeline',
+      'scout search &lt;query&gt;  — run SCOUT search agent',
+      'metrics               — print system metrics',
+      'ping &lt;host&gt;            — ping a host',
+      'logs                  — show recent event log',
+      'clear                 — clear the terminal',
+    ].forEach(l => addLine('   ','',l,'dim'));
+    addSpacer(); return;
+  }
+
+  if (cmd === 'metrics') {
+    addLine('SYS›','system',`CPU: ${cpu}%  MEM: ${mem}%  DISK: ${disk}%  NET: ${net}%`,'blue');
+    addSpacer(); return;
+  }
+
+  if (cmd === 'logs') {
+    [...document.querySelectorAll('#eventLog .log-item')].slice(0,6).forEach(item => {
+      addLine('LOG›','system', item.innerText.replace(/\n/g,' '),'dim');
+    });
+    addSpacer(); return;
+  }
+
+  if (cmd === 'ping') {
+    const host = rest[0] || 'gateway.phoennixai.com';
+    addLine('SYS›','system',`PING ${host}…`,'dim');
+    let n=0;
+    const iv = setInterval(()=>{
+      const ms = Math.floor(Math.random()*40+8);
+      addLine('   ','',`Reply from ${host}: time=${ms}ms`,'green');
+      if(++n>=4){ clearInterval(iv); addLine('SYS›','system',`4 packets, 0% loss, avg ${Math.floor(Math.random()*20+10)}ms`,'dim'); addSpacer(); }
+    },400);
+    return;
+  }
+
+  if (cmd === 'agent') {
+    if (rest[0]==='status') {
+      [['ARIA','green','online','analysis','0'],['PULSE','green','online','monitor','0'],
+       ['FORGE','amber','busy','build','2'],['NEXUS','green','online','coord','0'],
+       ['SCOUT','amber','busy','search','4'],['ECHO','green','online','comms','0'],
+       ['LEDGER','dim','idle','finance','0'],['SIGNAL','green','online','data','1'],
+       ['RELAY','red','error','bridge','–']
+      ].forEach(([n,c,s,r,q])=>{
+        addLine('OK ›','ok',`${n.padEnd(8)} <span class="t-text ${c}">● ${s}</span>   ${r.padEnd(9)} · ${q} queued`);
+      });
+      addSpacer(); return;
+    }
+    if (rest[0]==='restart') {
+      const name = (rest[1]||'').toUpperCase();
+      if (!name) { addLine('ERR›','error','Usage: agent restart &lt;name&gt;','red'); addSpacer(); return; }
+      addLine('SYS›','system',`Restarting ${name}…`,'dim');
+      setTimeout(()=>{ addLine('OK ›','ok',`${name} restarted successfully.`,'green'); addEvent('ok',`${name} restarted`); addSpacer(); },900);
+      return;
+    }
+  }
+
+  if (cmd === 'run' && rest[0]==='pipeline') {
+    const name = rest[1]||'default';
+    addLine('SYS›','system',`Dispatching pipeline [${name}]…`,'dim');
+    setTimeout(()=>addLine('SIG›','agent',`Pipeline [${name}] started`,'violet'),400);
+    setTimeout(()=>addLine('SIG›','agent','  Fetching source data…','dim'),800);
+    setTimeout(()=>addLine('SIG›','agent','  Processing records…','dim'),1400);
+    setTimeout(()=>{
+      const rows=(Math.floor(Math.random()*2000+200)).toLocaleString();
+      addLine('OK ›','ok',`Pipeline [${name}] complete · ${rows} rows · ${Math.floor(Math.random()*300+80)}ms avg`,'green');
+      addEvent('ok',`Pipeline [${name}] completed`); addSpacer();
+    },2200);
+    return;
+  }
+
+  if (cmd === 'scout' && rest[0]==='search') {
+    const q = rest.slice(1).join(' ')||'query';
+    addLine('SCT›','agent',`Search initiated · query="${q}"`,'violet');
+    setTimeout(()=>addLine('SCT›','agent','  Scanning 14 sources…','dim'),500);
+    setTimeout(()=>{
+      const n=Math.floor(Math.random()*150+30);
+      addLine('OK ›','ok',`${n} results compiled · report saved`,'green');
+      addEvent('ok',`SCOUT: ${n} results for "${q}"`); addSpacer();
+    },2000);
+    return;
+  }
+
+  addLine('ERR›','error',`Command not found: ${cmd} — try <span class="t-text blue">help</span>`,'red');
+  addSpacer();
+}
+
+document.getElementById('termInput').addEventListener('keydown', e => { if(e.key==='Enter') runCommand(); });
+
+// Live feed
+const liveFeed = [
+  ()=>addLine('SIG›','agent','SIGNAL heartbeat OK · 38ms','dim'),
+  ()=>addLine('ARI›','agent','ARIA analysis cycle complete · 0 anomalies','dim'),
+  ()=>addLine('PUL›','agent','PULSE health check passed · all endpoints 200','dim'),
+  ()=>addLine('FOR›','agent','FORGE build step 4/7: running tests…','dim'),
+  ()=>{ addLine('SYS›','system','Autosave checkpoint written.','dim'); addEvent('info','Autosave checkpoint'); },
+  ()=>addLine('NEX›','agent','NEXUS task queue flushed · 0 pending','dim'),
+  ()=>{ addLine('ECH›','agent','ECHO dispatched 3 notifications','dim'); addEvent('info','ECHO sent 3 notifications'); },
+  ()=>addLine('SCT›','agent','SCOUT cache refreshed · 14 sources updated','dim'),
+  ()=>{ addLine('OK ›','ok','RELAY reconnected to bridge-eu-02','green'); addEvent('ok','RELAY reconnected'); },
+];
+let feedIdx = 0;
+setInterval(()=>{ if(Math.random()>.4){ liveFeed[feedIdx%liveFeed.length](); feedIdx++; } }, 6000);
+
+setTimeout(scrollBottom, 100);
+</script>
+</body>
+</html>
