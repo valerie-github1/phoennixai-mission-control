@@ -137,7 +137,7 @@ select option{background:#050914;color:#e2e8f0}
 
             <div>
               <label class="text-xs font-medium text-slate-500 uppercase tracking-widest block mb-2">Full Name <span class="text-blue-500">*</span></label>
-              <input type="text" name="name" placeholder="Your full name" required
+              <input type="text" name="full_name" placeholder="Your full name" required
                 class="w-full px-4 py-3 bg-white/[0.03] border border-white/[0.06] text-slate-200 text-sm placeholder:text-slate-600 focus:outline-none focus:border-blue-500/50 transition-colors">
             </div>
 
@@ -195,27 +195,27 @@ select option{background:#050914;color:#e2e8f0}
               <label class="text-xs font-medium text-slate-500 uppercase tracking-widest block mb-3">Investment Level <span class="text-blue-500">*</span></label>
               <div class="grid grid-cols-3 gap-3">
                 <label class="relative cursor-pointer group">
-                  <input type="radio" name="tier" value="Tier 01 — £497 Starter" required class="sr-only peer">
+                  <input type="radio" name="tier" value="Tier 01 — £0 Founding Member" required class="sr-only peer">
                   <div class="p-3 border border-white/[0.05] bg-white/[0.01] peer-checked:border-blue-500/50 peer-checked:bg-blue-500/5 transition-all text-center">
                     <div class="text-xs text-slate-600 tracking-widest uppercase mb-1">Tier 01</div>
-                    <div class="text-xl font-light text-slate-200 peer-checked:text-blue-400">£497</div>
-                    <div class="text-xs text-slate-600 mt-1">Starter</div>
+                    <div class="text-xl font-light text-slate-200 peer-checked:text-blue-400">£0</div>
+                    <div class="text-xs text-slate-600 mt-1">Founding Member</div>
                   </div>
                 </label>
                 <label class="relative cursor-pointer group">
-                  <input type="radio" name="tier" value="Tier 02 — £1,497 Full Suite" class="sr-only peer">
+                  <input type="radio" name="tier" value="Tier 02 — £297/month Pro" class="sr-only peer">
                   <div class="p-3 border border-blue-500/20 bg-blue-500/[0.02] peer-checked:border-blue-500/60 peer-checked:bg-blue-500/8 transition-all text-center">
                     <div class="text-xs text-blue-500/60 tracking-widest uppercase mb-1">Tier 02</div>
-                    <div class="text-xl font-light text-slate-200">£1,497</div>
-                    <div class="text-xs text-slate-500 mt-1">Full Suite</div>
+                    <div class="text-xl font-light text-slate-200">£297</div>
+                    <div class="text-xs text-slate-500 mt-1">Pro / month</div>
                   </div>
                 </label>
                 <label class="relative cursor-pointer group">
-                  <input type="radio" name="tier" value="Tier 03 — £4,997 Enterprise" class="sr-only peer">
+                  <input type="radio" name="tier" value="Tier 03 — £997/month Scale" class="sr-only peer">
                   <div class="p-3 border border-white/[0.05] bg-white/[0.01] peer-checked:border-blue-500/50 peer-checked:bg-blue-500/5 transition-all text-center">
                     <div class="text-xs text-slate-600 tracking-widest uppercase mb-1">Tier 03</div>
-                    <div class="text-xl font-light text-slate-200">£4,997</div>
-                    <div class="text-xs text-slate-600 mt-1">Enterprise</div>
+                    <div class="text-xl font-light text-slate-200">£997</div>
+                    <div class="text-xs text-slate-600 mt-1">Scale / month</div>
                   </div>
                 </label>
               </div>
@@ -319,19 +319,20 @@ document.querySelectorAll(".reveal-text").forEach(el=>{
 });
 }catch(e){console.warn("GSAP animations failed:",e);}
 
-// Form submit — Supabase
+// Form submit — Supabase with Formspree fallback
 document.getElementById("betaForm").addEventListener("submit",async function(e){
   e.preventDefault();
   const btn=document.getElementById("submitInner");
   btn.textContent="Sending...";
   const data={
-    name:this.querySelector("[name=name]").value.trim(),
+    full_name:this.querySelector("[name=full_name]").value.trim(),
     email:this.querySelector("[name=email]").value.trim(),
     business_type:this.querySelector("[name=business_type]").value||null,
     source:this.querySelector("[name=source]").value||null,
     challenge:this.querySelector("[name=challenge]").value.trim()||null,
     tier:this.querySelector("[name=tier]:checked")?.value||null
   };
+  let submitted=false;
   try{
     const res=await fetch("https://erfvunwhpsdbyyayzdimz.supabase.co/rest/v1/beta_waitlist",{
       method:"POST",
@@ -343,17 +344,23 @@ document.getElementById("betaForm").addEventListener("submit",async function(e){
       },
       body:JSON.stringify(data)
     });
-    if(res.ok||res.status===201){
-      document.getElementById("formState").classList.add("hidden");
-      document.getElementById("successState").classList.remove("hidden");
-    }else{
-      const errText=await res.text().catch(()=>"Unknown error");
-      btn.textContent="Error — try again";
-      console.error("Supabase error:",res.status,errText);
-    }
-  }catch(err){
+    if(res.ok||res.status===201){submitted=true;}
+    else{console.warn("Supabase error:",res.status);}
+  }catch(err){console.warn("Supabase unavailable, trying fallback:",err);}
+  if(!submitted){
+    try{
+      const fd=new FormData();
+      Object.entries(data).forEach(([k,v])=>{if(v!=null)fd.append(k,v);});
+      const fb=await fetch("https://formspree.io/f/xdawrbgr",{method:"POST",body:fd,headers:{Accept:"application/json"}});
+      if(fb.ok){submitted=true;}
+      else{console.error("Formspree error:",fb.status);}
+    }catch(err){console.error("Formspree error:",err);}
+  }
+  if(submitted){
+    document.getElementById("formState").classList.add("hidden");
+    document.getElementById("successState").classList.remove("hidden");
+  }else{
     btn.textContent="Error — try again";
-    console.error("Submit error:",err);
   }
 });
 </script>
