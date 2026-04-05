@@ -410,10 +410,13 @@ async function submitNDA(){
         'Prefer': 'return=minimal'
       },
       body: JSON.stringify({
-        user_email: email,
-        signed_at: signedAt,
+        user_email:     email,
+        full_name:      name,
+        company:        company,
+        signed_at:      signedAt,
         signature_data: sigData,
-        nda_version: 'PAI-NDA-001'
+        nda_version:    'PAI-NDA-001',
+        status:         'signed'
       })
     });
     sbOk = res.ok || res.status === 201;
