@@ -3,1036 +3,623 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PhoennixAI — Beta Command Centre</title>
+  <title>PhoennixAI — Beta Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
   <style>
-    /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── Tokens ── */
     :root {
       --bg:      #060A18;
-      --bg2:     #0B1025;
+      --sidebar: #080D1E;
+      --bg2:     #0C1228;
       --bg3:     #111830;
-      --border:  rgba(0,229,255,0.12);
-      --border2: rgba(0,229,255,0.06);
+      --border:  rgba(0,229,255,0.1);
+      --border2: rgba(0,229,255,0.05);
       --cyan:    #00E5FF;
+      --fire:    #FF6B2B;
       --grey1:   #E2E8F0;
       --grey2:   #94A3B8;
-      --grey3:   #4A5568;
+      --grey3:   #3D4F6B;
       --text:    #CBD5E1;
-      --ff-display: 'Bebas Neue', sans-serif;
-      --ff-body:    'DM Sans', sans-serif;
-      --ff-mono:    'DM Mono', monospace;
-      --ff-tag:     'Playfair Display', serif;
+      --sb-w:    220px;
+      --ff-d:    'Bebas Neue', sans-serif;
+      --ff-b:    'DM Sans', sans-serif;
+      --ff-m:    'DM Mono', monospace;
+      --ff-t:    'Playfair Display', serif;
     }
 
-    /* ── Base ── */
-    html, body {
-      height: 100%;
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--ff-body);
-      font-size: 14px;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    html, body { height: 100%; background: var(--bg); color: var(--text); font-family: var(--ff-b); font-size: 14px; overflow-x: hidden; }
 
-    /* ── Scanline overlay ── */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.03) 2px,
-        rgba(0,0,0,0.03) 4px
-      );
-      pointer-events: none;
-      z-index: 9999;
-    }
-
-    /* ── Dot-grid texture ── */
+    /* dot grid */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
-      background-image: radial-gradient(circle, rgba(0,229,255,0.06) 1px, transparent 1px);
+      background-image: radial-gradient(rgba(0,229,255,0.05) 1px, transparent 1px);
       background-size: 32px 32px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ── Cyan atmospheric glow ── */
-    .glow-orb {
-      position: fixed;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 400px;
-      background: radial-gradient(ellipse at center, rgba(0,229,255,0.07) 0%, transparent 70%);
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    /* ── Layout ── */
-    .page {
-      position: relative;
-      z-index: 1;
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 24px 32px 48px;
-    }
-
-    /* ── Animations ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes glowPulse {
-      0%, 100% { text-shadow: 0 0 20px rgba(0,229,255,0.6), 0 0 40px rgba(0,229,255,0.3); }
-      50%       { text-shadow: 0 0 30px rgba(0,229,255,1),   0 0 60px rgba(0,229,255,0.5); }
-    }
-    @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.4; transform: scale(0.7); }
-    }
-    @keyframes scanMove {
-      from { transform: translateY(-100%); }
-      to   { transform: translateY(100vh); }
-    }
-    @keyframes countUp {
-      from { opacity: 0; transform: scale(0.85); }
-      to   { opacity: 1; transform: scale(1); }
-    }
-
-    /* ── Moving scanline ── */
-    .scanline {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(0,229,255,0.3), transparent);
-      animation: scanMove 7s linear infinite;
-      pointer-events: none;
-      z-index: 9998;
-    }
-
-    /* ── Header ── */
-    .header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      padding-bottom: 32px;
-      border-bottom: 1px solid var(--border);
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .logo-block { display: flex; flex-direction: column; gap: 6px; }
-
-    .logo-wordmark {
-      font-family: var(--ff-display);
-      font-size: 56px;
-      line-height: 1;
-      letter-spacing: 0.02em;
-    }
-    .logo-wordmark .w-cyan { color: var(--cyan); }
-    .logo-wordmark .w-grey { color: #9CA3AF; }
-
-    .logo-sub {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: var(--grey3);
-      text-transform: uppercase;
-    }
-
-    .header-right {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 8px;
-    }
-
-    .live-clock {
-      font-family: var(--ff-mono);
-      font-size: 28px;
-      color: var(--grey1);
-      letter-spacing: 0.05em;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-
-    .status-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--grey2);
-    }
-
-    .pulse-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      animation: pulseDot 2s ease-in-out infinite;
-    }
-    .pulse-dot.green  { background: #22C55E; animation-delay: 0s; }
-    .pulse-dot.cyan   { background: var(--cyan); animation-delay: 0.3s; }
-    .pulse-dot.amber  { background: #FFB830; animation-delay: 0.6s; }
-    .pulse-dot.violet { background: #A78BFA; animation-delay: 0.9s; }
-
-    /* ── Bracket corners utility ── */
-    .bracketed {
-      position: relative;
-    }
-    .bracketed::before,
-    .bracketed::after {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      border-color: var(--cyan);
-      border-style: solid;
-      opacity: 0.5;
-    }
-    .bracketed::before {
-      top: -1px;
-      left: -1px;
-      border-width: 1px 0 0 1px;
-    }
-    .bracketed::after {
-      bottom: -1px;
-      right: -1px;
-      border-width: 0 1px 1px 0;
-    }
-
-    /* ── Countdown ── */
-    .countdown-section {
-      margin: 28px 0;
-      animation: fadeUp 0.6s ease 0.1s both;
-    }
-
-    .countdown-label {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--grey3);
-      margin-bottom: 12px;
-    }
-
-    .countdown-bar {
-      display: flex;
-      gap: 16px;
-      padding: 24px 28px;
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      align-items: center;
-    }
-
-    .countdown-block {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      min-width: 72px;
-    }
-
-    .countdown-number {
-      font-family: var(--ff-display);
-      font-size: 52px;
-      line-height: 1;
-      color: var(--cyan);
-      animation: glowPulse 3s ease-in-out infinite;
-      letter-spacing: 0.02em;
-    }
-
-    .countdown-unit {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grey3);
-    }
-
-    .countdown-sep {
-      font-family: var(--ff-display);
-      font-size: 40px;
-      color: var(--grey3);
-      line-height: 1;
-      margin-bottom: 14px;
-    }
-
-    .countdown-target {
-      margin-left: auto;
-      text-align: right;
-    }
-
-    .countdown-target-label {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      color: var(--grey3);
-      text-transform: uppercase;
-    }
-
-    .countdown-target-date {
-      font-family: var(--ff-display);
-      font-size: 20px;
-      color: var(--grey1);
-      letter-spacing: 0.05em;
-    }
-
-    /* ── Metric cards ── */
-    .metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease 0.2s both;
-    }
-
-    .metric-card {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 20px 24px;
-      position: relative;
-    }
-    .metric-card::before, .metric-card::after {
-      content: '';
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      border-color: rgba(0,229,255,0.3);
-      border-style: solid;
-    }
-    .metric-card::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
-    .metric-card::after  { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
-
-    .metric-label {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grey3);
-      margin-bottom: 8px;
-    }
-
-    .metric-value {
-      font-family: var(--ff-display);
-      font-size: 48px;
-      line-height: 1;
-      color: var(--grey1);
-      letter-spacing: 0.02em;
-    }
-
-    .metric-value.is-cyan { color: var(--cyan); }
-
-    .metric-sub {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      color: var(--grey3);
-      margin-top: 6px;
-    }
-
-    /* ── Section heading ── */
-    .section-heading {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 16px;
-    }
-
-    .section-heading-text {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--grey3);
-    }
-
-    .section-heading-line {
-      flex: 1;
-      height: 1px;
-      background: var(--border2);
-    }
-
-    /* ── Agent grid ── */
-    .agents-section {
-      margin-bottom: 28px;
-      animation: fadeUp 0.6s ease 0.3s both;
-    }
-
-    .agents-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .agent-card {
-      --ac: #00E5FF;
-      background: var(--bg2);
-      border: 1px solid var(--border2);
-      padding: 16px;
-      position: relative;
-      cursor: default;
-      transition: border-color 0.25s, transform 0.2s;
-      overflow: hidden;
-      animation: fadeUp 0.5s ease calc(var(--dl, 0s)) both;
-    }
-
-    .agent-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3px;
-      background: var(--ac);
-    }
-
-    .agent-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 50%, color-mix(in srgb, var(--ac) 8%, transparent) 0%, transparent 60%);
-      pointer-events: none;
-    }
-
-    .agent-card:hover {
-      border-color: var(--ac);
-      transform: translateY(-2px);
-    }
-
-    .agent-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--ac);
-      margin-bottom: 10px;
-      animation: pulseDot 2s ease-in-out infinite;
-    }
-
-    .agent-number {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      color: var(--grey3);
-      letter-spacing: 0.15em;
-      margin-bottom: 2px;
-    }
-
-    .agent-name {
-      font-family: var(--ff-display);
-      font-size: 22px;
-      letter-spacing: 0.04em;
-      color: var(--grey1);
-      text-shadow: 0 0 12px color-mix(in srgb, var(--ac) 40%, transparent);
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-
-    .agent-role {
-      font-size: 10px;
-      color: var(--grey2);
-      line-height: 1.4;
-    }
-
-    /* ── Bottom grid ── */
-    .bottom-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      animation: fadeUp 0.6s ease 0.4s both;
-    }
-
-    .panel {
-      background: var(--bg2);
-      border: 1px solid var(--border);
-      padding: 20px 24px;
-    }
-
-    .panel-title {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--grey3);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid var(--border2);
-    }
-
-    /* ── Systems status ── */
-    .systems-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .system-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .system-name {
-      font-size: 12px;
-      color: var(--grey2);
-    }
-
-    .system-status {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .system-status.ok   { color: #22C55E; }
-    .system-status.warn { color: #FFB830; }
-
-    /* ── Quick nav ── */
-    .nav-list {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .nav-link {
-      --lc: var(--cyan);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 10px;
-      text-decoration: none;
-      color: var(--grey2);
-      font-size: 12px;
-      border-left: 2px solid transparent;
-      transition: border-color 0.2s, color 0.2s, background 0.2s;
-    }
-
-    .nav-link:hover {
-      border-left-color: var(--lc);
-      color: var(--grey1);
-      background: rgba(0,229,255,0.03);
-    }
-
-    .nav-link-label {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--lc);
-      min-width: 48px;
-    }
-
-    /* ── Footer ── */
-    .footer {
-      margin-top: 40px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border2);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      animation: fadeUp 0.6s ease 0.5s both;
-    }
-
-    .footer-tagline {
-      font-family: var(--ff-tag);
-      font-style: italic;
-      font-size: 14px;
-      color: var(--grey3);
-    }
-
-    .footer-meta {
-      font-family: var(--ff-mono);
-      font-size: 9px;
-      letter-spacing: 0.15em;
-      color: var(--grey3);
-    }
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes blink    { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    @keyframes spin     { to { transform:rotate(360deg); } }
+    @keyframes glowPulse { 0%,100% { text-shadow:0 0 14px rgba(0,229,255,.6); } 50% { text-shadow:0 0 28px rgba(0,229,255,1); } }
 
     /* ── Auth gate ── */
     #auth-gate {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 10000;
+      position: fixed; inset: 0; background: var(--bg); z-index: 1000;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    }
+    .ag-logo { font-family: var(--ff-d); font-size: 40px; letter-spacing:.04em; }
+    .ag-logo .c { color: var(--cyan); }
+    .ag-logo .g { color: #9CA3AF; }
+    .ag-spinner { width:20px; height:20px; border:2px solid rgba(0,229,255,.15); border-top-color:var(--cyan); border-radius:50%; animation:spin .8s linear infinite; }
+    .ag-msg { font-family:var(--ff-m); font-size:9px; letter-spacing:.2em; color:var(--grey3); text-transform:uppercase; }
+
+    /* ── Layout ── */
+    .layout { display:flex; min-height:100vh; position:relative; z-index:1; }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sb-w);
+      min-height: 100vh;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
+      position: fixed;
+      top: 0; left: 0; bottom: 0;
+      z-index: 100;
+      transition: transform .25s ease;
+    }
+
+    .sb-logo {
+      padding: 24px 20px 20px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .sb-wordmark { font-family:var(--ff-d); font-size:28px; letter-spacing:.04em; line-height:1; }
+    .sb-wordmark .c { color:var(--cyan); }
+    .sb-wordmark .g { color:#9CA3AF; }
+    .sb-sub { font-family:var(--ff-m); font-size:8px; letter-spacing:.2em; color:var(--grey3); text-transform:uppercase; margin-top:4px; }
+
+    .sb-user {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .sb-user-lbl { font-family:var(--ff-m); font-size:8px; letter-spacing:.15em; text-transform:uppercase; color:var(--grey3); margin-bottom:4px; }
+    .sb-user-email { font-size:11px; color:var(--grey2); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+    .sb-live {
+      display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 20px;
+      gap: 6px;
+      padding: 10px 20px;
+      border-bottom: 1px solid var(--border2);
+    }
+    .sb-live-dot { width:6px; height:6px; border-radius:50%; background:#22C55E; animation:blink 2s ease-in-out infinite; }
+    .sb-live-text { font-family:var(--ff-m); font-size:8px; letter-spacing:.15em; text-transform:uppercase; color:#22C55E; }
+
+    .sb-nav { flex:1; padding:16px 0; }
+
+    .sb-nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: var(--grey2);
+      font-size: 12px;
+      font-weight: 500;
+      border-left: 2px solid transparent;
+      transition: all .18s;
+      cursor: pointer;
+      background: none;
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--ff-b);
+    }
+    .sb-nav-link:hover, .sb-nav-link.active {
+      border-left-color: var(--cyan);
+      color: var(--grey1);
+      background: rgba(0,229,255,.04);
+    }
+    .sb-nav-link.danger:hover { border-left-color: #F43F5E; color:#F43F5E; }
+    .sb-nav-icon { font-size:13px; width:16px; text-align:center; }
+
+    .sb-footer {
+      padding: 16px 20px;
+      border-top: 1px solid var(--border2);
+    }
+    .sb-footer-text { font-family:var(--ff-t); font-style:italic; font-size:10px; color:var(--grey3); line-height:1.5; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      position: fixed;
+      top: 14px; left: 14px;
+      z-index: 200;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      color: var(--grey2);
+      width: 36px; height: 36px;
+      align-items: center; justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
     }
 
-    .auth-logo {
-      font-family: var(--ff-display);
-      font-size: 40px;
-      letter-spacing: 0.04em;
-    }
-    .auth-logo .w-cyan { color: var(--cyan); }
-    .auth-logo .w-grey { color: #9CA3AF; }
-
-    .auth-msg {
-      font-family: var(--ff-mono);
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      color: var(--grey3);
-      text-transform: uppercase;
+    .sb-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(6,10,24,.7);
+      z-index: 99;
     }
 
-    .auth-spinner {
-      width: 24px;
-      height: 24px;
-      border: 2px solid var(--border);
-      border-top-color: var(--cyan);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+    /* ── Main ── */
+    .main {
+      margin-left: var(--sb-w);
+      flex: 1;
+      padding: 28px 32px 56px;
+      min-height: 100vh;
+      animation: fadeUp .5s ease both;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
+    /* ── Topbar ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
     }
+    .topbar-title { font-family:var(--ff-d); font-size:36px; letter-spacing:.04em; color:var(--grey1); }
+    .topbar-meta { font-family:var(--ff-m); font-size:9px; letter-spacing:.18em; color:var(--grey3); margin-top:4px; text-transform:uppercase; }
+    .topbar-right { text-align:right; }
+    .live-clock { font-family:var(--ff-m); font-size:22px; color:var(--grey1); letter-spacing:.05em; }
+
+    /* ── Banner ── */
+    .launch-banner {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 20px;
+      background: rgba(255,107,43,.06);
+      border: 1px solid rgba(255,107,43,.2);
+      margin-bottom: 24px;
+    }
+    .lb-dot { width:8px; height:8px; border-radius:50%; background:var(--fire); animation:blink 1.2s ease-in-out infinite; flex-shrink:0; }
+    .lb-text { font-family:var(--ff-d); font-size:20px; letter-spacing:.06em; color:var(--fire); }
+    .lb-sub  { font-family:var(--ff-m); font-size:9px; letter-spacing:.15em; color:var(--grey3); text-transform:uppercase; margin-left:auto; }
+
+    /* ── Metrics ── */
+    .metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:28px; }
+    .metric {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      position: relative;
+    }
+    .metric::before, .metric::after {
+      content: '';
+      position: absolute;
+      width: 9px; height: 9px;
+      border-color: rgba(0,229,255,.25);
+      border-style: solid;
+    }
+    .metric::before { top:-1px; left:-1px; border-width:1px 0 0 1px; }
+    .metric::after  { bottom:-1px; right:-1px; border-width:0 1px 1px 0; }
+    .metric-lbl { font-family:var(--ff-m); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--grey3); margin-bottom:6px; }
+    .metric-val { font-family:var(--ff-d); font-size:46px; line-height:1; color:var(--grey1); letter-spacing:.02em; }
+    .metric-val.hi { color:var(--cyan); animation:glowPulse 3s ease-in-out infinite; }
+    .metric-val.fire { color:var(--fire); }
+    .metric-sub { font-family:var(--ff-m); font-size:9px; color:var(--grey3); margin-top:5px; }
+
+    /* ── Section heading ── */
+    .sh { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .sh-text { font-family:var(--ff-m); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--grey3); }
+    .sh-line  { flex:1; height:1px; background:var(--border2); }
+    .sh-count { font-family:var(--ff-m); font-size:9px; color:var(--grey3); }
+
+    /* ── Agent grid ── */
+    .agents-section { margin-bottom:28px; }
+    .agents-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+    .agent {
+      --ac: #00E5FF;
+      background: var(--bg2);
+      border: 1px solid rgba(0,229,255,.06);
+      padding: 14px 14px 14px 16px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .2s, transform .16s;
+    }
+    .agent::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--ac);
+    }
+    .agent::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 15% 50%, color-mix(in srgb, var(--ac) 7%, transparent) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .agent:hover { border-color:var(--ac); transform:translateY(-2px); }
+    .a-dot { width:6px; height:6px; border-radius:50%; background:var(--ac); margin-bottom:9px; animation:blink 2s ease-in-out infinite; animation-delay:var(--dl,0s); }
+    .a-num  { font-family:var(--ff-m); font-size:8px; color:var(--grey3); letter-spacing:.12em; margin-bottom:2px; }
+    .a-name { font-family:var(--ff-d); font-size:21px; line-height:1; color:var(--grey1); text-shadow:0 0 10px color-mix(in srgb, var(--ac) 35%, transparent); margin-bottom:3px; letter-spacing:.04em; }
+    .a-role { font-size:10px; color:var(--grey2); line-height:1.35; }
+
+    /* ── Footer ── */
+    .footer { margin-top:32px; padding-top:20px; border-top:1px solid var(--border2); display:flex; align-items:center; justify-content:space-between; }
+    .footer-tag  { font-family:var(--ff-t); font-style:italic; font-size:13px; color:var(--grey3); }
+    .footer-meta { font-family:var(--ff-m); font-size:9px; letter-spacing:.12em; color:var(--grey3); }
 
     /* ── Responsive ── */
-    @media (max-width: 1100px) {
-      .agents-grid { grid-template-columns: repeat(3, 1fr); }
-      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 1200px) {
+      .agents-grid { grid-template-columns:repeat(3,1fr); }
+      .metrics { grid-template-columns:repeat(2,1fr); }
     }
     @media (max-width: 768px) {
-      .page { padding: 16px 16px 40px; }
-      .agents-grid { grid-template-columns: repeat(2, 1fr); }
-      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
-      .bottom-grid { grid-template-columns: 1fr; }
-      .logo-wordmark { font-size: 40px; }
-      .live-clock { font-size: 20px; }
-      .countdown-number { font-size: 36px; }
-      .countdown-bar { padding: 16px 14px; gap: 8px; }
-      .countdown-sep { font-size: 28px; }
+      .hamburger { display:flex; }
+      .sidebar { transform:translateX(-100%); }
+      .sidebar.open { transform:translateX(0); }
+      .sb-overlay.open { display:block; }
+      .main { margin-left:0; padding:60px 16px 40px; }
+      .agents-grid { grid-template-columns:repeat(2,1fr); }
+      .metrics { grid-template-columns:repeat(2,1fr); }
+      .topbar { flex-direction:column; align-items:flex-start; gap:8px; }
+      .launch-banner { flex-wrap:wrap; }
+      .lb-sub { margin-left:0; }
     }
     @media (max-width: 480px) {
-      .metrics-grid { grid-template-columns: 1fr; }
-      .agents-grid { grid-template-columns: repeat(2, 1fr); }
-      .header { flex-direction: column; gap: 14px; align-items: flex-start; }
-      .header-right { align-items: flex-start; }
-      .countdown-target { margin-left: 0; margin-top: 8px; }
-      .countdown-bar { flex-wrap: wrap; }
-      .status-row { flex-wrap: wrap; gap: 10px; }
+      .metrics { grid-template-columns:1fr; }
+      .agents-grid { grid-template-columns:repeat(2,1fr); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Auth gate (shown until session confirmed) -->
+  <!-- Auth gate -->
   <div id="auth-gate">
-    <div class="auth-logo"><span class="w-cyan">PHOENNIX</span><span class="w-grey">AI</span></div>
-    <div class="auth-spinner"></div>
-    <div class="auth-msg">Verifying session</div>
+    <div class="ag-logo"><span class="c">PHOENNIX</span><span class="g">AI</span></div>
+    <div class="ag-spinner"></div>
+    <div class="ag-msg">Verifying session</div>
   </div>
 
-  <!-- Moving scanline -->
-  <div class="scanline"></div>
+  <!-- Hamburger (mobile) -->
+  <button class="hamburger" id="hamburger" onclick="toggleSidebar()" aria-label="Menu">&#9776;</button>
 
-  <!-- Atmospheric glow -->
-  <div class="glow-orb"></div>
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sb-overlay" id="sb-overlay" onclick="closeSidebar()"></div>
 
-  <div class="page" id="main-content" style="display:none;">
+  <div class="layout" id="main-layout" style="display:none;">
 
-    <!-- ── Header ── -->
-    <header class="header">
-      <div class="logo-block">
-        <div class="logo-wordmark">
-          <span class="w-cyan">PHOENNIX</span><span class="w-grey">AI</span>
-        </div>
-        <div class="logo-sub">Beta Command Centre &mdash; Internal Access Only</div>
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sb-logo">
+        <div class="sb-wordmark"><span class="c">PHOENNIX</span><span class="g">AI</span></div>
+        <div class="sb-sub">Beta Access</div>
       </div>
-      <div class="header-right">
-        <div class="live-clock" id="live-clock">00:00:00</div>
-        <div class="status-row">
-          <div class="status-item">
-            <div class="pulse-dot green"></div>
-            Vercel Live
+      <div class="sb-user">
+        <div class="sb-user-lbl">Signed in as</div>
+        <div class="sb-user-email" id="sb-email">Loading...</div>
+      </div>
+      <div class="sb-live">
+        <div class="sb-live-dot"></div>
+        <div class="sb-live-text">Beta Live</div>
+      </div>
+      <nav class="sb-nav">
+        <a class="sb-nav-link active" href="./PhoennixAI_BetaDashboard.html">
+          <span class="sb-nav-icon">&#9670;</span> Dashboard
+        </a>
+        <a class="sb-nav-link" href="#agents" onclick="closeSidebar()">
+          <span class="sb-nav-icon">&#9632;</span> My Agents
+        </a>
+        <a class="sb-nav-link" href="./UserManual.html">
+          <span class="sb-nav-icon">&#9654;</span> User Manual
+        </a>
+        <a class="sb-nav-link" href="./PhoennixAI_NDA_SignHub.html">
+          <span class="sb-nav-icon">&#9670;</span> NDA Hub
+        </a>
+        <a class="sb-nav-link" href="https://cal.com/phoennixai/onboarding" target="_blank" rel="noopener">
+          <span class="sb-nav-icon">&#9632;</span> Onboarding Call
+        </a>
+        <button class="sb-nav-link danger" onclick="doSignOut()">
+          <span class="sb-nav-icon">&#9664;</span> Sign Out
+        </button>
+      </nav>
+      <div class="sb-footer">
+        <div class="sb-footer-text">Created to Create.<br>Intelligent by nature.</div>
+      </div>
+    </aside>
+
+    <!-- ── Main content ── -->
+    <main class="main">
+
+      <!-- Topbar -->
+      <div class="topbar">
+        <div>
+          <div class="topbar-title">Beta Dashboard</div>
+          <div class="topbar-meta">Mission Control V3.4 &bull; Session 19 &bull; 5 April 2026</div>
+        </div>
+        <div class="topbar-right">
+          <div class="live-clock" id="live-clock">00:00:00</div>
+        </div>
+      </div>
+
+      <!-- Launch banner -->
+      <div class="launch-banner">
+        <div class="lb-dot"></div>
+        <div class="lb-text">BETA OPENS TOMORROW &mdash; 7 APRIL 2026</div>
+        <div class="lb-sub">Phase 2 Stage 2 Launch</div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-lbl">// Beta Waitlist</div>
+          <div class="metric-val hi" id="m-waitlist">--</div>
+          <div class="metric-sub">Registered</div>
+        </div>
+        <div class="metric">
+          <div class="metric-lbl">// NDAs Signed</div>
+          <div class="metric-val hi" id="m-ndas">--</div>
+          <div class="metric-sub">On file</div>
+        </div>
+        <div class="metric">
+          <div class="metric-lbl">// Payments</div>
+          <div class="metric-val">0</div>
+          <div class="metric-sub">Beta is free access</div>
+        </div>
+        <div class="metric">
+          <div class="metric-lbl">// Beta Opens</div>
+          <div class="metric-val fire" id="m-countdown">--</div>
+          <div class="metric-sub" id="m-countdown-sub">Countdown to 7 Apr 2026</div>
+        </div>
+      </div>
+
+      <!-- Agents -->
+      <div class="agents-section" id="agents">
+        <div class="sh">
+          <div class="sh-text">// Active Agent Roster</div>
+          <div class="sh-line"></div>
+          <div class="sh-count">15 Signed</div>
+        </div>
+        <div class="agents-grid">
+
+          <div class="agent" style="--ac:#FF6B2B;--dl:0.00s;">
+            <div class="a-dot"></div>
+            <div class="a-num">STRATEGIC PARTNER</div>
+            <div class="a-name">CLAUDE</div>
+            <div class="a-role">AI Strategic Partner and Agent Manager</div>
           </div>
-          <div class="status-item">
-            <div class="pulse-dot cyan"></div>
-            Supabase Live
+
+          <div class="agent" style="--ac:#00E5FF;--dl:0.05s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 000</div>
+            <div class="a-name">ARIA</div>
+            <div class="a-role">Operational Intelligence</div>
           </div>
-          <div class="status-item">
-            <div class="pulse-dot amber"></div>
-            Stripe Active
+
+          <div class="agent" style="--ac:#F43F5E;--dl:0.10s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 001</div>
+            <div class="a-name">PA</div>
+            <div class="a-role">Personal Productivity Assistant</div>
           </div>
-          <div class="status-item">
-            <div class="pulse-dot violet"></div>
-            Auth Live
+
+          <div class="agent" style="--ac:#39FF14;--dl:0.15s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 002</div>
+            <div class="a-name">SCOUT</div>
+            <div class="a-role">Lead Generation and Sales Intelligence</div>
           </div>
-        </div>
-        <div class="status-row">
-          <div class="status-item" id="user-email-display" style="color: var(--grey2);"></div>
-          <div class="status-item" style="cursor:pointer; color: var(--grey3);" onclick="signOut()">Sign Out</div>
-        </div>
-      </div>
-    </header>
 
-    <!-- ── Countdown ── -->
-    <section class="countdown-section">
-      <div class="countdown-label">// Beta Launch Countdown &nbsp;&bull;&nbsp; <span style="color:var(--cyan);letter-spacing:0.12em;">BETA OPENS TOMORROW &mdash; 7 APRIL 2026</span></div>
-      <div class="countdown-bar bracketed">
-        <div class="countdown-block">
-          <div class="countdown-number" id="cd-days">00</div>
-          <div class="countdown-unit">Days</div>
-        </div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-block">
-          <div class="countdown-number" id="cd-hours">00</div>
-          <div class="countdown-unit">Hours</div>
-        </div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-block">
-          <div class="countdown-number" id="cd-mins">00</div>
-          <div class="countdown-unit">Mins</div>
-        </div>
-        <div class="countdown-sep">:</div>
-        <div class="countdown-block">
-          <div class="countdown-number" id="cd-secs">00</div>
-          <div class="countdown-unit">Secs</div>
-        </div>
-        <div class="countdown-target">
-          <div class="countdown-target-label">Target Date</div>
-          <div class="countdown-target-date">7 APR 2026</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Metrics ── -->
-    <section class="metrics-grid">
-      <div class="metric-card bracketed">
-        <div class="metric-label">// Beta Registrants</div>
-        <div class="metric-value is-cyan" id="metric-registrants">--</div>
-        <div class="metric-sub">Live from Supabase</div>
-      </div>
-      <div class="metric-card bracketed">
-        <div class="metric-label">// NDAs Signed</div>
-        <div class="metric-value is-cyan" id="metric-ndas">--</div>
-        <div class="metric-sub">Live from nda_records</div>
-      </div>
-      <div class="metric-card bracketed">
-        <div class="metric-label">// Live Apps</div>
-        <div class="metric-value">10</div>
-        <div class="metric-sub">Deployed to production</div>
-      </div>
-      <div class="metric-card bracketed">
-        <div class="metric-label">// Current Phase</div>
-        <div class="metric-value">0</div>
-        <div class="metric-sub">Beta launch active</div>
-      </div>
-    </section>
-
-    <!-- ── Agents ── -->
-    <section class="agents-section">
-      <div class="section-heading">
-        <div class="section-heading-text">// Active Agent Roster</div>
-        <div class="section-heading-line"></div>
-        <div class="section-heading-text">15 Signed</div>
-      </div>
-      <div class="agents-grid">
-
-        <div class="agent-card" style="--ac:#FF6B2B; --dl:0.0s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">STRATEGIC PARTNER</div>
-          <div class="agent-name">CLAUDE</div>
-          <div class="agent-role">AI Strategic Partner and Agent Manager</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#00E5FF; --dl:0.1s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 000</div>
-          <div class="agent-name">ARIA</div>
-          <div class="agent-role">Operational Intelligence</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#F43F5E; --dl:0.2s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 001</div>
-          <div class="agent-name">PA</div>
-          <div class="agent-role">Personal Productivity Assistant</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#22C55E; --dl:0.3s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 002</div>
-          <div class="agent-name">SCOUT</div>
-          <div class="agent-role">Lead Generation and Sales Intelligence</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#A78BFA; --dl:0.4s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 003</div>
-          <div class="agent-name">PULSE</div>
-          <div class="agent-role">Social Media and Content Intelligence</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#FB923C; --dl:0.5s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 005</div>
-          <div class="agent-name">RELAY</div>
-          <div class="agent-role">Client Onboarding and Communications</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#FFB830; --dl:0.6s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 006</div>
-          <div class="agent-name">LEDGER</div>
-          <div class="agent-role">Financial Intelligence (advisory only)</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#0D9488; --dl:0.7s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 007</div>
-          <div class="agent-name">ECHO</div>
-          <div class="agent-role">Customer Support and Triage</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#215CAE; --dl:0.8s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 009</div>
-          <div class="agent-name">GRID</div>
-          <div class="agent-role">PM and BA, owns Mission Control</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#46ABD7; --dl:0.9s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 010</div>
-          <div class="agent-name">SIGNAL</div>
-          <div class="agent-role">Competitor and Market Intelligence</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#DC2626; --dl:1.0s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 012</div>
-          <div class="agent-name">FORGE</div>
-          <div class="agent-role">Email Marketing Automation</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#C49A6C; --dl:1.1s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 015</div>
-          <div class="agent-name">SCRIBE</div>
-          <div class="agent-role">Document Intelligence</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#4682B4; --dl:1.2s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 016</div>
-          <div class="agent-name">SAGE</div>
-          <div class="agent-role">Strategic Analytics and Governance</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#7ECEC4; --dl:1.3s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 017</div>
-          <div class="agent-name">NEXUS</div>
-          <div class="agent-role">Full Stack Developer</div>
-        </div>
-
-        <div class="agent-card" style="--ac:#84CC16; --dl:1.4s;">
-          <div class="agent-dot"></div>
-          <div class="agent-number">AGENT 018</div>
-          <div class="agent-name">PROBE</div>
-          <div class="agent-role">Software QA Engineer</div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ── Bottom grid ── -->
-    <div class="bottom-grid">
-
-      <!-- Systems status -->
-      <div class="panel">
-        <div class="panel-title">// Systems Status</div>
-        <div class="systems-list">
-          <div class="system-row">
-            <div class="system-name">Vercel (phoennixai-mission-control-eight)</div>
-            <div class="system-status ok"><div class="pulse-dot green"></div>Operational</div>
+          <div class="agent" style="--ac:#A78BFA;--dl:0.20s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 003</div>
+            <div class="a-name">PULSE</div>
+            <div class="a-role">Social Media and Content Intelligence</div>
           </div>
-          <div class="system-row">
-            <div class="system-name">Supabase (erfvunwhpsdbyyayzdimz)</div>
-            <div class="system-status ok"><div class="pulse-dot green"></div>Operational</div>
+
+          <div class="agent" style="--ac:#FB923C;--dl:0.25s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 005</div>
+            <div class="a-name">RELAY</div>
+            <div class="a-role">Client Onboarding and Communications</div>
           </div>
-          <div class="system-row">
-            <div class="system-name">Stripe Payment Links</div>
-            <div class="system-status ok"><div class="pulse-dot green"></div>Active</div>
+
+          <div class="agent" style="--ac:#FFB830;--dl:0.30s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 006</div>
+            <div class="a-name">LEDGER</div>
+            <div class="a-role">Financial Intelligence (advisory only)</div>
           </div>
-          <div class="system-row">
-            <div class="system-name">Auth (Magic Link)</div>
-            <div class="system-status ok"><div class="pulse-dot green"></div>Operational</div>
+
+          <div class="agent" style="--ac:#94A3B8;--dl:0.35s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 007</div>
+            <div class="a-name">ECHO</div>
+            <div class="a-role">Customer Support and Triage</div>
           </div>
-          <div class="system-row">
-            <div class="system-name">GitHub Pages (valerie-github1)</div>
-            <div class="system-status ok"><div class="pulse-dot green"></div>Operational</div>
+
+          <div class="agent" style="--ac:#215CAE;--dl:0.40s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 009</div>
+            <div class="a-name">GRID</div>
+            <div class="a-role">Project Manager and BA, owns Mission Control</div>
           </div>
-          <div class="system-row">
-            <div class="system-name">NDA SignHub (nda_records table)</div>
-            <div class="system-status ok"><div class="pulse-dot green"></div>Operational</div>
+
+          <div class="agent" style="--ac:#46ABD7;--dl:0.45s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 010</div>
+            <div class="a-name">SIGNAL</div>
+            <div class="a-role">Competitor and Market Intelligence</div>
           </div>
+
+          <div class="agent" style="--ac:#FF8C42;--dl:0.50s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 012</div>
+            <div class="a-name">FORGE</div>
+            <div class="a-role">Email Marketing Automation</div>
+          </div>
+
+          <div class="agent" style="--ac:#C49A6C;--dl:0.55s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 015</div>
+            <div class="a-name">SCRIBE</div>
+            <div class="a-role">Document Intelligence</div>
+          </div>
+
+          <div class="agent" style="--ac:#4682B4;--dl:0.60s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 016</div>
+            <div class="a-name">SAGE</div>
+            <div class="a-role">Strategic Analytics and Governance</div>
+          </div>
+
+          <div class="agent" style="--ac:#7ECEC4;--dl:0.65s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 017</div>
+            <div class="a-name">NEXUS</div>
+            <div class="a-role">Full Stack Developer</div>
+          </div>
+
+          <div class="agent" style="--ac:#84CC16;--dl:0.70s;">
+            <div class="a-dot"></div>
+            <div class="a-num">AGENT 018</div>
+            <div class="a-name">PROBE</div>
+            <div class="a-role">Software QA Engineer</div>
+          </div>
+
         </div>
       </div>
 
-      <!-- Quick nav -->
-      <div class="panel">
-        <div class="panel-title">// Quick Navigation</div>
-        <div class="nav-list">
-          <a href="./index.html" class="nav-link" style="--lc:#00E5FF;">
-            <span class="nav-link-label">ARIA</span>
-            Mission Control (Internal)
-          </a>
-          <a href="./PhoennixAI_PULSE_App.html" class="nav-link" style="--lc:#A78BFA;">
-            <span class="nav-link-label">PULSE</span>
-            Social Media App
-          </a>
-          <a href="./PhoennixAI_DocumentHub.html" class="nav-link" style="--lc:#C49A6C;">
-            <span class="nav-link-label">SCRIBE</span>
-            Document Hub
-          </a>
-          <a href="./PhoennixAI_TraceabilityDashboard.html" class="nav-link" style="--lc:#4682B4;">
-            <span class="nav-link-label">SAGE</span>
-            Traceability Dashboard
-          </a>
-          <a href="./PhoennixAI_NDA_SignHub.html" class="nav-link" style="--lc:#7ECEC4;">
-            <span class="nav-link-label">NEXUS</span>
-            NDA SignHub
-          </a>
-          <a href="./PhoennixAI_BetaWaitlist_Landing.html" class="nav-link" style="--lc:#22C55E;">
-            <span class="nav-link-label">SCOUT</span>
-            Beta Waitlist Landing
-          </a>
-        </div>
-      </div>
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-tag">Created to Create. Intelligent by nature.</div>
+        <div class="footer-meta">PhoennixAI &bull; Phase 0 &bull; Beta Access</div>
+      </footer>
 
-    </div>
-
-    <!-- ── Footer ── -->
-    <footer class="footer">
-      <div class="footer-tagline">Created to Create. Intelligent by nature.</div>
-      <div class="footer-meta">PAI-BETA-001 &bull; Phase 0 &bull; Internal Access</div>
-    </footer>
-
+    </main>
   </div>
 
-  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script>
-    const _SB_URL  = 'https://erfvunwhpsdbyyayzdimz.supabase.co';
-    const _SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZnZ1bndocHNkYnlheXpkam16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMDEzODQsImV4cCI6MjA4OTY3NzM4NH0.JdoYnDufRjOc2p4wVz0hgZql9-eZyo0-BHongtORhKo';
-    const _sb      = supabase.createClient(_SB_URL, _SB_KEY);
+    const _URL = 'https://erfvunwhpsdbyyayzdimz.supabase.co';
+    const _KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVyZnZ1bndocHNkYnlheXpkam16Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxMDEzODQsImV4cCI6MjA4OTY3NzM4NH0.JdoYnDufRjOc2p4wVz0hgZql9-eZyo0-BHongtORhKo';
+    const _sb  = supabase.createClient(_URL, _KEY);
 
-    /* ── Auth check ── */
-    async function initDashboard() {
+    /* ── Auth ── */
+    async function boot() {
       const { data: { session } } = await _sb.auth.getSession();
       if (!session) {
         window.location.href = './PhoennixAI_Auth_Login.html';
         return;
       }
-      const email = session.user.email || '';
-      document.getElementById('user-email-display').textContent = email;
-      document.getElementById('auth-gate').style.display    = 'none';
-      document.getElementById('main-content').style.display = 'block';
-
+      document.getElementById('sb-email').textContent = session.user.email || '';
+      document.getElementById('auth-gate').style.display   = 'none';
+      document.getElementById('main-layout').style.display = 'flex';
+      document.getElementById('hamburger').style.display   = 'flex';
       startClock();
       startCountdown();
       fetchCounts();
     }
 
-    async function signOut() {
+    async function doSignOut() {
       await _sb.auth.signOut();
       window.location.href = './PhoennixAI_Auth_Login.html';
     }
 
-    /* ── Live clock ── */
+    /* ── Sidebar ── */
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sb-overlay').classList.toggle('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sb-overlay').classList.remove('open');
+    }
+
+    /* ── Clock ── */
     function startClock() {
       function tick() {
-        const now = new Date();
-        const hh  = String(now.getHours()).padStart(2, '0');
-        const mm  = String(now.getMinutes()).padStart(2, '0');
-        const ss  = String(now.getSeconds()).padStart(2, '0');
-        document.getElementById('live-clock').textContent = hh + ':' + mm + ':' + ss;
+        const n = new Date();
+        document.getElementById('live-clock').textContent =
+          String(n.getHours()).padStart(2,'0') + ':' +
+          String(n.getMinutes()).padStart(2,'0') + ':' +
+          String(n.getSeconds()).padStart(2,'0');
       }
       tick();
       setInterval(tick, 1000);
     }
 
-    /* ── Countdown to 7 April 2026 ── */
+    /* ── Countdown ── */
     function startCountdown() {
       const target = new Date('2026-04-07T00:00:00+01:00');
       function tick() {
         const diff = target - Date.now();
+        const el    = document.getElementById('m-countdown');
+        const subEl = document.getElementById('m-countdown-sub');
         if (diff <= 0) {
-          document.getElementById('cd-days').textContent  = '00';
-          document.getElementById('cd-hours').textContent = '00';
-          document.getElementById('cd-mins').textContent  = '00';
-          document.getElementById('cd-secs').textContent  = '00';
+          el.textContent  = 'LIVE';
+          subEl.textContent = 'Beta is open';
           return;
         }
         const d = Math.floor(diff / 86400000);
         const h = Math.floor((diff % 86400000) / 3600000);
-        const m = Math.floor((diff % 3600000)  / 60000);
-        const s = Math.floor((diff % 60000)    / 1000);
-        document.getElementById('cd-days').textContent  = String(d).padStart(2, '0');
-        document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
-        document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
-        document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
+        const m = Math.floor((diff % 3600000) / 60000);
+        if (d === 0 && h < 24) {
+          el.textContent    = h + 'h ' + String(m).padStart(2,'0') + 'm';
+          subEl.textContent = 'Opens tomorrow — 7 Apr 2026';
+        } else {
+          el.textContent    = d + 'd';
+          subEl.textContent = d === 1 ? 'Opens tomorrow — 7 Apr 2026' : 'Countdown to 7 Apr 2026';
+        }
       }
       tick();
-      setInterval(tick, 1000);
+      setInterval(tick, 60000);
     }
 
-    /* ── Live counts from Supabase ── */
+    /* ── Live counts ── */
     async function fetchCounts() {
       const headers = {
-        'apikey':        _SB_KEY,
-        'Authorization': 'Bearer ' + _SB_KEY,
+        'apikey':        _KEY,
+        'Authorization': 'Bearer ' + _KEY,
         'Prefer':        'count=exact',
         'Range':         '0-0'
       };
 
-      try {
-        const res = await fetch(_SB_URL + '/rest/v1/beta_waitlist?select=id', { headers });
-        const cr  = res.headers.get('content-range') || '';
-        const m   = cr.match(/\/(\d+)$/);
-        document.getElementById('metric-registrants').textContent = m ? parseInt(m[1], 10) : 0;
-      } catch (e) {
-        console.error('[Dashboard] beta_waitlist fetch error:', e);
-        document.getElementById('metric-registrants').textContent = '--';
+      async function getCount(table) {
+        try {
+          const res = await fetch(_URL + '/rest/v1/' + table + '?select=id', { headers });
+          const cr  = (res.headers.get('content-range') || '').match(/\/(\d+)$/);
+          return cr ? parseInt(cr[1], 10) : 0;
+        } catch(e) {
+          console.error('[Dashboard] Count fetch failed for', table, e);
+          return null;
+        }
       }
 
-      try {
-        const res = await fetch(_SB_URL + '/rest/v1/nda_records?select=id', { headers });
-        const cr  = res.headers.get('content-range') || '';
-        const m   = cr.match(/\/(\d+)$/);
-        document.getElementById('metric-ndas').textContent = m ? parseInt(m[1], 10) : 0;
-      } catch (e) {
-        console.error('[Dashboard] nda_records fetch error:', e);
-        document.getElementById('metric-ndas').textContent = '--';
-      }
+      const waitlist = await getCount('beta_waitlist');
+      const ndas     = await getCount('nda_records');
+
+      const wEl = document.getElementById('m-waitlist');
+      const nEl = document.getElementById('m-ndas');
+      wEl.textContent = waitlist !== null ? waitlist : '--';
+      nEl.textContent = ndas     !== null ? ndas     : '--';
     }
 
-    /* ── Boot ── */
-    initDashboard();
+    boot();
   </script>
 </body>
 </html>

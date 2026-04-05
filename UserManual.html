@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhoennixAI — User Manual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:   #060A18;
+      --bg2:  #0C1228;
+      --cyan: #00E5FF;
+      --grey1: #E2E8F0;
+      --grey2: #94A3B8;
+      --grey3: #3D4F6B;
+      --ff-d: 'Bebas Neue', sans-serif;
+      --ff-b: 'DM Sans', sans-serif;
+      --ff-m: 'DM Mono', monospace;
+      --ff-t: 'Playfair Display', serif;
+    }
+    html, body { min-height:100%; background:var(--bg); color:var(--grey2); font-family:var(--ff-b); }
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(rgba(0,229,255,.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none; z-index: 0;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes blink  { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+
+    .page {
+      position: relative; z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+      animation: fadeUp .55s ease both;
+    }
+
+    .header { margin-bottom: 48px; }
+    .wordmark { font-family:var(--ff-d); font-size:42px; letter-spacing:.04em; line-height:1; }
+    .wordmark .c { color:var(--cyan); }
+    .wordmark .g { color:#9CA3AF; }
+    .header-sub { font-family:var(--ff-m); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--grey3); margin-top:6px; }
+
+    .divider { height:1px; background:rgba(0,229,255,.08); margin:32px 0; }
+
+    .badge-coming {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border: 1px solid rgba(0,229,255,.2);
+      font-family: var(--ff-m);
+      font-size: 9px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 28px;
+    }
+    .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--cyan); animation:blink 1.8s ease-in-out infinite; }
+
+    .headline {
+      font-family: var(--ff-d);
+      font-size: 52px;
+      line-height: 1.05;
+      letter-spacing: .03em;
+      color: var(--grey1);
+      margin-bottom: 16px;
+    }
+    .headline .accent { color: var(--cyan); }
+
+    .body-text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--grey2);
+      max-width: 520px;
+      margin-bottom: 36px;
+    }
+
+    .preview-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .preview-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--grey2);
+    }
+    .preview-icon {
+      width: 28px; height: 28px;
+      border: 1px solid rgba(0,229,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--ff-m); font-size: 9px; color: var(--grey3);
+      flex-shrink: 0;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-family: var(--ff-m);
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--grey3);
+      border-bottom: 1px solid transparent;
+      transition: color .18s, border-color .18s;
+      padding-bottom: 2px;
+    }
+    .back-link:hover { color: var(--cyan); border-bottom-color: rgba(0,229,255,.3); }
+
+    .footer {
+      margin-top: 64px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(0,229,255,.05);
+    }
+    .footer-tag { font-family:var(--ff-t); font-style:italic; font-size:13px; color:var(--grey3); }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <header class="header">
+      <div class="wordmark"><span class="c">PHOENNIX</span><span class="g">AI</span></div>
+      <div class="header-sub">Beta Access &bull; User Manual</div>
+    </header>
+
+    <div class="divider"></div>
+
+    <div class="badge-coming">
+      <div class="badge-dot"></div>
+      Coming Shortly
+    </div>
+
+    <div class="headline">
+      Your User<br>Manual is<br><span class="accent">Coming.</span>
+    </div>
+
+    <p class="body-text">
+      Your complete guide to PhoennixAI beta access is being prepared. It will cover everything you need to get started with your AI team, your workspace, and the tools built for you.
+    </p>
+
+    <div class="preview-list">
+      <div class="preview-item">
+        <div class="preview-icon">01</div>
+        Getting started with your AI team
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">02</div>
+        How to use Mission Control and Workspace
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">03</div>
+        ARIA, GRID, and PA — your daily operating agents
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">04</div>
+        PULSE for social media, LEDGER for finance, SCOUT for leads
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">05</div>
+        How to book your onboarding call and get support
+      </div>
+    </div>
+
+    <a href="./PhoennixAI_BetaDashboard.html" class="back-link">
+      &#8592; Back to Dashboard
+    </a>
+
+    <footer class="footer">
+      <div class="footer-tag">Created to Create. Intelligent by nature.</div>
+    </footer>
+
+  </div>
+</body>
+</html>
