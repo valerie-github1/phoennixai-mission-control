@@ -4,7 +4,7 @@
 const CACHE_NAME = 'phoennixai-v1';
 const STATIC_ASSETS = [
   '/phoennixai-mission-control/',
-  '/phoennixai-mission-control/index.html',
+  '/phoennixai-mission-control/PhoennixAI_InternalOps_MC.html',
   '/phoennixai-mission-control/PhoennixAI_BetaWaitlist_Landing.html',
   '/phoennixai-mission-control/PhoennixAI_BetaWaitlist.html',
   '/phoennixai-mission-control/PhoennixAI_PaymentConfirmation.html',

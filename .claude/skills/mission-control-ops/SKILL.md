@@ -4,7 +4,7 @@ Handles build, update, and maintenance operations for the PhoennixAI Mission Con
 
 ## What this skill does
 
-- Update Mission Control (`index.html`, v3.4) -- GRID Command panel, Agent Intelligence Feed, PA + ARIA Smart Scheduler, Calendar, Org Chart, Backlog, Session Log
+- Update Mission Control (`PhoennixAI_InternalOps_MC.html`, v3.4) -- GRID Command panel, Agent Intelligence Feed, PA + ARIA Smart Scheduler, Calendar, Org Chart, Backlog, Session Log
 - Update the Workspace (`PhoennixAI_Workspace.html`, v3.2) -- deliverables tracker, ARIA capabilities, bookmarks
 - Update the Document Hub (`PhoennixAI_DocumentHub.html`, v2.3) -- agent registry, automation log, version history
 - Add backlog items (BL-001 to BL-036+) to the correct app
@@ -30,7 +30,7 @@ Run at the start of every session:
 
 | File | App | Version | Owner |
 |------|-----|---------|-------|
-| `index.html` | Mission Control | v3.4 | GRID |
+| `PhoennixAI_InternalOps_MC.html` | Mission Control | v3.4 | GRID |
 | `PhoennixAI_Workspace.html` | Workspace | v3.2 | ARIA |
 | `PhoennixAI_DocumentHub.html` | Document Hub | v2.3 | SCRIBE |
 | `PhoennixAI_TraceabilityDashboard.html` | Traceability Dashboard | v1.0 | SAGE + SCRIBE |
