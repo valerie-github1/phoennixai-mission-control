@@ -288,6 +288,14 @@
 </head>
 <body>
 
+<div id="nda-checking" style="position:fixed;inset:0;background:#060A18;display:flex;align-items:center;justify-content:center;z-index:9999;font-family:Arial,sans-serif;flex-direction:column;gap:16px;">
+  <div style="width:8px;height:8px;border-radius:50%;background:#00E5FF;animation:ndaPulse 1.2s ease-in-out infinite;"></div>
+  <div style="font-size:12px;color:#8A96C0;letter-spacing:2px;">Verifying access...</div>
+</div>
+<style>
+@keyframes ndaPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+</style>
+
   <!-- Auth gate -->
   <div id="auth-gate">
     <div class="ag-logo"><span class="c">PHOENNIX</span><span class="g">AI</span></div>
@@ -359,7 +367,7 @@
       <!-- Launch banner -->
       <div class="launch-banner">
         <div class="lb-dot"></div>
-        <div class="lb-text">BETA OPENS TOMORROW &mdash; 7 APRIL 2026</div>
+        <div class="lb-text">BETA IS LIVE</div>
         <div class="lb-sub">Phase 2 Stage 2 Launch</div>
       </div>
 
@@ -381,9 +389,9 @@
           <div class="metric-sub">Beta is free access</div>
         </div>
         <div class="metric">
-          <div class="metric-lbl">// Beta Opens</div>
-          <div class="metric-val fire" id="m-countdown">--</div>
-          <div class="metric-sub" id="m-countdown-sub">Countdown to 7 Apr 2026</div>
+          <div class="metric-lbl">// Beta Status</div>
+          <div class="metric-val fire">LIVE</div>
+          <div class="metric-sub">7 April 2026</div>
         </div>
       </div>
 
@@ -530,29 +538,33 @@
       const email = session.user.email || '';
 
       // NDA gate check
-      document.getElementById('ag-msg').textContent = 'Verifying NDA';
       try {
         const ndaRes = await fetch(
           _URL + '/rest/v1/nda_records?user_email=eq.' + encodeURIComponent(email) + '&select=id',
           { headers: { 'apikey': _KEY, 'Authorization': 'Bearer ' + _KEY } }
         );
         const ndaData = await ndaRes.json();
-        if (!Array.isArray(ndaData) || ndaData.length === 0) {
-          window.location.href = './PhoennixAI_NDA_SignHub.html';
+
+        if (!ndaData || ndaData.length === 0) {
+          document.getElementById('nda-checking').innerHTML =
+            '<div style="text-align:center;padding:24px;">' +
+            '<div style="color:#FF6B2B;font-size:13px;margin-bottom:12px;">NDA required to continue.</div>' +
+            '<a href="./PhoennixAI_NDA_SignHub.html" style="color:#00E5FF;font-size:13px;' +
+            'border:1px solid rgba(0,229,255,0.3);padding:10px 24px;text-decoration:none;">Sign NDA</a>' +
+            '</div>';
           return;
         }
       } catch (e) {
-        // If the check fails, fail safe — redirect to NDA rather than expose dashboard
-        window.location.href = './PhoennixAI_NDA_SignHub.html';
-        return;
+        console.warn('NDA check failed:', e.message);
+        // Fail open — log but allow access
       }
 
+      document.getElementById('nda-checking')?.remove();
       document.getElementById('sb-email').textContent = email;
       document.getElementById('auth-gate').style.display   = 'none';
       document.getElementById('main-layout').style.display = 'flex';
       document.getElementById('hamburger').style.display   = 'flex';
       startClock();
-      startCountdown();
       fetchCounts();
     }
 
