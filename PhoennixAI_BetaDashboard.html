@@ -292,7 +292,7 @@
   <div id="auth-gate">
     <div class="ag-logo"><span class="c">PHOENNIX</span><span class="g">AI</span></div>
     <div class="ag-spinner"></div>
-    <div class="ag-msg">Verifying session</div>
+    <div class="ag-msg" id="ag-msg">Verifying session</div>
   </div>
 
   <!-- Hamburger (mobile) -->
@@ -526,7 +526,28 @@
         window.location.href = './PhoennixAI_Auth_Login.html';
         return;
       }
-      document.getElementById('sb-email').textContent = session.user.email || '';
+
+      const email = session.user.email || '';
+
+      // NDA gate check
+      document.getElementById('ag-msg').textContent = 'Verifying NDA';
+      try {
+        const ndaRes = await fetch(
+          _URL + '/rest/v1/nda_records?user_email=eq.' + encodeURIComponent(email) + '&select=id',
+          { headers: { 'apikey': _KEY, 'Authorization': 'Bearer ' + _KEY } }
+        );
+        const ndaData = await ndaRes.json();
+        if (!Array.isArray(ndaData) || ndaData.length === 0) {
+          window.location.href = './PhoennixAI_NDA_SignHub.html';
+          return;
+        }
+      } catch (e) {
+        // If the check fails, fail safe — redirect to NDA rather than expose dashboard
+        window.location.href = './PhoennixAI_NDA_SignHub.html';
+        return;
+      }
+
+      document.getElementById('sb-email').textContent = email;
       document.getElementById('auth-gate').style.display   = 'none';
       document.getElementById('main-layout').style.display = 'flex';
       document.getElementById('hamburger').style.display   = 'flex';
