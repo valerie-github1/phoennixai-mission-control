@@ -74,6 +74,19 @@ Build only what is needed now. No premature builds. No speculative features.
 **Default Mode (Key Decision 26)**  
 All apps default to light mode. Dark mode toggle available.
 
+**Code Quality Protocol (NEXUS + PROBE)**  
+Skill: `.claude/skills/code-cleanup-and-quality/SKILL.md`. Applies to every file NEXUS touches. PROBE sign-off required before any file ships to production. Non-negotiable standards enforced on every build:
+- Tailwind CDN JIT only (`cdn.tailwindcss.com`) — no local builds
+- No em dashes in any file (covered by Key Decision 6 — restated here for code context)
+- PhoennixAI always two Ns
+- Copyright year: 2026
+- Footer tagline: Created to Create. Intelligent by nature.
+- Fonts: Bebas Neue, DM Sans, DM Mono, Playfair Display only
+- All links use: `phoennixai-mission-control-eight.vercel.app`
+- No GitHub Pages domain references
+- No credentials in client files beyond Supabase anon key
+- Every async call has try/catch with user-visible feedback
+
 **Locked Decisions — Do Not Reopen**  
 Key Decisions 1-46 are locked. Signed documents (Claude JD, ARIA JD, all agent JDs/CVs) are locked. Do not reopen.
 
