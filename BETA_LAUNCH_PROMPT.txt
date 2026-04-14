@@ -1,0 +1,267 @@
+PHOENNIXAI — BETA LAUNCH PROMPT
+================================
+Version: v1.0 | April 2026 | Confidential
+Author: Valerie Wilcox, Founder + Claude, AI Strategic Partner
+Classification: Internal · Marketing OS (MOS) · Beta Operations
+
+---
+
+CONTEXT
+-------
+PhoennixAI Mission Control is the world's first AI-powered Business Operating System (BOS)
+for solo founders. It replaces 6–12 tools with one command centre staffed by 22 AI agents.
+
+The beta programme launches to a curated group of 50–100 founders who applied via the
+Beta Waitlist Landing Page. These are real users. They will shape the v1 product.
+
+---
+
+BETA PROGRAMME OVERVIEW
+-----------------------
+Programme name : PhoennixAI Beta
+Access model   : Invite-only (NDA signed at intake)
+Target cohort  : 50–100 solo founders / small business owners
+Duration       : 8 weeks
+Goal           : Validate the BOS core loop, collect structured feedback,
+                 convert 30%+ to paid on public launch
+
+Beta modules open in Phase 1:
+  - Mission Control dashboard (index.html)
+  - Aria — client intake AI
+  - PULSE — internal operations manual
+  - SCRIBE — document hub
+  - SIGNAL — comms + social
+
+Marketing OS (MOS) modules (Phase 2, week 3+):
+  - Content calendar generator
+  - Beta email sequence builder
+  - Brand voice calibrator
+  - Social post templates (Instagram, LinkedIn)
+  - Launch kit assembler
+
+---
+
+BETA TESTER EMAIL SEQUENCE
+---------------------------
+
+EMAIL 1 — INVITATION (send on Day 0)
+Subject: You're in. PhoennixAI Beta access inside.
+---
+Hi [First Name],
+
+You applied. You're in.
+
+PhoennixAI Beta is now open for you. You're one of [X] founders who made the cut.
+
+What you're getting access to:
+→ Mission Control — your AI-powered business operating system
+→ Aria — your AI intake specialist
+→ PULSE — your internal ops manual, already written by AI
+→ SCRIBE — document hub, zero admin
+
+Your access link: [BETA_URL]
+Your NDA is on file. Everything you see is confidential.
+
+One thing I ask: use it. Actually open it. Let it change how your Monday morning feels.
+
+If you hit a bug, have a thought, or just want to tell me something isn't working —
+reply to this email. I read every one.
+
+Welcome to the team.
+
+Valerie
+Founder, PhoennixAI
+
+P.S. Aria is waiting for you. She'll brief you in.
+---
+
+EMAIL 2 — DAY 3 CHECK-IN
+Subject: Have you met Aria yet?
+---
+Hi [First Name],
+
+Three days in. Checking in.
+
+If you've logged in — brilliant. If not — no judgment, but here's the truth:
+the founders getting the most from beta are the ones who spent 20 minutes
+on day one letting Aria brief them.
+
+She asks the right questions. She builds your first operational brief.
+She makes the whole thing feel less like software and more like a team.
+
+Open Mission Control → [BETA_URL]
+Then come back and tell me what you think.
+
+Valerie
+---
+
+EMAIL 3 — WEEK 2 FEEDBACK REQUEST
+Subject: Honest question — what's not working?
+---
+Hi [First Name],
+
+Week 2. I want the unfiltered version.
+
+What's confusing? What's missing? What made you close the tab?
+
+I'm not looking for compliments. I'm looking for the thing that made you
+think "this isn't quite right yet." That's the thing we need to fix before launch.
+
+Reply here. Or fill in the feedback form: [FEEDBACK_URL]
+
+Every piece of feedback goes directly into the product roadmap.
+
+Valerie
+---
+
+EMAIL 4 — WEEK 4 MOS MODULE UNLOCK
+Subject: New: Marketing OS is now live in your dashboard
+---
+Hi [First Name],
+
+The Marketing OS (MOS) module is now live in your Mission Control.
+
+What's inside:
+→ Content calendar generator — 30 days of posts, briefed by Aria
+→ Brand voice calibrator — your tone, your words, trained into the system
+→ Email sequence builder — launch sequences, nurture flows, re-engagement
+→ Social post templates — Instagram + LinkedIn, in your brand voice
+
+This is the module that makes Mission Control feel like having a full
+marketing team. Open it, run the brand voice calibrator first.
+
+[BETA_URL] → Marketing OS
+
+Tell me what you build.
+
+Valerie
+---
+
+EMAIL 5 — PRE-LAUNCH CONVERSION (Week 7)
+Subject: Beta ends in 7 days. Here's what happens next.
+---
+Hi [First Name],
+
+Seven days left in beta.
+
+After that, PhoennixAI launches publicly. Pricing goes live.
+Beta users get locked-in founder pricing — that's yours to keep, forever,
+as long as you stay with us.
+
+What's included at launch:
+→ All 22 agents, fully briefed
+→ Mission Control (full BOS)
+→ Marketing OS (MOS)
+→ Client intake (Aria)
+→ Unlimited document generation
+
+Founder pricing (beta users only): £[PRICE]/month
+Public launch price: £[HIGHER_PRICE]/month
+
+Secure your rate: [UPGRADE_URL]
+
+If you have questions — reply here. I'll answer personally.
+
+Valerie
+---
+
+EMAIL 6 — LAUNCH DAY
+Subject: We're live. You were here first.
+---
+Hi [First Name],
+
+Today PhoennixAI launches to the world.
+
+You were part of the 100 founders who shaped this.
+Your feedback changed the product. Your questions made it smarter.
+Your honest "this doesn't work" made us fix the things we couldn't see.
+
+Thank you.
+
+Your founder pricing is confirmed. Your account is upgraded.
+Your AI team is ready.
+
+PhoennixAI is live: [LAUNCH_URL]
+
+Tell someone. Share it. The founders who find this next
+will be the ones who needed it most.
+
+With gratitude,
+Valerie
+Founder, PhoennixAI
+
+---
+
+BRAND VOICE RULES (for all beta comms)
+---------------------------------------
+1. Short sentences. Always.
+2. No corporate language. ("leverage", "utilise", "synergy" = banned)
+3. Speak to ONE founder. Never "founders" (plural) in the body copy.
+4. Direct. Never hedge. ("might", "could possibly", "you may want to" = cut it)
+5. Warmth without sycophancy. Never open with "I hope this email finds you well."
+6. The founder's pain is real. Acknowledge it before selling.
+7. Aria speaks differently to Valerie. Aria is warmer, more curious. Valerie is decisive.
+8. Every email ends with one clear action. One. Not three.
+
+BRAND COLOURS (email-safe hex):
+  Primary background : #060A18
+  Fire (CTA)         : #FF6B2B
+  Electric (accents) : #00E5FF
+  Gold (highlights)  : #FFB830
+  Body text          : #E8E8E8
+  Muted text         : rgba(255,255,255,0.55)
+
+FONTS (email):
+  Headlines : Bebas Neue → fallback: Impact, sans-serif
+  Body      : DM Sans → fallback: system-ui, sans-serif
+  Code/mono : DM Mono → fallback: monospace
+
+---
+
+MARKETING OS (MOS) MODULE SPEC
+--------------------------------
+The MOS is a sub-module of Mission Control that handles all marketing operations.
+
+Agents assigned to MOS:
+  SIGNAL   — social media scheduling + content
+  SCRIBE   — copywriting + email sequences
+  ARIA     — client comms + intake
+  PROBE    — market research + competitor analysis
+  RELAY    — campaign coordination
+
+MOS Capabilities (v1):
+  [x] Brand voice calibration (input 3 writing samples → outputs brand voice brief)
+  [x] Email sequence generation (type: welcome / launch / nurture / re-engagement)
+  [x] Social post templates (Instagram + LinkedIn, in brand voice)
+  [x] Content calendar (30-day, topic-clustered, auto-scheduled)
+  [ ] SMS sequences (Phase 2)
+  [ ] Ad copy generator (Phase 2)
+  [ ] Video script generator (Phase 2)
+
+MOS Input required from founder:
+  - Brand voice samples (3 minimum)
+  - Target audience description
+  - Product/service name + one-line description
+  - Launch date (if applicable)
+  - Tone preference: [Authoritative / Warm / Playful / Premium]
+
+---
+
+CLAUDE CODE INSTRUCTIONS FOR BETA/MOS WORK
+--------------------------------------------
+When working on any beta launch or MOS task:
+
+1. Read this file first (BETA_LAUNCH_PROMPT.txt)
+2. Apply brand voice rules to ALL copy — no exceptions
+3. For email sequences: use the 6-email structure above as the template
+4. For MOS features: reference the agent assignments above
+5. Test all email HTML against the brand colour palette
+6. Run graphify after building any new MOS module:
+     python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"
+
+Key files to read before editing:
+  - PhoennixAI_BrandGuidelines.html  (colours, type, logo rules)
+  - phoennixai_beta_launch_kit.html  (full beta kit)
+  - PhoennixAI_BetaWaitlist_Landing.html (current waitlist page)
+  - CLAUDE-v3.md (permanent memory)
+  - SKILL-v3.md (agent skills)
