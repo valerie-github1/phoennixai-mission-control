@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>PhoennixAI — Mission Control BOS</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@200;300;400;600&family=JetBrains+Mono:wght@400;500&family=Press+Start+2P&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{--bg:#020810;--card:rgba(4,12,32,0.92);--blue:#1E90FF;--blue-b:#4DB8FF;--aqua:#0AFFFF;--green:#00C875;--amber:#F59E0B;--red:#EF4444;--violet:#9D4EDD;--border:rgba(30,144,255,0.16);--border2:rgba(30,144,255,0.07);--text:rgba(200,225,255,0.9);--muted:rgba(173,210,255,0.45);--muted2:rgba(173,210,255,0.22);--fh:"Orbitron",sans-serif;--fb:"Exo 2",sans-serif;--fc:"JetBrains Mono",monospace;--fp:"Press Start 2P",monospace;--sb:rgba(2,6,18,0.98);--sw:230px;}
+[data-theme=light]{--bg:#EEF4FF;--card:rgba(255,255,255,0.92);--border:rgba(0,90,200,0.13);--border2:rgba(0,90,200,0.06);--text:#0A1628;--muted:rgba(10,30,80,0.5);--muted2:rgba(10,30,80,0.28);--blue:#1565CC;--blue-b:#1565CC;--aqua:#007BA7;--sb:rgba(238,244,255,0.98);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);height:100vh;overflow:hidden;display:flex;flex-direction:column;}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(30,144,255,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(30,144,255,0.012) 1px,transparent 1px);background-size:58px 58px;pointer-events:none;z-index:0;}
+/* HEADER */
+.hdr{z-index:200;height:52px;background:rgba(2,8,16,0.98);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:10px;flex-shrink:0;position:relative;}
+[data-theme=light] .hdr{background:rgba(238,244,255,0.98);}
+.hdr-logo{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#0057FF,#00E5FF);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:8px;font-weight:900;color:#fff;flex-shrink:0;box-shadow:0 0 10px rgba(30,144,255,0.4);}
+.hdr-brand{font-family:var(--fh);font-size:11px;font-weight:900;letter-spacing:2px;background:linear-gradient(135deg,var(--blue-b),var(--aqua));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+[data-theme=light] .hdr-brand{background:var(--blue);-webkit-background-clip:text;background-clip:text;}
+.hdr-sub{font-family:var(--fp);font-size:5px;color:var(--muted2);letter-spacing:1.5px;}
+.hdr-search{flex:1;max-width:380px;margin:0 12px;position:relative;}
+.hdr-search input{width:100%;background:rgba(30,144,255,0.05);border:1px solid var(--border);color:var(--text);font-family:var(--fc);font-size:11px;padding:6px 10px 6px 28px;outline:none;}
+.hdr-search input::placeholder{color:var(--muted2);}
+.hdr-search svg{position:absolute;left:8px;top:50%;transform:translateY(-50%);}
+.hdr-right{margin-left:auto;display:flex;align-items:center;gap:6px;}
+.live-dot{display:flex;align-items:center;gap:5px;font-family:var(--fp);font-size:5px;letter-spacing:1px;color:var(--green);}
+.live-dot::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 5px var(--green);animation:blink 1.5s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+.hbtn{font-family:var(--fp);font-size:5px;padding:5px 8px;background:transparent;border:1px solid var(--border);color:var(--muted);cursor:pointer;letter-spacing:1px;}
+.hbtn:hover,.hbtn.act{border-color:var(--blue-b);color:var(--blue-b);}
+.snowy-btn{font-family:var(--fp);font-size:5px;padding:5px 8px;border:1px solid rgba(0,229,255,0.3);color:#00E5FF;background:transparent;cursor:pointer;letter-spacing:1px;}
+/* BRIDGE */
+.bridge{height:30px;background:rgba(2,6,18,0.98);border-bottom:1px solid rgba(30,144,255,0.1);display:flex;align-items:center;flex-shrink:0;z-index:100;position:relative;}
+[data-theme=light] .bridge{background:rgba(238,244,255,0.98);}
+.bl{font-family:var(--fp);font-size:4.5px;letter-spacing:2px;color:var(--muted2);padding:0 12px;border-right:1px solid var(--border2);flex-shrink:0;}
+.bpl{display:flex;align-items:center;gap:6px;padding:0 14px;height:100%;cursor:pointer;border:none;background:transparent;text-decoration:none;border-right:1px solid var(--border2);transition:background .15s;}
+.bpl:hover{background:rgba(30,144,255,0.05);}
+.bpl.cur{background:rgba(30,144,255,0.08);border-bottom:2px solid var(--blue);}
+.bpl-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.d-g{background:var(--green);box-shadow:0 0 4px var(--green);}
+.d-b{background:var(--blue);box-shadow:0 0 4px var(--blue);}
+.bpl-n{font-family:var(--fp);font-size:5px;letter-spacing:1.5px;color:var(--text);}
+.bpl-t{font-family:var(--fp);font-size:4px;letter-spacing:1px;color:var(--muted2);margin-left:4px;}
+.b-spc{margin-left:auto;font-family:var(--fp);font-size:4px;letter-spacing:1px;color:var(--muted2);padding-right:14px;}
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden;position:relative;z-index:1;}
+/* SIDEBAR */
+.sidebar{width:var(--sw);flex-shrink:0;background:var(--sb);border-right:1px solid var(--border);display:flex;flex-direction:column;transition:width .25s;overflow:hidden;position:relative;}
+.sidebar.coll{width:0;}
+.sb-inner{flex:1;padding:12px 0;overflow-y:auto;min-width:var(--sw);}
+.sb-inner::-webkit-scrollbar{width:2px;}
+.sb-inner::-webkit-scrollbar-thumb{background:rgba(30,144,255,0.2);}
+.ng{margin-bottom:14px;}
+.ngl{font-family:var(--fp);font-size:5.5px;letter-spacing:2px;color:var(--muted2);padding:0 14px;margin-bottom:5px;}
+.ni{display:flex;align-items:center;gap:8px;padding:8px 14px;cursor:pointer;border-left:2px solid transparent;transition:all .15s;min-width:var(--sw);}
+.ni:hover{background:rgba(30,144,255,0.05);}
+.ni.act{background:rgba(30,144,255,0.1);border-left-color:var(--blue);}
+.ni-ico{width:15px;flex-shrink:0;opacity:.6;}
+.ni.act .ni-ico{opacity:1;}
+.ni-n{font-family:var(--fp);font-size:6px;letter-spacing:.5px;flex:1;}
+.nb{font-family:var(--fp);font-size:4.5px;padding:2px 6px;border:1px solid;letter-spacing:1px;}
+.b-live{border-color:rgba(0,200,117,.4);color:var(--green);}
+.b-new{border-color:rgba(239,68,68,.4);color:var(--red);}
+.b-beta{border-color:rgba(245,158,11,.4);color:var(--amber);}
+.b-auto{border-color:rgba(30,144,255,.4);color:var(--blue-b);}
+.b-num{border-color:rgba(157,78,221,.4);color:var(--violet);}
+.b-cyn{border-color:rgba(0,229,255,.3);color:#00E5FF;}
+/* SIDEBAR TOGGLE */
+.sb-tog{position:absolute;top:50%;right:-14px;transform:translateY(-50%);width:14px;height:42px;background:rgba(30,144,255,0.12);border:1px solid var(--border);border-left:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:50;}
+.sb-tog:hover{background:rgba(30,144,255,0.22);}
+.sb-tog svg{transition:transform .25s;}
+.sidebar.coll .sb-tog svg{transform:rotate(180deg);}
+/* SIDEBAR USER (login portal) */
+.sb-user{flex-shrink:0;border-top:1px solid var(--border);padding:12px 14px;display:flex;align-items:center;gap:8px;min-width:var(--sw);}
+.u-av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#0057FF,#00E5FF);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:8px;font-weight:900;color:#fff;flex-shrink:0;}
+.u-inf{flex:1;min-width:0;}
+.u-nm{font-family:var(--fp);font-size:5.5px;letter-spacing:1px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.u-rl{font-family:var(--fp);font-size:4px;letter-spacing:.5px;color:var(--muted2);margin-top:2px;}
+.u-st{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 4px var(--green);flex-shrink:0;}
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
+/* CMD */
+.cmd-area{padding:12px 16px;border-bottom:1px solid var(--border);flex-shrink:0;background:rgba(2,8,16,0.5);}
+[data-theme=light] .cmd-area{background:rgba(238,244,255,0.5);}
+.cmd-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.cmd-pfx{font-family:var(--fc);font-size:16px;color:var(--blue-b);margin-right:2px;line-height:1;}
+.cmd-inp{flex:1;background:rgba(30,144,255,0.04);border:1px solid var(--border);color:var(--text);font-family:var(--fc);font-size:12px;padding:8px 12px;outline:none;}
+.cmd-inp::placeholder{color:var(--muted2);}
+.run-btn{font-family:var(--fp);font-size:5.5px;letter-spacing:2px;padding:9px 16px;background:var(--blue);border:none;color:#fff;cursor:pointer;flex-shrink:0;}
+.run-btn:hover{background:var(--blue-b);}
+.run-btn:disabled{background:rgba(30,144,255,0.2);color:var(--muted2);cursor:not-allowed;}
+.run-btn.run{animation:p 1s infinite;}
+@keyframes p{0%,100%{opacity:1;}50%{opacity:.5;}}
+.pills{display:flex;gap:5px;flex-wrap:wrap;}
+.pill{font-family:var(--fp);font-size:5px;padding:4px 8px;border:1px solid var(--border);color:var(--muted);cursor:pointer;letter-spacing:.5px;background:transparent;}
+.pill:hover{border-color:var(--blue);color:var(--blue-b);}
+/* OUTPUT */
+.output{flex:1;overflow-y:auto;}
+.output::-webkit-scrollbar{width:3px;}
+.output::-webkit-scrollbar-thumb{background:rgba(30,144,255,0.2);}
+.out-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;padding:30px;}
+.out-glyph{font-family:var(--fh);font-size:28px;color:var(--blue);opacity:.2;}
+.out-title{font-family:var(--fh);font-size:10px;letter-spacing:3px;color:var(--muted2);}
+.out-body{font-family:var(--fp);font-size:5.5px;text-align:center;line-height:2.2;color:var(--muted2);max-width:340px;}
+.out-body span{color:var(--blue-b);}
+.resp{padding:14px 16px;border-bottom:1px solid var(--border2);}
+.resp-hd{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.resp-ag{font-family:var(--fp);font-size:5.5px;letter-spacing:2px;font-weight:900;color:#215CAE;}
+.resp-cm{font-family:var(--fc);font-size:10px;color:var(--muted2);}
+.resp-tm{font-family:var(--fc);font-size:10px;color:var(--muted2);margin-left:auto;}
+.resp-bd{font-family:var(--fc);font-size:11px;line-height:1.9;color:rgba(200,225,255,0.8);white-space:pre-wrap;}
+[data-theme=light] .resp-bd{color:rgba(10,22,40,0.8);}
+.resp-bd .g{color:var(--green);}
+.resp-bd .a{color:var(--amber);}
+.resp-bd .r{color:var(--red);}
+.resp-bd .h{color:var(--aqua);font-weight:700;}
+/* CHARTS */
+.ch-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;padding:14px 16px;border-bottom:1px solid var(--border2);}
+.ch-card{background:var(--card);border:1px solid var(--border);padding:12px;}
+.ch-t{font-family:var(--fp);font-size:5px;letter-spacing:1.5px;color:var(--muted);margin-bottom:8px;}
+.ch-v{font-family:var(--fh);font-size:20px;font-weight:900;margin-bottom:2px;}
+.ch-c{font-family:var(--fp);font-size:4.5px;letter-spacing:1px;}
+.ch-c.up{color:var(--green);}
+.ch-c.dn{color:var(--red);}
+/* KPI BAR */
+.kpi-bar{height:66px;border-top:1px solid var(--border);display:flex;background:rgba(2,6,18,0.98);flex-shrink:0;}
+[data-theme=light] .kpi-bar{background:rgba(238,244,255,0.98);}
+.kpi{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-right:1px solid var(--border2);gap:2px;cursor:default;}
+.kpi:last-child{border-right:none;}
+.kpi-v{font-family:var(--fh);font-size:18px;font-weight:900;line-height:1;}
+.kpi-l{font-family:var(--fp);font-size:4px;letter-spacing:1.5px;color:var(--muted2);text-align:center;}
+.kpi-c{font-family:var(--fp);font-size:4px;letter-spacing:.5px;}
+.kpi-c.up{color:var(--green);}
+.kpi-c.dn{color:var(--red);}
+/* CHAT */
+.chat{width:0;flex-shrink:0;border-left:1px solid var(--border);background:var(--sb);display:flex;flex-direction:column;overflow:hidden;transition:width .25s;}
+.chat.open{width:300px;}
+.chat-hd{padding:10px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.chat-nm{font-family:var(--fh);font-size:9px;letter-spacing:2px;color:var(--blue-b);}
+.chat-sb{font-family:var(--fp);font-size:4px;color:var(--muted2);margin-top:2px;}
+.chat-on{margin-left:auto;font-family:var(--fp);font-size:4px;color:var(--green);display:flex;align-items:center;gap:3px;}
+.chat-on::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--green);}
+.chat-x{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:13px;padding:2px;}
+.chat-msgs{flex:1;overflow-y:auto;padding:10px;display:flex;flex-direction:column;gap:7px;}
+.msg{padding:8px 10px;font-family:var(--fc);font-size:11px;line-height:1.65;max-width:95%;}
+.msg.u{align-self:flex-end;background:rgba(30,144,255,0.13);border:1px solid rgba(30,144,255,0.2);}
+.msg.g{align-self:flex-start;background:var(--card);border:1px solid var(--border);}
+.msg-l{font-family:var(--fp);font-size:4px;letter-spacing:1px;margin-bottom:4px;}
+.msg.g .msg-l{color:var(--blue-b);}
+.msg.u .msg-l{color:var(--muted2);text-align:right;}
+.chat-ir{padding:8px 10px;border-top:1px solid var(--border);display:flex;gap:5px;flex-shrink:0;}
+.chat-in{flex:1;background:rgba(30,144,255,0.04);border:1px solid var(--border);color:var(--text);font-family:var(--fc);font-size:11px;padding:6px 8px;outline:none;resize:none;height:36px;}
+.chat-snd{font-family:var(--fp);font-size:4.5px;padding:0 10px;background:var(--blue);border:none;color:#fff;cursor:pointer;letter-spacing:1px;}
+.chat-snd:disabled{background:rgba(30,144,255,0.2);cursor:not-allowed;}
+.ld::after{content:"...";animation:lda 1.2s step-end infinite;}
+@keyframes lda{0%{content:".";}33%{content:"..";}66%{content:"...";}100%{content:"."}}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hdr-logo">PAI</div>
+  <div><div class="hdr-brand">PHOENNIXAI</div><div class="hdr-sub">MISSION CONTROL · BOS · PM: GRID</div></div>
+  <div class="hdr-search">
+    <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="4.5" cy="4.5" r="3.5" stroke="rgba(173,210,255,0.4)" stroke-width="1.1"/><line x1="7.5" y1="7.5" x2="10" y2="10" stroke="rgba(173,210,255,0.4)" stroke-width="1.1"/></svg>
+    <input id="srch" type="text" placeholder="agent: · project: · doc: · /command · or ask GRID anything" oninput="hSrch(this.value)" onkeydown="if(event.key==='Enter')rSrch()" autocomplete="off">
+  </div>
+  <div class="hdr-right">
+    <div class="live-dot">INTERNAL LIVE</div>
+    <button class="hbtn" id="thBtn" onclick="togT()">☀ LIGHT</button>
+    <button class="hbtn" id="chatBtn" onclick="togChat()">⬡ GRID</button>
+    <button class="snowy-btn">SNOWY</button>
+  </div>
+</header>
+
+<div class="bridge">
+  <span class="bl">PLATFORM</span>
+  <a class="bpl cur" href="#"><div class="bpl-dot d-g"></div><span class="bpl-n">MISSION CONTROL</span><span class="bpl-t">BOS · DAILY OPS</span></a>
+  <a class="bpl" href="https://valerie-github1.github.io/phoennixai-mission-control/command-hq.html" target="_blank"><div class="bpl-dot d-b"></div><span class="bpl-n">COMMAND HQ</span><span class="bpl-t">SINGLE SOURCE OF TRUTH</span></a>
+  <span class="b-spc">INTERNAL USE ONLY · APR 2026</span>
+</div>
+
+<div class="layout">
+  <nav class="sidebar" id="sb">
+    <div class="sb-inner">
+      <div class="ng"><div class="ngl">CORE</div>
+        <div class="ni act" onclick="nav(this,'mc')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="13" height="13" rx="1" stroke="currentColor" stroke-width="1"/><line x1="1" y1="7.5" x2="14" y2="7.5" stroke="currentColor" stroke-width="1"/><line x1="7.5" y1="7.5" x2="7.5" y2="14" stroke="currentColor" stroke-width="1"/></svg><span class="ni-n">Mission Control</span><span class="nb b-live">LIVE</span></div>
+        <div class="ni" onclick="nav(this,'finos')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 1v13M4.5 5l3-4 3 4M4.5 10l3 4 3-4" stroke="currentColor" stroke-width="1"/></svg><span class="ni-n">Financial OS</span><span class="nb b-beta">LEDGER</span></div>
+        <div class="ni" onclick="nav(this,'markos')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1"/><path d="M4.5 4.5l6 6M10.5 4.5l-6 6" stroke="currentColor" stroke-width="1"/></svg><span class="ni-n">Marketing OS</span><span class="nb b-auto">PULSE</span></div>
+        <div class="ni" onclick="nav(this,'people')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="4.5" r="2.5" stroke="currentColor" stroke-width="1"/><path d="M2 14c0-3 2.5-5.5 5.5-5.5S13 11 13 14" stroke="currentColor" stroke-width="1"/></svg><span class="ni-n">People OS</span><span class="nb b-new">NEW</span></div>
+      </div>
+      <div class="ng"><div class="ngl">INTELLIGENCE</div>
+        <div class="ni" onclick="nav(this,'data')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="8" width="3" height="6" fill="currentColor" opacity=".7"/><rect x="6" y="5" width="3" height="9" fill="currentColor" opacity=".85"/><rect x="11" y="2" width="3" height="12" fill="currentColor"/></svg><span class="ni-n">Data Insights</span><span class="nb b-beta">SAGE</span></div>
+        <div class="ni" onclick="nav(this,'agents')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="5.5" r="3" stroke="currentColor" stroke-width="1"/><path d="M2 14c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="currentColor" stroke-width="1"/></svg><span class="ni-n">Agents Hub</span><span class="nb b-num">22</span></div>
+        <div class="ni" onclick="nav(this,'cowork')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="2" width="11" height="11" rx="1" stroke="currentColor" stroke-width="1"/><path d="M5.5 5.5l2.5 2.5-2.5 2.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><line x1="9" y1="10" x2="11" y2="10" stroke="currentColor" stroke-width="1"/></svg><span class="ni-n">Coworker</span><span class="nb b-cyn">GNOMY</span></div>
+      </div>
+      <div class="ng"><div class="ngl">MANAGEMENT</div>
+        <div class="ni" onclick="nav(this,'del')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="1" y="1" width="13" height="13" rx="1" stroke="currentColor" stroke-width="1"/><path d="M4 7.5l3 3 4.5-5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><span class="ni-n">Deliverables</span><span class="nb b-num">9</span></div>
+        <div class="ni" onclick="nav(this,'change')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="currentColor" stroke-width="1"/><path d="M7.5 4.5v4l2 1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><span class="ni-n">Changelog</span><span class="nb b-auto">AUTO</span></div>
+        <div class="ni" onclick="nav(this,'set')"><svg class="ni-ico" width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="2.5" stroke="currentColor" stroke-width="1"/><path d="M7.5 1v1.5M7.5 12.5V14M1 7.5h1.5M12.5 7.5H14" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg><span class="ni-n">Settings</span></div>
+      </div>
+    </div>
+    <!-- LOGIN PORTAL -->
+    <div class="sb-user">
+      <div class="u-av">VW</div>
+      <div class="u-inf"><div class="u-nm">Valerie Wilcox</div><div class="u-rl">FOUNDER · CEO · PHOENNIXAI</div></div>
+      <div class="u-st"></div>
+    </div>
+    <!-- COLLAPSE TOGGLE -->
+    <button class="sb-tog" id="sbTog" onclick="togSB()" title="Toggle sidebar">
+      <svg width="7" height="10" viewBox="0 0 7 10" fill="none"><path d="M5 1L1 5l4 4" stroke="rgba(173,210,255,0.5)" stroke-width="1.2" stroke-linecap="round"/></svg>
+    </button>
+  </nav>
+
+  <main class="main">
+    <div class="cmd-area">
+      <div class="cmd-row">
+        <span class="cmd-pfx">/</span>
+        <input class="cmd-inp" id="cmdInp" placeholder="report · insights · ultraplan · focus · forecast · agents · projects · ryd · charts" onkeydown="if(event.key==='Enter')runCmd()">
+        <button class="run-btn" id="runBtn" onclick="runCmd()">RUN ▶</button>
+      </div>
+      <div class="pills">
+        <span class="pill" onclick="setCmd('ultraplan')">/ultraplan</span>
+        <span class="pill" onclick="setCmd('powerup')">/powerup</span>
+        <span class="pill" onclick="setCmd('insights')">/insights</span>
+        <span class="pill" onclick="setCmd('focus')">/focus</span>
+        <span class="pill" onclick="setCmd('forecast')">/forecast</span>
+        <span class="pill" onclick="setCmd('agents')">/agents</span>
+        <span class="pill" onclick="setCmd('report')">/report</span>
+        <span class="pill" onclick="setCmd('ryd')">/ryd</span>
+        <span class="pill" onclick="setCmd('projects')">/projects</span>
+        <span class="pill" onclick="showCharts()" style="border-color:rgba(0,200,117,0.35);color:#00C875">/charts</span>
+      </div>
+    </div>
+    <div class="output" id="out">
+      <div class="out-empty" id="outEmp">
+        <div class="out-glyph">⬡</div>
+        <div class="out-title">GRID COMMAND TERMINAL</div>
+        <div class="out-body"><span>/report</span> — weekly cross-project briefing&#10;<span>/insights</span> — performance intelligence&#10;<span>/ultraplan</span> — deep strategic planning&#10;<span>/focus</span> — today's 3 highest-leverage actions&#10;<span>/forecast</span> — 30-day risk & opportunity outlook&#10;<span>/agents</span> — all 22 agent status&#10;<span>/projects</span> — all 9 products health check&#10;<span>/ryd</span> — RYD client deep dive&#10;<span>/charts</span> — live data dashboard</div>
+      </div>
+      <div id="chrts" style="display:none;padding:14px 16px;border-bottom:1px solid var(--border2);">
+        <div style="font-family:var(--fp);font-size:5px;letter-spacing:2px;color:var(--muted);margin-bottom:12px;">DATA INSIGHTS · LIVE DASHBOARD</div>
+        <div class="ch-row">
+          <div class="ch-card"><div class="ch-t">REVENUE PIPELINE · £</div><div class="ch-v" style="color:#00C875;">£0</div><div class="ch-c up">TARGET: £891/mo (3×Pro)</div><canvas id="cRev" style="margin-top:10px;max-height:80px;"></canvas></div>
+          <div class="ch-card"><div class="ch-t">AGENT ACTIVITY · 22 TOTAL</div><div class="ch-v" style="color:#1E90FF;">15</div><div class="ch-c up">ONLINE · 7 STANDBY</div><canvas id="cAg" style="margin-top:10px;max-height:80px;"></canvas></div>
+          <div class="ch-card"><div class="ch-t">PROJECT HEALTH · 9 PRODUCTS</div><div class="ch-v" style="color:#F59E0B;">5</div><div class="ch-c" style="color:var(--amber);">ACTIVE · 4 PLANNED</div><canvas id="cPr" style="margin-top:10px;max-height:80px;"></canvas></div>
+        </div>
+        <div class="ch-row" style="grid-template-columns:2fr 1fr;">
+          <div class="ch-card"><div class="ch-t">SESSION VELOCITY · S1→S19</div><canvas id="cSs" style="max-height:100px;"></canvas></div>
+          <div class="ch-card"><div class="ch-t">LAUNCH COUNTDOWN</div><div class="ch-v" style="color:#EF4444;font-size:32px;">64</div><div class="ch-c dn">DAYS TO END JUNE 2026</div></div>
+        </div>
+      </div>
+      <div id="rArea"></div>
+    </div>
+    <div class="kpi-bar">
+      <div class="kpi"><div class="kpi-v" style="color:#00C875;">15</div><div class="kpi-l">AGENTS ACTIVE</div><div class="kpi-c up">ALL ONLINE</div></div>
+      <div class="kpi"><div class="kpi-v" style="color:#1E90FF;">22</div><div class="kpi-l">TOTAL ROSTER</div><div class="kpi-c" style="color:var(--muted2);">7 QUEUE</div></div>
+      <div class="kpi"><div class="kpi-v" style="color:#F59E0B;">9</div><div class="kpi-l">PRODUCTS</div><div class="kpi-c up">IN BUILD</div></div>
+      <div class="kpi"><div class="kpi-v" style="color:#9D4EDD;">18</div><div class="kpi-l">IPs FILED</div><div class="kpi-c up">PROTECTED</div></div>
+      <div class="kpi"><div class="kpi-v" style="color:#0AFFFF;">1</div><div class="kpi-l">CLIENT ACTIVE</div><div class="kpi-c up">RYD · PHASE 1</div></div>
+      <div class="kpi"><div class="kpi-v" style="color:#EF4444;">64</div><div class="kpi-l">DAYS TO LAUNCH</div><div class="kpi-c dn">END JUNE 2026</div></div>
+    </div>
+  </main>
+
+  <div class="chat" id="chatP">
+    <div class="chat-hd">
+      <div><div class="chat-nm">GRID</div><div class="chat-sb">AGENT #009 · PM & BA · MISSION CONTROL OWNER</div></div>
+      <div class="chat-on">ONLINE</div>
+      <button class="chat-x" onclick="togChat()">✕</button>
+    </div>
+    <div class="chat-msgs" id="chatMs">
+      <div class="msg g"><div class="msg-l">GRID · AGENT #009</div>Mission Control active. 15 agents online. 9 products in build. 1 client live — RYD Phase 1 blocked.<br><br>What do you need?</div>
+    </div>
+    <div class="chat-ir">
+      <textarea class="chat-in" id="chatIn" placeholder="Message GRID..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+      <button class="chat-snd" id="chatSnd" onclick="sendChat()">SEND</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var th=localStorage.getItem('mc-t')||'dark',cVis=false,cDrw=false,busy=false,cH=[];
+function apT(t){document.documentElement.setAttribute('data-theme',t);document.getElementById('thBtn').textContent=t==='dark'?'☀ LIGHT':'◑ DARK';th=t;localStorage.setItem('mc-t',t);if(cVis)setTimeout(dCh,50);}
+apT(th);
+function togT(){apT(th==='dark'?'light':'dark');}
+function togSB(){document.getElementById('sb').classList.toggle('coll');}
+function togChat(){var p=document.getElementById('chatP');p.classList.toggle('open');document.getElementById('chatBtn').classList.toggle('act');}
+function setCmd(c){document.getElementById('cmdInp').value=c;document.getElementById('cmdInp').focus();}
+function hSrch(v){if(v.startsWith('/'))setCmd(v.slice(1));}
+function rSrch(){var v=document.getElementById('srch').value.trim();if(v.startsWith('/')){setCmd(v.slice(1));runCmd();}else if(v){if(!document.getElementById('chatP').classList.contains('open'))togChat();document.getElementById('chatIn').value=v;sendChat();}document.getElementById('srch').value='';}
+function nav(el,s){document.querySelectorAll('.ni').forEach(n=>n.classList.remove('act'));el.classList.add('act');var m={mc:'report',finos:'forecast',markos:'focus',agents:'agents',data:'insights',del:'projects',cowork:'powerup',change:'insights'};if(m[s])setCmd(m[s]);}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function fmt(t){return t.replace(/✓([^\n]+)/g,'<span class="g">✓$1</span>').replace(/►([^\n]+)/g,'<span class="a">►$1</span>').replace(/✗([^\n]+)/g,'<span class="r">✗$1</span>').replace(/^(#{1,3} .+)$/gm,'<span class="h">$1</span>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');}
+
+var GS=`You are GRID — PhoennixAI's AGI-level Project Manager. You own Mission Control BOS. You report directly to Valerie Wilcox, Founder/CEO. You think at the level of a Bain programme director + senior Agile lead + military operations planner. You govern outcomes, not tasks.
+
+CURRENT ECOSYSTEM — APRIL 2026:
+Agents: 15 active, 22 total. Products: 9. Client: RYD — Phase 1 Build. CRITICAL BLOCKER: Upload interface not built. Nathan cannot upload 3 required docs. NEXUS must build this immediately. IPs: 18 filed. Revenue: £0 active. Target: 3×Pro (£297/mo) = Phase 2 unlock.
+
+SLASH COMMANDS: /report /insights /ultraplan /focus /forecast /agents /projects /ryd /powerup
+
+Use ✓ done, ► in progress, ✗ blocked. Lead with most important thing. End with ONE next action. THE STANDARD IS NOT ON-TIME. THE STANDARD IS AHEAD OF SCHEDULE, UNDER BUDGET, ABOVE SPEC.`;
+
+async function runCmd(){
+  if(busy)return;
+  var inp=document.getElementById('cmdInp').value.trim();
+  if(!inp)return;
+  if(inp==='charts'||inp==='/charts'){showCharts();return;}
+  busy=true;var btn=document.getElementById('runBtn');
+  btn.textContent='RUNNING';btn.classList.add('run');btn.disabled=true;
+  document.getElementById('outEmp').style.display='none';
+  var cmd=inp.startsWith('/')?inp:'/'+inp;
+  var now=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  var d=document.createElement('div');d.className='resp';
+  d.innerHTML='<div class="resp-hd"><span class="resp-ag">GRID · #009</span><span class="resp-cm">'+cmd.toUpperCase()+'</span><span class="resp-tm">'+now+'</span></div><div class="resp-bd" id="lR"><span class="ld">GRID processing</span></div>';
+  var ra=document.getElementById('rArea');ra.insertBefore(d,ra.firstChild);
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:GS,messages:[{role:'user',content:'Execute: '+cmd}]})});
+    var j=await r.json();
+    document.getElementById('lR').innerHTML=fmt(j.content?.[0]?.text||'No response.');
+  }catch(e){document.getElementById('lR').innerHTML='<span class="r">Error: '+e.message+'</span>';}
+  btn.textContent='RUN ▶';btn.classList.remove('run');btn.disabled=false;busy=false;
+}
+
+async function sendChat(){
+  var inp=document.getElementById('chatIn'),msg=inp.value.trim();
+  if(!msg||document.getElementById('chatSnd').disabled)return;
+  inp.value='';document.getElementById('chatSnd').disabled=true;
+  var ms=document.getElementById('chatMs');
+  var ud=document.createElement('div');ud.className='msg u';ud.innerHTML='<div class="msg-l">VALERIE</div>'+esc(msg);ms.appendChild(ud);
+  var gd=document.createElement('div');gd.className='msg g';gd.innerHTML='<div class="msg-l">GRID · AGENT #009</div><span class="ld">Thinking</span>';ms.appendChild(gd);ms.scrollTop=ms.scrollHeight;
+  cH.push({role:'user',content:msg});
+  try{
+    var r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:600,system:GS+'\n\nChat mode. Be direct and brief. Max 100 words unless full briefing asked.',messages:cH})});
+    var j=await r.json();var rep=j.content?.[0]?.text||'No response.';
+    cH.push({role:'assistant',content:rep});
+    gd.innerHTML='<div class="msg-l">GRID · AGENT #009</div>'+fmt(rep);
+  }catch(e){gd.innerHTML='<div class="msg-l">GRID · AGENT #009</div><span class="r">'+e.message+'</span>';}
+  ms.scrollTop=ms.scrollHeight;document.getElementById('chatSnd').disabled=false;
+}
+
+function showCharts(){document.getElementById('outEmp').style.display='none';document.getElementById('chrts').style.display='block';if(!cDrw){dCh();cDrw=true;}cVis=true;}
+function dCh(){
+  var d=th==='dark',gc=d?'rgba(30,144,255,0.1)':'rgba(0,90,200,0.08)',tc=d?'rgba(173,210,255,0.5)':'rgba(10,30,80,0.5)';
+  function mk(id,cfg){var c=document.getElementById(id);if(c._ch)c._ch.destroy();c._ch=new Chart(c,cfg);}
+  mk('cRev',{type:'bar',data:{labels:['Pro 1','Pro 2','Pro 3','Agency'],datasets:[{data:[297,297,297,997],backgroundColor:['rgba(0,200,117,0.3)','rgba(0,200,117,0.15)','rgba(0,200,117,0.1)','rgba(30,144,255,0.2)'],borderColor:['#00C875','rgba(0,200,117,0.4)','rgba(0,200,117,0.3)','#1E90FF'],borderWidth:1}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:8}}},x:{grid:{display:false},ticks:{color:tc,font:{size:8}}}}}});
+  mk('cAg',{type:'doughnut',data:{labels:['Active','Standby','Queue'],datasets:[{data:[15,4,3],backgroundColor:['rgba(0,200,117,0.7)','rgba(245,158,11,0.5)','rgba(173,210,255,0.2)'],borderColor:['#00C875','#F59E0B','rgba(173,210,255,0.3)'],borderWidth:1}]},options:{plugins:{legend:{labels:{color:tc,font:{size:8},boxWidth:8}}},cutout:'60%'}});
+  mk('cPr',{type:'doughnut',data:{labels:['Live','Build','Planned','Blocked'],datasets:[{data:[3,2,3,1],backgroundColor:['rgba(0,200,117,0.7)','rgba(30,144,255,0.5)','rgba(245,158,11,0.4)','rgba(239,68,68,0.4)'],borderColor:['#00C875','#1E90FF','#F59E0B','#EF4444'],borderWidth:1}]},options:{plugins:{legend:{labels:{color:tc,font:{size:8},boxWidth:8}}},cutout:'60%'}});
+  mk('cSs',{type:'line',data:{labels:['S1','S3','S5','S7','S9','S11','S13','S15','S17','S19'],datasets:[{data:[2,3,2,4,3,5,6,8,7,9],fill:true,backgroundColor:'rgba(30,144,255,0.1)',borderColor:'#1E90FF',borderWidth:1.5,pointRadius:3,pointBackgroundColor:'#1E90FF',tension:.4}]},options:{plugins:{legend:{display:false}},scales:{y:{grid:{color:gc},ticks:{color:tc,font:{size:8}}},x:{grid:{display:false},ticks:{color:tc,font:{size:8}}}}}});
+}
+</script>
+</body>
+</html>
