@@ -30,11 +30,7 @@ stripe*.json
 # PERSONAL INVITATION FILES
 # -----------------------------------------------
 PhoennixAI_Invitation_*.html
-PhoennixAI_Invitation_Dilpreet.html
-PhoennixAI_Invitation_Gbemi.html
-PhoennixAI_Invitation_Gbemisola.html
-PhoennixAI_Invitation_Mayah.html
-PhoennixAI_Invitation_Presh.html
+PhoennixAI_Alpha*.html
 
 # -----------------------------------------------
 # INTERNAL SESSION DOCUMENTS
@@ -43,6 +39,17 @@ PhoennixAI_Session*.html
 PAI-BRIEF-*.html
 PhoennixAI_MasterProjectBrief_Session*.html
 *_Session*.html
+
+# -----------------------------------------------
+# ONE-OFF SCRIPTS
+# -----------------------------------------------
+favicon_fix*.py
+*.py
+
+# -----------------------------------------------
+# LOOSE / DUPLICATE FILES
+# -----------------------------------------------
+gitignore
 
 # -----------------------------------------------
 # BUILD / DEPENDENCY ARTIFACTS
